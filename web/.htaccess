@@ -1,0 +1,19 @@
+RewriteEngine on
+
+# If a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Otherwise forward it to index.php
+
+RewriteRule . index.php
+#RewriteCond %{REQUEST_URI} !^/(web)
+
+#RewriteRule (.*) /web/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /web/index.php
+
+php_value      auto_prepend_file  jbdump/class.jbdump.php
+#php_value      auto_prepend_file  sysmdump/autoload.cli.php
+php_value      auto_prepend_file   d:/ospanel/domains/apiary.loc/sysmdump/cli-autoload/vendor/autoload.php

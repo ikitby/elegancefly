@@ -1,0 +1,11 @@
+#php_value auto_prepend_file D:\OSPanel\domains\sysmdump\autoload.cli.php
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteRule (.*) /web/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /web/index.php
