@@ -17,8 +17,8 @@ class m180516_070811_bases extends Migration
 
         $this->createTable('products', [
             'id' => Schema::TYPE_PK,
-            'user_ad' => Schema::TYPE_INTEGER,
-            'Архив для загрузки' => Schema::TYPE_STRING,
+            'user_id' => Schema::TYPE_INTEGER,
+            'file' => Schema::TYPE_STRING,
             'tags' => Schema::TYPE_STRING,
             'photos' => Schema::TYPE_STRING . ' NOT NULL',
             'price' => Schema::TYPE_INTEGER . ' NOT NULL',

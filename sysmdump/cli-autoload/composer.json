@@ -1,0 +1,9 @@
+{
+    "require": {
+        "symfony/var-dumper": "@stable"
+    },
+    "config": {
+        "autoloader-suffix"   : "_cli",
+        "optimize-autoloader" : true
+    }
+}

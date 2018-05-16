@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "products".
@@ -35,10 +36,10 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_ad', 'price', 'limit', 'hits', 'sales'], 'integer'],
-            [['photos', 'price', 'themes', 'created_at'], 'required'],
+            [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
+            [['photos', 'price', 'themes'], 'required'],
             [['created_at'], 'safe'],
-            [['Архив для загрузки', 'tags', 'photos', 'themes'], 'string', 'max' => 255],
+            [['file', 'tags', 'photos', 'themes'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,8 +50,8 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_ad' => 'User Ad',
-            'Архив для загрузки' => 'Архив для загрузки',
+            'user_id' => 'User id',
+            'file' => 'File',
             'tags' => 'Tags',
             'photos' => 'Photos',
             'price' => 'Price',
@@ -61,4 +62,25 @@ class Products extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
         ];
     }
+
+    public function getThemsprod()
+    {
+        return $this->hasMany(Themsprod::className(), ['id' => 'theme_id'])
+                ->viaTable('project_thems', ['progect_id' => 'id']);
+    }
+
+    public function saveProject($filename)
+    {
+        $this->photo = $filename;
+        $this->save(false);
+    }
+
+    public function getTems()
+    {
+        $selThems = $this->getThemsprod()->asArray()->all();
+        $selThems = ArrayHelper::getColumn($selThems, 'title');
+
+        return $selThems;
+    }
+
 }
