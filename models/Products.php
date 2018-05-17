@@ -37,9 +37,10 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
-            [['photos', 'price', 'themes'], 'required'],
+            [['photos', 'price', 'themes','title'], 'required'],
             [['created_at'], 'safe'],
-            [['file', 'tags', 'photos', 'themes'], 'string', 'max' => 255],
+            [['file', 'tags', 'photos', 'title', 'project_path'], 'string', 'max' => 255],
+            [['themes'], 'each', 'rule' => ['integer']],
         ];
     }
 
@@ -51,9 +52,11 @@ class Products extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User id',
+            'title' => 'Title',
             'file' => 'File',
             'tags' => 'Tags',
             'photos' => 'Photos',
+            'project_path' => 'Project path',
             'price' => 'Price',
             'themes' => 'Themes',
             'limit' => 'Limit',
@@ -69,18 +72,38 @@ class Products extends \yii\db\ActiveRecord
                 ->viaTable('project_thems', ['progect_id' => 'id']);
     }
 
-    public function saveProject($filename)
+    public function saveProject($filename, $path = '')
     {
-        $this->photo = $filename;
+        $this->photos = $filename;
+        $this->project_path = $path;
         $this->save(false);
     }
 
     public function getTems()
     {
-        $selThems = $this->getThemsprod()->asArray()->all();
-        $selThems = ArrayHelper::getColumn($selThems, 'title');
-
+        $selThems = $this->getThemsprod()->select('id')->asArray()->all();
+        $selThems = ArrayHelper::getColumn($selThems, 'id');
         return $selThems;
     }
+
+    public function saveThems($themes)
+    {
+        if(is_array($themes))
+        {
+            $this->clearCurrentTags();
+
+            foreach ($themes as $theme_id)
+            {
+                $themsprod = Themsprod::findOne($theme_id); // linck tags
+                $this->link('themsprod', $themsprod);
+            }
+        }
+    }
+
+    public function clearCurrentTags()
+    {
+        ProjectThems::deleteAll(['progect_id' => $this->id]);
+    }
+
 
 }

@@ -9,7 +9,7 @@ use app\models\Products;
 /* @var $model app\models\Products */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="products-view">
@@ -28,16 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php
 
-    dump($model->getTems());
-
-
-
     ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'user_id',
+            'title',
             'file',
             'tags',
             'photos',

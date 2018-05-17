@@ -19,6 +19,7 @@ class ProductsSearch extends Products
     {
         return [
             [['id', 'user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
+            [['title'], 'string'],
             [['file', 'tags', 'photos', 'themes', 'created_at'], 'safe'],
         ];
     }
@@ -58,9 +59,9 @@ class ProductsSearch extends Products
         }
 
         // grid filtering conditions
+
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
+            'title' => $this->title,
             'price' => $this->price,
             'limit' => $this->limit,
             'hits' => $this->hits,
@@ -69,6 +70,7 @@ class ProductsSearch extends Products
         ]);
 
         $query->andFilterWhere(['like', 'file', $this->file])
+            ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'tags', $this->tags])
             ->andFilterWhere(['like', 'photos', $this->photos])
             ->andFilterWhere(['like', 'themes', $this->themes]);

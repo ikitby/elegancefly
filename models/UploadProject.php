@@ -7,20 +7,26 @@
  */
 
 namespace app\models;
+
 use Yii;
+use yii\base\Model;
 use yii\web\UploadedFile;
 
-class UploadProject
+class UploadProject extends Model
 {
     public $file;
+    public $filename;
 
-    public function uploadZip(UploadedFile $file, $currentImage, $folder = 'diff')
+    public function uploadZip(UploadedFile $file, $currentImage, $folder = 'projects')
     {
-        $filename = '';
-
+        $filename = $file;
+        //Yii::$app->session->setFlash('info', 'Тест ошибки');
+        //dump($filename->type);
+        Yii::$app->session->setFlash('info', 'Тест ошибки');
         if ($this->validate()) {
 
-            if (file_exists(Yii::getAlias('@web') . 'images/'.$folder.'/' . $currentImage) && $currentImage) {
+            //dump($folder);
+            if (file_exists(Yii::getAlias('@web') .$folder.'/' . $currentImage) && $currentImage) {
                 unlink($this->getFolder($folder) . $currentImage); // удаление картинки текущей если она есть
             }
 
@@ -39,13 +45,14 @@ class UploadProject
 
     private function getFolder($folder)
     {
-        return Yii::getAlias('@web') . 'images/'.$folder.'/';
+        return Yii::getAlias('@web') . $folder.'/';
     }
 
     public function generateFilename($file)
     {
         return strtolower(uniqid(md5($file->baseName))) . '.' . $file->extension;
     }
+
 
 
 }

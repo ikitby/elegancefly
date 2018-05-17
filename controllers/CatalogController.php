@@ -3,9 +3,11 @@
 namespace app\controllers;
 
 use app\models\UploadProject;
+use Codeception\Lib\Generator\Helper;
 use Yii;
 use app\models\Products;
 use app\models\ProductsSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,31 +73,25 @@ class CatalogController extends Controller
         $currenrfile = $model->file;
         $model->user_id = yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $file = UploadedFile::getInstance($model, 'projects/'.$currenrfile); //цепляем из нашей модельки файл по его полю
 
-            $products = Yii::$app->request->post();
-            $themes = $products['Products']['themes'];
-
-
-            dump($products['Products']['themes']);
+            dump($file);
             die();
 
-        }
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-
-
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-/*
-        if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'photo'); //цепляем из нашей модельки файл по его полю
-            //$model->save();
             if ($file) {
-                $model->saveProject($filemodel->uploadZip($file, $currenrfile, 'project')); //запускаем сохранение файла в базе с именем сохраненного файла
+                $model->saveProject($filemodel->uploadZip($file, $currenrfile, 'projects')); //запускаем сохранение файла в базе с именем сохраненного файла
             };
         }
-        */
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $themes = Yii::$app->request->post('Products');
+            $themes = $themes['themes'];
+            $model->saveThems($themes);
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -111,6 +107,27 @@ class CatalogController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->themes = $model->getTems();
+        $filemodel = new UploadProject();
+        $currenrfile = $model->file;
+        $model->user_id = yii::$app->user->id;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
+
+            if ($file) {
+                $path = 'user_'.yii::$app->user->id.'/'.strtolower(uniqid(md5($file->baseName))).'/'; //генерируем путь для сохранения файла
+                $model->saveProject($filemodel->uploadZip($file, $currenrfile), $path); //запускаем сохранение файла в базе с именем сохраненного файла
+            };
+        }
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $themes = Yii::$app->request->post('Products');
+            $themes = $themes['themes'];
+            $model->saveThems($themes);
+
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -150,4 +167,6 @@ class CatalogController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

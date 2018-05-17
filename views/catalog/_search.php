@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id') ?>
 
+    <?= $form->field($model, 'title') ?>
+
     <?= $form->field($model, 'file') ?>
 
     <?= $form->field($model, 'tags') ?>

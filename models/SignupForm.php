@@ -14,6 +14,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $password_repeat;
 
     /**
      * @inheritdoc
@@ -23,14 +24,15 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Это имя уже занято.'],
+            ['username', 'unique', 'targetClass' => '\app\models\User'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Этот email уже используется.'],
+            ['email', 'unique', 'targetClass' => '\app\models\User'],
             ['password', 'required'],
+            ['password', 'compare', 'compareAttribute' => 'password_repeat'],
             ['password', 'string', 'min' => 6],
         ];
     }
