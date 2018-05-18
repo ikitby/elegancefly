@@ -16,7 +16,7 @@ use kartik\money\MaskMoney;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'photos')->fileInput(['extensions' => ['zip'], 'maxSize' => 1024*1024])->label('Архив проекта') ?>
+    <?= $form->field($model, 'photos')->fileInput(['extensions' => ['zip'], 'maxSize' => 1024])->label('Архив проекта') ?>
 
     <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
 

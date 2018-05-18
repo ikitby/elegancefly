@@ -8,15 +8,16 @@ use Yii;
 use app\models\Products;
 use app\models\ProductsSearch;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
+
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use dastanaron\translit\Translit;
 
 /**
  * CatalogController implements the CRUD actions for Products model.
  */
-class CatalogController extends Controller
+class CatalogController extends AppController
 {
     /**
      * {@inheritdoc}
@@ -56,6 +57,9 @@ class CatalogController extends Controller
      */
     public function actionView($id)
     {
+
+        $this->addHits($id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -70,20 +74,27 @@ class CatalogController extends Controller
     {
         $model = new Products();
         $filemodel = new UploadProject();
-        $currenrfile = $model->file;
         $model->user_id = yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'projects/'.$currenrfile); //цепляем из нашей модельки файл по его полю
 
-            dump($file);
-            die();
+        if ($model->load(Yii::$app->request->post())) {
+            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
+
+            $userfolder = $this->getUserFolder();
+
+            if ( !file_exists($userfolder ) )//проверяем и если нет - создаем папку пользователя по его id
+            {
+                mkdir($userfolder, 755); //создаем папку проектов пользователя
+            }
+
+            $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
             if ($file) {
-                $model->saveProject($filemodel->uploadZip($file, $currenrfile, 'projects')); //запускаем сохранение файла в базе с именем сохраненного файла
+                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder), $userfolder.'/'.$projectfolder.'/'); //запускаем сохранение файла в базе с именем сохраненного файла
             };
+            return $this->redirect(['update', 'id' => $model->id]);
         }
-
+/*
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $themes = Yii::$app->request->post('Products');
@@ -91,7 +102,7 @@ class CatalogController extends Controller
             $model->saveThems($themes);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+*/
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -108,25 +119,16 @@ class CatalogController extends Controller
     {
         $model = $this->findModel($id);
         $model->themes = $model->getTems();
-        $filemodel = new UploadProject();
-        $currenrfile = $model->file;
         $model->user_id = yii::$app->user->id;
+        $projectpath = $model->project_path;
 
-        if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
-
-            if ($file) {
-                $path = 'user_'.yii::$app->user->id.'/'.strtolower(uniqid(md5($file->baseName))).'/'; //генерируем путь для сохранения файла
-                $model->saveProject($filemodel->uploadZip($file, $currenrfile), $path); //запускаем сохранение файла в базе с именем сохраненного файла
-            };
-        }
-
-        if ($model->load(Yii::$app->request->post()))
+        if ($model->load(Yii::$app->request->post())) //обработка категорий
         {
             $themes = Yii::$app->request->post('Products');
             $themes = $themes['themes'];
             $model->saveThems($themes);
 
+            $model->save();
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -166,6 +168,34 @@ class CatalogController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function getUserFolder()
+    {
+        return $userfolder = 'projects/user_'.yii::$app->user->id; //Лепим папку пользоваетеля
+    }
+
+    public function translite($text)
+    {
+        $translit = new Translit();
+        return $text = strtolower($translit->translit($text, true, 'ru-en'));
+    }
+
+    public function actionDownloadFile()
+    {
+        $model = $this->findModel($id);
+        //отключить профайлеры
+        $this->disableProfilers();
+        $file = '/path/to/file/some_file.txt';
+        // отдаем файл
+        Yii::app()->request->sendFile(basename($file),file_get_contents($file));
+    }
+
+    private function addHits($id)
+    {
+        $model = $this->findModel($id);
+        $model->hits++;
+        $model->save(false);
     }
 
 

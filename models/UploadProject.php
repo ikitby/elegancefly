@@ -11,24 +11,22 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
+use dastanaron\translit\Translit;
 
 class UploadProject extends Model
 {
     public $file;
     public $filename;
 
-    public function uploadZip(UploadedFile $file, $currentImage, $folder = 'projects')
+    public function uploadZip(UploadedFile $file, $userfolder = 'user_00', $projectpatf = '')
     {
-        $filename = $file;
+        $filename = '';
+
+        $folder = $userfolder.'/'.$projectpatf;
         //Yii::$app->session->setFlash('info', 'Тест ошибки');
         //dump($filename->type);
-        Yii::$app->session->setFlash('info', 'Тест ошибки');
+        //Yii::$app->session->setFlash('info', 'Тест ошибки');
         if ($this->validate()) {
-
-            //dump($folder);
-            if (file_exists(Yii::getAlias('@web') .$folder.'/' . $currentImage) && $currentImage) {
-                unlink($this->getFolder($folder) . $currentImage); // удаление картинки текущей если она есть
-            }
 
             if (!file_exists($this->getFolder($folder))) {
                 mkdir($this->getFolder($folder), 755);
@@ -36,7 +34,7 @@ class UploadProject extends Model
 
             $filename = $this->generateFilename($file); //генерим уникальное имя файла
 
-            $file->saveAs($this->getFolder($folder) . $filename); //Грузим картинку в папку с нашими файлами
+            $file->saveAs($this->getFolder($folder) . '/' . $filename); //Грузим картинку в папку с нашими файлами
 
         }
 
@@ -45,14 +43,18 @@ class UploadProject extends Model
 
     private function getFolder($folder)
     {
-        return Yii::getAlias('@web') . $folder.'/';
+        return Yii::getAlias('@web') . $folder;
     }
 
     public function generateFilename($file)
     {
-        return strtolower(uniqid(md5($file->baseName))) . '.' . $file->extension;
+        return $this->translite($file->baseName) . '.' . $file->extension;
     }
 
-
+    public function translite($text)
+    {
+        $translit = new Translit();
+        return $text = strtolower($translit->translit($text, true, 'ru-en'));
+    }
 
 }

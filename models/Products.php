@@ -72,10 +72,16 @@ class Products extends \yii\db\ActiveRecord
                 ->viaTable('project_thems', ['progect_id' => 'id']);
     }
 
-    public function saveProject($filename, $path = '')
+    public function getUser()
     {
-        $this->photos = $filename;
-        $this->project_path = $path;
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function saveProject($filename, $projectpath = '')
+    {
+        $this->file = $filename;
+        $this->project_path = $projectpath;
+        $this->photos = 'Тут будут фотки: '.$projectpath;
         $this->save(false);
     }
 

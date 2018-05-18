@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95d7e4b3aa5bcc9de4e0533ed339162d",
+    "content-hash": "a5f7c6c2b514a0a23c75de9fd7053be2",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -166,6 +166,47 @@
                 "markdown-extra"
             ],
             "time": "2017-07-16T21:13:23+00:00"
+        },
+        {
+            "name": "dastanaron/yii2-translit",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dastanaron/yii2-translit.git",
+                "reference": "635737e01a2abd047c86e1e95c4b042b3f1c1846"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dastanaron/yii2-translit/zipball/635737e01a2abd047c86e1e95c4b042b3f1c1846",
+                "reference": "635737e01a2abd047c86e1e95c4b042b3f1c1846",
+                "shasum": ""
+            },
+            "type": "extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dastanaron\\translit\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "dastanaron",
+                    "email": "flow199@yandex.ru"
+                }
+            ],
+            "description": "Transliteration symbols rus-en and en-rus",
+            "keywords": [
+                "extension"
+            ],
+            "time": "2017-10-12T09:28:48+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",

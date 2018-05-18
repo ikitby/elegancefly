@@ -26,9 +26,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-    <?php
 
-    ?>
+    <div class="row">
+        <div class="col-md-12">
+            <h1><?= $model->title ?></h1>
+        </div>
+        <div class="col-md-4">
+            <?= $model->id ?>
+
+        </div>
+        <div class="col-md-8">
+            <ul>
+                <?php
+
+
+                ?>
+                <li><strong>Автор: </strong><?= Html::encode($model->user->name) ?></li>
+                <li><strong>Файл: </strong><?= $model->file ?></li>
+                <li><strong>Путь: </strong><?= $model->project_path ?></li>
+                <li><strong>Файл: </strong>--</li>
+
+            </ul>
+        </div>
+    </div>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
