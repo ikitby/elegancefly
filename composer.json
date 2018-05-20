@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "kartik-v/yii2-money": "*",
         "kartik-v/yii2-widgets": "*",
-        "dastanaron/yii2-translit": "^1.0"
+        "dastanaron/yii2-translit": "^1.0",
+        "kartik-v/yii2-widget-select2": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

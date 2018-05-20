@@ -76,7 +76,6 @@ class CatalogController extends AppController
         $filemodel = new UploadProject();
         $model->user_id = yii::$app->user->id;
 
-
         if ($model->load(Yii::$app->request->post())) {
             $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
 
@@ -90,8 +89,12 @@ class CatalogController extends AppController
             $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
             if ($file) {
-                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder), $userfolder.'/'.$projectfolder.'/'); //запускаем сохранение файла в базе с именем сохраненного файла
+                dump($filemodel->makeGalery($file));
+                die();
+                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/'); //запускаем сохранение файла в базе с именем сохраненного файла
+
             };
+
             return $this->redirect(['update', 'id' => $model->id]);
         }
 /*
@@ -120,15 +123,15 @@ class CatalogController extends AppController
         $model = $this->findModel($id);
         $model->themes = $model->getTems();
         $model->user_id = yii::$app->user->id;
-        $projectpath = $model->project_path;
+        $model->photos = $model->project_path;
 
         if ($model->load(Yii::$app->request->post())) //обработка категорий
         {
             $themes = Yii::$app->request->post('Products');
             $themes = $themes['themes'];
             $model->saveThems($themes);
+            $model->save(false);
 
-            $model->save();
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -9,7 +9,9 @@
 namespace app\models;
 
 use Yii;
+
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use dastanaron\translit\Translit;
 //use app\models\PclZip;
@@ -19,7 +21,7 @@ class UploadProject extends Model
     public $file;
     public $filename;
 
-    public function uploadZip(UploadedFile $file, $userfolder = 'user_00', $projectpatf = '')
+    public function uploadZip(UploadedFile $file, $userfolder = 'user_00', $projectpatf = '', $model)
     {
         $filename = '';
 
@@ -36,19 +38,7 @@ class UploadProject extends Model
             $filename = $this->generateFilename($file); //генерим уникальное имя файла
 
             $file->saveAs($this->getFolder($folder) . '/' . $filename); //Грузим картинку в папку с нашими файлами
-            //займемся распаковкой архива
 
-            $catfolder = $this->getCatFolder('catalog');
-
-            $archive = new PclZip();
-            $archive->PclZip($this->getFolder($folder) . '/' . $filename);
-            $result = $archive->extract(PCLZIP_OPT_PATH, $this->getFolder($folder));
-            dump($result);
-
-            if($result == 0) echo $archive->errorInfo(true);
-
-            dump($catfolder);
-            die();
 
         }
 
@@ -71,6 +61,52 @@ class UploadProject extends Model
         return $text = strtolower($translit->translit($text, true, 'ru-en'));
     }
 
+    public function makeGalery($file)
+    {
+        //займемся распаковкой архива
+        $catfolder = $this->getCatFolder('cat'); //Определяем генерацию папок и подпапок для галлерей проектов
+        $file->saveAs($catfolder . '/' . $file->name); //Грузим картинку в папку с нашими файлами
+        $goodarchive = false;
+        $archive = new PclZip();
+        $archive->PclZip($catfolder . '/' . $file->name);
+        $result = $archive->extract(PCLZIP_OPT_PATH, $catfolder);
+        unlink(Yii::getAlias('@web') . $catfolder .'/' . $file->baseName. '.zip'); // удаление Архива
+        if (file_exists(Yii::getAlias('@web') . $catfolder .'/' . $file->baseName . '.psd')) {
+            unlink(Yii::getAlias('@web') . $catfolder .'/' . $file->baseName. '.psd');
+            $goodarchive = true; //Если файл с проектом был найден в архиве - то помечаем его как правильный предварительно удалив это тфайл
+        } else
+        {
+            return Yii::$app->session->setFlash('error', 'Содержимое архива не соответствует требованиям');
+        }
+
+        $galery = ArrayHelper::getColumn($result, 'filename'); //Получаем список файлов распакованных из архива
+        dump($result);
+        die();
+        $image = new ImageHelper();
+        $i = 0;
+        while ($i < 10) {
+            if ($galery[$i] == null) {break;}
+            ($galery[$i] == $catfolder .'/' . $file->baseName. '.psd') ? false : $photogalery[$i] = $galery[$i];
+            $i++;
+        }
+        sort($photogalery);
+        $photogalery = implode(',', $photogalery); //Список картинок в строку
+        /*
+        foreach ($photogalery as $photo) {
+
+            $image->load($photo); //грузим картинку текущую
+            dump($image);
+            die();
+
+            $image->resize(100, 100); //ресайзим
+            $image->save($file->baseName);
+
+        }
+*/
+        if($result == 0) echo $archive->errorInfo(true);
+        return $photogalery;
+    }
+
     private function getCatFolder($basefolder = 'catalog')
     {
         $cat = $basefolder;
@@ -82,6 +118,10 @@ class UploadProject extends Model
         $catfolder = $catfolderm.'/'.date("d");
         if (!file_exists($catfolder)) mkdir($catfolder, 755);
         return $catfolder;
+    }
+
+    public function checkGalery($file, $userfolder, $projectfolder)
+    {
     }
 
 }

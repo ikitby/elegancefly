@@ -77,11 +77,11 @@ class Products extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function saveProject($filename, $projectpath = '')
+    public function saveProject($filename, $projectpath = '', $galery = '')
     {
         $this->file = $filename;
         $this->project_path = $projectpath;
-        $this->photos = 'Тут будут фотки: '.$projectpath;
+        $this->photos = $galery;
         $this->save(false);
     }
 
@@ -110,6 +110,8 @@ class Products extends \yii\db\ActiveRecord
     {
         ProjectThems::deleteAll(['progect_id' => $this->id]);
     }
+
+
 
 
 }
