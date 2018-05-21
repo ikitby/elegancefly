@@ -64,23 +64,20 @@ class UploadProject extends Model
         {
             if (preg_match("/^.*?\.psd$/i", $file['filename']) || !preg_match("/^.*?_\d\.\w{3}$/i", $file['filename'])) {unlink($file['filename']); //Проверяем что за файд и если это psd или не содержит в имени _**
             } elseif ($i < $limit && preg_match("/^.*?_\d\.\w{3}$/i", $file['filename'])) {
-                //Если файл соответствует маске файла для галереи и не больше лимита по количеству дополняем массив и инеременируем счетчик
-                /* $photos[$i] = $file['filename'];
-                $photos['filename'] = '>>>>>>';
-               */
-                $photos = array(
-                    'id' => $i,
-                    'file' => $photos['filename'],
-                );
+                //Если файл соответствует маске файла для галереи и не больше лимита по количеству дополняем массив и инкременируем счетчик
+                preg_match("/^(.*?)\/\w*_\d\.\w{3}$/i", $file['filename'], $matches); //Ищем путь к файлу
+                preg_match("/^.*\/(.*?)$/i", $file['filename'], $filenam); //Ищем имя файла
+                $photos[$i] = [
+                    'foolpath' => $file['filename'],
+                    'filepath' => $matches[1].'/',
+                    'filename' => $filenam[1]
+                ];
                $i++;
             } else {
                 unlink($file['filename']);
             }
             sort($photos);
         }
-
-        dump($photos);
-        die();
 
         $photos = Json::encode($photos);
         return $photos;
