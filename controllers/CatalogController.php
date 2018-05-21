@@ -89,10 +89,8 @@ class CatalogController extends AppController
             $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
             if ($file) {
-                dump($filemodel->makeGalery($file));
-                die();
-                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/'); //запускаем сохранение файла в базе с именем сохраненного файла
-
+                $photosmodel = $filemodel->makeGalery($file);
+                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
             };
 
             return $this->redirect(['update', 'id' => $model->id]);
@@ -122,8 +120,7 @@ class CatalogController extends AppController
     {
         $model = $this->findModel($id);
         $model->themes = $model->getTems();
-        $model->user_id = yii::$app->user->id;
-        $model->photos = $model->project_path;
+        //$model->user_id = yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post())) //обработка категорий
         {

@@ -8,10 +8,12 @@
 
 namespace app\models;
 
+use PHPUnit\Framework\Constraint\IsJson;
 use Yii;
 
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\web\UploadedFile;
 use dastanaron\translit\Translit;
 //use app\models\PclZip;
@@ -45,22 +47,6 @@ class UploadProject extends Model
         return $filename; //Возвращаем обратно имя загруженного файла
     }
 
-    private function getFolder($folder)
-    {
-        return Yii::getAlias('@web') . $folder;
-    }
-
-    public function generateFilename($file)
-    {
-        return $this->translite($file->baseName) . '.' . $file->extension;
-    }
-
-    public function translite($text)
-    {
-        $translit = new Translit();
-        return $text = strtolower($translit->translit($text, true, 'ru-en'));
-    }
-
     public function makeGalery($file)
     {
         //займемся распаковкой архива
@@ -68,20 +54,40 @@ class UploadProject extends Model
         $file->saveAs($catfolder . '/' . $file->name); //Грузим картинку в папку с нашими файлами
         $goodarchive = false;
         $archive = new PclZip();
-        $archive->PclZip($catfolder . '/' . $file->name);
-        $result = $archive->extract(PCLZIP_OPT_PATH, $catfolder);
-        unlink(Yii::getAlias('@web') . $catfolder .'/' . $file->baseName. '.zip'); // удаление Архива
-        if (file_exists(Yii::getAlias('@web') . $catfolder .'/' . $file->baseName . '.psd')) {
-            unlink(Yii::getAlias('@web') . $catfolder .'/' . $file->baseName. '.psd');
-            $goodarchive = true; //Если файл с проектом был найден в архиве - то помечаем его как правильный предварительно удалив это тфайл
-        } else
+        $archive->PclZip($catfolder . '/' . $file->name); //получили
+        $result = $archive->extract(PCLZIP_OPT_PATH, $catfolder); //распаковали
+        unlink($catfolder . '/' . $file->name); // удаление Архива исходника
+        $photos = array();
+        $i = 0;
+        $limit = 10;
+        foreach ($result as $file) //пересобираем массив результата распаковки и удаляем не нужные файлы
         {
-            return Yii::$app->session->setFlash('error', 'Содержимое архива не соответствует требованиям');
+            if (preg_match("/^.*?\.psd$/i", $file['filename']) || !preg_match("/^.*?_\d\.\w{3}$/i", $file['filename'])) {unlink($file['filename']); //Проверяем что за файд и если это psd или не содержит в имени _**
+            } elseif ($i < $limit && preg_match("/^.*?_\d\.\w{3}$/i", $file['filename'])) {
+                //Если файл соответствует маске файла для галереи и не больше лимита по количеству дополняем массив и инеременируем счетчик
+                /* $photos[$i] = $file['filename'];
+                $photos['filename'] = '>>>>>>';
+               */
+                $photos = array(
+                    'id' => $i,
+                    'file' => $photos['filename'],
+                );
+               $i++;
+            } else {
+                unlink($file['filename']);
+            }
+            sort($photos);
         }
+
+        dump($photos);
+        die();
+
+        $photos = Json::encode($photos);
+        return $photos;
 
         $galery = ArrayHelper::getColumn($result, 'filename'); //Получаем список файлов распакованных из архива
         dump($result);
-        die();
+
         $image = new ImageHelper();
         $i = 0;
         while ($i < 10) {
@@ -120,8 +126,20 @@ class UploadProject extends Model
         return $catfolder;
     }
 
-    public function checkGalery($file, $userfolder, $projectfolder)
+    private function getFolder($folder)
     {
+        return Yii::getAlias('@web') . $folder;
+    }
+
+    public function generateFilename($file)
+    {
+        return $this->translite($file->baseName) . '.' . $file->extension;
+    }
+
+    public function translite($text)
+    {
+        $translit = new Translit();
+        return $text = strtolower($translit->translit($text, true, 'ru-en'));
     }
 
 }

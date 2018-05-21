@@ -17,6 +17,8 @@ use kartik\widgets\Select2;
         print_r($model->errors);
     }
 
+    dump($model);
+
 ?>
 
     <?php $form = ActiveForm::begin(); ?>

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\widgets\DetailView;
 
 use app\models\Products;
@@ -38,13 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-8">
             <ul>
                 <?php
-
-
+                $galery = json::decode($model->photos); //декодим json с массивом галереи
+                dump($galery);
                 ?>
+
                 <li><strong>Автор: </strong><?= Html::encode($model->user->name) ?></li>
                 <li><strong>Файл: </strong><?= $model->file ?></li>
                 <li><strong>Путь: </strong><?= $model->project_path ?></li>
-                <li><strong>Файл: </strong>--</li>
+                <li><strong>Файл: </strong><?php  dump ($model->photos);  ?></li>
 
             </ul>
         </div>

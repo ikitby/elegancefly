@@ -25,6 +25,8 @@ class Products extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    //public $photos;
+
     public static function tableName()
     {
         return 'products';
@@ -39,8 +41,9 @@ class Products extends \yii\db\ActiveRecord
             [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
             [['photos', 'price', 'themes','title'], 'required'],
             [['created_at'], 'safe'],
-            [['file', 'tags', 'photos', 'title', 'project_path'], 'string', 'max' => 255],
+            [['file', 'tags', 'title', 'project_path'], 'string', 'max' => 255],
             [['themes'], 'each', 'rule' => ['integer']],
+            [['photos'], 'safe'],
         ];
     }
 
