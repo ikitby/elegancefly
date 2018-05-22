@@ -25,7 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]);
+        $galery = json::decode($model->photos); //декодим json с массивом галереи
+        ?>
     </p>
 
     <div class="row">
@@ -33,14 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1><?= $model->title ?></h1>
         </div>
         <div class="col-md-4">
-            <?= $model->id ?>
-
+            <?= Html::img( '/'.$galery[0]['filepath'].$galery[0]['filename'], ['class' => 'img-responsive', 'height' => 'auto', 'width' => 'auto', 'alt' => $this->title, 'title' => $this->title]) ?>
         </div>
         <div class="col-md-8">
             <ul>
                 <?php
-                $galery = json::decode($model->photos); //декодим json с массивом галереи
-                dump($galery);
+                //dump($galery);
                 ?>
 
                 <li><strong>Автор: </strong><?= Html::encode($model->user->name) ?></li>
@@ -59,7 +59,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'file',
             'tags',
-            'photos',
+            [
+                'format'  => 'html',
+                'label' => 'Фото галерея',
+                'value' => function($model) {;
+                    $photos = json::decode($model->photos);
+                    foreach ($photos as $photo) {
+                        if ($photo['number'] != 0) {$photolist .= Html::img('/'.$photo['filepath'].'200_200_'.$photo['filename'], ['class' => 'img-responsive1', 'height' => '150', 'style' => 'margin: 5px', 'width' => '150', 'alt' => $model->title, 'title' => $model->title]);}
+                        //$photolist = Html::img('/'.$photo['filepath'].'100_100_'.$photo['filename'], ['class' => 'img-responsive1', 'height' => '100', 'width' => '100', 'alt' => $model->title, 'title' => $model->title]);
+                    }
+                    return $photolist;
+                },
+            ],
             'price',
             'themes',
             'limit',
