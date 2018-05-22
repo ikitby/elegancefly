@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\DetailView;
+use ckarjun\owlcarousel\OwlCarouselWidget;
 
 use app\models\Products;
 
@@ -35,7 +36,33 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1><?= $model->title ?></h1>
         </div>
         <div class="col-md-4">
+<?php
+
+            OwlCarouselWidget::begin([
+            'container' => 'div',
+            'containerOptions' => [
+            'id' => 'my-container-id',
+            'class' => 'my-container-class'
+            ],
+            'pluginOptions' => [
+            'autoPlay' => false,
+            'items' => 1
+            ]
+            ]);
+
+            foreach ($galery as $photo) {
+            print Html::img('/'.$photo['filepath'].$photo['filename'], ['class' => 'img-responsive', 'style' => 'margin: 5px', 'alt' => $model->title, 'title' => $model->title]);
+            }
+
+
+            OwlCarouselWidget::end();
+
+?>
+
+
             <?= Html::img( '/'.$galery[0]['filepath'].$galery[0]['filename'], ['class' => 'img-responsive', 'height' => 'auto', 'width' => 'auto', 'alt' => $this->title, 'title' => $this->title]) ?>
+
+
         </div>
         <div class="col-md-8">
             <ul>

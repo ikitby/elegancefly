@@ -1,5 +1,6 @@
 <?php
 
+use ckarjun\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Json;
@@ -31,8 +32,28 @@ $photos = json::decode($model->photos);
         foreach ($products as $product):
         $galery_teaser = json::decode($product->photos);
     ?>
-<div class="col-md-2">
-    <?= '<a href="'.Url::to(["view", "id" => $product->id]).'" type="button" class="">'.Html::img( '/'.$galery_teaser[0]['filepath'].$galery_teaser[0]['filename'], ['class' => 'img-responsive', 'alt' => $product->title, 'title' => $product->title]).'</a>' ?>
+
+    <?php $owlId = uniqid('owl_'); ?>
+<div class="col-md-2 <?= $owlId ?>">
+
+ <?php
+    OwlCarouselWidget::begin([
+    'container' => 'div',
+    'containerOptions' => [
+            'class' => $owlId.' owl-loaded'
+    ],
+    'pluginOptions' => [
+    'autoPlay' => false,
+    'loop'     => true,
+    'lazyLoad' => true,
+    'items'    => 1
+    ]
+    ]);
+    foreach ($galery_teaser as $photo) {
+        print '<div  class="owl-items"><a href="'.Url::to(["view", "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
+    }
+    OwlCarouselWidget::end();
+?>
 </div>
 
     <?php

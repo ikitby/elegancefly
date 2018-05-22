@@ -42,7 +42,7 @@ class CatalogController extends AppController
     public function actionIndex()
     {
 
-        $products = Products::find();
+        $products = Products::find()->where(['state' => 1]);
         $productsall = $products;
 
         $pagination = new Pagination(
@@ -54,7 +54,7 @@ class CatalogController extends AppController
 
         $products = Products::find()
             ->where(['state' => 1])
-            ->where(['deleted' => 0])
+            //->where(['deleted' => 0])
             ->with('user')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
