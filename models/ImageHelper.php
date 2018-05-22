@@ -61,7 +61,7 @@ class ImageHelper {
      * @param int $compression
      * @param null $permissions
      */
-    public function save($filename, $image_type=IMAGETYPE_JPEG, $compression=100, $permissions=null)
+    public function save($filename, $image_type=IMAGETYPE_JPEG, $compression=100, $permissions=null, $delitecurrentimage = true)
     {
         if( $image_type == IMAGETYPE_JPEG ) {
             imagejpeg($this->image,$filename,$compression);
@@ -73,7 +73,7 @@ class ImageHelper {
         if( $permissions != null) {
             chmod($filename,$permissions);
         }
-        imagedestroy($this->image);
+        ($delitecurrentimage) ? imagedestroy($this->image) : false;
     }
 
     /**

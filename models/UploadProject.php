@@ -29,8 +29,6 @@ class UploadProject extends Model
 
         $folder = $userfolder.'/'.$projectpatf;
         //Yii::$app->session->setFlash('info', 'Тест ошибки');
-        //dump($filename->type);
-        //Yii::$app->session->setFlash('info', 'Тест ошибки');
         if ($this->validate()) {
 
             if (!file_exists($this->getFolder($folder))) {
@@ -41,7 +39,6 @@ class UploadProject extends Model
 
             $file->saveAs($this->getFolder($folder) . '/' . $filename); //Грузим картинку в папку с нашими файлами
 
-
         }
 
         return $filename; //Возвращаем обратно имя загруженного файла
@@ -49,9 +46,10 @@ class UploadProject extends Model
 
     public function makeGalery($file)
     {
-        //займемся распаковкой архива
+        $image = new ImageHelper();
+        //займемся распаковкой архива и генерацией всех вариантов размеров картинок
         $catfolder = $this->getCatFolder('cat'); //Определяем генерацию папок и подпапок для галлерей проектов
-        $file->saveAs($catfolder . '/' . $file->name); //Грузим картинку в папку с нашими файлами
+        $file->saveAs($catfolder . '/' . $file->name, false); //Грузим картинку в папку с нашими файлами
         $goodarchive = false;
         $archive = new PclZip();
         $archive->PclZip($catfolder . '/' . $file->name); //получили
@@ -66,11 +64,12 @@ class UploadProject extends Model
             } elseif ($i < $limit && preg_match("/^.*?_\d\.\w{3}$/i", $file['filename'])) {
                 //Если файл соответствует маске файла для галереи и не больше лимита по количеству дополняем массив и инкременируем счетчик
                 preg_match("/^(.*?)\/\w*_\d\.\w{3}$/i", $file['filename'], $matches); //Ищем путь к файлу
-                preg_match("/^.*\/(.*?)$/i", $file['filename'], $filenam); //Ищем имя файла
+                preg_match("/^.*\/(.*?)$/i", $file['filename'], $filename); //Ищем имя файла
                 $photos[$i] = [
+                    'number'   => $i,
                     'foolpath' => $file['filename'],
                     'filepath' => $matches[1].'/',
-                    'filename' => $filenam[1]
+                    'filename' => $filename[1]
                 ];
                $i++;
             } else {
@@ -79,35 +78,32 @@ class UploadProject extends Model
             sort($photos);
         }
 
-        $photos = Json::encode($photos);
+        foreach ($photos as $photo) {
+            $image->load($photo['foolpath']); //грузим текущую картинку
+            $newname = $photo['number'].'_'.md5(uniqid()).'.jpg';
+            $newphoto = $photo['filepath'].$newname; //генерим новое рандомное имя для картинки а формате jpg
+            $image->resize(600, 600); //ресайзим картинку
+            $image->save($newphoto, IMAGETYPE_JPEG, 80, null, false);
+
+            $image->resize(400, 400); //ресайзим картинку 400/400
+            $image->save($photo['filepath'].'400_400_'.$newname, IMAGETYPE_JPEG, 80, null, false);
+
+            $image->resize(200, 200); //ресайзим картинку 200/200
+            $image->save($photo['filepath'].'200_200_'.$newname, IMAGETYPE_JPEG, 80, null, false);
+
+            $image->resize(100, 100); //ресайзим картинку 100/100
+            $image->save($photo['filepath'].'100_100_'.$newname, IMAGETYPE_JPEG, 80); //последний ресайз удаляет за собой временную картинку
+
+                //сохраняем измененную картинку и, если сохранили, удаляем оригинал и меняем имя в массиве
+                unlink($photo['foolpath']);
+                $photos[$photo['number']]['foolpath'] = $newphoto; //подменяем полный пть к картинке
+                $photos[$photo['number']]['filename'] = $newname; //подменяем имя картинки
+
+        }
+
+        $photos = Json::encode($photos); //в этом месте имеем готовый массив фотографий для галлереи
+
         return $photos;
-
-        $galery = ArrayHelper::getColumn($result, 'filename'); //Получаем список файлов распакованных из архива
-        dump($result);
-
-        $image = new ImageHelper();
-        $i = 0;
-        while ($i < 10) {
-            if ($galery[$i] == null) {break;}
-            ($galery[$i] == $catfolder .'/' . $file->baseName. '.psd') ? false : $photogalery[$i] = $galery[$i];
-            $i++;
-        }
-        sort($photogalery);
-        $photogalery = implode(',', $photogalery); //Список картинок в строку
-        /*
-        foreach ($photogalery as $photo) {
-
-            $image->load($photo); //грузим картинку текущую
-            dump($image);
-            die();
-
-            $image->resize(100, 100); //ресайзим
-            $image->save($file->baseName);
-
-        }
-*/
-        if($result == 0) echo $archive->errorInfo(true);
-        return $photogalery;
     }
 
     private function getCatFolder($basefolder = 'catalog')

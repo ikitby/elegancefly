@@ -89,6 +89,7 @@ class CatalogController extends AppController
             $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
             if ($file) {
+
                 $photosmodel = $filemodel->makeGalery($file);
                 $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
             };

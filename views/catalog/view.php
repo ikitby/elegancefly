@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><strong>Автор: </strong><?= Html::encode($model->user->name) ?></li>
                 <li><strong>Файл: </strong><?= $model->file ?></li>
                 <li><strong>Путь: </strong><?= $model->project_path ?></li>
-                <li><strong>Файл: </strong><?php  dump ($model->photos);  ?></li>
+                <li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>
 
             </ul>
         </div>
