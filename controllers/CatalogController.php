@@ -7,6 +7,7 @@ use Codeception\Lib\Generator\Helper;
 use Yii;
 use app\models\Products;
 use app\models\ProductsSearch;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 
 use yii\web\NotFoundHttpException;
@@ -40,13 +41,32 @@ class CatalogController extends AppController
      */
     public function actionIndex()
     {
-        $searchModel = new ProductsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $products = Products::find();
+        $productsall = $products;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => 36,
+                'totalCount'        => $products->count()
+            ]
+        );
+
+        $products = Products::find()
+            ->where(['state' => 1])
+            ->where(['deleted' => 0])
+            ->with('user')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'products'      => $products,
+            'productsall'   => $productsall,
+            'pagination'    => $pagination
         ]);
+
+
     }
 
     /**

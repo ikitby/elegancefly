@@ -50,6 +50,8 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                'catalog/' => 'catalog/index',
+                'catalog/<id:\d+>' => 'catalog/view',
                 '<action>'=>'site/<action>',
             ],
         ],
