@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\DetailView;
 use ckarjun\owlcarousel\OwlCarouselWidget;
+use kartik\rating\StarRating;
+use app\models\Ratings;
 
 use app\models\Products;
 
@@ -13,6 +15,7 @@ use app\models\Products;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="products-view">
 
@@ -53,22 +56,39 @@ $this->params['breadcrumbs'][] = $this->title;
             foreach ($galery as $photo) {
             print Html::img('/'.$photo['filepath'].$photo['filename'], ['class' => 'img-responsive', 'style' => 'margin: 5px', 'alt' => $model->title, 'title' => $model->title]);
             }
-
-
             OwlCarouselWidget::end();
 
 ?>
 
-
-            <?= Html::img( '/'.$galery[0]['filepath'].$galery[0]['filename'], ['class' => 'img-responsive', 'height' => 'auto', 'width' => 'auto', 'alt' => $this->title, 'title' => $this->title]) ?>
-
-
         </div>
-        <div class="col-md-8">
+        <?= $model->rating ?>
+
+        <?php
+        echo StarRating::widget([
+            'name' => 'rating_'.$model->id,
+            'model' => $model,
+            'attribute' => 'rating',
+            'value' => 2,
+            'pluginOptions' => [
+                'size' => 'xs',
+                'stars' => 5,
+                'step' => 1,
+                'disabled'=>false,
+                'showCaption' => false,
+                'showClear'=>false
+            ],
+            'pluginEvents' => [
+                'rating.change' => "function(event, value, caption) {
+                
+                    console.log('ok');
+                    
+                }",
+            ],
+        ]);
+
+        ?>
+
             <ul>
-                <?php
-                //dump($galery);
-                ?>
 
                 <li><strong>Автор: </strong><?= Html::encode($model->user->name) ?></li>
                 <li><strong>Файл: </strong><?= $model->file ?></li>

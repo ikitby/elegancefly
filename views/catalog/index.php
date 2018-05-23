@@ -23,7 +23,7 @@ $photos = json::decode($model->photos);
 
     <?php Pjax::begin(); ?>
     <p>
-        <?= Html::a('Create Products', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="row">

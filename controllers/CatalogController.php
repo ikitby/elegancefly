@@ -79,9 +79,16 @@ class CatalogController extends AppController
     {
 
         $this->addHits($id);
+        $model = $this->findModel($id);
 
+        $rating_count = $model->getRatings()->select('rating')->count();
+        $rating = $model->getRatings()->select('rating')->asArray()->all();
+
+        $model->rating = $model->afterFind();
+
+        //$rateUsers = $model->rateUsers; //Так можно получить оценивших материал пользователей
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model
         ]);
     }
 
@@ -218,6 +225,7 @@ class CatalogController extends AppController
         $model->hits++;
         $model->save(false);
     }
+
 
 
 }

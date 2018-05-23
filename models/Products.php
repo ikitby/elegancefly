@@ -77,6 +77,22 @@ class Products extends \yii\db\ActiveRecord
                 ->viaTable('project_thems', ['progect_id' => 'id']);
     }
 
+    public function getRateUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+            ->viaTable('ratings', ['project_id' => 'id']);
+    }
+
+    public function getRatings()
+    {
+        return $this->hasMany(Ratings::className(), ['project_id' => 'id']);
+    }
+
+    public function afterFind() {
+        $this->rating = Ratings::getAllRating($this->id);
+        return $rating = $this->rating;
+    }
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);

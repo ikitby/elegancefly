@@ -32,7 +32,7 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User'],
             ['password', 'required'],
-            ['password', 'compare', 'compareAttribute' => 'password_repeat'],
+            //['password', 'compare', 'compareAttribute' => 'password_repeat'],
             ['password', 'string', 'min' => 6],
         ];
     }
