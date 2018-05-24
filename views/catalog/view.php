@@ -90,7 +90,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <ul>
 
-                <li><strong>Автор: </strong><?= Html::encode($model->user->name) ?></li>
+                <li><strong>Автор: </strong><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></li>
+                <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
                 <li><strong>Файл: </strong><?= $model->file ?></li>
                 <li><strong>Путь: </strong><?= $model->project_path ?></li>
                 <li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>

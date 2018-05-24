@@ -47,6 +47,7 @@ class UploadProject extends Model
     public function makeGalery($file)
     {
         $image = new ImageHelper();
+        $watermark = new ImageHelper();
         //займемся распаковкой архива и генерацией всех вариантов размеров картинок
         $catfolder = $this->getCatFolder('cat'); //Определяем генерацию папок и подпапок для галлерей проектов
         $file->saveAs($catfolder . '/' . $file->name, false); //Грузим картинку в папку с нашими файлами
@@ -80,9 +81,16 @@ class UploadProject extends Model
 
         foreach ($photos as $photo) {
             $image->load($photo['foolpath']); //грузим текущую картинку
+            $watermark->load('res/watermark.png');// load watermark to memory
+            if (!$watermark) die('Unable to open watermark');
+            dump($image);
+            dump($watermark);
+            die();
             $newname = $photo['number'].'_'.md5(uniqid()).'.jpg';
             $newphoto = $photo['filepath'].$newname; //генерим новое рандомное имя для картинки а формате jpg
             $image->resize(600, 600); //ресайзим картинку
+                //тут будем накладывать вотермарк
+            
             $image->save($newphoto, IMAGETYPE_JPEG, 80, null, false);
 
             $image->resize(400, 400); //ресайзим картинку 400/400
