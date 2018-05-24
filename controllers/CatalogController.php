@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use dastanaron\translit\Translit;
 
+
 /**
  * CatalogController implements the CRUD actions for Products model.
  */

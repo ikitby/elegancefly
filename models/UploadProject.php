@@ -81,8 +81,8 @@ class UploadProject extends Model
 
         foreach ($photos as $photo) {
             $image->load($photo['foolpath']); //грузим текущую картинку
-            $watermark->load('res/watermark.png');// load watermark to memory
-            if (!$watermark) die('Unable to open watermark');
+            //$watermark->load('res/watermark.png');// load watermark to memory
+            //if (!$watermark) die('Unable to open watermark');
             dump($image);
             dump($watermark);
             die();
