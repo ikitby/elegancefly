@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\BaseActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -39,10 +40,9 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
-            [['photos', 'price', 'themes','title', 'state', 'deleted'], 'required'],
+            [['photos', 'price','tags', 'themes','title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
-            [['file', 'tags', 'title', 'project_path'], 'string', 'max' => 255],
-            [['themes'], 'each', 'rule' => ['integer']],
+            [['file', 'title', 'project_path'], 'string', 'max' => 255],
             [['photos'], 'safe'],
         ];
     }
@@ -75,6 +75,12 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Themsprod::className(), ['id' => 'theme_id'])
                 ->viaTable('project_thems', ['progect_id' => 'id']);
+    }
+
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
+            ->viaTable('project_tags', ['project_id' => 'id']);
     }
 
     public function getRateUsers()
@@ -113,25 +119,60 @@ class Products extends \yii\db\ActiveRecord
         return $selThems;
     }
 
+    public function getItemtags ()
+    {
+        $selTags = $this->getTags()->select('id')->asArray()->all();
+        $selTags = ArrayHelper::getColumn($selTags, 'id');
+        return $selTags;
+    }
+
     public function saveThems($themes)
     {
         if(is_array($themes))
         {
-            $this->clearCurrentTags();
+            $this->clearCurrentTems();
 
             foreach ($themes as $theme_id)
             {
-                $themsprod = Themsprod::findOne($theme_id); // linck tags
+                $themsprod = Themsprod::findOne($theme_id); // link tems
                 $this->link('themsprod', $themsprod);
             }
         }
     }
 
-    public function clearCurrentTags()
+    public function clearCurrentTems()
     {
         ProjectThems::deleteAll(['progect_id' => $this->id]);
     }
 
+    public function clearCurrentTags()
+    {
+        ProjectTags::deleteAll(['project_id' => $this->id]);
+    }
+
+    public function saveTags($tags)
+    {
+        if(is_array($tags))
+        {
+            $this->clearCurrentTags();
+
+            foreach ($tags as $tag_id)
+            {
+                $prodtags = Tags::findOne($tag_id); // link tags
+                if ($prodtags)
+                {
+                    $this->link('tags', $prodtags);
+                } else {
+                    $newtag = new Tags(); //Создаем экземпляр модели тега
+                    $tagobj = $newtag->createTag($tag_id);
+                    //dump($tagobj);die();
+                    $this->link('tags', $tagobj);//Делаем запрос на создание нового тега
+                }
+
+            }
+
+        }
+    }
 
 
 

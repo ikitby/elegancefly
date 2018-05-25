@@ -27,7 +27,7 @@ class Themsprod extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 20],
         ];
     }
 

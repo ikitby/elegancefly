@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Tags;
 use app\models\Themsprod;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -17,15 +18,18 @@ use kartik\widgets\Select2;
         print_r($model->errors);
     }
 
-    dump($model);
-
 ?>
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <div class="col-md-12">
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-md-6">
+    <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
 
-    <?= $form->field($model, 'themes')->widget(Select2::classname(), [
+        <?php
+    /*
+    $form->field($model, 'themes')->widget(Select2::classname(), [
         'data' => Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
         'options' => ['placeholder' => 'Выберите тематику', 'multiple' => true],
         'pluginOptions' => [
@@ -33,18 +37,36 @@ use kartik\widgets\Select2;
             'tokenSeparators' => [',', ' '],
             'maximumInputLength' => 10
         ],
-    ])->label('Выберите тематику'); ?>
+    ])->label('Выберите тематику');
+    */
+    ?>
 
     <?php // $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
 
-    <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
+    <?=
+    $form->field($model, 'tags')->widget(Select2::classname(), [
+        'data' => Tags::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
+        'options' => [
+            'placeholder' => 'Добавьте метки проекту',
+            'multiple' => true
+        ],
+        'pluginOptions' => [
+            'tags' => true,
+            'tokenSeparators' => [','],
+            'maximumInputLength' => 10
+        ],
+    ])->label('Метки');
+    ?>
 
-    <?= $form->field($model, 'price')->textInput() ?>
 
-    <?= $form->field($model, 'limit')->textInput() ?>
+    </div>
+    <div class="col-md-6 bg-warning">
+        <?= $form->field($model, 'price')->textInput() ?>
 
-    <?= $form->field($model, 'sales')->textInput() ?>
+        <?= $form->field($model, 'limit')->textInput() ?>
 
+        <?= $form->field($model, 'sales')->textInput() ?>
+    </div>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

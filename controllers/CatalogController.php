@@ -148,16 +148,18 @@ class CatalogController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->themes = $model->getTems();
-        //$model->user_id = yii::$app->user->id;
+        $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
+        $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 
-        if ($model->load(Yii::$app->request->post())) //обработка категорий
+        if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
         {
-            $themes = Yii::$app->request->post('Products');
-            $themes = $themes['themes'];
+            $querypost = Yii::$app->request->post('Products');
+            $themes = $querypost['themes'];
             $model->saveThems($themes);
-            $model->save(false);
 
+            $tags = $querypost['tags'];
+            $model->saveTags($tags);
+            $model->save(false);
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
