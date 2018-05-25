@@ -8,6 +8,7 @@
 
 namespace app\models;
 
+use Imagick;
 use PHPUnit\Framework\Constraint\IsJson;
 use Yii;
 
@@ -86,9 +87,9 @@ class UploadProject extends Model
             $newname = $photo['number'].'_'.md5(uniqid()).'.jpg';
             $newphoto = $photo['filepath'].$newname; //генерим новое рандомное имя для картинки а формате jpg
             $image->resize(600, 600); //ресайзим картинку
+            $image->save($newphoto, IMAGETYPE_JPEG, 80, null, false);//сохраняем картинку нового размера
                 //тут будем накладывать вотермарк
-            
-            $image->save($newphoto, IMAGETYPE_JPEG, 80, null, false);
+            $this->putWotermark($newphoto);
 
             $image->resize(400, 400); //ресайзим картинку 400/400
             $image->save($photo['filepath'].'400_400_'.$newname, IMAGETYPE_JPEG, 80, null, false);
@@ -111,6 +112,35 @@ class UploadProject extends Model
         return $photos;
     }
 
+
+    private function putWotermark($pathtoimage){
+
+        // Загружаем оригинальное изображение
+        $image = new Imagick();
+        $image->readImage(__DIR__.'/../web/'.$pathtoimage);
+
+        $w = $image->getImageWidth();
+        $h = $image->getImageHeight();
+
+        $imageWatermark = new Imagick();
+        $imageWatermark->readImage(__DIR__.'/../web/res/watermark.png');
+
+        $ww = $imageWatermark->getImageWidth();
+        $wh = $imageWatermark->getImageHeight();
+
+        //Отступ снизу
+        $paddingBottom = 20;
+
+        //Отступ справа
+        $paddingRight = 20;
+
+        //Это позволяет поставить изображение в нижний правый угол (учитывая отступы)
+        $x = ($w - $ww) - $paddingRight;
+        $y = ($h - $wh) - $paddingBottom;
+
+        $image->compositeImage($imageWatermark, imagick::COMPOSITE_OVER, $x, $y);
+        $image->writeImage(__DIR__.'/../web/'.$pathtoimage);
+    }
 
     private function getCatFolder($basefolder = 'catalog')
     {
