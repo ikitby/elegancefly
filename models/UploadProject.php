@@ -83,9 +83,6 @@ class UploadProject extends Model
             $image->load($photo['foolpath']); //грузим текущую картинку
             //$watermark->load('res/watermark.png');// load watermark to memory
             //if (!$watermark) die('Unable to open watermark');
-            dump($image);
-            dump($watermark);
-            die();
             $newname = $photo['number'].'_'.md5(uniqid()).'.jpg';
             $newphoto = $photo['filepath'].$newname; //генерим новое рандомное имя для картинки а формате jpg
             $image->resize(600, 600); //ресайзим картинку
@@ -113,6 +110,7 @@ class UploadProject extends Model
 
         return $photos;
     }
+
 
     private function getCatFolder($basefolder = 'catalog')
     {
