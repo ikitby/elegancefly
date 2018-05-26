@@ -77,7 +77,7 @@ class Products extends \yii\db\ActiveRecord
                 ->viaTable('project_thems', ['progect_id' => 'id']);
     }
 
-    public function getTags()
+    public function getTagsprod()
     {
         return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
             ->viaTable('project_tags', ['project_id' => 'id']);
@@ -121,7 +121,7 @@ class Products extends \yii\db\ActiveRecord
 
     public function getItemtags ()
     {
-        $selTags = $this->getTags()->select('id')->asArray()->all();
+        $selTags = $this->getTagsprod()->select('id')->asArray()->all();
         $selTags = ArrayHelper::getColumn($selTags, 'id');
         return $selTags;
     }
@@ -174,6 +174,33 @@ class Products extends \yii\db\ActiveRecord
         }
     }
 
+    public function getTagslist()
+    {
+        $total = count($this->tagsprod);
+        $counter = 0;
+        foreach ($this->tagsprod as $tag) {
+            $counter++;
+            if ($counter == $total) {
+                print $tag->title;
+            } else {
+                print $tag->title . ', ';
+            }
+        }
+    }
+
+    public function getThemslist()
+    {
+        $total = count($this->themsprod);
+        $counter = 0;
+        foreach ($this->themsprod as $thema) {
+            $counter++;
+            if ($counter == $total) {
+                print $thema->title;
+            } else {
+                print $thema->title . ', ';
+            }
+        }
+    }
 
 
 }

@@ -92,6 +92,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <li><strong>Автор: </strong><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></li>
                 <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
+                <li><strong>Тематика: </strong>
+                    <?php
+
+                    $model->getThemslist();
+                    ?>
+                </li>
+                <li><strong>Метки: </strong>
+                    <?php
+                    $model->getTagslist();
+                    ?>
+                </li>
                 <li><strong>Загружено: </strong><?= $model->created_at ?></li>
                 <li><strong>Просмотрено: </strong><?= $model->hits ?></li>
                 <li><strong>Продано: </strong>0/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
