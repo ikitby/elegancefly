@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\BaseActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "products".
@@ -27,6 +28,9 @@ class Products extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     //public $photos;
+
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
 
     public static function tableName()
     {
@@ -161,12 +165,12 @@ class Products extends \yii\db\ActiveRecord
                 $prodtags = Tags::findOne($tag_id); // link tags
                 if ($prodtags)
                 {
-                    $this->link('tags', $prodtags);
+                    $this->link('tagsprod', $prodtags);
                 } else {
                     $newtag = new Tags(); //Создаем экземпляр модели тега
                     $tagobj = $newtag->createTag($tag_id);
                     //dump($tagobj);die();
-                    $this->link('tags', $tagobj);//Делаем запрос на создание нового тега
+                    $this->link('tagsprod', $tagobj);//Делаем запрос на создание нового тега
                 }
 
             }
@@ -176,29 +180,15 @@ class Products extends \yii\db\ActiveRecord
 
     public function getTagslist()
     {
-        $total = count($this->tagsprod);
-        $counter = 0;
         foreach ($this->tagsprod as $tag) {
-            $counter++;
-            if ($counter == $total) {
-                print $tag->title;
-            } else {
-                print $tag->title . ', ';
-            }
+                print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'btn btn-default btn-xs']);
         }
     }
 
     public function getThemslist()
     {
-        $total = count($this->themsprod);
-        $counter = 0;
         foreach ($this->themsprod as $thema) {
-            $counter++;
-            if ($counter == $total) {
-                print $thema->title;
-            } else {
-                print $thema->title . ', ';
-            }
+                print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'btn btn-default btn-xs']);
         }
     }
 

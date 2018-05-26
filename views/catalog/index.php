@@ -58,11 +58,13 @@ $photos = json::decode($model->photos);
 
     <?php
     endforeach;
-        print LinkPager::widget(['pagination' => $pagination]);
     else: ?>
         Нет тут ни чего!
     <?php endif;
     ?>
+      <div class="col-md-12">
+        <?= LinkPager::widget(['pagination' => $pagination]) ?>
+      </div>
     </div>
 
     <?php Pjax::end(); ?>

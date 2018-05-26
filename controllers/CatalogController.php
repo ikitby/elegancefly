@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Tags;
 use app\models\UploadProject;
 use Codeception\Lib\Generator\Helper;
 use Yii;
@@ -21,6 +22,10 @@ use dastanaron\translit\Translit;
  */
 class CatalogController extends AppController
 {
+
+    const STATUS_PAGESIZE = 6;
+
+
     /**
      * {@inheritdoc}
      */
@@ -43,24 +48,73 @@ class CatalogController extends AppController
     public function actionIndex()
     {
 
-        $products = Products::find()->where(['state' => 1]);
+        $products = Products::find()->where(['state' => 1, 'deleted' => 0]);
         $productsall = $products;
 
         $pagination = new Pagination(
             [
-                'defaultPageSize'   => 36,
+                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
                 'totalCount'        => $products->count()
             ]
         );
 
         $products = Products::find()
-            ->where(['state' => 1])
+            ->where([
+                'state' => 1,
+                'deleted' => 0,
+                ])
             //->where(['deleted' => 0])
             ->with('user')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
 
+        return $this->render('index', [
+            'products'      => $products,
+            'productsall'   => $productsall,
+            'pagination'    => $pagination
+        ]);
+
+
+    }
+
+    public function actionTag()
+    {
+
+        $tag = 'girl';
+        $tagsprod = Tags::findOne(['alias' => $tag]);
+        $tags = ArrayHelper::getColumn($tagsprod->products, 'id'); //получаем список id продуктов с неободимым тегом
+
+        $products = Products::find()->where([
+            'state' => 1,
+            'deleted' => 0,
+            'id' => $tags,
+        ]);
+        $productsall = $products;
+        dump($productsall);
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => 6,
+                'totalCount'        => count($tags) //ограничиваем пагинацию по размеру массива тега
+            ]
+        );
+
+
+
+        $products = Products::find()
+            ->where([
+                'state' => 1,
+                'deleted' => 0,
+                'id' => $tags,
+            ])
+            ->with('user')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+         dump($tags);
+         dump($products);
+         die();
         return $this->render('index', [
             'products'      => $products,
             'productsall'   => $productsall,

@@ -52,6 +52,8 @@ $config = [
                 '' => 'site/index',
                 'catalog/' => 'catalog/index',
                 'catalog/<id:\d+>' => 'catalog/view',
+                'catalog/tag/<alias:\w+>' => 'catalog/tag',
+                'catalog/tema/<alias:\w+>' => 'catalog/tema',
                 '<action>'=>'site/<action>',
             ],
         ],

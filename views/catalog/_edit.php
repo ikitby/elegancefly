@@ -53,7 +53,7 @@ use kartik\widgets\Select2;
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators' => [','],
-            'maximumInputLength' => 10
+            'maximumInputLength' => 20
         ],
     ])->label('Метки');
     ?>

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use dastanaron\translit\Translit;
 use Yii;
 use yii\db\BaseActiveRecord;
 
@@ -45,10 +46,18 @@ class Tags extends \yii\db\ActiveRecord
             return $newtag;
         } else {
             $this->title = $tag_id;
+            $this->alias = $this->translite($tag_id);
             $this->save();
             return $this;
         }
     }
+
+    private function translite($text)
+    {
+        $translit = new Translit();
+        return $text = strtolower($translit->translit($text, true, 'ru-en'));
+    }
+
 
 
 
