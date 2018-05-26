@@ -97,6 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><strong>Загружено: </strong><?= $model->created_at ?></li>
                 <li><strong>Просмотрено: </strong><?= $model->hits ?></li>
                 <li><strong>Продано: </strong>0/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
+                <li><strong>Инфо: </strong><?= $model->project_info ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>
             </ul>
         </div>

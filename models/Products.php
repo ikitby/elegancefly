@@ -44,7 +44,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
-            [['photos', 'price','tags', 'themes','title', 'state', 'deleted'], 'required'],
+            [['photos', 'price','tags', 'project_info', 'themes','title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],
             [['photos'], 'safe'],
@@ -65,6 +65,7 @@ class Products extends \yii\db\ActiveRecord
             'photos' => 'Photos',
             'project_path' => 'Project path',
             'price' => 'Price',
+            'project_info' => 'Project info',
             'themes' => 'Themes',
             'limit' => 'Limit',
             'hits' => 'Hits',

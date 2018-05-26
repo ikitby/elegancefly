@@ -57,7 +57,7 @@ use kartik\widgets\Select2;
         ],
     ])->label('Метки');
     ?>
-
+        <?= $form->field($model, 'project_info')->textarea() ?>
 
     </div>
     <div class="col-md-6 bg-warning">
