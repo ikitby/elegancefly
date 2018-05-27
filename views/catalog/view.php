@@ -60,15 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
         </div>
-        <?
-        dump($model->ratings);
-
-        ?>
-
         <?php echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
             'id' => 'input-'.$model->id.'',
-            'value' => 2,
+            'value' => $model->getAllRatings($model->id),
             'attribute' => 'rating',
             'pluginOptions' => [
                 'size' => 'xs',
@@ -80,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'pluginEvents' => [
             'rating:change' => 'function(event, value, caption) {
-                    console.log (event);
+                   alert (event);
                     
                     
                 }',

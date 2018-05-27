@@ -99,8 +99,29 @@ class Products extends \yii\db\ActiveRecord
         return $this->hasMany(Ratings::className(), ['project_id' => 'id']);
     }
 
+    public function getAllRatings ($itemid)
+    {
+        $rating = 0;
+
+
+        $ratingall = Ratings::find()->where(['project_id' => $itemid])->select('rating')->all(); //выбираем из базы рейтинга все отметки для текущего материала
+        $i = 0;
+
+        foreach ($ratingall as $rate)
+        {
+            $rating += $rate->rating;
+            $i++;
+        }
+
+        if ($rating > 0) {
+            $rating = round($rating / $i, 1);
+        }
+
+        return $rating;
+    }
+
     public function afterFind() {
-        $this->rating = Ratings::getAllRating($this->id);
+        //$this->rating = Ratings::getAllRating($this->id);
         return $rating = $this->rating;
     }
 

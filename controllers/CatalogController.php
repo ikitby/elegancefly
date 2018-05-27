@@ -29,8 +29,6 @@ class CatalogController extends AppController
     const STATUS_PAGESIZE = 36;
 
 
-
-
     /**
      * {@inheritdoc}
      */

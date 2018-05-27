@@ -17,6 +17,7 @@ use Yii;
  */
 class Ratings extends \yii\db\ActiveRecord
 {
+    public $allrating;
     /**
      * {@inheritdoc}
      */
@@ -25,9 +26,11 @@ class Ratings extends \yii\db\ActiveRecord
         return 'ratings';
     }
 
-    public static function getAllRating ($itemid)
+    public function getAllRating ($itemid)
     {
         $rating = 0;
+
+
         $ratingall = self::find()->where(['project_id' => $itemid])->select('rating')->all(); //выбираем из базы рейтинга все отметки для текущего материала
         $i = 0;
 
