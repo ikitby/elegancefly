@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Symfony\Component\VarDumper\Cloner\Data;
 use Yii;
 
 /**
@@ -49,9 +50,10 @@ class Ratings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['project_id', 'user_id', 'rateuser_id', 'rating', 'raiting_date'], 'required'],
+            [['project_id', 'user_id', 'rateuser_id', 'rating'], 'required'],
             [['project_id', 'user_id', 'rateuser_id', 'rating'], 'integer'],
             [['raiting_date'], 'safe'],
+            ['rating', 'in', 'range' => [0, 1, 2, 3, 4, 5]]
         ];
     }
 
@@ -74,6 +76,26 @@ class Ratings extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Products::className(), ['id' => 'project_id']);
     }
+
+    public function setRating($pid, $rate = 0)
+    {
+            $this->user_id = yii::$app->user->id; //id ставящего оценку
+            $this->project_id = $pid; //Получаем id проекта
+            $this->rateuser_id = $this->projects[0]->user_id; //Получаем id автора проекта
+            $this->rating = $rate;
+
+            if ($this::find()->where(['user_id' => $this->user_id, 'project_id' => $this->project_id])->one()) {
+                return false;
+            }
+
+        if ($this->validate()) {
+            $this->save();
+            return 'Готово!';
+        } else {
+            return 'Фига се что случилось!'.$errors = $this->errors;
+        }
+    }
+
 
 }
 

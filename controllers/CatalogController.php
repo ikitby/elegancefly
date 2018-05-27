@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Ratings;
 use app\models\Tags;
 use app\models\Themsprod;
 use app\models\UploadProject;
+use Codeception\Lib\Di;
 use Codeception\Lib\Generator\Helper;
 use Yii;
 use app\models\Products;
@@ -25,6 +27,8 @@ class CatalogController extends AppController
 {
 
     const STATUS_PAGESIZE = 36;
+
+
 
 
     /**
@@ -152,7 +156,6 @@ class CatalogController extends AppController
                 'deleted' => 0,
                 'id' => $tags,
             ])
-            ->with('user')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
@@ -165,12 +168,21 @@ class CatalogController extends AppController
 
     }
 
-    /**
-     * Displays a single Products model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
+    public function actionRate($pid = 0, $rating = 0)
+    {
+        $rating = new Ratings();
+
+        $request = Yii::$app->request;
+        $pid = $request->get('pid');
+        $rate = $request->get('rating');
+        if ($rating::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) {
+            return false;
+        }
+        $rating->setRating($pid, $rate);
+        return true;
+    }
+
     public function actionView($id)
     {
 
