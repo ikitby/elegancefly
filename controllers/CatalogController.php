@@ -170,14 +170,16 @@ class CatalogController extends AppController
     public function actionRate($pid = 0, $rating = 0)
     {
         $rating = new Ratings();
-
         $request = Yii::$app->request;
+
         $pid = $request->get('pid');
         $rate = $request->get('rating');
-        if ($rating::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) {
-            return false;
+        if (Yii::$app->request->isAjax && Yii::$app->request->post('pid') && Yii::$app->request->post('rating')) {
+            if ($rating::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) {
+                return false;
+            }
+            $rating->setRating($pid, $rate);
         }
-        $rating->setRating($pid, $rate);
         return true;
     }
 

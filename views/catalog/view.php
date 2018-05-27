@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use kartik\rating\StarRating;
@@ -75,8 +76,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'pluginEvents' => [
             'rating:change' => 'function(event, value, caption) {
-                   alert (event);
-                    
+                   $.ajax({
+                        type: "POST",
+                        url: "/catalog/rate",
+                        data: {"raiting": value},
+                        cache: false,
+                        success: function(data) {
+                        
+                        ////var data = jQuery.parseJSON(data);
+                        console.log (data);
+                        
+/*                            var data = jQuery.parseJSON(data);//конвертируем json обьект, что передаем из php  в обьект jquery
+                            var inputRating = $("#geoinstitutions-rating");
+
+                            if (typeof data.message !== "undefined") {
+                                console.log(data.message);
+                                inputRating.rating("reset");//очищает рейтинг до значения в бд
+
+                                $("#myModal-geo .modal-body strong").text(data.message);//забиваем сообщение в модальное окно
+                                $("#myModal-geo").modal();//вызываем виджет модального окна
+
+                            }else{
+
+                                $("#numRait").text(data.rating);//обновляем цыфры рейтинга в тегах на странице
+                                $("#numVotes").text(data.ratingVotes);//обновляем цыфры кол-ва голосов в тегах на странице
+                                inputRating.rating("refresh", {disabled: true, showClear: false, showCaption: true});//добавляет рейтинг и блокирует повторное нажатие
+                            }
+*/
+                        }
+                    });
                     
                 }',
         ],
