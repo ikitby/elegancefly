@@ -6,8 +6,7 @@ use yii\widgets\DetailView;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use kartik\rating\StarRating;
 use app\models\Ratings;
-
-use app\models\Products;
+//use app\models\Products;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
@@ -63,11 +62,34 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <?= $model->rating ?>
 
-        <?php
-        echo StarRating::widget([
-            'name' => 'rating_'.$model->id,
-            'model' => $model,
+        <?php echo StarRating::widget([
+            'name' => 'rating_'.$model->id.'',
+            'id' => 'input-'.$model->id.'',
+            'value' => 2,
             'attribute' => 'rating',
+            'pluginOptions' => [
+                'size' => 'xs',
+                'stars' => 5,
+                'step' => 1,
+                'disabled'=>false,
+                'showCaption' => false,
+                'showClear'=>false
+            ],
+            'pluginEvents' => [
+            'rating:change' => 'function(event, value, caption) {
+                    alert (event);
+                }',
+        ],
+
+        ]); ?>
+
+        <?php
+/*
+        print StarRating::widget([
+            'name' => 'rating_'.$model->id.'',
+            'model' => 'dfs',
+            'attribute' => 'rating',
+            'id' => 'rating_'.$model->id.'',
             'value' => 2,
             'pluginOptions' => [
                 'size' => 'xs',
@@ -78,26 +100,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'showClear'=>false
             ],
             'pluginEvents' => [
-                'rating.change' => "function(event, value, caption) {
-                
-                    console.log('ok');
-                    
-                }",
+                'rating.change' => 'function(event, value, caption) {
+                    alert ("ok!");
+                }',
             ],
         ]);
-
+*/
         ?>
-
             <ul>
-
                 <li><strong>Автор: </strong><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></li>
                 <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
-                <li><strong>Тематика: </strong><?= $model->getThemslist() ?></li>
-                <li><strong>Метки: </strong><?= $model->getTagslist() ?></li>
-                <li><strong>Загружено: </strong><?= $model->created_at ?></li>
-                <li><strong>Просмотрено: </strong><?= $model->hits ?></li>
+                <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
+                <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
+                <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
+                <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
                 <li><strong>Продано: </strong>0/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
-                <li><strong>Инфо: </strong><?= $model->project_info ?></li>
+                <li><strong>Инфо: </strong><?= Html::encode($model->project_info) ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>
             </ul>
         </div>

@@ -21,7 +21,7 @@ $photos = json::decode($model->photos);
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php Pjax::begin(); ?>
+    <?php// Pjax::begin(); ?>
     <p>
         <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -67,5 +67,5 @@ $photos = json::decode($model->photos);
       </div>
     </div>
 
-    <?php Pjax::end(); ?>
+    <?php // Pjax::end(); ?>
 </div>
