@@ -73,7 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'size' => 'xs',
                 'stars' => 5,
                 'step' => 1,
-                'disabled' => Yii::$app->user->isGuest ? true : false,
+                'readonly' => Ratings::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $model->id])->count() ? true : false,
+                //'disabled' => Yii::$app->user->isGuest ? true : false,
                 'showCaption' => false,
                 'showClear'=>false
             ],
