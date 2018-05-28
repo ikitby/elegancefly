@@ -61,7 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
         </div>
-        <?php echo StarRating::widget([
+        <span id="numRait_<?=$model->id?>"><?= $model->getAllRatings($model->id) ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->getAllVotes($model->id) ?>
+
+        <?php
+        echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
             'id' => 'input-'.$model->id.'',
             'value' => $model->getAllRatings($model->id),
@@ -70,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'size' => 'xs',
                 'stars' => 5,
                 'step' => 1,
-                'disabled'=>false,
+                'disabled' => Yii::$app->user->isGuest ? true : false,
                 'showCaption' => false,
                 'showClear'=>false
             ],
@@ -79,30 +82,29 @@ $this->params['breadcrumbs'][] = $this->title;
                    $.ajax({
                         type: "POST",
                         url: "/catalog/rate",
-                        data: {"raiting": value},
+                        data: {"rating": value, "pid": '.$model->id.'},
                         cache: false,
                         success: function(data) {
                         
-                        ////var data = jQuery.parseJSON(data);
-                        console.log (data);
-                        
-/*                            var data = jQuery.parseJSON(data);//конвертируем json обьект, что передаем из php  в обьект jquery
-                            var inputRating = $("#geoinstitutions-rating");
-
+                            var data = jQuery.parseJSON(data);
+                            var inputRating = $("#input-'.$model->id.'");
+                            console.log (data);
+                            
                             if (typeof data.message !== "undefined") {
-                                console.log(data.message);
-                                inputRating.rating("reset");//очищает рейтинг до значения в бд
+                                console.log(data.r_message);
+                                inputRating.rating("reset");
+                                //inputRating.rating("reset");//очищает рейтинг до значения в бд
 
                                 $("#myModal-geo .modal-body strong").text(data.message);//забиваем сообщение в модальное окно
                                 $("#myModal-geo").modal();//вызываем виджет модального окна
 
                             }else{
 
-                                $("#numRait").text(data.rating);//обновляем цыфры рейтинга в тегах на странице
-                                $("#numVotes").text(data.ratingVotes);//обновляем цыфры кол-ва голосов в тегах на странице
+                                $("#numRait_'.$model->id.'").text(data.r_rating);//обновляем цифры рейтинга в тегах на странице
+                                $("#numVotes_'.$model->id.'").text(data.r_allrating);//обновляем цыфры кол-ва голосов в тегах на странице
                                 inputRating.rating("refresh", {disabled: true, showClear: false, showCaption: true});//добавляет рейтинг и блокирует повторное нажатие
                             }
-*/
+
                         }
                     });
                     

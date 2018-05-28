@@ -102,11 +102,8 @@ class Products extends \yii\db\ActiveRecord
     public function getAllRatings ($itemid)
     {
         $rating = 0;
-
-
         $ratingall = Ratings::find()->where(['project_id' => $itemid])->select('rating')->all(); //выбираем из базы рейтинга все отметки для текущего материала
         $i = 0;
-
         foreach ($ratingall as $rate)
         {
             $rating += $rate->rating;
@@ -116,9 +113,10 @@ class Products extends \yii\db\ActiveRecord
         if ($rating > 0) {
             $rating = round($rating / $i, 1);
         }
-
         return $rating;
     }
+
+
 
     public function afterFind() {
         //$this->rating = Ratings::getAllRating($this->id);
@@ -191,7 +189,6 @@ class Products extends \yii\db\ActiveRecord
                 } else {
                     $newtag = new Tags(); //Создаем экземпляр модели тега
                     $tagobj = $newtag->createTag($tag_id);
-                    //dump($tagobj);die();
                     $this->link('tagsprod', $tagobj);//Делаем запрос на создание нового тега
                 }
 
@@ -212,6 +209,13 @@ class Products extends \yii\db\ActiveRecord
         foreach ($this->themsprod as $thema) {
                 print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'btn btn-default btn-xs']);
         }
+    }
+
+    public function getAllVotes($id)
+    {
+        $allvotes = 0;
+        $allvotes = Ratings::find()->where(['project_id' => $id])->count(); //выбираем из базы рейтинга все отметки для текущего материала
+        return $allvotes;
     }
 
 

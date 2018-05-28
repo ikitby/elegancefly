@@ -169,18 +169,19 @@ class CatalogController extends AppController
 
     public function actionRate($pid = 0, $rating = 0)
     {
-        $rating = new Ratings();
-        $request = Yii::$app->request;
 
-        $pid = $request->get('pid');
-        $rate = $request->get('rating');
-        if (Yii::$app->request->isAjax && Yii::$app->request->post('pid') && Yii::$app->request->post('rating')) {
-            if ($rating::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) {
-                return false;
+        if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+            $rating = new Ratings();
+            $request = Yii::$app->request;
+           // Yii::$app->request->post()
+            $pid = $request->post('pid');
+            $rate = $request->post('rating');
+            if ($rate && $pid) {
+                return $rating->setRating($pid, $rate);
+            } else {
+                return 'Not allowed action';
             }
-            $rating->setRating($pid, $rate);
         }
-        return true;
     }
 
     public function actionView($id)
@@ -200,11 +201,6 @@ class CatalogController extends AppController
         ]);
     }
 
-    /**
-     * Creates a new Products model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Products();
@@ -245,13 +241,6 @@ class CatalogController extends AppController
         ]);
     }
 
-    /**
-     * Updates an existing Products model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -278,13 +267,6 @@ class CatalogController extends AppController
         ]);
     }
 
-    /**
-     * Deletes an existing Products model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -292,13 +274,6 @@ class CatalogController extends AppController
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Products model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Products the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Products::findOne($id)) !== null) {
@@ -318,7 +293,7 @@ class CatalogController extends AppController
         $translit = new Translit();
         return $text = strtolower($translit->translit($text, true, 'ru-en'));
     }
-
+/*
     public function actionDownloadFile()
     {
         $model = $this->findModel($id);
@@ -328,7 +303,7 @@ class CatalogController extends AppController
         // отдаем файл
         Yii::app()->request->sendFile(basename($file),file_get_contents($file));
     }
-
+*/
     private function addHits($id)
     {
         $model = $this->findModel($id);
@@ -336,6 +311,11 @@ class CatalogController extends AppController
         $model->save(false);
     }
 
+    private function checkReate($pid)
+    {
+        $rating = new Ratings();
+        return ($rating::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) ? false : true; //Проверка голосовал ли текущий пользователь за материал
+    }
 
 
 }
