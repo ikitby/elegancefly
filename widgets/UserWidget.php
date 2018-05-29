@@ -9,12 +9,11 @@ class UserWidget extends Widget
 {
     public $tpl;
     public $user;
-    public $usertype;
 
     public function init(){
         parent::init();
         if ($this->tpl === null) {
-            $this->tpl = 'User';
+            $this->tpl = 'user';
         }
         $this->tpl .='.php';
     }

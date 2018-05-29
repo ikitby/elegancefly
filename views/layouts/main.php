@@ -76,9 +76,9 @@ AppAsset::register($this);
 
             </div>
 
-            <h3>Все художники<span class="label label-info"></span></h3>
+            <h3>Топ художников<span class="label label-info"></span></h3>
             <ul id="userblockid">
-                <?= \app\widgets\UserWidget::widget(['tpl' =>'usergallery', 'usertype' => 'painter']) ?>
+                <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => 'painter']) ?>
             </ul>
 
         </div>
