@@ -61,8 +61,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
         </div>
-        <span id="numRait_<?=$model->id?>"><?= $model->getAllRatings($model->id) ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->getAllVotes($model->id) ?>
+        <div id="r_infowrap<?=$model->id?>">
 
+
+        <span id="numRait_<?=$model->id?>"><?= $model->getAllRatings($model->id) ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->getAllVotes($model->id) ?></span>
+        </div>
         <?php
         echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
@@ -74,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'stars' => 5,
                 'step' => 1,
                 'readonly' => Ratings::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $model->id])->count() ? true : false,
-                //'disabled' => Yii::$app->user->isGuest ? true : false,
+                'disabled' => Yii::$app->user->isGuest ? true : false,
                 'showCaption' => false,
                 'showClear'=>false
             ],
@@ -89,26 +92,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         
                             var data = jQuery.parseJSON(data);
                             var inputRating = $("#input-'.$model->id.'");
-                            console.log (data);
                             
                             if (typeof data.message !== "undefined") {
                                 console.log(data.r_message);
-                                inputRating.rating("reset");
-                                //inputRating.rating("reset");//очищает рейтинг до значения в бд
-
-                                $("#myModal-geo .modal-body strong").text(data.message);//забиваем сообщение в модальное окно
-                                $("#myModal-geo").modal();//вызываем виджет модального окна
-
-                            }else{
-
-                                $("#numRait_'.$model->id.'").text(data.r_rating);//обновляем цифры рейтинга в тегах на странице
-                                $("#numVotes_'.$model->id.'").text(data.r_allrating);//обновляем цыфры кол-ва голосов в тегах на странице
-                                inputRating.rating("refresh", {disabled: true, showClear: false, showCaption: true});//добавляет рейтинг и блокирует повторное нажатие
+                                
+                             }else{                                
+                                $("#numRait_'.$model->id.'").text(data.r_rating);
+                                $("#numVotes_'.$model->id.'").text(data.r_allrating);
+                                inputRating.rating("refresh", {disabled: true});
                             }
-
-                        }
+                                inputRating.rating("reset");
+                                $("#r_infowrap'.$model->id.' #rm_cont").detach();
+                                $("#r_infowrap'.$model->id.'").append("<span id=\"rm_cont\" style=\"display:none\"></span>");
+                                $("#r_infowrap'.$model->id.' #rm_cont").empty();
+                                $("#r_infowrap'.$model->id.' #rm_cont").text(data.r_message).fadeIn(300).fadeOut(5000);   
+                            
+                        }                                              
                     });
-                    
                 }',
         ],
 
@@ -146,7 +146,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
                 <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
                 <li><strong>Продано: </strong>0/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
-                <li><strong>Инфо: </strong><?= Html::encode($model->project_info) ?></li>
+                <li><strong>Инфо: </strong><br />
+                    <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>
             </ul>
         </div>

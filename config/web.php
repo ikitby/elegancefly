@@ -54,6 +54,7 @@ $config = [
                 'catalog/<id:\d+>' => 'catalog/view',
                 'catalog/tag/<alias:\w+>' => 'catalog/tag',
                 'catalog/tema/<alias:\w+>' => 'catalog/tema',
+                'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',
             ],
         ],

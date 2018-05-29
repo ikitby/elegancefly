@@ -34,7 +34,7 @@ $photos = json::decode($model->photos);
     ?>
 
     <?php $owlId = uniqid('owl_'); ?>
-<div class="col-md-2 <?= $owlId ?>">
+<div class="col-md-3 <?= $owlId ?>">
 
  <?php
     OwlCarouselWidget::begin([
@@ -62,7 +62,7 @@ $photos = json::decode($model->photos);
         Нет тут ни чего!
     <?php endif;
     ?>
-      <div class="col-md-12">
+      <div class="row">
         <?= LinkPager::widget(['pagination' => $pagination]) ?>
       </div>
     </div>

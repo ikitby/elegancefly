@@ -61,11 +61,31 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="row">
+        <div class="col-md-8">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
+        <div class="col-md-4">
+            <div id="userblock">
+
+                <?= \app\widgets\UserWidget::widget(['tpl' =>'user']) ?>
+
+            </div>
+
+            <h3>Все художники<span class="label label-info"></span></h3>
+            <ul id="userblockid">
+                <?= \app\widgets\UserWidget::widget(['tpl' =>'usergallery', 'usertype' => 'painter']) ?>
+            </ul>
+
+        </div>
+        </div>
+
+
+
     </div>
 </div>
 

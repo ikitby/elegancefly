@@ -63,9 +63,7 @@ class Ratings extends \yii\db\ActiveRecord
     public function getAllRating ($itemid)
     {
         $rating = 0;
-
         $ratingall = self::find()->where(['project_id' => $itemid])->select('rating')->all(); //выбираем из базы рейтинга все отметки для текущего материала
-
         $i = 0;
 
         foreach ($ratingall as $rate)
@@ -81,6 +79,11 @@ class Ratings extends \yii\db\ActiveRecord
         return $rating;
     }
 
+    public function getAllVotes ($itemid)
+    {
+        return $AllVotes = self::find()->where(['project_id' => $itemid])->select('rating')->count(); //выбираем из базы рейтинга все отметки для текущего материала
+
+    }
     public function setRating($pid, $rate = 0)
     {
 
@@ -96,8 +99,8 @@ class Ratings extends \yii\db\ActiveRecord
             if ($this->checkReate($pid)) {
                     if ($this->validate(false)) {
                         $this->save();
-                        $resresult['r_rating'] = $this->rating;
-                        $resresult['r_allrating'] = $this->getAllRating($pid);
+                        $resresult['r_rating'] = $this->getAllRating($pid);
+                        $resresult['r_allrating'] = $this->getAllVotes($pid);
                         $resresult['r_message'] = 'Ваш голос принят';
                         return Json::encode($resresult);
                     } else {
