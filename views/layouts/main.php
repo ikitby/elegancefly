@@ -62,14 +62,14 @@ AppAsset::register($this);
 
     <div class="container">
         <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div id="userblock">
 
                 <?= \app\widgets\UserWidget::widget(['tpl' =>'user']) ?>

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\User;
 use app\models\UsersSearch;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,13 +36,32 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UsersSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $users = User::find()->where(['state' => 10]);
+        $usersall = $users;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
+                'totalCount'        => $users->count()
+            ]
+        );
+
+        $users = User::find()
+            ->where([
+                'state' => 10,
+            ])
+            ->with('products')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'users'      => $users,
+            'usersall'   => $usersall,
+            'pagination'    => $pagination
         ]);
+
     }
 
     /**

@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12">
             <h1><?= $model->title ?></h1>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
 <?php
 
             OwlCarouselWidget::begin([
@@ -57,11 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
             print Html::img('/'.$photo['filepath'].$photo['filename'], ['class' => 'img-responsive', 'style' => 'margin: 5px', 'alt' => $model->title, 'title' => $model->title]);
             }
             OwlCarouselWidget::end();
-
 ?>
 
         </div>
-        <div id="r_infowrap<?=$model->id?>">
+        <div id="r_infowrap<?=$model->id?> col-md-6">
 
 
         <span id="numRait_<?=$model->id?>"><?= $model->getAllRatings($model->id) ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->getAllVotes($model->id) ?></span>
@@ -181,4 +180,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-</div>
+
