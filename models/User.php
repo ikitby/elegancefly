@@ -57,6 +57,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Products::className(), ['user_id' => 'id']);
     }
 
+    public function getRatings()
+    {
+        return $this->hasMany(Ratings::className(), ['rateuser_id' => 'id']);
+    }
+
     /**
      * @inheritdoc
      */

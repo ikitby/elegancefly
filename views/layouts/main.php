@@ -76,6 +76,8 @@ AppAsset::register($this);
 
             </div>
 
+            <?= \app\widgets\MenuWidget::widget(['tpl' =>'menu']) ?>
+
             <h3>Топ художников<span class="label label-info"></span></h3>
             <ul id="userblockid">
                 <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => 'painter']) ?>

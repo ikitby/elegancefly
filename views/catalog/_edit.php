@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Catprod;
 use app\models\Tags;
 use app\models\Themsprod;
 use yii\helpers\Html;
@@ -25,7 +26,10 @@ use kartik\widgets\Select2;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-md-6">
-    <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
+
+        <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Категория') ?>
+
+        <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
 
         <?php
     /*

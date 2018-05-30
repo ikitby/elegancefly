@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\User;
-use app\models\UsersSearch;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -13,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * UsersController implements the CRUD actions for User model.
  */
-class UsersController extends Controller
+class PaintersController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -50,8 +49,9 @@ class UsersController extends Controller
         $users = User::find()
             ->where([
                 'state' => 10,
+                'usertype' => 'painter',
             ])
-            ->with('products')
+            ->with('products', 'ratings')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();

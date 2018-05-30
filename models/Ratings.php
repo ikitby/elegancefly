@@ -84,6 +84,12 @@ class Ratings extends \yii\db\ActiveRecord
         return $AllVotes = self::find()->where(['project_id' => $itemid])->select('rating')->count(); //выбираем из базы рейтинга все отметки для текущего материала
 
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'rateuser_id']);
+    }
+
     public function setRating($pid, $rate = 0)
     {
 

@@ -2,15 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Catprod;
 use app\models\Ratings;
 use app\models\Tags;
 use app\models\Themsprod;
 use app\models\UploadProject;
-use Codeception\Lib\Di;
-use Codeception\Lib\Generator\Helper;
 use Yii;
 use app\models\Products;
-use app\models\ProductsSearch;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 
@@ -79,6 +77,59 @@ class CatalogController extends AppController
         ]);
 
 
+    }
+
+    public function actionCategory()
+    {
+
+        if (Yii::$app->request->get('id')) {
+
+            $id = Yii::$app->request->get('id');
+
+            $this->addHits($id);
+            $model = $this->findModel($id);
+
+            $rating_count = $model->getRatings()->select('rating')->count();
+            $rating = $model->getRatings()->select('rating')->asArray()->all();
+
+            $model->rating = $model->afterFind();
+
+            //$rateUsers = $model->rateUsers; //Так можно получить оценивших материал пользователей
+            return $this->render('view', [
+                'model' => $model
+            ]);
+
+        } else {
+            $products = Products::find()->where(['state' => 1, 'deleted' => 0]);
+            $productsall = $products;
+
+            $catalias = Yii::$app->request->get('catalias');
+            $catid = Catprod::find()->where(['alias' => $catalias])->one()->id;
+
+            $pagination = new Pagination(
+                [
+                    'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
+                    'totalCount'        => $products->count()
+                ]
+            );
+
+            $products = Products::find()
+                ->where([
+                    'state' => 1,
+                    'deleted' => 0,
+                    'category' => $catid,
+                ])
+                ->with(['user', 'catprod'])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
+
+            return $this->render('category', [
+                'products'      => $products,
+                'productsall'   => $productsall,
+                'pagination'    => $pagination
+            ]);
+        }
     }
 
     public function actionTag()

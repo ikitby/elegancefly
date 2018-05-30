@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Catprod;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -11,15 +12,18 @@ use app\models\Ratings;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
+$catalias = Yii::$app->request->get('catalias'); //get category alias from url
+$curentcat = Catprod::find()->where(['alias' => $catalias])->one();
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
+if ($curentcat) {$this->params['breadcrumbs'][] = ['label' => ''.$curentcat->title.'', 'url' => ['catalog/'.$curentcat->alias.'']];}
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="products-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -35,9 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div class="row">
-        <div class="col-md-12">
-            <h1><?= $model->title ?></h1>
-        </div>
         <div class="col-md-6">
 <?php
 
@@ -58,11 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
             }
             OwlCarouselWidget::end();
 ?>
-
         </div>
-        <div id="r_infowrap<?=$model->id?> col-md-6">
-
-
+        <div class="col-md-6">
+        <div id="r_infowrap<?=$model->id?>">
         <span id="numRait_<?=$model->id?>"><?= $model->getAllRatings($model->id) ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->getAllVotes($model->id) ?></span>
         </div>
         <?php
@@ -93,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             var inputRating = $("#input-'.$model->id.'");
                             
                             if (typeof data.message !== "undefined") {
-                                console.log(data.r_message);
+
                                 
                              }else{                                
                                 $("#numRait_'.$model->id.'").text(data.r_rating);
@@ -138,6 +137,8 @@ $this->params['breadcrumbs'][] = $this->title;
 */
         ?>
             <ul>
+
+                <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod[0]['alias']]) ?>"><?= Html::encode($model->catprod[0]['title']) ?></a></li>
                 <li><strong>Автор: </strong><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></li>
                 <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
@@ -149,6 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>
             </ul>
+        </div>
         </div>
     </div>
     <?= DetailView::widget([

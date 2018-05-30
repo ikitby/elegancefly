@@ -44,7 +44,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
-            [['photos', 'price','tags', 'project_info', 'themes','title', 'state', 'deleted'], 'required'],
+            [['photos', 'category', 'price','tags', 'project_info', 'themes','title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],
             [['photos'], 'safe'],
@@ -60,6 +60,7 @@ class Products extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User id',
             'title' => 'Title',
+            'category' => 'Category',
             'file' => 'File',
             'tags' => 'Tags',
             'photos' => 'Photos',
@@ -97,6 +98,11 @@ class Products extends \yii\db\ActiveRecord
     public function getRatings()
     {
         return $this->hasMany(Ratings::className(), ['project_id' => 'id']);
+    }
+
+    public function getCatprod()
+    {
+        return $this->hasMany(Catprod::className(), ['id' => 'category']);
     }
 
     public function getAllRatings ($itemid)
