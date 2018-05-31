@@ -27,19 +27,61 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
-
-    public function getRateProjects()
-    {
-        return $this->hasMany(Products::className(), ['id' => 'project_id'])
-            ->viaTable('ratings', ['user_id' => 'id']);
-    }
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    public function rules()
+    {
+        return [
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['status', 'created_at', 'updated_at', 'percent', 'state', 'role', 'rate', 'balance'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['name', 'auth_key'], 'string', 'max' => 32],
+            [['usertype', 'photo', 'languages', 'fbpage', 'vkpage', 'inpage'], 'string', 'max' => 250],
+            [['birthday', 'country'], 'string', 'max' => 80],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'name' => 'Name',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'usertype' => 'Usertype',
+            'photo' => 'Photo',
+            'birthday' => 'Birthday',
+            'country' => 'Country',
+            'languages' => 'Languages',
+            'fbpage' => 'Fbpage',
+            'vkpage' => 'Vkpage',
+            'inpage' => 'Inpage',
+            'percent' => 'Percent',
+            'state' => 'State',
+            'role' => 'Role',
+            'rate' => 'Rate',
+            'balance' => 'Balance',
+        ];
     }
 
     /**
@@ -52,6 +94,14 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+
+    public function getRateProjects()
+    {
+        return $this->hasMany(Products::className(), ['id' => 'project_id'])
+            ->viaTable('ratings', ['user_id' => 'id']);
+    }
+
+
     public function getProducts()
     {
         return $this->hasMany(Products::className(), ['user_id' => 'id']);
@@ -60,17 +110,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getRatings()
     {
         return $this->hasMany(Ratings::className(), ['rateuser_id' => 'id']);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-        ];
     }
 
     /**

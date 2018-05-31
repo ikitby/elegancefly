@@ -8,7 +8,7 @@ use yii\helpers\Url;
         (!$user->photo) ? $user->photo = 'nophoto.png' : $user->photo;
     ?>
     <div class="col-md-12 useravatar">
-        <a href="<?= yii\helpers\Url::to(['/user']) ?>">
+        <a href="<?= yii\helpers\Url::to(['/profile']) ?>">
             <?= Html::img("/images/user/{$user->photo}", ['class' => 'adaptive', 'alt' => Html::encode($user->name), 'title' => Html::encode($user->name)]) ?>
         </a>
     </div>
@@ -20,7 +20,6 @@ use yii\helpers\Url;
         <?php else: ?>
         <a href="<?= Url::to(['auth/logout'])?>" data-method="post">Выход</a>
         <?php endif; ?>
-
     </div>
 
 </div>
