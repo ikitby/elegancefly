@@ -76,7 +76,7 @@ class User extends ActiveRecord implements IdentityInterface
             'fbpage' => 'Fbpage',
             'vkpage' => 'Vkpage',
             'inpage' => 'Inpage',
-            'percent' => 'Percent',
+            //'percent' => 'Percent',
             'state' => 'State',
             'role' => 'Role',
             'rate' => 'Rate',
@@ -230,6 +230,12 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function saveImage($filename)
+    {
+        $this->photo = $filename;
+        $this->save(false);
     }
 
 }

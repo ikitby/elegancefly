@@ -5,11 +5,15 @@ use yii\helpers\Url;
 ?>
 <div class="row" style="text-align: center;">
     <?php if (!empty($user)) :
-        (!$user->photo) ? $user->photo = 'nophoto.png' : $user->photo;
+        if (empty($user['photo'])) {
+            $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($user['name']) ? $user['name'] : $user['username']), 'title' => Html::encode(($user['name']) ? $user['name'] : $user['username'])]);
+        } else {
+            $userphoto = Html::img("/images/user/user_{$user['id']}/{$user['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($user['name']) ? $user['name'] : $user['username']), 'title' => Html::encode(($user['name']) ? $user['name'] : $user['username'])]);
+        }
     ?>
     <div class="col-md-12 useravatar">
-        <a href="<?= yii\helpers\Url::to(['/profile']) ?>">
-            <?= Html::img("/images/user/{$user->photo}", ['class' => 'adaptive', 'alt' => Html::encode($user->name), 'title' => Html::encode($user->name)]) ?>
+        <a href="<?= yii\helpers\Url::to(['/user']) ?>">
+            <?= $userphoto ?>
         </a>
     </div>
     <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
@@ -20,6 +24,7 @@ use yii\helpers\Url;
         <?php else: ?>
         <a href="<?= Url::to(['auth/logout'])?>" data-method="post">Выход</a>
         <?php endif; ?>
+
     </div>
 
 </div>

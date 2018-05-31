@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\ImageUpload;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProfileController implements the CRUD actions for User model.
@@ -80,8 +82,21 @@ class ProfileController extends Controller
         $id = Yii::$app->user->id;
 
         $model = $this->findModel($id);
+        $imgmodel = new ImageUpload();
+        $currentphoto = $model->photo;
+
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            ($model->photo) ? $model->photo : $model->photo  = $currentphoto; //если форма фото пустая - возвращаем значение текущего фото
+            //$model->user_phones = implode(",", $model->user_phones);   //обрабатываем массив телефонов в строку
+            $file = UploadedFile::getInstance($model, 'photo'); //цепляем из нашей модельки файл по его полю
+            $model->save();
+            if ($file) {
+                $model->saveImage($imgmodel->uploadImage($file, $currentphoto, 'user')); //запускаем сохранение файла в базе с именем сохраненного файла
+            };
+
             return $this->redirect(['/profile']);
         }
 
