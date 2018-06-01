@@ -1,5 +1,6 @@
 <?php
 
+use kartik\widgets\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -28,7 +29,7 @@ if (empty($model->photo)) {
     <div class="col-md-12">
     <?= $form->field($model, 'name')->textInput() ?>
 
-    <?= $form->field($model, 'birthday')->textInput() ?>
+    <?= $form->field($model, 'birthday')->widget(DatePicker::classname(), ['options' => ['placeholder' => 'Enter birth date ...'], 'pluginOptions' => ['autoclose'=>true, 'format' => 'dd.M.yyyy', 'todayHighlight' => true]]); ?>
 
     <?= $form->field($model, 'country')->textInput() ?>
 

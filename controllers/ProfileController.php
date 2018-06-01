@@ -85,8 +85,6 @@ class ProfileController extends Controller
         $imgmodel = new ImageUpload();
         $currentphoto = $model->photo;
 
-
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             ($model->photo) ? $model->photo : $model->photo  = $currentphoto; //если форма фото пустая - возвращаем значение текущего фото

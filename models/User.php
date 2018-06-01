@@ -38,7 +38,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'email'], 'required'],
             [['status', 'created_at', 'updated_at', 'percent', 'state', 'role', 'rate', 'balance'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['name', 'auth_key'], 'string', 'max' => 32],
@@ -236,6 +236,19 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->photo = $filename;
         $this->save(false);
+    }
+
+    public function getUserRating($id)
+    {
+        $ratingcount = Ratings::find()->where(['rateuser_id' => 1])->count();
+        $rating = Ratings::find()->where(['rateuser_id' => 1])->sum('rating');
+
+        $result = array([
+                'count' => $ratingcount,
+                'ratingall' => $rating,
+                'rating' => round($rating/$ratingcount, 1)
+            ]);
+        return $result;
     }
 
 }

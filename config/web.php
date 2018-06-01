@@ -50,6 +50,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                //'signup' => 'site/signup',
                 'catalog/' => 'catalog/index',
                 'catalog/<id:\d+>' => 'catalog/view',
                 'catalog/tag/<alias:\w+>' => 'catalog/tag',
