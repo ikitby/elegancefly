@@ -13,7 +13,6 @@ if (empty($model->photo)) {
 } else {
     $userphoto = Html::img("/images/user/user_{$model->id}/{$model->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->name) ? $model->name : $model->username), 'title' => Html::encode(($model->name) ? $model->name : $model->username)]);
 }
-
 ?>
 
 <div class="user-form">

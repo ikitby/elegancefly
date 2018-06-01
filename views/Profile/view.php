@@ -51,8 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <li><strong>Логин: </strong><?= Html::encode($model->username) ?></li>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
+            <li><strong>Работ: </strong><?= Html::encode($model->getUserProjectsCount($model->id)) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
-            <li><strong>Статус: </strong><?= Html::encode($model->languages) ?></li>
+            <li><strong>Язык: </strong><?= Html::encode($model->languages) ?></li>
         </ul>
     </div>
 </div>

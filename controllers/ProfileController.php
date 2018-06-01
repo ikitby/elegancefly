@@ -85,7 +85,7 @@ class ProfileController extends Controller
         $imgmodel = new ImageUpload();
         $currentphoto = $model->photo;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
             ($model->photo) ? $model->photo : $model->photo  = $currentphoto; //если форма фото пустая - возвращаем значение текущего фото
             //$model->user_phones = implode(",", $model->user_phones);   //обрабатываем массив телефонов в строку
