@@ -47,8 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-md-8">
         <ul>
-            <li><strong>Статус: </strong><?= Html::encode($model->usertype) ?></li>
-            <li><strong>Логин: </strong><?= Html::encode($model->usertype) ?></li>
+            <li><strong>Профиль: </strong><span class="label label-primary"><?= Html::encode($model->statuses->status) ?></span></li>
+            <li><strong>Логин: </strong><?= Html::encode($model->username) ?></li>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>

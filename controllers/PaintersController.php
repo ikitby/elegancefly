@@ -36,7 +36,7 @@ class PaintersController extends Controller
     public function actionIndex()
     {
 
-        $users = User::find()->where(['state' => 10]);
+        $users = User::find()->where(['state' => 10, 'usertype' => 2]);
         $usersall = $users;
 
         $pagination = new Pagination(
@@ -48,8 +48,8 @@ class PaintersController extends Controller
 
         $users = User::find()
             ->where([
-                'state' => 10,
-                'usertype' => 'painter',
+                'status' => 10,
+                'usertype' => 2,
             ])
             ->with('products', 'ratings')
             ->offset($pagination->offset)

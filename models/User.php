@@ -112,6 +112,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Ratings::className(), ['rateuser_id' => 'id']);
     }
 
+    public function getStatuses()
+    {
+        return $this->hasOne(Statuses::className(), ['id' => 'usertype']);
+    }
+
     /**
      * @inheritdoc
      */
@@ -240,15 +245,19 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getUserRating($id)
     {
-        $ratingcount = Ratings::find()->where(['rateuser_id' => 1])->count();
-        $rating = Ratings::find()->where(['rateuser_id' => 1])->sum('rating');
+        $ratingcount = Ratings::find()->where(['rateuser_id' => $id])->count();
+        $rating = Ratings::find()->where(['rateuser_id' => $id])->sum('rating');
 
         $result = array([
                 'count' => $ratingcount,
                 'ratingall' => $rating,
-                'rating' => round($rating/$ratingcount, 1)
+                'rating' => ($ratingcount >0 ) ? round($rating/$ratingcount, 1) : 0
             ]);
         return $result;
     }
 
+    public function getUserProjectsCount($id)
+    {
+        return $countProjects = Products::find()->where(['user_id' => $id])->count();
+    }
 }

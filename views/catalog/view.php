@@ -92,7 +92,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             var inputRating = $("#input-'.$model->id.'");
                             
                             if (typeof data.message !== "undefined") {
-
                                 
                              }else{                                
                                 $("#numRait_'.$model->id.'").text(data.r_rating);

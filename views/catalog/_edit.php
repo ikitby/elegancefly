@@ -14,11 +14,11 @@ use kartik\widgets\Select2;
 
 <div class="products-form">
 <?php
-
+/*
     if(!$model->save()) {
         print_r($model->errors);
     }
-
+*/
 ?>
 
     <?php $form = ActiveForm::begin(); ?>
