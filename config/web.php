@@ -59,6 +59,7 @@ $config = [
                 'profile' => 'profile/',
                 'painters/<user:\w+>' => 'painters',
                 'painters' => 'painters/',
+                'catalog/create' => 'catalog/create',
                 'catalog/update' => 'catalog/update',
                 'catalog/rate' => 'catalog/rate',
                 'catalog/<catalias:\w+>/<id:\d+>' => 'catalog/category',
