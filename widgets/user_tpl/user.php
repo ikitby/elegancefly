@@ -1,4 +1,6 @@
 <?php
+
+use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -16,6 +18,22 @@ use yii\helpers\Url;
             <?= $userphoto ?>
         </a>
     </div>
+        <?php
+        echo StarRating::widget([
+            'name' => 'rating_'.$model->id.'',
+            'id' => 'input-'.$model->id.'',
+            'value' => $user['rate'],
+            'attribute' => 'rating',
+            'pluginOptions' => [
+                'size' => 'sm',
+                'stars' => 5,
+                'step' => 1,
+                'readonly' => true,
+                'disabled' => true,
+                'showCaption' => false,
+                'showClear'=>false
+            ],
+        ]); ?>
     <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
     <?php endif; ?>
     <div class="col-md-12">
