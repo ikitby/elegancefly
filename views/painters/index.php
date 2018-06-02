@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             echo StarRating::widget([
                                 'name' => 'rating_'.$user->id.'',
                                 'id' => 'input-'.$user->id.'',
-                                'value' => $user->getUserRating($user->id)[0]['rating'],
+                                'value' => $user->rate,
                                 'attribute' => 'rating',
                                 'pluginOptions' => [
                                     'size' => 'xs',

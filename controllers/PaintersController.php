@@ -51,7 +51,8 @@ class PaintersController extends Controller
                 'status' => 10,
                 'usertype' => 2,
             ])
-            ->with('products', 'ratings')
+            ->with('products'/*, 'ratings'*/)
+            ->orderBy(['rate' => SORT_DESC])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();

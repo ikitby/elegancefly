@@ -224,9 +224,15 @@ class CatalogController extends AppController
         if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
             $rating = new Ratings();
             $request = Yii::$app->request;
-           // Yii::$app->request->post()
+
             $pid = $request->post('pid');
             $rate = $request->post('rating');
+/*
+            $pid = 55;//delete
+            $rate = 4;//delete
+
+            return $rating->setRating($pid, $rate); //delete
+*/
             if ($rate && $pid) {
                 return $rating->setRating($pid, $rate);
             } else {

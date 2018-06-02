@@ -35,6 +35,19 @@ class User extends ActiveRecord implements IdentityInterface
         return '{{%user}}';
     }
 
+    public static function getAllRating($user_id)
+    {
+        $ratingcount = Ratings::find()->where(['rateuser_id' => $user_id])->count();
+        $rating = Ratings::find()->where(['rateuser_id' => $user_id])->sum('rating');
+        
+        $result = array([
+            'count' => $ratingcount,
+            'ratingall' => $rating,
+            'rating' => ($ratingcount > 0 ) ? round($rating/$ratingcount, 1) : 0
+        ]);
+        
+    }
+
     public function rules()
     {
         return [
@@ -251,7 +264,7 @@ class User extends ActiveRecord implements IdentityInterface
         $result = array([
                 'count' => $ratingcount,
                 'ratingall' => $rating,
-                'rating' => ($ratingcount >0 ) ? round($rating/$ratingcount, 1) : 0
+                'rating' => ($ratingcount > 0 ) ? round($rating/$ratingcount, 1) : 0
             ]);
         return $result;
     }
