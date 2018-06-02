@@ -27,6 +27,32 @@ class Ratings extends \yii\db\ActiveRecord
         return 'ratings';
     }
 
+    public static function getAllRatings($id)
+    {
+        $rating = 0;
+        $rating = self::find()->where(['project_id' => $id])->sum('rating'); //выбираем из базы рейтинга все отметки для текущего материала
+        $count = self::find()->where(['project_id' => $id])->count();
+
+                if ($count > 0) {
+                    $rating = round($rating / $count, 1);
+                }
+
+        return $rating;
+    }
+
+    private static function getAllUserRating($userid)
+    {
+        $rating = 0;
+        $rating = self::find()->where(['rateuser_id' => $userid])->sum('rating'); //выбираем из базы рейтинга все отметки для текущего материала
+        $count = self::find()->where(['rateuser_id' => $userid])->count();
+
+        if ($count > 0) {
+            $rating = round($rating / $count, 1);
+        }
+
+        return $rating;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -60,20 +86,14 @@ class Ratings extends \yii\db\ActiveRecord
         return $this->hasMany(Products::className(), ['id' => 'project_id']);
     }
 
-    public function getAllRating ($itemid)
+    public function getAllRating ($id)
     {
         $rating = 0;
-        $ratingall = self::find()->where(['project_id' => $itemid])->select('rating')->all(); //выбираем из базы рейтинга все отметки для текущего материала
-        $i = 0;
+        $rating = self::find()->where(['project_id' => $id])->sum('rating'); //выбираем из базы рейтинга все отметки для текущего материала
+        $count = self::find()->where(['project_id' => $id])->count();
 
-        foreach ($ratingall as $rate)
-        {
-            $rating += $rate->rating;
-            $i++;
-        }
-
-        if ($rating > 0) {
-            $rating = round($rating / $i, 1);
+        if ($count > 0) {
+            $rating = round($rating / $count, 1);
         }
 
         return $rating;
@@ -103,11 +123,22 @@ class Ratings extends \yii\db\ActiveRecord
            // }
 
             if ($this->checkReate($pid)) {
-                    if ($this->validate(false)) {
+                    if ($this->validate()) {
                         $this->save();
                         $resresult['r_rating'] = $this->getAllRating($pid);
                         $resresult['r_allrating'] = $this->getAllVotes($pid);
                         $resresult['r_message'] = 'Ваш голос принят';
+                        //Запишем рейтинг в запись проекта для сортировок и ускорения выводе рейтина в дальнейшем
+                        $prate = Products::findOne($pid);
+                        $prate->rating = $resresult['r_rating'];
+                        $prate->save();
+                        //Запишем рейтинг в запись проекта для сортировок и ускорения выводе рейтина в дальнейшем
+                        //обновим общий рейтинг пользователя за которого голосовали
+                        $urate = User::findOne($this->projects[0]->user_id);
+                        $newrate = Ratings::getAllUserRating($this->projects[0]->user_id);
+                        $urate->rate = $newrate;
+                        $urate->save(false);
+                        //обновим общий рейтинг пользователя за которого голосовали
                         return Json::encode($resresult);
                     } else {
                         return Json::encode($resresult['r_error'] ='Что то меня заклинило!'.$errors = $this->errors);
@@ -120,8 +151,7 @@ class Ratings extends \yii\db\ActiveRecord
 
     private function checkReate($pid)
     {
-        $rating = new Ratings();
-        return ($rating::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) ? false : true; //Проверка голосовал ли текущий пользователь за материал
+        return (Ratings::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $pid])->all()) ? false : true; //Проверка голосовал ли текущий пользователь за материал
     }
 
 }
