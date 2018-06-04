@@ -25,6 +25,7 @@ use kartik\widgets\Select2;
     <div class="col-md-12">
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     </div>
+
     <div class="col-md-6">
 
         <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Категория') ?>

@@ -301,6 +301,9 @@ class CatalogController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        dump(Yii::$app->user->can('edirOwnProfect', ['post' => $model])); die();
+
         $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
         $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 

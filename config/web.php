@@ -44,7 +44,6 @@ $config = [
             'catalog/category',
             'catalog/tema',
             'catalog/tag',
-            'catalog/category',
 
         ]
     ],
