@@ -38,10 +38,13 @@ $config = [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
-            'catalog/*',
-            'admin/*',
-            'rbac/*',
-            'signup/*',
+            //'rbac/*',
+            'catalog/index',
+            'catalog/view',
+            'catalog/category',
+            'catalog/tema',
+            'catalog/tag',
+            'catalog/category',
 
         ]
     ],
