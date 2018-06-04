@@ -51,11 +51,10 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
-        $userRole = Yii::$app->authManager->getRole('user');
         $user->setPassword($this->password);
         $user->generateAuthKey();
         if ($user->save()) {
-            $userRole = Yii::$app->authManager->getRole('user');
+            $userRole = Yii::$app->authManager->getRole('user'); // Назначаем роль по умолчани. для пользователя
             Yii::$app->authManager->assign($userRole, $user->id);
             return $user;
         }
