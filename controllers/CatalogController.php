@@ -302,11 +302,13 @@ class CatalogController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        //dump(Yii::$app->user->can('editOwnProject', ['post' => $model])); die();
 
         if (!Yii::$app->user->can('editOwnProject', ['post' => $model]))
         {
             throw new ForbiddenHttpException('This action is not allowed for you!');
         }
+
             $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
             $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 

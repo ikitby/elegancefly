@@ -40,10 +40,11 @@ $config = [
             'site/*',
             'rbac/*',
             'catalog/index',
-            'catalog/view/*',
+            'catalog/*',
             'catalog/category*',
             'catalog/tema',
             'catalog/tag',
+            'painters*',
         ]
     ],
     'components' => [
