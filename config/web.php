@@ -38,7 +38,7 @@ $config = [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
-            //'rbac/*',
+            'rbac/*',
             'catalog/index',
             'catalog/view/*',
             'catalog/category*',
@@ -66,7 +66,7 @@ $config = [
         */
         'user' => [
             'identityClass' => 'mdm\admin\models\User',
-            'loginUrl' => ['rbac/user/login'],
+            'loginUrl' => ['login'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

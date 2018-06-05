@@ -12,6 +12,7 @@ use app\models\Products;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -302,29 +303,32 @@ class CatalogController extends AppController
     {
         $model = $this->findModel($id);
 
-        dump(Yii::$app->user->can('edirOwnProfect', ['post' => $model])); die();
-
-        $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
-        $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
-
-        if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
+        if (!Yii::$app->user->can('editOwnProject', ['post' => $model]))
         {
-            $querypost = Yii::$app->request->post('Products');
-            $themes = $querypost['themes'];
-            $model->saveThems($themes);
-
-            $tags = $querypost['tags'];
-            $model->saveTags($tags);
-            $model->save(false);
+            throw new ForbiddenHttpException('This action is not allowed for you!');
         }
+            $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
+            $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
+            {
+                $querypost = Yii::$app->request->post('Products');
+                $themes = $querypost['themes'];
+                $model->saveThems($themes);
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+                $tags = $querypost['tags'];
+                $model->saveTags($tags);
+                $model->save(false);
+            }
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+
     }
 
     public function actionDelete($id)
