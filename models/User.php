@@ -55,7 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['status', 'created_at', 'updated_at', 'percent', 'state', 'role', 'rate', 'balance'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['name', 'auth_key'], 'string', 'max' => 32],
-            [['usertype', 'photo', 'languages', 'fbpage', 'vkpage', 'inpage'], 'string', 'max' => 250],
+            [['photo', 'languages', 'fbpage', 'vkpage', 'inpage'], 'string', 'max' => 250],
             [['birthday', 'country'], 'string', 'max' => 80],
             [['username'], 'unique'],
             [['email'], 'unique'],

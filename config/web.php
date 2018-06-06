@@ -25,7 +25,6 @@ $config = [
                     'userClassName' => 'app\models\User',
                     'idField' => 'id',
                     'usernameField' => 'username',
-
                 ],
             ],
             'layout' => 'left-menu',
@@ -40,7 +39,7 @@ $config = [
             'site/*',
             'rbac/*',
             'catalog/index',
-            'catalog/*',
+            //'catalog/update',
             'catalog/category*',
             'catalog/tema',
             'catalog/tag',
@@ -50,6 +49,7 @@ $config = [
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
+            'defaultRoles' => ['user'],
         ],
 
         'request' => [

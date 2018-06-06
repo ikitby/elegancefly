@@ -11,6 +11,10 @@ class AuthorRule extends Rule
 
     public function execute($user, $item, $params)
     {
-        return isset($params['post']) ? $params['post']->user_id == $user : false;
+        dump(isset($params['model']) ? $params['model']->user_id == $user : false);
+        die();
+        
+        return isset($params['model']) ? $params['model']->user_id == $user : false; //ен отдает true когда надо.
     }
 }
+

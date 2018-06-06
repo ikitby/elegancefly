@@ -10,12 +10,14 @@ use app\models\UploadProject;
 use Yii;
 use app\models\Products;
 use yii\data\Pagination;
+
 use yii\helpers\ArrayHelper;
 
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 use dastanaron\translit\Translit;
 
 
@@ -27,10 +29,10 @@ class CatalogController extends AppController
 
     const STATUS_PAGESIZE = 36;
 
-
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
@@ -299,16 +301,16 @@ class CatalogController extends AppController
         ]);
     }
 
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        //dump(Yii::$app->user->can('editOwnProject', ['post' => $model])); die();
-
-        if (!Yii::$app->user->can('editOwnProject', ['post' => $model]))
+/*
+        if (!Yii::$app->user->can('editOwnProject', ['model' => $model]))
         {
             throw new ForbiddenHttpException('This action is not allowed for you!');
         }
-
+*/
             $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
             $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 
@@ -332,6 +334,7 @@ class CatalogController extends AppController
             ]);
 
     }
+
 
     public function actionDelete($id)
     {
