@@ -45,6 +45,8 @@ class CatalogController extends AppController
         ];
     }
 
+
+
     /**
      * Lists all Products models.
      * @return mixed
@@ -305,7 +307,8 @@ class CatalogController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-/*
+        
+        /*
         if (!Yii::$app->user->can('editOwnProject', ['model' => $model]))
         {
             throw new ForbiddenHttpException('This action is not allowed for you!');

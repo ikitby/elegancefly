@@ -49,7 +49,7 @@ $config = [
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
-            'defaultRoles' => ['user'],
+            //'defaultRoles' => ['user'],
         ],
 
         'request' => [
