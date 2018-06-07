@@ -130,6 +130,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Statuses::className(), ['id' => 'usertype']);
     }
 
+    /* cart */
+
+    public function getCartItems()
+    {
+        return $this->hasMany(Cart::className(), ['buyer_id' => 'id']);
+    }
+
     /**
      * @inheritdoc
      */
