@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Catprod;
+use app\widgets\BasketWidget;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -57,7 +58,17 @@ $this->params['breadcrumbs'][] = $this->title;
         print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $curentcat->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
     }
     OwlCarouselWidget::end();
-?>
+ ?>
+
+    <?= BasketWidget::widget([
+            'template' =>'plane',
+            'prod_id' => $product->id,
+            'price' => $product->price,
+            //'discont' => $product->limit,
+            'limit' =>  $product->limit,
+            ])
+    ?>
+
 </div>
 
     <?php

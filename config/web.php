@@ -39,7 +39,7 @@ $config = [
             'site/*',
             'rbac/*',
             'catalog/index',
-            //'catalog/update',
+            'catalog/view*',
             'catalog/category*',
             'catalog/tema',
             'catalog/tag',

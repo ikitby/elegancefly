@@ -1,5 +1,6 @@
 <?php
 
+use app\widgets\BasketWidget;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -55,7 +56,16 @@ $photos = json::decode($model->photos);
 
     }
     OwlCarouselWidget::end();
+
 ?>
+ <?= BasketWidget::widget([
+     'template' =>'plane',
+     'prod_id' => $product->id,
+     'price' => $product->price,
+     //'discont' => $product->limit,
+     'limit' =>  $product->limit,
+ ])
+ ?>
 </div>
 
     <?php

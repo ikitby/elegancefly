@@ -25,9 +25,6 @@ class MenuWidget extends Widget{
         //if ($menu) return $menu;
 
         $this->data = Catprod::find()->asArray()->indexBy('id')->all();
-
-
-
         $menu = $this->getHtmlMenu($this->data);
 
         //set cache

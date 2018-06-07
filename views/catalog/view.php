@@ -20,16 +20,6 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 if ($curentcat) {$this->params['breadcrumbs'][] = ['label' => ''.$curentcat->title.'', 'url' => ['catalog/'.$curentcat->alias.'']];}
 $this->params['breadcrumbs'][] = $this->title;
-/*
-print 'editOwnProject';
-dump(\Yii::$app->user->can('editOwnProject', ['model' => $model]));
-print 'editProject';
-dump(\Yii::$app->user->can('editProject', ['model' => $model]));
-print 'user';
-dump(\Yii::$app->user->can('user', ['model' => $model]));
-print 'painter';
-dump(\Yii::$app->user->can('painter', ['model' => $model]));
-*/
 
 ?>
 <div class="products-view">

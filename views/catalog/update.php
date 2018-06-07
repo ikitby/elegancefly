@@ -9,6 +9,7 @@ $this->title = 'Update Products: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+
 ?>
 <div class="products-update">
 

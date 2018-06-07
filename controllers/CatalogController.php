@@ -94,8 +94,8 @@ class CatalogController extends AppController
             $this->addHits($id);
             $model = $this->findModel($id);
 
-            $rating_count = $model->getRatings()->select('rating')->count();
-            $rating = $model->getRatings()->select('rating')->asArray()->all();
+            //$rating_count = $model->getRatings()->select('rating')->count();
+            //$rating = $model->getRatings()->select('rating')->asArray()->all();
 
             $model->rating = $model->afterFind();
 
@@ -252,8 +252,8 @@ class CatalogController extends AppController
         $this->addHits($id);
         $model = $this->findModel($id);
 
-        $rating_count = $model->getRatings()->select('rating')->count();
-        $rating = $model->getRatings()->select('rating')->asArray()->all();
+        //$rating_count = $model->getRatings()->select('rating')->count();
+        //$rating = $model->getRatings()->select('rating')->asArray()->all();
 
         $model->rating = $model->afterFind();
 
@@ -307,13 +307,13 @@ class CatalogController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
+
         /*
         if (!Yii::$app->user->can('editOwnProject', ['model' => $model]))
         {
             throw new ForbiddenHttpException('This action is not allowed for you!');
         }
-*/
+        */
             $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
             $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 
