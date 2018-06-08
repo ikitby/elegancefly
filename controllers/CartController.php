@@ -19,12 +19,31 @@ class CartController extends AppController
     public function actionIndex()
     {
 
+        $cartprod = Cart::find()->where(['buyer_id' => Yii::$app->user->id])->all();
+
+        if (empty($cartprod)) {return $this->redirect(['/catalog']);}
+
+        return $this->render('index', [
+            'cartprod'      => $cartprod,
+        ]);
 
     }
 
     /**
      * @return bool
      */
+
+    public function actionDel()
+    {
+        $cart_id = Yii::$app->request->get('id');
+
+        if ($cart_id) {
+            $cart = new Cart();
+            $cart->delFromCart($cart_id);
+            return true;
+        }
+    }
+
     public function actionAdd()
     {
         $prod_id = Yii::$app->request->get('id');

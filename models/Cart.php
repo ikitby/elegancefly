@@ -83,4 +83,11 @@ class Cart extends \yii\db\ActiveRecord
         return $this->save();
     }
 
+    public function delFromCart($cart_id)
+    {
+        $cartitem = Cart::findOne($cart_id);
+        return $cartitem->delete();
+
+    }
+
 }

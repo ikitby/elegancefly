@@ -37,6 +37,18 @@ class Products extends \yii\db\ActiveRecord
         return 'products';
     }
 
+    public static function getAutor($prodid)
+    {
+        $product = Products::findOne($prodid);
+        return $product->user;
+    }
+
+    public static function getCategory($prodid)
+    {
+        $product = Products::findOne($prodid);
+        return $product->catprod;
+    }
+
     /**
      * {@inheritdoc}
      */

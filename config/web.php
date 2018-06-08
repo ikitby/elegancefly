@@ -102,6 +102,7 @@ $config = [
                 'catalog/tema/<alias:\w+>' => 'catalog/tema',
                 'profile/' => 'profile/index',
                 'profile' => 'profile/',
+                'cart' => 'cart/',
                 'painters/<user:\w+>' => 'painters',
                 'painters' => 'painters/',
                 'catalog/create' => 'catalog/create',
