@@ -85,7 +85,8 @@ class Cart extends \yii\db\ActiveRecord
 
     public function delFromCart($cart_id)
     {
-        $cartitem = Cart::findOne($cart_id);
+        $user_id = Yii::$app->user->id;
+        $cartitem = Cart::find()->where(['id' => $cart_id, 'buyer_id' => $user_id])->one();
         return $cartitem->delete();
 
     }
