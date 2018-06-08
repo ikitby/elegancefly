@@ -10,7 +10,9 @@ $(function () {
             data: {id: id},
             type: 'GET',
             success: function (res) {
+                if (!res) alert('Error!');
                 console.log(res);
+                //ShowCart();
             },
             error: function () {
                 alert ('Error!');

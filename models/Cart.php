@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "cart".
@@ -62,5 +63,24 @@ class Cart extends \yii\db\ActiveRecord
         {
             return $this->hasOne(Products::className(), ['id' => 'product_id']);
         }
+
+    public function addToCart($prod_id)
+    {
+        $product = Products::findOne($prod_id);
+        if (empty($product)) return false;
+
+        $user_id = Yii::$app->user->id;
+        $incart = Cart::find()->where(['product_id' => $prod_id, 'buyer_id' => $user_id])->one();
+        if ($incart) return true;
+
+        $photos = json::decode($product->photos);
+        $this->product_id = $product->id;
+        $this->buyer_id = $user_id;
+        $this->qty = 1;
+        $this->name = $product->title;
+        $this->img = $photos[0]['filepath'].'100_100_'.$photos[0]['filename'];
+        $this->price = $product->price;
+        return $this->save();
+    }
 
 }
