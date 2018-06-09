@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
             $i = 1;
             foreach ($cartprod as $product) :
-            $catalias = Products::getCategory($product->product_id)[0]->alias;
+            $catalias = $product->cartproduct->catprod->alias;
         ?>
         <tbody>
             <tr>
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </h4>
                     Product id: <?= Html::encode($product->product_id) ?><br />
                     <?php $author = Products::getAutor($product->product_id);?>
-                    <?= $author->name ?><br />
+                    <?=  Html::encode($author->name) ?><br />
                 </td>
                 <td>
                     <?= Html::encode($product->price) ?>$

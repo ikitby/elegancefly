@@ -11,7 +11,6 @@ namespace app\controllers;
 use app\models\Products;
 use app\models\Cart;
 use Yii;
-use yii\helpers\Json;
 
 class CartController extends AppController
 {
@@ -19,7 +18,10 @@ class CartController extends AppController
     public function actionIndex()
     {
 
-        $cartprod = Cart::find()->where(['buyer_id' => Yii::$app->user->id])->all();
+        $cartprod = Cart::find()
+            ->where(['buyer_id' => Yii::$app->user->id])
+            ->with(['cartproduct', 'buyer'])
+            ->all();
 
         if (empty($cartprod)) {return $this->redirect(['/catalog']);}
 

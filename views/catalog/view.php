@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
             <ul>
 
-                <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod[0]['alias']]) ?>"><?= Html::encode($model->catprod[0]['title']) ?></a></li>
+                <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
                 <li><strong>Автор: </strong><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></li>
                 <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>

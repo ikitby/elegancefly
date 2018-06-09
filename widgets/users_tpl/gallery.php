@@ -7,7 +7,7 @@ if (empty($user['photo'])) {
 }
 ?>
 <li>
-    <a href="<?= yii\helpers\Url::to(['/painters', 'user' => $user['username']]) ?>">
+    <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user['username']]) ?>">
         <?= $userphoto ?>
     </a>
 </li>

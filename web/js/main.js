@@ -31,8 +31,7 @@ $(function () {
             type: 'GET',
             success: function (res) {
                 if (!res) alert('Error!');
-                //$.pjax.reload({container: "#ajcartwrapp", url: "/cart/index"});
-                $.pjax.reload('#ajcartwrapp', {timeout : 1000});
+                $.pjax.reload({container: "#ajcartwrapp", url: "/cart/index"});
                 //setTimeout(function() {window.location.reload();}, 1000);
                 //ShowCart();
             },

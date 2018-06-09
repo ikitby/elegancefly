@@ -8,11 +8,30 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use yii\web\Controller;
 
 class AppController extends Controller
 {
+    public function init()
+    {
+        // Проверяем роль пользователя и если она не соответствует той, которая отмечена у него - меняем отметку
+        if (!Yii::$app->user->isGuest) {
+            $user = User::findOne(Yii::$app->user->id);
+            $userrole = $user->role;
+            $usergroups = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+            foreach ($usergroups as $usergroup) {
+                $group = $usergroup->name;
+            }
+            if ($userrole !== $group) {
+                $user->role = $group;
+                $user->save(false);
+            }
+        }
+        // Проверяем роль пользователя и если она не соответствует той, которая отмечена у него - меняем отметку
+
+    }
 
     public function disableProfilers()
     {

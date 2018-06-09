@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\UsersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'Painters';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">

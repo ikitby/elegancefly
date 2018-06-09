@@ -114,7 +114,7 @@ class Products extends \yii\db\ActiveRecord
 
     public function getCatprod()
     {
-        return $this->hasMany(Catprod::className(), ['id' => 'category']);
+        return $this->hasOne(Catprod::className(), ['id' => 'category']);
     }
 
     public function getAllRatings ($itemid)

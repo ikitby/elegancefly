@@ -23,7 +23,7 @@ class UsersWidget extends Widget{
         //$menu = Yii::$app->cache->get('usergallery');
         //if ($menu) return $menu;
 
-        $this->data = User::find()->where(['usertype' => '2'])->limit(10)->all();
+        $this->data = User::find()->where(['role' => 'Painter'])->limit(10)->all();
         $menu = $this->getHtmlMenu($this->data);
 
         //set cache

@@ -58,8 +58,13 @@ class Cart extends \yii\db\ActiveRecord
         {
             return $this->hasOne(User::className(), ['id' => 'buyer_id']);
         }
-
-    public function getProducts()
+/*
+    public function getCatprod()
+    {
+        return $this->hasOne(Catprod::className(), ['id' => 'buyer_id']);
+    }
+*/
+    public function getCartproduct()
         {
             return $this->hasOne(Products::className(), ['id' => 'product_id']);
         }

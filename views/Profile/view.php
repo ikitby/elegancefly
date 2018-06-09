@@ -48,13 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-8">
 
         <ul>
-            <li><strong>Профиль: </strong>
-                <?php
-                $roles = Yii::$app->authManager->getRolesByUser($model->id);
-                foreach ($roles as $role) : ?>
-                    <span class="label label-primary"><?= Html::encode($role->name) ?></span>
-                <?php endforeach; ?>
-
+            <li><strong>Профиль: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span>
             </li>
             <li><strong>Логин: </strong><?= Html::encode($model->username) ?></li>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>

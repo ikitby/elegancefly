@@ -52,12 +52,13 @@ $photos = json::decode($model->photos);
     ]);
     foreach ($galery_teaser as $photo) {
         //print '<div  class="owl-items"><a href="'.Url::to(["view", "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
-        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod[0]['alias'], "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
+        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
 
     }
     OwlCarouselWidget::end();
 
 ?>
+
  <?= BasketWidget::widget([
      'template' =>'plane',
      'prod_id' => $product->id,

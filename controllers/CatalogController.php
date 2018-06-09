@@ -70,7 +70,7 @@ class CatalogController extends AppController
                 'deleted' => 0,
                 ])
             //->where(['deleted' => 0])
-            ->with('user')
+            ->with(['user', 'catprod'])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();

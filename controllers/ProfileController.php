@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
 /**
  * ProfileController implements the CRUD actions for User model.
  */
-class ProfileController extends Controller
+class ProfileController extends AppController
 {
     /**
      * {@inheritdoc}

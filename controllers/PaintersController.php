@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * UsersController implements the CRUD actions for User model.
  */
-class PaintersController extends Controller
+class PaintersController extends AppController
 {
     /**
      * {@inheritdoc}
@@ -49,7 +49,7 @@ class PaintersController extends Controller
         $users = User::find()
             ->where([
                 'status' => 10,
-                'usertype' => 2,
+                'role' => 'Painter',
             ])
             ->with('products'/*, 'ratings'*/)
             ->orderBy(['rate' => SORT_DESC])
@@ -71,12 +71,16 @@ class PaintersController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionUser($alias)
     {
+        $alias = Yii::$app->request->get('alias');
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'painter' => $this->getPainterByAlias($alias)
         ]);
     }
+
+
 
     /**
      * Creates a new User model.
@@ -141,7 +145,7 @@ class PaintersController extends Controller
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
- /*
+
     protected function findModel($id)
     {
         if (($model = User::findOne($id)) !== null) {
@@ -150,5 +154,10 @@ class PaintersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    */
+
+    private function getPainterByAlias($alias)
+    {
+        return User::find()->where(['username' => $alias])->one();
+    }
+
 }
