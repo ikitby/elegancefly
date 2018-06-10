@@ -13,13 +13,16 @@ if (empty($model->photo)) {
     $userphoto = Html::img("/images/user/user_{$model->id}/{$model->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->name) ? $model->name : $model->username), 'title' => Html::encode(($model->name) ? $model->name : $model->username)]);
 }
 
-$this->title = $model->name;
+$this->title = Html::encode($model->name);
 $this->params['breadcrumbs'][] = ['label' => 'Profile', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+Yii::$app->authManager->getRolesByUser($model->id);
+
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= $this->title ?></h1>
 <div class="col-md-12">
     <?= Html::a('Edit', ['edit'], ['class' => 'btn btn-primary pull-right']) ?>
 </div>
@@ -42,8 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'showClear'=>false
             ],
         ]); ?>
-        <?= $model->getUserRating($model->id)[0]['rating'] ?>
-
+        <?= $model->rate ?>
+        (<?= (empty($model->rate_c)) ? "0" : $model->rate_c ?>)
     </div>
     <div class="col-md-8">
 
@@ -53,9 +56,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <li><strong>Логин: </strong><?= Html::encode($model->username) ?></li>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
+
+            <?php
+            dump(Yii::$app->authManager->getRolesByUser($model->id));
+
+            if ($model->role === "Painter") : ?>
             <li><strong>Работ: </strong><?= Html::encode($model->getUserProjectsCount($model->id)) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
             <li><strong>Язык: </strong><?= Html::encode($model->languages) ?></li>
+            <?php endif; ?>
         </ul>
     </div>
 </div>

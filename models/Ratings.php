@@ -137,6 +137,7 @@ class Ratings extends \yii\db\ActiveRecord
                         $urate = User::findOne($this->projects[0]->user_id);
                         $newrate = Ratings::getAllUserRating($this->projects[0]->user_id);
                         $urate->rate = $newrate;
+                        $urate->rate_c = $resresult['r_allrating'];
                         $urate->save(false);
                         //обновим общий рейтинг пользователя за которого голосовали
                         return Json::encode($resresult);
