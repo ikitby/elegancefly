@@ -11,6 +11,7 @@ namespace app\controllers;
 use app\models\Products;
 use app\models\Cart;
 use Yii;
+use yii\helpers\Json;
 
 class CartController extends AppController
 {
@@ -39,9 +40,28 @@ class CartController extends AppController
 
         if ($cart_id) {
             $cart = new Cart();
-            $cart->delFromCart($cart_id);
-            return true;
+
+            //$cart->delFromCart($cart_id);
         }
+
+        $cartsum = Cart::find()
+            ->where(['buyer_id' => Yii::$app->user->id])
+            ->sum('price');
+        $cartcount = Cart::find()
+            ->where(['buyer_id' => Yii::$app->user->id])
+            ->count();
+
+                $result['cartsum'] = $cartsum;
+                $result['cartcount'] = $cartcount;p
+
+
+        );
+
+            Json::encode($result);
+        print $result;
+
+        die();
+        return $result;
     }
 
     public function actionAdd()

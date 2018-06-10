@@ -42,13 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 </th>
             </tr>
         </thead>
+        <tbody>
         <?php
             $i = 1;
             foreach ($cartprod as $product) :
             $catalias = $product->cartproduct->catprod->alias;
         ?>
-        <tbody>
-            <tr>
+
+            <tr id="catprodrow_<?= $product->id ?>">
                 <td>
                     <?= $i ?>
                 </td>
@@ -78,12 +79,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) ?>
                 </td>
             </tr>
-        </tbody>
+
         <?php
             $i++;
             endforeach;
         ?>
+        </tbody>
     </table>
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">12</div>
+            <div class="col-md-3">2</div>
+            <div class="col-md-3">1</div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Clear basket</button>
+                <button type="button" class="btn btn-success pull-right">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+
 </div>
     <?php Pjax::end(); ?>
 </div>

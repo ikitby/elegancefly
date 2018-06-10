@@ -31,8 +31,12 @@ $(function () {
             type: 'GET',
             success: function (res) {
                 if (!res) alert('Error!');
-                $.pjax.reload({container: "#ajcartwrapp", url: "/cart/index"});
-                //setTimeout(function() {window.location.reload();}, 1000);
+                var selector = "#catprodrow_"+id;
+                $(selector).hide(500);
+                setTimeout(function(){
+                    $(selector).detach()
+                }, 1000)
+
                 //ShowCart();
             },
             error: function () {
