@@ -34,11 +34,13 @@ if (empty($model->photo)) {
 
     <?= $form->field($model, 'languages')->textInput() ?>
 
+
     <?= $form->field($model, 'fbpage')->textInput() ?>
 
     <?= $form->field($model, 'vkpage')->textInput() ?>
 
     <?= $form->field($model, 'inpage')->textInput() ?>
+
 
     </div>
     </div>

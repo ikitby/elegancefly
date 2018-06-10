@@ -17,7 +17,6 @@ class CartController extends AppController
 
     public function actionIndex()
     {
-
         $cartprod = Cart::find()
             ->where(['buyer_id' => Yii::$app->user->id])
             ->with(['cartproduct', 'buyer'])
@@ -28,7 +27,6 @@ class CartController extends AppController
         return $this->render('index', [
             'cartprod'      => $cartprod,
         ]);
-
     }
 
     /**

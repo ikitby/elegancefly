@@ -16,9 +16,15 @@ if (empty($model->photo)) {
 $this->title = Html::encode($model->name);
 $this->params['breadcrumbs'][] = ['label' => 'Profile', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+/*
+$painter = false;
+$roles = Yii::$app->authManager->getRolesByUser($model->id);
+foreach ($roles as $role) {
+    if ($role->name === 'Admin' || $role->name === 'Admin') {$painter = true;}
+}
 
-Yii::$app->authManager->getRolesByUser($model->id);
-
+dump($painter);
+*/
 ?>
 <div class="user-view">
 
@@ -30,6 +36,7 @@ Yii::$app->authManager->getRolesByUser($model->id);
     <div class="col-md-4">
         <?= $userphoto ?>
         <?php
+        if (empty($model->role) || $model->role != 'User') :
         echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
             'id' => 'input-'.$model->id.'',
@@ -44,9 +51,13 @@ Yii::$app->authManager->getRolesByUser($model->id);
                 'showCaption' => false,
                 'showClear'=>false
             ],
-        ]); ?>
+        ]);
+
+        ?>
+
         <?= $model->rate ?>
         (<?= (empty($model->rate_c)) ? "0" : $model->rate_c ?>)
+        <?php endif; ?>
     </div>
     <div class="col-md-8">
 
@@ -57,10 +68,7 @@ Yii::$app->authManager->getRolesByUser($model->id);
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
 
-            <?php
-            dump(Yii::$app->authManager->getRolesByUser($model->id));
-
-            if ($model->role === "Painter") : ?>
+            <?php if (empty($model->role) || $model->role != 'User') : ?>
             <li><strong>Работ: </strong><?= Html::encode($model->getUserProjectsCount($model->id)) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
             <li><strong>Язык: </strong><?= Html::encode($model->languages) ?></li>

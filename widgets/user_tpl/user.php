@@ -19,6 +19,7 @@ use yii\helpers\Url;
         </a>
     </div>
         <?php
+        if (empty($user['role']) || $user['role'] != 'User') :
         echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
             'id' => 'input-'.$model->id.'',
@@ -36,7 +37,7 @@ use yii\helpers\Url;
         ]); ?>
         <?= $user['rate'] ?>
         (<?= (empty($user['rate_c'])) ? "0" : $user['rate_c'] ?>)
-
+        <?php endif; ?>
     <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
     <?php endif; ?>
     <div class="col-md-12">
