@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Cart;
 use app\models\Products;
 use app\widgets\BasketWidget;
 use ckarjun\owlcarousel\OwlCarouselWidget;
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); ?>
 <div id="ajcartwrapp">
-    <table class="table table-hover">
+    <table class="table table-hover carttable">
         <thead>
             <tr>
                 <th>
@@ -49,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $catalias = $product->cartproduct->catprod->alias;
         ?>
 
-            <tr id="catprodrow_<?= $product->id ?>">
+            <tr class="cartrowpr" id="catprodrow_<?= $product->id ?>">
                 <td>
                     <?= $i ?>
                 </td>
@@ -62,12 +63,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h4>
                         <a href="<?= Url::to(["/catalog/category", "catalias" => $catalias, "id" => $product->product_id]) ?>"><?= Html::encode($product->name) ?></a>
                     </h4>
-                    Product id: <?= Html::encode($product->product_id) ?><br />
+                    Product id: <strong><?= Html::encode($product->product_id) ?></strong><br />
                     <?php $author = Products::getAutor($product->product_id);?>
-                    <?=  Html::encode($author->name) ?><br />
+                    <span class="glyphicon glyphicon-user"></span> <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $author->username]) ?>">
+                        <?=  Html::encode($author->name) ?>
+                    </a><br />
                 </td>
                 <td>
-                    <?= Html::encode($product->price) ?>$
+                    <h4><?= Html::encode($product->price) ?>$</h4>
                 </td>
                 <td>
                     <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', "#", [
@@ -86,15 +89,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         </tbody>
     </table>
-
-    <div class="col-md-12">
+<hr />
+    <div class="col-md-12 carttable">
         <div class="row">
-            <div class="col-md-6">12</div>
-            <div class="col-md-3">2</div>
-            <div class="col-md-3">1</div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">Товаров в корзине:<br> <h3><span class="cartcountres"><?= Cart::getCartCount() ?></span></h3></div>
+            <div class="col-md-3">На сумму:<br> <h3><span class="cartsummres"><?= Cart::getCartsumm() ?></span>$</h3></div>
             <div class="col-md-12">
-                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Clear basket</button>
-                <button type="button" class="btn btn-success pull-right">Checkout</button>
+                <button type="button" class="btn btn-danger emptycart"><span class="glyphicon glyphicon-trash"></span> Clear basket</button>
+                <button type="button" class="btn btn-success pull-right checkoutcart">Checkout</button>
             </div>
         </div>
     </div>

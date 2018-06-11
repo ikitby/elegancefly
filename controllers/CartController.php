@@ -36,43 +36,60 @@ class CartController extends AppController
 
     public function actionDel()
     {
-        $cart_id = Yii::$app->request->get('id');
+        if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+            $cart_id = Yii::$app->request->get('id');
 
-        if ($cart_id) {
-            $cart = new Cart();
+            if ($cart_id) {
+                $cart = new Cart();
+                $cart->delFromCart($cart_id); //Удаление из карты
+            }
 
-            //$cart->delFromCart($cart_id);
+            $cartsum = Cart::getCartsumm();
+            $cartcount = Cart::getCartCount();
+
+            $result['cartsum'] = $cartsum;
+            $result['cartcount'] = $cartcount;
+            //Json::encode($result);
+
+            return Json::encode($result);
+        } else {
+            return 'И таки шо, Зяма, мы тут делаем?';
         }
 
-        $cartsum = Cart::find()
-            ->where(['buyer_id' => Yii::$app->user->id])
-            ->sum('price');
-        $cartcount = Cart::find()
-            ->where(['buyer_id' => Yii::$app->user->id])
-            ->count();
+    }
 
-                $result['cartsum'] = $cartsum;
-                $result['cartcount'] = $cartcount;p
+    public function actionClear()
+    {
+        if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
 
+            Cart::deleteAll(['buyer_id' => Yii::$app->user->id]);
 
-        );
+            return true;
+        } else {
+            return 'И таки шо, Зяма, мы тут делаем?';
+        }
 
-            Json::encode($result);
-        print $result;
-
-        die();
-        return $result;
     }
 
     public function actionAdd()
     {
-        $prod_id = Yii::$app->request->get('id');
+        if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+            $prod_id = Yii::$app->request->get('id');
 
-        if ($prod_id) {
-            $cart = new Cart();
-            $cart->addToCart($prod_id);
-            return true;
+            if ($prod_id) {
+                $cart = new Cart();
+                $cart->addToCart($prod_id);
+
+                $cartsum = Cart::getCartsumm();
+                $cartcount = Cart::getCartCount();
+
+                $result['cartsum'] = $cartsum;
+                $result['cartcount'] = $cartcount;
+
+                return Json::encode($result);
+            }
         }
     }
+
 
 }

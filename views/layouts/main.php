@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\models\Cart;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -11,6 +12,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$cartsumm = Cart::getCartsumm();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -37,11 +40,12 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Catalog', 'url' => ['/catalog']],
             ['label' => 'Painters', 'url' => ['/painters']],
-            ['label' => 'Cart', 'url' => ['/cart']],
+            ['label' => 'Cart <span class="label label-warning"><span class="cartsummres">'.$cartsumm.'</span>$</span>', 'url' => ['/cart']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (['label' => 'Signup', 'url' => ['/site/signup']]) : "",
             Yii::$app->user->isGuest ? (
@@ -58,6 +62,8 @@ AppAsset::register($this);
             )
         ],
     ]);
+    ?>
+    <?php
     NavBar::end();
     ?>
 

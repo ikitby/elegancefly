@@ -26,6 +26,20 @@ class Cart extends \yii\db\ActiveRecord
         return 'cart';
     }
 
+    public static function getCartsumm()
+    {
+        return Cart::find()
+                ->where(['buyer_id' => Yii::$app->user->id])
+                ->sum('price');
+    }
+
+    public static function getCartCount()
+    {
+        return Cart::find()
+                ->where(['buyer_id' => Yii::$app->user->id])
+                ->count();
+    }
+
     /**
      * {@inheritdoc}
      */
