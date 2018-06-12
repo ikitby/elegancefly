@@ -62,6 +62,8 @@ class CartController extends AppController
     {
         if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
 
+
+
             Cart::deleteAll(['buyer_id' => Yii::$app->user->id]);
 
             return true;

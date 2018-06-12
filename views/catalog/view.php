@@ -113,33 +113,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
 
         <?php
-/*
-        print StarRating::widget([
-            'name' => 'rating_'.$model->id.'',
-            'model' => 'dfs',
-            'attribute' => 'rating',
-            'id' => 'rating_'.$model->id.'',
-            'value' => 2,
-            'pluginOptions' => [
-                'size' => 'xs',
-                'stars' => 5,
-                'step' => 1,
-                'disabled'=>false,
-                'showCaption' => false,
-                'showClear'=>false
-            ],
-            'pluginEvents' => [
-                'rating.change' => 'function(event, value, caption) {
-                    alert ("ok!");
-                }',
-            ],
-        ]);
-*/
+        if (empty($model->user->photo)) {
+            $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
+        } else {
+            $userphoto = Html::img("/images/user/user_{$model->user->id}/50_50_{$model->user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
+        }
         ?>
             <ul>
 
                 <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
-                <li><strong>Автор: </strong><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></li>
+                <li><strong>Автор: </strong>
+
+                    <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
+                        <span><?= $userphoto ?></span>
+                        <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
+                    </a>
+                </li>
                 <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>

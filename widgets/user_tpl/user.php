@@ -36,7 +36,7 @@ use yii\helpers\Url;
             ],
         ]); ?>
         <?= $user['rate'] ?>
-        (<?= (empty($user['rate_c'])) ? "0" : $user['rate_c'] ?>)
+        (<?= (empty($user->rate_c)) ? "0" : $user->rate_c ?>)
         <?php endif; ?>
     <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
     <?php endif; ?>

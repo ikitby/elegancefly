@@ -40,15 +40,20 @@ class Ratings extends \yii\db\ActiveRecord
         return $rating;
     }
 
+    private static function getAllUserRatingCount($user_id)
+    {
+        return self::find()->where(['rateuser_id' => $user_id])->count();
+    }
+
     private static function getAllUserRating($userid)
     {
         $rating = 0;
         $rating = self::find()->where(['rateuser_id' => $userid])->sum('rating'); //выбираем из базы рейтинга все отметки для текущего материала
         $count = self::find()->where(['rateuser_id' => $userid])->count();
 
-        if ($count > 0) {
-            $rating = round($rating / $count, 1);
-        }
+                if ($count > 0) {
+                    $rating = round($rating / $count, 1);
+                }
 
         return $rating;
     }
@@ -86,7 +91,7 @@ class Ratings extends \yii\db\ActiveRecord
         return $this->hasMany(Products::className(), ['id' => 'project_id']);
     }
 
-    public function getAllRating ($id)
+    public function getAllRating($id)
     {
         $rating = 0;
         $rating = self::find()->where(['project_id' => $id])->sum('rating'); //выбираем из базы рейтинга все отметки для текущего материала
@@ -136,8 +141,9 @@ class Ratings extends \yii\db\ActiveRecord
                         //обновим общий рейтинг пользователя за которого голосовали
                         $urate = User::findOne($this->projects[0]->user_id);
                         $newrate = Ratings::getAllUserRating($this->projects[0]->user_id);
+                        $newrate_c = Ratings::getAllUserRatingCount($this->projects[0]->user_id);
                         $urate->rate = $newrate;
-                        $urate->rate_c = $resresult['r_allrating'];
+                        $urate->rate_c = $newrate_c;
                         $urate->save(false);
                         //обновим общий рейтинг пользователя за которого голосовали
                         return Json::encode($resresult);
