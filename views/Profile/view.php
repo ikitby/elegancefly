@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Transaction;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -58,6 +59,8 @@ dump($painter);
         <?= $model->rate ?>
         (<?= (empty($model->rate_c)) ? "0" : $model->rate_c ?>)
         <?php endif; ?>
+
+
     </div>
     <div class="col-md-8">
 
@@ -74,6 +77,8 @@ dump($painter);
             <li><strong>Язык: </strong><?= Html::encode($model->languages) ?></li>
             <?php endif; ?>
         </ul>
+        Баланс:
+        <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>
     </div>
 </div>
 

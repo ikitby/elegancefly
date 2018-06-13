@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Transaction;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -39,6 +40,12 @@ use yii\helpers\Url;
         (<?= (empty($user->rate_c)) ? "0" : $user->rate_c ?>)
         <?php endif; ?>
     <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
+
+        <div class="col-md-12 username">
+            Баланс:
+            <h3><?= Transaction::getUserBalance($user->id) ?>$</h3>
+        </div>
+
     <?php endif; ?>
     <div class="col-md-12">
         <?php if (Yii::$app->user->isGuest) : ?>

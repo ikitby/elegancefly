@@ -10,6 +10,8 @@ namespace app\controllers;
 
 use app\models\Products;
 use app\models\Cart;
+use app\models\Transaction;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Yii;
 use yii\helpers\Json;
 
@@ -18,10 +20,7 @@ class CartController extends AppController
 
     public function actionIndex()
     {
-        $cartprod = Cart::find()
-            ->where(['buyer_id' => Yii::$app->user->id])
-            ->with(['cartproduct', 'buyer'])
-            ->all();
+        $cartprod = $this->getCartItems();
 
         if (empty($cartprod)) {return $this->redirect(['/catalog']);}
 
@@ -62,8 +61,6 @@ class CartController extends AppController
     {
         if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
 
-
-
             Cart::deleteAll(['buyer_id' => Yii::$app->user->id]);
 
             return true;
@@ -91,6 +88,44 @@ class CartController extends AppController
                 return Json::encode($result);
             }
         }
+    }
+
+
+
+    public function actionCheckout()
+    {
+        if ($this->getUserBalance() - Cart::getCartsumm() >= 0){
+
+            $cartItems = $this->getCartItems();
+
+
+            foreach ($cartItems as $item)
+            {
+                $transaction = new Transaction();
+                $transaction->action_id = 1;
+                $transaction->action_user = $item->seller_id;
+                $transaction->amount = $item->price;
+                $transaction->prod_id = $item->product_id;
+                $transaction->save();
+            }
+
+            Return 'OK!';
+        } else {
+            return 'У вас недостаточно средств на счете!';
+        }
+    }
+
+    protected function getUserBalance()
+    {
+        return Transaction::getUserBalance(Yii::$app->user->id);
+    }
+
+    private function getCartItems()
+    {
+        return Cart::find()
+                ->where(['buyer_id' => Yii::$app->user->id])
+                ->with(['cartproduct', 'buyer'])
+                ->all();
     }
 
 

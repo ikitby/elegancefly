@@ -26,20 +26,6 @@ class Cart extends \yii\db\ActiveRecord
         return 'cart';
     }
 
-    public static function getCartsumm()
-    {
-        return Cart::find()
-                ->where(['buyer_id' => Yii::$app->user->id])
-                ->sum('price');
-    }
-
-    public static function getCartCount()
-    {
-        return Cart::find()
-                ->where(['buyer_id' => Yii::$app->user->id])
-                ->count();
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -68,6 +54,21 @@ class Cart extends \yii\db\ActiveRecord
         ];
     }
 
+
+    public static function getCartsumm()
+    {
+        return Cart::find()
+            ->where(['buyer_id' => Yii::$app->user->id])
+            ->sum('price');
+    }
+
+    public static function getCartCount()
+    {
+        return Cart::find()
+            ->where(['buyer_id' => Yii::$app->user->id])
+            ->count();
+    }
+
     public function getBuyer()
         {
             return $this->hasOne(User::className(), ['id' => 'buyer_id']);
@@ -94,6 +95,7 @@ class Cart extends \yii\db\ActiveRecord
 
         $photos = json::decode($product->photos);
         $this->product_id = $product->id;
+        $this->seller_id = $product->user_id;
         $this->buyer_id = $user_id;
         $this->qty = 1;
         $this->name = $product->title;
