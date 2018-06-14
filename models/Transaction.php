@@ -23,7 +23,7 @@ class Transaction extends \yii\db\ActiveRecord
     {
         return [
             [['action_id', 'action_user', 'amount', 'prod_id', 'type'], 'required'],
-            [['action_id', 'action_user', 'amount', 'prod_id', 'type', 'action_depend'], 'integer'],
+            [[ 'action_user', 'amount', 'prod_id', 'type', 'action_depend'], 'integer'],
             [['created_at'], 'safe'],
         ];
     }

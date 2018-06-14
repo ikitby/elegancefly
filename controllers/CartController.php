@@ -12,6 +12,7 @@ use app\models\Products;
 use app\models\Cart;
 use app\models\Transaction;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use yii\helpers\Json;
 
@@ -97,24 +98,36 @@ class CartController extends AppController
         if ($this->getUserBalance() - Cart::getCartsumm() >= 0){
 
             $cartItems = $this->getCartItems();
-
+            $transaction_id = UuidHelper::uuid();;
 
             foreach ($cartItems as $item)
             {
+                if (Transaction::checkPurchase($item->seller_id,$item->product_id,1)) {
 
-                $checket = Transaction::checkPurchase($item->seller_id,$item->product_id,1);
+                    //Отдаем денежку автору за работу
+                    $transaction = new Transaction();
+                    $transaction->action_id = $transaction_id;
+                    $transaction->action_user = $item->seller_id;
+                    $transaction->action_depend = $item->buyer_id;
+                    $transaction->amount = $item->price;
+                    $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
+                    $transaction->prod_id = $item->product_id;
+                    $transaction->save();
 
-                dump($checket);
+                    //Минусуем стоимость работы у покупателя
+                    $transaction = new Transaction();
+                    $transaction->action_id = $transaction_id;
+                    $transaction->action_user = $item->buyer_id;
+                    $transaction->action_depend = $item->seller_id;
+                    $transaction->amount = $item->price*-1;
+                    $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
+                    $transaction->prod_id = $item->product_id;
+                    $transaction->save();
 
-                $transaction = new Transaction();
-                $transaction->action_id = 1;
-                $transaction->action_user = $item->seller_id;
-                $transaction->action_depend = $item->buyer_id;
-                $transaction->amount = $item->price;
-                $transaction->type = 1;
-                $transaction->prod_id = $item->product_id;
-                $transaction->save();
 
+                } else {
+                    return 'No';
+                }
             }
 
             Return 'OK!';
