@@ -22,8 +22,8 @@ class Transaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['action_id', 'action_user', 'amount'], 'required'],
-            [['action_id', 'action_user', 'amount'], 'integer'],
+            [['action_id', 'action_user', 'amount', 'prod_id', 'type'], 'required'],
+            [['action_id', 'action_user', 'amount', 'prod_id', 'type', 'action_depend'], 'integer'],
             [['created_at'], 'safe'],
         ];
     }
@@ -37,7 +37,9 @@ class Transaction extends \yii\db\ActiveRecord
             'id' => 'ID',
             'action_id' => 'Action ID',
             'action_user' => 'Seller User',
+            'action_depend' => 'Dependet User',
             'amount' => 'Amount',
+            'type' => 'Type tranaction',
             'prod_id' => 'Product',
             'created_at' => 'Created At',
         ];
@@ -51,7 +53,11 @@ class Transaction extends \yii\db\ActiveRecord
         return (!empty($amount)) ? $amount : 0;
     }
 
-
+    public static function checkPurchase($user_id, $prod_id, $type = 1)
+    {
+        $count = Transaction::find()->where(['action_user' => $user_id, 'prod_id' => $prod_id, 'type' => $type])->count();
+        return (empty($count)) ? true : false;
+    }
 
 
 }

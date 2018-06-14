@@ -101,12 +101,20 @@ class CartController extends AppController
 
             foreach ($cartItems as $item)
             {
+
+                $checket = Transaction::checkPurchase($item->seller_id,$item->product_id,1);
+
+                dump($checket);
+
                 $transaction = new Transaction();
                 $transaction->action_id = 1;
                 $transaction->action_user = $item->seller_id;
+                $transaction->action_depend = $item->buyer_id;
                 $transaction->amount = $item->price;
+                $transaction->type = 1;
                 $transaction->prod_id = $item->product_id;
                 $transaction->save();
+
             }
 
             Return 'OK!';
