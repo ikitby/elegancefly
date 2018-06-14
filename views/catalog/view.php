@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Catprod;
+use app\models\Transaction;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -134,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
                 <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
                 <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
-                <li><strong>Продано: </strong>0/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
+                <li><strong>Продано: </strong><?= Transaction::getProjectSelling($model->id)?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
                 <li><strong>Инфо: </strong><br />
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>

@@ -63,7 +63,6 @@ $(function () {
             success: function (data) {
                 if (!data) alert('Error!');
                 var data = jQuery.parseJSON(data);
-
                 var time = 100;
                 $(".cartrowpr").each(function (index) {
                         $(this).delay(100*index).hide(100);
@@ -95,6 +94,7 @@ $(function () {
             data: {id: id},
             type: 'GET',
             success: function (data) {
+                
                 if (!data) alert('Error!');
                 var data = jQuery.parseJSON(data);
 

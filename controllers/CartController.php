@@ -127,6 +127,8 @@ class CartController extends AppController
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
 
+
+
                 } else {
                     return 'No';
                 }
