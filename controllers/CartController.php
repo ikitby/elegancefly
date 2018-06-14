@@ -98,37 +98,41 @@ class CartController extends AppController
         if ($this->getUserBalance() - Cart::getCartsumm() >= 0){
 
             $cartItems = $this->getCartItems();
-            $transaction_id = UuidHelper::uuid();;
+            $transaction_id = UuidHelper::uuid();
 
             foreach ($cartItems as $item)
             {
                 if (Transaction::checkPurchase($item->seller_id,$item->product_id,1)) {
-
+                    if ($item->buyer_id != Yii::$app->user->id) die('Подмена пользователя');
                     //Отдаем денежку автору за работу
                     $transaction = new Transaction();
                     $transaction->action_id = $transaction_id;
                     $transaction->action_user = $item->seller_id;
-                    $transaction->action_depend = $item->buyer_id;
+                    $transaction->action_depend = Yii::$app->user->id;
                     $transaction->amount = $item->price;
                     $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
 
+                    //Обновляем счетчик продаж пользователя в его аккаунте
+                    Transaction::setUserSales($item->seller_id);
+
                     //Минусуем стоимость работы у покупателя
                     $transaction = new Transaction();
                     $transaction->action_id = $transaction_id;
-                    $transaction->action_user = $item->buyer_id;
+                    $transaction->action_user = Yii::$app->user->id;
                     $transaction->action_depend = $item->seller_id;
-                    $transaction->amount = $item->price*-1;
+                    $transaction->amount = -$item->price;
                     $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
-
 
                 } else {
                     return 'No';
                 }
             }
+
+
 
             Return 'OK!';
         } else {
@@ -136,10 +140,12 @@ class CartController extends AppController
         }
     }
 
+
     protected function getUserBalance()
     {
         return Transaction::getUserBalance(Yii::$app->user->id);
     }
+
 
     private function getCartItems()
     {
@@ -148,6 +154,9 @@ class CartController extends AppController
                 ->with(['cartproduct', 'buyer'])
                 ->all();
     }
+
+
+
 
 
 }

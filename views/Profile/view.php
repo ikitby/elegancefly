@@ -70,9 +70,9 @@ dump($painter);
             <li><strong>Логин: </strong><?= Html::encode($model->username) ?></li>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
-
             <?php if (empty($model->role) || $model->role != 'User') : ?>
             <li><strong>Работ: </strong><?= Html::encode($model->getUserProjectsCount($model->id)) ?></li>
+            <li><strong>Продаж: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
             <li><strong>Язык: </strong><?= Html::encode($model->languages) ?></li>
             <?php endif; ?>

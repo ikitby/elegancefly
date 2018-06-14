@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Transaction;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
@@ -56,7 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ]); ?>
                             </span>
-                            Работ: <?= $user->getUserProjectsCount($user->id) ?>
+                            Работ: <?= $user->getUserProjectsCount($user->id) ?><br/>
+                            Продаж: <?= Transaction::getUserSales($user->id) ?>
                         </div>
 
                       </div>

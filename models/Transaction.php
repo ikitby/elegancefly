@@ -53,10 +53,36 @@ class Transaction extends \yii\db\ActiveRecord
         return (!empty($amount)) ? $amount : 0;
     }
 
+
+    //Проверка есть ли в базе продукт купленый пользователем и может ли его купить пользователь еще раз
     public static function checkPurchase($user_id, $prod_id, $type = 1)
     {
         $count = Transaction::find()->where(['action_user' => $user_id, 'prod_id' => $prod_id, 'type' => $type])->count();
         return (empty($count)) ? true : false;
+    }
+
+
+    //получаем сколько продаж у пользователя
+    public static function getUserSales($user_id)
+    {
+        $sales = Transaction::find()->where(['action_user' => $user_id, 'type' => 1])->count();
+        return $sales;
+    }
+
+
+    //Устанавливаем количество продаж пользователю в его запись для сортировок
+    public static function setUserSales($user_id)
+    {
+        $user  = User::findOne($user_id);
+        $user->sales = Transaction::getUserSales($user_id);
+        return $user->save(false);
+    }
+
+
+    //Сколько продаж проекта
+    public static function getProjectSelling($project_id)
+    {
+
     }
 
 

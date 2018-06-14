@@ -52,7 +52,7 @@ class PaintersController extends AppController
                 'role' => 'Painter',
             ])
             ->with('products'/*, 'ratings'*/)
-            ->orderBy(['rate' => SORT_DESC])
+            ->orderBy(['sales' => SORT_DESC])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
