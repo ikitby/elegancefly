@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ImageUpload;
+use app\models\Transaction;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -44,39 +45,19 @@ class ProfileController extends AppController
         ]);
     }
 
-    /**
-     * Displays a single User model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
 
-    /**
-     * Creates a new User model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    /*
-    public function actionCreate()
+    public function actionPayments()
     {
-        $model = new User();
+        if (Yii::$app->user->isGuest) {return $this->redirect(['/login']);}
+        $id = Yii::$app->user->id;
+        $payments = Transaction::find()->where(['action_user' => $id])->orderBy(['id' => SORT_DESC])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
+        return $this->render('payments', [
+            'payments' => $payments,
         ]);
-    }*/
+    }
 
-    /**
-     * Updates an existing User model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionEdit()
     {
         $id = Yii::$app->user->id;
@@ -131,5 +112,10 @@ class ProfileController extends AppController
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function getTransactions()
+    {
+        return Transaction::getUserTransactions(Yii::$app->user->id);
     }
 }

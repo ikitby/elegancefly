@@ -33,7 +33,8 @@ class Cart extends \yii\db\ActiveRecord
     {
         return [
             [['product_id', 'buyer_id', 'name', 'img'], 'required'],
-            [['product_id', 'buyer_id', 'qty', 'price'], 'integer'],
+            [['product_id', 'buyer_id', 'qty'], 'integer'],
+            [[ 'price'], 'double'],
             [['name', 'img'], 'string', 'max' => 255],
         ];
     }

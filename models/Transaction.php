@@ -23,7 +23,8 @@ class Transaction extends \yii\db\ActiveRecord
     {
         return [
             [['action_id', 'action_user', 'amount', 'prod_id', 'type'], 'required'],
-            [[ 'action_user', 'amount', 'prod_id', 'type', 'action_depend'], 'integer'],
+            [[ 'action_user', 'prod_id', 'type', 'source_payment'], 'integer'],
+            [[ 'amount', 'c_balance'], 'double'],
             [['created_at'], 'safe'],
         ];
     }
@@ -37,20 +38,37 @@ class Transaction extends \yii\db\ActiveRecord
             'id' => 'ID',
             'action_id' => 'Action ID',
             'action_user' => 'Seller User',
-            'action_depend' => 'Dependet User',
+            'source_payment' => 'Source of payment',
             'amount' => 'Amount',
+            'c_balance' => 'c_balance',
             'type' => 'Type tranaction',
             'prod_id' => 'Product',
             'created_at' => 'Created At',
         ];
     }
 
-    //Получаем баланс пользователя по ID
 
+    //Получаем баланс пользователя по ID
     public static function getUserBalance($user_id)
     {
         $amount = Transaction::find()->where(['action_user' => $user_id])->sum('amount');
         return (!empty($amount)) ? $amount : 0;
+    }
+
+    public function getActionUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'action_user']);
+    }
+
+
+    public function getSourcePayment()
+    {
+        return $this->hasOne(User::className(), ['id' => 'source_payment']);
+    }
+
+    public function getactionProd()
+    {
+        return $this->hasOne(Products::className(), ['id' => 'prod_id']);
     }
 
 
@@ -69,6 +87,12 @@ class Transaction extends \yii\db\ActiveRecord
         return $sales;
     }
 
+    //получаем сколько продаж у пользователя
+    public static function getUserTransactions($user_id)
+    {
+        $transactions = Transaction::find()->where(['action_user' => $user_id])->orderBy(['created_at' => SORT_DESC])->all();
+        return $transactions;
+    }
 
     //Устанавливаем количество продаж пользователю в его запись для сортировок
     public static function setUserSales($user_id)

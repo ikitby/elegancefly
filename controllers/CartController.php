@@ -95,21 +95,46 @@ class CartController extends AppController
 
     public function actionCheckout()
     {
-        if ($this->getUserBalance() - Cart::getCartsumm() >= 0){
+
+        if ($this->getUserBalance(Yii::$app->user->id) - Cart::getCartsumm() >= 0){
 
             $cartItems = $this->getCartItems();
             $transaction_id = UuidHelper::uuid();
 
+
             foreach ($cartItems as $item)
             {
-                if (Transaction::checkPurchase($item->seller_id,$item->product_id,1)) {
+                if (Transaction::checkPurchase($item->seller_id, $item->product_id,1)) {
                     if ($item->buyer_id != Yii::$app->user->id) die('Подмена пользователя');
+
+
+                    //----- Обработка стоимости
+                    $itemprice = $item->price; //Полная цена товара
+                    $autorProcent = $itemprice*0.5;
+                    //dump($autorProcent);
+                    //----- Обработка стоимости
+
+                    //Минусуем стоимость работы у покупателя
+                    $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
+
+                    $transaction = new Transaction();
+                    $transaction->action_id = $transaction_id;
+                    $transaction->action_user = Yii::$app->user->id;
+                    $transaction->source_payment = $item->seller_id;
+                    $transaction->amount = -$itemprice;
+                    $transaction->c_balance = $current_balance-$itemprice; //пополняем запись текущего баланска в транзакции
+                    $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
+                    $transaction->prod_id = $item->product_id;
+                    $transaction->save();
+
                     //Отдаем денежку автору за работу
+                    $current_balance = $this->getUserBalance($item->seller_id); //баланс художника
                     $transaction = new Transaction();
                     $transaction->action_id = $transaction_id;
                     $transaction->action_user = $item->seller_id;
-                    $transaction->action_depend = Yii::$app->user->id;
-                    $transaction->amount = $item->price;
+                    $transaction->source_payment = Yii::$app->user->id;
+                    $transaction->amount = $autorProcent;
+                    $transaction->c_balance = $current_balance+$autorProcent; //пополняем запись текущего баланска в транзакции
                     $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
@@ -117,17 +142,10 @@ class CartController extends AppController
                     //Обновляем счетчик продаж пользователя в его аккаунте
                     Transaction::setUserSales($item->seller_id);
 
-                    //Минусуем стоимость работы у покупателя
-                    $transaction = new Transaction();
-                    $transaction->action_id = $transaction_id;
-                    $transaction->action_user = Yii::$app->user->id;
-                    $transaction->action_depend = $item->seller_id;
-                    $transaction->amount = -$item->price;
-                    $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
-                    $transaction->prod_id = $item->product_id;
-                    $transaction->save();
+                    //Удаляем товар из корзины
 
-
+                    $cartItem = Cart::findOne($item->id);
+                    $cartItem->delete();
 
                 } else {
                     return 'No';
@@ -143,9 +161,9 @@ class CartController extends AppController
     }
 
 
-    protected function getUserBalance()
+    protected function getUserBalance($user_id)
     {
-        return Transaction::getUserBalance(Yii::$app->user->id);
+        return Transaction::getUserBalance($user_id);
     }
 
 

@@ -55,7 +55,8 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
+            [['user_id', 'limit', 'hits', 'sales'], 'integer'],
+            [[ 'price'], 'double'],
             [['photos', 'category', 'price','tags', 'project_info', 'themes','title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],

@@ -39,11 +39,16 @@ use yii\helpers\Url;
         <?= $user['rate'] ?>
         (<?= (empty($user->rate_c)) ? "0" : $user->rate_c ?>)
         <?php endif; ?>
-    <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
+        <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
 
-        <div class="col-md-12 username">
+        <div class="col-md-12 userbalance">
             Баланс:
             <h3><?= Transaction::getUserBalance($user->id) ?>$</h3>
+        </div>
+        <div class="col-md-12 usermenu">
+            <ul>
+                <li><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li>
+            </ul>
         </div>
 
     <?php endif; ?>
