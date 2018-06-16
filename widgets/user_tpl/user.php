@@ -46,8 +46,15 @@ use yii\helpers\Url;
             <h3><?= Transaction::getUserBalance($user->id) ?>$</h3>
         </div>
         <div class="col-md-12 usermenu">
-            <ul>
-                <li><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li>
+                <li class="list-group-item">
+                    <?php if (Yii::$app->user->isGuest) : ?>
+                        <a href="<?= Url::to(['/login'])?>" data-method="post">Авторизация</a> | <a href="<?= Url::to(['/signup'])?>" data-method="post">Регистрация</a>
+                    <?php else: ?>
+                        <a href="<?= Url::to(['/logout'])?>" data-method="post">Выход</a>
+                    <?php endif; ?>
+                </li>
             </ul>
         </div>
 
@@ -55,9 +62,9 @@ use yii\helpers\Url;
     <div class="col-md-12">
         <?php if (Yii::$app->user->isGuest) : ?>
         <a href="<?= Url::to(['/login'])?>" data-method="post">Авторизация</a> | <a href="<?= Url::to(['/signup'])?>" data-method="post">Регистрация</a>
-        <?php else: ?>
+        <?php /* else: ?>
         <a href="<?= Url::to(['/logout'])?>" data-method="post">Выход</a>
-        <?php endif; ?>
+        <?php*/ endif; ?>
 
     </div>
 

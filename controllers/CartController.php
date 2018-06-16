@@ -75,6 +75,7 @@ class CartController extends AppController
     {
         if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
             $prod_id = Yii::$app->request->get('id');
+            if (!Products::allowPurchased($prod_id)) {return false;}
 
             if ($prod_id) {
                 $cart = new Cart();
@@ -90,8 +91,6 @@ class CartController extends AppController
             }
         }
     }
-
-
 
     public function actionCheckout()
     {

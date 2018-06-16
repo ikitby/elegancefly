@@ -43,6 +43,22 @@ class Products extends \yii\db\ActiveRecord
         return $product->user;
     }
 
+    public static function checkOwner($prodid)
+    {
+        $product = Products::findOne($prodid);
+        return $product->user->id;
+    }
+
+    public static function allowPurchased($prod_id)
+    {
+        $purchased = false;
+        $owner = false;
+        $purchased = Transaction::find()->where(['action_user' => Yii::$app->user->id, 'prod_id' => $prod_id, 'type' => 0])->one();
+        $owner = (Products::checkOwner($prod_id) == Yii::$app->user->id) ? true : false;
+        return ($purchased || $owner) ? false : true;
+    }
+
+
     public static function getCategory($prodid)
     {
         $product = Products::findOne($prodid);

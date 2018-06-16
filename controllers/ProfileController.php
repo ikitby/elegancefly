@@ -7,6 +7,7 @@ use app\models\Transaction;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -17,6 +18,9 @@ use yii\web\UploadedFile;
  */
 class ProfileController extends AppController
 {
+
+    const STATUS_PAGESIZE = 20;
+
     /**
      * {@inheritdoc}
      */
@@ -49,11 +53,30 @@ class ProfileController extends AppController
     public function actionPayments()
     {
         if (Yii::$app->user->isGuest) {return $this->redirect(['/login']);}
+
         $id = Yii::$app->user->id;
-        $payments = Transaction::find()->where(['action_user' => $id])->orderBy(['id' => SORT_DESC])->all();
+
+        $payments = Transaction::find()->where(['action_user' => $id]);
+        $allpayments = $payments;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => ProfileController::STATUS_PAGESIZE,
+                'totalCount'        => $payments->count()
+            ]
+        );
+
+        $payments = Transaction::find()
+            ->where(['action_user' => $id])
+            ->orderBy(['id' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
         return $this->render('payments', [
             'payments' => $payments,
+            'pagination' => $pagination,
+            'allpayments' => $allpayments
         ]);
     }
 

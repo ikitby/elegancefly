@@ -2,6 +2,7 @@
 
 use app\models\Catprod;
 use app\models\Transaction;
+use app\widgets\BasketWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -121,7 +122,6 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
             <ul>
-
                 <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
                 <li><strong>Автор: </strong>
 
@@ -140,6 +140,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>
             </ul>
+
+            <?= BasketWidget::widget([
+                'template' =>'plane',
+                'prod_id' => $model->id,
+                'price' => $model->price,
+                //'discont' => $model->limit,
+                'limit' =>  $model->limit,
+            ])
+            ?>
         </div>
         </div>
     </div>

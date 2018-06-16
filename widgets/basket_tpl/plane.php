@@ -1,4 +1,6 @@
 <?php
+
+use app\models\Products;
 use yii\helpers\Url;
 ?>
 <span>
@@ -12,7 +14,12 @@ use yii\helpers\Url;
     </span>
 </span>
 <span class="pull-right">
-<a href="<?= Url::to(['cart/favorite', 'id' => $this->prod_id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></a>
+   <?php
+    Products::allowPurchased($this->prod_id);
+?>
+<button href="<?= Url::to(['cart/favorite', 'id' => $this->prod_id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></button>
 </span>
-<a href="<?= Url::to(['cart/add', 'id' => $this->prod_id]) ?>" type="button" data-id = "<?= $this->prod_id ?>" class="btn btn-default btn-md btn-block add-to-cart">Купить</a>
+<button href="<?= Url::to(['cart/add', 'id' => $this->prod_id]) ?>" type="button"
+    <?= (Products::allowPurchased($this->prod_id)) ? "" : 'disabled="disabled"' ?>
+        data-id = "<?= $this->prod_id ?>" class="btn btn-<?= (Products::allowPurchased($this->prod_id)) ? "primary" : 'defoult' ?> btn-block add-to-cart">Купить</button>
 <br />

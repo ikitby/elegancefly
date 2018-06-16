@@ -87,12 +87,14 @@ class Transaction extends \yii\db\ActiveRecord
         return $sales;
     }
 
-    //получаем сколько продаж у пользователя
+
+    //получаем все продажи пользователя
     public static function getUserTransactions($user_id)
     {
         $transactions = Transaction::find()->where(['action_user' => $user_id])->orderBy(['created_at' => SORT_DESC])->all();
         return $transactions;
     }
+
 
     //Устанавливаем количество продаж пользователю в его запись для сортировок
     public static function setUserSales($user_id)
