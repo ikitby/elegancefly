@@ -106,7 +106,6 @@ class CartController extends AppController
                 if (Transaction::checkPurchase($item->seller_id, $item->product_id,1)) {
                     if ($item->buyer_id != Yii::$app->user->id) die('Подмена пользователя');
 
-
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
                     $autorProcent = $itemprice*0.5;
@@ -122,7 +121,7 @@ class CartController extends AppController
                     $transaction->source_payment = $item->seller_id;
                     $transaction->amount = -$itemprice;
                     $transaction->c_balance = $current_balance-$itemprice; //пополняем запись текущего баланска в транзакции
-                    $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
+                    $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
 
@@ -134,7 +133,7 @@ class CartController extends AppController
                     $transaction->source_payment = Yii::$app->user->id;
                     $transaction->amount = $autorProcent;
                     $transaction->c_balance = $current_balance+$autorProcent; //пополняем запись текущего баланска в транзакции
-                    $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 2 - Пополнение баланса)
+                    $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
 

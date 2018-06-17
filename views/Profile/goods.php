@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Текущий баланс:
     <h3><?= Transaction::getUserBalance(Yii::$app->user->id) ?>$</h3>
     <?php Pjax::begin(); ?>
-<div class="payments">
+<div class="row payments">
     <table class="table table-striped table-hover">
     <thead>
     <tr>

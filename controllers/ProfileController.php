@@ -50,11 +50,68 @@ class ProfileController extends AppController
     }
 
 
+    public function actionPurchases()
+    {
+        $id = $this->checkAccess();
+
+        $purchases = Transaction::find()->where(['action_user' => $id]);
+        $allpayments = $purchases;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => ProfileController::STATUS_PAGESIZE,
+                'totalCount'        => $purchases->count()
+            ]
+        );
+
+        $purchases = Transaction::find()
+            ->where(['action_user' => $id, 'type' => 0])
+            ->orderBy(['id' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('purchases', [
+            'purchases' => $purchases,
+            'pagination' => $pagination,
+            'allpayments' => $allpayments
+        ]);
+
+    }
+
+
+    public function actionGoods()
+    {
+        $id = $this->checkAccess();
+
+        $payments = Transaction::find()->where(['action_user' => $id]);
+        $allpayments = $payments;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => ProfileController::STATUS_PAGESIZE,
+                'totalCount'        => $payments->count()
+            ]
+        );
+
+        $payments = Transaction::find()
+            ->where(['action_user' => $id])
+            ->orderBy(['id' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('goods', [
+            'payments' => $payments,
+            'pagination' => $pagination,
+            'allpayments' => $allpayments
+        ]);
+    }
+
+
     public function actionPayments()
     {
-        if (Yii::$app->user->isGuest) {return $this->redirect(['/login']);}
-
-        $id = Yii::$app->user->id;
+        $id = $this->checkAccess();
 
         $payments = Transaction::find()->where(['action_user' => $id]);
         $allpayments = $payments;
@@ -83,7 +140,7 @@ class ProfileController extends AppController
 
     public function actionEdit()
     {
-        $id = Yii::$app->user->id;
+        $id = $this->checkAccess();
 
         $model = $this->findModel($id);
         $imgmodel = new ImageUpload();
@@ -140,5 +197,11 @@ class ProfileController extends AppController
     private function getTransactions()
     {
         return Transaction::getUserTransactions(Yii::$app->user->id);
+    }
+
+    private function checkAccess()
+    {
+        if (Yii::$app->user->isGuest) {return $this->redirect(['/login']);}
+        return $id = Yii::$app->user->id;
     }
 }

@@ -47,6 +47,8 @@ use yii\helpers\Url;
         </div>
         <div class="col-md-12 usermenu">
             <ul class="list-group">
+                <li class="list-group-item"><a href="<?= Url::to('/profile/goods') ?>">My goods</a></li>
+                <li class="list-group-item"><a href="<?= Url::to('/profile/purchases') ?>">My purchases</a></li>
                 <li class="list-group-item"><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li>
                 <li class="list-group-item">
                     <?php if (Yii::$app->user->isGuest) : ?>

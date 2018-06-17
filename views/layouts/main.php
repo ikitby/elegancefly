@@ -78,9 +78,7 @@ $cartsumm = Cart::getCartsumm();
         </div>
         <div class="col-md-3">
             <div id="userblock">
-
                 <?= \app\widgets\UserWidget::widget(['tpl' =>'user']) ?>
-
             </div>
 
             <?= \app\widgets\MenuWidget::widget(['tpl' =>'menu']) ?>

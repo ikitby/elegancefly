@@ -67,6 +67,8 @@ $photos = json::decode($model->photos);
      'limit' =>  $product->limit,
  ])
  ?>
+
+ <?= \app\widgets\DownloadWidget::widget(['template' =>'button', 'prod_id' => $product->id]) ?>
 </div>
 
     <?php

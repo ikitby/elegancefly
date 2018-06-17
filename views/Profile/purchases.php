@@ -1,5 +1,6 @@
 <?php
 
+use app\models\DownloadProject;
 use app\models\Transaction;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
@@ -11,7 +12,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 
-$this->title = Html::encode('Payments');
+$this->title = Html::encode('My purchases');
 $this->params['breadcrumbs'][] = ['label' => 'Profile', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -20,41 +21,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= $this->title ?></h1>
 
-    Текущий баланс:
-    <h3><?= Transaction::getUserBalance(Yii::$app->user->id) ?>$</h3>
     <?php Pjax::begin(); ?>
-<div class="payments">
+<div class="row payments">
     <table class="table table-striped table-hover">
     <thead>
     <tr>
         <th>#ID</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Balance</th>
         <th>Source</th>
+        <th>Actions</th>
     </tr>
     </thead>
 
     <tbody>
         <?php
-        foreach ($payments as $payment) :
+        foreach ($purchases as $purchase) :
             $typeclass = "";
             $typedescr = "";
 
-            switch ($payment->type) {
-                case 0:
-                    $typeclass = 'warning';
-                    $typedescr = 'Покупка проекта';
-                    break;
-                case 1:
-                    $typeclass = 'success';
-                    $typedescr = 'Продажа проекта';
-                    break;
-                case 3:
-                    $typedescr = 'Пополнение счета';
-                    $typeclass = 'info';
-                    break;
-            }
               //dump($payment);
          //   dump($payment->actionUser);
          //   dump($payment->sourcePayment);
@@ -62,26 +45,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ?>
         <tr class="<?= $typeclass ?>">
-            <td><strong>#</strong><?= $payment->id ?></td>
+            <td><strong> #</strong><?= $purchase->actionProd->id ?></td>
             <td>
-                <span class="glyphicon glyphicon-calendar"></span>
-                <?= Yii::$app->formatter->asDate($payment->created_at, 'medium') ?><br>
-                <?= Yii::$app->formatter->asTime($payment->created_at, 'medium') ?>
+                <h4 class="media-heading">
+                    <a href="<?= Url::to(["/catalog/category", "catalias" => $purchase->actionProd->catprod->alias, "id" => $purchase->actionProd->id]) ?>">
+                        <?= $purchase->actionProd->title ?>
+                    </a>
+
+                </h4>
+                <span class="glyphicon glyphicon-calendar" title="Tooltip on top"></span>
+                <?= Yii::$app->formatter->asDate($purchase->created_at, 'medium') ?> <?= Yii::$app->formatter->asTime($purchase->created_at, 'medium') ?>
+
+
             </td>
             <td>
-                <h4><?= $payment->amount ?>$</h4>
-            </td>
-            <td>
-                <h4><?= $payment->c_balance ?>$</h4>
-            </td>
-            <td>
-                <?= $typedescr ?><br>
                 <?php
-                if ($image = json_decode($payment->actionProd->photos)[0]) : ?>
-                <a href="<?= Url::to(["/catalog/category", "catalias" => $payment->actionProd->catprod->alias, "id" => $payment->actionProd->id]) ?>">
-                    <?= Html::img('/'.$image->filepath.'100_100_'.$image->filename, ['title' => $payment->actionProd->title]) ?>
+                if ($image = json_decode($purchase->actionProd->photos)[0]) : ?>
+                <a href="<?= Url::to(["/catalog/category", "catalias" => $purchase->actionProd->catprod->alias, "id" => $purchase->actionProd->id]) ?>">
+                    <?= Html::img('/'.$image->filepath.'100_100_'.$image->filename, ['title' => $purchase->actionProd->title]) ?>
                 </a>
                 <?php endif; ?>
+            </td>
+            <td>
+                <?= DownloadProject::getFileSize($purchase->actionProd->project_path.$purchase->actionProd->file) ?>
+                <br>
+                <button class="btn btn-primary" data-id = "<?= $purchase->actionProd->id ?>" type="submit"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
+
+                <?= \app\widgets\DownloadWidget::widget(['template' =>'button']) ?>
+
             </td>
         </tr>
         <?php
