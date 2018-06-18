@@ -60,14 +60,14 @@ $this->params['breadcrumbs'][] = $this->title;
     OwlCarouselWidget::end();
  ?>
 
-    <?= BasketWidget::widget([
-            'template' =>'plane',
-            'prod_id' => $product->id,
-            'price' => $product->price,
-            //'discont' => $product->limit,
-            'limit' =>  $product->limit,
-            ])
-    ?>
+ <?= BasketWidget::widget([
+     'template' =>'plane_w_download',
+     'prod_id' => $product->id,
+     'price' => $product->price,
+     //'discont' => $product->limit,
+     'limit' =>  $product->limit,
+ ])
+ ?>
 
 </div>
 

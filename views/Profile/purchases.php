@@ -2,6 +2,7 @@
 
 use app\models\DownloadProject;
 use app\models\Transaction;
+use app\widgets\BasketWidget;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -67,12 +68,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif; ?>
             </td>
             <td>
-                <?= DownloadProject::getFileSize($purchase->actionProd->project_path.$purchase->actionProd->file) ?>
-                <br>
-                <button class="btn btn-primary" data-id = "<?= $purchase->actionProd->id ?>" type="submit"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
-
-                <?= \app\widgets\DownloadWidget::widget(['template' =>'button']) ?>
-
+                <?= BasketWidget::widget([
+                    'template' =>'plane_w_download',
+                    'prod_id' => $purchase->actionProd->id
+                ])?>
             </td>
         </tr>
         <?php

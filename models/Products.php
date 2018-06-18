@@ -253,5 +253,13 @@ class Products extends \yii\db\ActiveRecord
         return $allvotes;
     }
 
+    public static function getFileSize($prod_id)
+    {
+        $project = Products::findOne($prod_id);
+        $path = $project->project_path.$project->file;
+        $fileSize  = filesize($path);
+        return Yii::$app->formatter->asShortSize($fileSize);
+    }
+
 
 }

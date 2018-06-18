@@ -60,7 +60,7 @@ $photos = json::decode($model->photos);
 ?>
 
  <?= BasketWidget::widget([
-     'template' =>'plane',
+     'template' =>'plane_w_download',
      'prod_id' => $product->id,
      'price' => $product->price,
      //'discont' => $product->limit,
@@ -68,7 +68,6 @@ $photos = json::decode($model->photos);
  ])
  ?>
 
- <?= \app\widgets\DownloadWidget::widget(['template' =>'button', 'prod_id' => $product->id]) ?>
 </div>
 
     <?php

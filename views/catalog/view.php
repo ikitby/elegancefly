@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </ul>
 
             <?= BasketWidget::widget([
-                'template' =>'plane',
+                'template' =>'plane_w_download',
                 'prod_id' => $model->id,
                 'price' => $model->price,
                 //'discont' => $model->limit,

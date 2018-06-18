@@ -15,15 +15,15 @@ use yii\helpers\Json;
 class DownloadController extends AppController
 {
 
-    public function actionIndex()
+    public function actionProject()
     {
-        $cartprod = $this->getCartItems();
+        if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+            $project_id = Yii::$app->request->get('id');
+            //$cartprod = $this->getCartItems();
+            //if (empty($cartprod)) {return $this->redirect(['/catalog']);}
+        }
 
-        if (empty($cartprod)) {return $this->redirect(['/catalog']);}
-
-        return $this->render('index', [
-            'cartprod'      => $cartprod,
-        ]);
+        return json_encode($project_id);
     }
 
 

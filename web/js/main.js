@@ -106,6 +106,30 @@ $(function () {
         })
     });
 
+
+    $(".project-download").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: '/download/project',
+            data: {id: id},
+            type: 'GET',
+            success: function (data) {
+
+                if (!data) alert('Error!');
+                var data = jQuery.parseJSON(data);
+
+                alert(data);
+
+                //ShowCart();
+            },
+            error: function () {
+                alert ('Error!');
+            }
+        })
+    });
+
 // Favourite logic
     /*
     $(".add-to-cart").on('click', function(e){

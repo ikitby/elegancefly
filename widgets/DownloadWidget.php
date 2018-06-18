@@ -25,9 +25,8 @@ class DownloadWidget extends Widget
 
     public function run()
     {
-
         $this->aloowedDownload = !Transaction::checkPurchase(Yii::$app->user->id, $this->prod_id, 0);
-        //checkPurchase принимает fslse если товар куплен - пользователь не может его купить, следовательно товар куплен клиент может скачать его
+        //checkPurchase принимает false если товар куплен - пользователь не может его купить, следовательно товар куплен клиент может скачать его
         dump($this);
 
         //$user = $this->getHtmlUser($this->user);
