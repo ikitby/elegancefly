@@ -111,9 +111,28 @@ $(function () {
         e.preventDefault();
         var id = $(this).data('id');
 
-        var link = document.createElement('a');
-        console.log('/download/project?id='+id);
-        link.href='http://elegancefly.loc/download/project?id='+id;
+        var link='http://elegancefly.loc/download/project?id='+id;
+
+
+        function loadDocument(url) {
+            var iframeId = 'loadDocument';
+
+            var iframe = document.getElementById(iframeId);
+            if (!iframe)
+            {
+                iframe = document.createElement('iframe');
+                iframe.setAttribute('id', iframeId);
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+            }
+
+            iframe.src = url;
+        }
+
+        loadDocument(link);
+
+
+        //link='http://elegancefly.loc/download/project?id='+id;
 /*
         $.ajax({
             url: '/download/project',
