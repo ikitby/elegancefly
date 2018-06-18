@@ -79,6 +79,13 @@ class Transaction extends \yii\db\ActiveRecord
         return (empty($count)) ? true : false;
     }
 
+    //Проверка есть ли в базе продукт купленый пользователем и может ли его скачать
+    public static function allowDownload($user_id, $prod_id)
+    {
+        $count = Transaction::find()->where(['action_user' => $user_id, 'prod_id' => $prod_id, 'type' => 0])->count();
+        return (!empty($count)) ? true : false;
+    }
+
 
     //получаем сколько продаж у пользователя
     public static function getUserSales($user_id)

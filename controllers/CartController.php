@@ -149,12 +149,9 @@ class CartController extends AppController
                     return 'No';
                 }
             }
-
-
-
-            Return 'OK!';
+            Return json_encode('OK!');
         } else {
-            return 'У вас недостаточно средств на счете!';
+            return json_encode('У вас недостаточно средств на счете!');
         }
     }
 

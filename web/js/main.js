@@ -111,23 +111,23 @@ $(function () {
         e.preventDefault();
         var id = $(this).data('id');
 
+        var link = document.createElement('a');
+        console.log('/download/project?id='+id);
+        link.href='http://elegancefly.loc/download/project?id='+id;
+/*
         $.ajax({
             url: '/download/project',
             data: {id: id},
             type: 'GET',
-            success: function (data) {
-
-                if (!data) alert('Error!');
-                var data = jQuery.parseJSON(data);
-
-                alert(data);
-
+            success: function () {
+                console.log("OK!");
                 //ShowCart();
             },
             error: function () {
                 alert ('Error!');
             }
         })
+        */
     });
 
 // Favourite logic

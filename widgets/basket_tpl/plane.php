@@ -14,9 +14,6 @@ use yii\helpers\Url;
     </span>
 </span>
 <span class="pull-right">
-   <?php
-    Products::allowPurchased($this->prod_id);
-?>
 <button href="<?= Url::to(['cart/favorite', 'id' => $this->prod_id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></button>
 </span>
 <button href="<?= Url::to(['cart/add', 'id' => $this->prod_id]) ?>" type="button"
