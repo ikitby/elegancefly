@@ -1,5 +1,8 @@
 <?php
 
+use app\models\Catprod;
+use app\models\Themsprod;
+use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -20,13 +23,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'user_id') ?>
-
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'category') ?>
+    <?= $form->field($model, 'user_id')->dropdownList(User::find()->where(['role' => 'Painter'])->select(['name', 'id'])->indexBy('id')->orderBy(['sales' => SORT_DESC])->column(), ['prompt' => 'Painter...'])->label('Художник') ?>
 
-    <?= $form->field($model, 'file') ?>
+    <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(), ['prompt' => 'Category...'])->label('Категория') ?>
+
+    <?= $form->field($model, 'themes')->dropdownList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(), ['prompt' => 'Thema...'])->label('Тематика') ?>
+
+    <?php // echo $form->field($model, 'themes') ?>
+
+    <?php //$form->field($model, 'file') ?>
 
     <?php // echo $form->field($model, 'tags') ?>
 

@@ -76,7 +76,7 @@ class Products extends \yii\db\ActiveRecord
             [['photos', 'category', 'price','tags', 'project_info', 'themes','title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],
-            [['photos'], 'safe'],
+            [['photos', 'themes'], 'safe'],
         ];
     }
 

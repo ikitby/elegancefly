@@ -18,8 +18,8 @@ class CatalogSearch extends Products
     public function rules()
     {
         return [
-            [['id', 'user_id', 'category', 'limit', 'hits', 'rating'], 'integer'],
-            [['title', 'file', 'tags', 'photos', 'project_info', 'project_path', 'themes', 'created_at'], 'safe'],
+            [['id', 'user_id', 'category', 'limit', 'themes', 'hits', 'rating'], 'integer'],
+            [['title', 'file', 'tags', 'photos', 'project_info', 'project_path', 'created_at'], 'safe'],
             [['price', 'sales'], 'number'],
             [['state', 'deleted'], 'boolean'],
         ];
@@ -60,27 +60,23 @@ class CatalogSearch extends Products
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'category' => $this->category,
-            'price' => $this->price,
-            'limit' => $this->limit,
-            'hits' => $this->hits,
-            'sales' => $this->sales,
-            'rating' => $this->rating,
-            'state' => $this->state,
-            'deleted' => $this->deleted,
-            'created_at' => $this->created_at,
-        ]);
+                $query->andFilterWhere([
+                    'id' => $this->id,
+                    'user_id'   => $this->user_id,
+                    'category'  => $this->category,
+                    'themes'    => $this->themes,
+                    'state'     => 1,
+                    'deleted'   => 0,
+                ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'file', $this->file])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'photos', $this->photos])
-            ->andFilterWhere(['like', 'project_info', $this->project_info])
-            ->andFilterWhere(['like', 'project_path', $this->project_path])
-            ->andFilterWhere(['like', 'themes', $this->themes]);
+                $query->andFilterWhere(['like', 'title', $this->title])
+                    ->andFilterWhere(['like', 'file', $this->file])
+                    ->andFilterWhere(['like', 'tags', $this->tags])
+                    ->andFilterWhere(['like', 'photos', $this->photos])
+                    ->andFilterWhere(['like', 'project_info', $this->project_info])
+                    ->andFilterWhere(['like', 'project_path', $this->project_path])
+                    ->andFilterWhere(['in', 'themes', $this->themes]);
+                    //->andFilterWhere(['like', 'themes', $this->themes]);
 
         return $dataProvider;
     }

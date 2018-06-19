@@ -82,7 +82,7 @@ class CatalogController extends AppController
         return $this->render('index', [
             'products'      => $products,
             'productsall'   => $productsall,
-            'searchModel' => $searchModel,
+            'searchModel'   => $searchModel,
             'dataProvider'  => $dataProvider,
             'pagination'    => $pagination
         ]);
@@ -331,6 +331,7 @@ class CatalogController extends AppController
 
                 $tags = $querypost['tags'];
                 $model->saveTags($tags);
+
                 $model->save(false);
             }
 

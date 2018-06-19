@@ -8,6 +8,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
+//use app\models\CatalogSearch;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,12 +23,9 @@ $photos = json::decode($model->photos);
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php
-    dump($dataProvider->query->where);
+    <?php Pjax::begin();
     echo $this->render('_search', ['model' => $searchModel]);
     ?>
-
-    <?php// Pjax::begin(); ?>
     <p>
         <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -63,7 +61,6 @@ $photos = json::decode($model->photos);
     OwlCarouselWidget::end();
 
 ?>
-
  <?= BasketWidget::widget([
      'template' =>'plane_w_download',
      'prod_id' => $product->id,
@@ -86,5 +83,5 @@ $photos = json::decode($model->photos);
       </div>
     </div>
 
-    <?php // Pjax::end(); ?>
+    <?php Pjax::end(); ?>
 </div>
