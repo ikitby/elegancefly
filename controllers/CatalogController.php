@@ -14,6 +14,7 @@ use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 
 use yii\web\ForbiddenHttpException;
+use app\models\CatalogSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -54,6 +55,9 @@ class CatalogController extends AppController
     public function actionIndex()
     {
 
+        $searchModel = new CatalogSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $products = Products::find()->where(['state' => 1, 'deleted' => 0]);
         $productsall = $products;
 
@@ -65,11 +69,11 @@ class CatalogController extends AppController
         );
 
         $products = Products::find()
-            ->where([
-                'state' => 1,
-                'deleted' => 0,
-                ])
-            //->where(['deleted' => 0])
+            //->where([
+            //    'state' => 1,
+            //    'deleted' => 0,
+            //    ])
+            ->where($dataProvider->query->where)
             ->with(['user', 'catprod'])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
@@ -78,6 +82,8 @@ class CatalogController extends AppController
         return $this->render('index', [
             'products'      => $products,
             'productsall'   => $productsall,
+            'searchModel' => $searchModel,
+            'dataProvider'  => $dataProvider,
             'pagination'    => $pagination
         ]);
 
