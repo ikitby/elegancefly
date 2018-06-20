@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Products;
+use app\models\Themsprod;
 
 /**
  * CatalogSearch represents the model behind the search form of `app\models\Products`.
@@ -60,23 +61,33 @@ class CatalogSearch extends Products
         }
 
         // grid filtering conditions
+        //dump($this);
+        //die();
+
                 $query->andFilterWhere([
                     'id' => $this->id,
                     'user_id'   => $this->user_id,
                     'category'  => $this->category,
-                    'themes'    => $this->themes,
+                    //'themes'    => $this->themes,
+                    //'themes_index' => $this->themes,
                     'state'     => 1,
                     'deleted'   => 0,
                 ]);
+
+                //$query->andFilterWhere(['themes_index', $this->themes]);
+
+                //dump($query);
 
                 $query->andFilterWhere(['like', 'title', $this->title])
                     ->andFilterWhere(['like', 'file', $this->file])
                     ->andFilterWhere(['like', 'tags', $this->tags])
                     ->andFilterWhere(['like', 'photos', $this->photos])
                     ->andFilterWhere(['like', 'project_info', $this->project_info])
-                    ->andFilterWhere(['like', 'project_path', $this->project_path])
-                    ->andFilterWhere(['in', 'themes', $this->themes]);
+                    ->andFilterWhere(['in', 'themes', $this->themes])
+                    ->andFilterWhere(['like', 'project_path', $this->project_path]);
+                    //->andFilterWhere(['like', 'themes_index', json_decode($this->themes)]);
                     //->andFilterWhere(['like', 'themes', $this->themes]);
+
 
         return $dataProvider;
     }

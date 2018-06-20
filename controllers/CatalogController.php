@@ -258,9 +258,6 @@ class CatalogController extends AppController
         $this->addHits($id);
         $model = $this->findModel($id);
 
-        //$rating_count = $model->getRatings()->select('rating')->count();
-        //$rating = $model->getRatings()->select('rating')->asArray()->all();
-
         $model->rating = $model->afterFind();
 
         //$rateUsers = $model->rateUsers; //Так можно получить оценивших материал пользователей
@@ -295,15 +292,7 @@ class CatalogController extends AppController
 
             return $this->redirect(['update', 'id' => $model->id]);
         }
-/*
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $themes = Yii::$app->request->post('Products');
-            $themes = $themes['themes'];
-            $model->saveThems($themes);
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-*/
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -314,37 +303,31 @@ class CatalogController extends AppController
     {
         $model = $this->findModel($id);
 
-        /*
-        if (!Yii::$app->user->can('editOwnProject', ['model' => $model]))
+        $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
+        $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
+
+        if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
         {
-            throw new ForbiddenHttpException('This action is not allowed for you!');
+            $querypost = Yii::$app->request->post('Products');
+            $themes = $querypost['themes'];
+            $model->saveThems($themes);
+
+            $tags = $querypost['tags'];
+            $model->saveTags($tags);
+            $model->themes_index = json_encode($themes);
+
+            $model->save();
         }
-        */
-            $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
-            $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 
-            if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
-            {
-                $querypost = Yii::$app->request->post('Products');
-                $themes = $querypost['themes'];
-                $model->saveThems($themes);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-                $tags = $querypost['tags'];
-                $model->saveTags($tags);
-
-                $model->save(false);
-            }
-
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        return $this->render('update', [
+            'model' => $model,
+        ]);
 
     }
-
 
     public function actionDelete($id)
     {

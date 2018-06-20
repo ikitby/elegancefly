@@ -133,6 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
+                <li><strong>Метки: </strong><?php dump($model) ?></li>
                 <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
                 <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
                 <li><strong>Продано: </strong><?= Transaction::getProjectSelling($model->id)?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
@@ -165,6 +166,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Фото галерея',
                 'value' => function($model) {;
                     $photos = json::decode($model->photos);
+                    $photolist = "";
+
                     foreach ($photos as $photo) {
                         if ($photo['number'] != 0) {$photolist .= Html::img('/'.$photo['filepath'].'200_200_'.$photo['filename'], ['class' => 'img-responsive1', 'height' => '150', 'style' => 'margin: 5px', 'width' => '150', 'alt' => $model->title, 'title' => $model->title]);}
                         //$photolist = Html::img('/'.$photo['filepath'].'100_100_'.$photo['filename'], ['class' => 'img-responsive1', 'height' => '100', 'width' => '100', 'alt' => $model->title, 'title' => $model->title]);
