@@ -73,10 +73,11 @@ class Products extends \yii\db\ActiveRecord
         return [
             [['user_id', 'limit', 'hits', 'sales'], 'integer'],
             [[ 'price'], 'double'],
-            [['photos', 'category', 'price','tags', 'project_info', 'themes','title', 'state', 'deleted'], 'required'],
+            [['photos', 'category', 'price','tags', 'project_info', 'title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],
-            [['photos'], 'safe'],
+            [['themes_index'], 'string', 'max' => 4055],
+            [['photos', 'themes', 'themes_index'], 'safe'],
         ];
     }
 
@@ -97,6 +98,7 @@ class Products extends \yii\db\ActiveRecord
             'price' => 'Price',
             'project_info' => 'Project info',
             'themes' => 'Themes',
+            'themes_index' => 'Themes index',
             'limit' => 'Limit',
             'hits' => 'Hits',
             'sales' => 'Sales',
@@ -151,10 +153,7 @@ class Products extends \yii\db\ActiveRecord
         return $rating;
     }
 
-
-
     public function afterFind() {
-        //$this->rating = Ratings::getAllRating($this->id);
         return $rating = $this->rating;
     }
 
