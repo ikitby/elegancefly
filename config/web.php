@@ -112,7 +112,7 @@ $config = [
                 'catalog/rate' => 'catalog/rate',
                 'catalog/<catalias:\w+>/<id:\d+>' => 'catalog/category',
                 'catalog/<catalias:\w+>' => 'catalog/category',
-
+                'catalog/show/<painter:\w+>' => 'catalog/search',
 
                 //'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',

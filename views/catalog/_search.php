@@ -1,5 +1,10 @@
 <?php
 
+use app\models\Catprod;
+use app\models\Tags;
+use app\models\Themsprod;
+use app\models\User;
+use kartik\widgets\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,17 +23,83 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php //  $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'user_id') ?>
+    <?php //  $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <div class="row">
+        <div class="col-md-3">
+            <?=
+            $form->field($model, 'category')->widget(Select2::classname(), [
+                'data' => Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
+                'options' => [
+                    'placeholder' => 'Category',
+                    'multiple' => false
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('');
+            ?>
+        </div>
 
-    <?= $form->field($model, 'file') ?>
+        <div class="col-md-3">
+            <?=
+            $form->field($model, 'themes')->widget(Select2::classname(), [
+                'data' => Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
+                'options' => [
+                    'placeholder' => 'Theme',
+                    'multiple' => false
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('');
+            ?>
+        </div>
 
-    <?= $form->field($model, 'tags') ?>
+        <div class="col-md-3">
+            <?=
+            $form->field($model, 'user_id')->widget(Select2::classname(), [
+                'data' => User::find()->where(['role' => 'Painter'])->select(['name', 'id'])->indexBy('id')->orderBy(['sales' => SORT_DESC])->column(),
+                'options' => [
+                    'placeholder' => 'Painter',
+                    'multiple' => false
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('');
+            ?>
+        </div>
 
-    <?= $form->field($model, 'photos') ?>
+        <div class="col-md-3">
+            <?=
+            $form->field($model, 'tags')->widget(Select2::classname(), [
+                'data' => Tags::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
+                'options' => [
+                    'placeholder' => 'Tag',
+                    'multiple' => false
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('');
+            ?>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <?php // $form->field($model, 'photos') ?>
 
     <?php // echo $form->field($model, 'price') ?>
 

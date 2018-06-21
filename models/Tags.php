@@ -38,6 +38,7 @@ class Tags extends \yii\db\ActiveRecord
         ];
     }
 
+
     public function createTag($tag_id)
     {
         $newtag = Tags::findOne(['title' => $tag_id]);

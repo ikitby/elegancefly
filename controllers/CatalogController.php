@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\models\Catprod;
+use app\models\ProductsSearch;
 use app\models\Ratings;
 use app\models\Tags;
 use app\models\Themsprod;
 use app\models\UploadProject;
+use app\models\User;
 use Yii;
 use app\models\Products;
 use yii\data\Pagination;
@@ -53,8 +55,10 @@ class CatalogController extends AppController
      */
     public function actionIndex()
     {
+        $searchModel = new ProductsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $products = Products::find()->where(['state' => 1, 'deleted' => 0]);
+        $products = Products::find()->where($dataProvider->query->where);
         $productsall = $products;
 
         $pagination = new Pagination(
@@ -65,10 +69,7 @@ class CatalogController extends AppController
         );
 
         $products = Products::find()
-            ->where([
-                'state' => 1,
-                'deleted' => 0,
-                ])
+            ->where($dataProvider->query->where)
             //->where(['deleted' => 0])
             ->with(['user', 'catprod'])
             ->offset($pagination->offset)
@@ -78,7 +79,9 @@ class CatalogController extends AppController
         return $this->render('index', [
             'products'      => $products,
             'productsall'   => $productsall,
-            'pagination'    => $pagination
+            'pagination'    => $pagination,
+            'searchModel'   => $searchModel,
+            'dataProvider'   => $dataProvider,
         ]);
 
 
@@ -222,6 +225,50 @@ class CatalogController extends AppController
 
     }
 
+/*
+    public function actionSearch()
+    {
+        $searchModel = new ProductsSearch();
+
+        $request = Yii::$app->request;
+
+        $painter = $request->get('painter');
+        $painter_id = User::find()->where(['username' => $painter])->select('id')->one();
+
+        $products = Products::find()
+            ->where([
+                'state' => 1,
+                'deleted' => 0,
+                'user_id' => 1,
+            ]);
+
+        $productsall = $products;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
+                'totalCount'        => $products->count() //ограничиваем пагинацию по размеру массива тега
+            ]
+        );
+
+        $products = Products::find()
+            ->where([
+                'state' => 1,
+                'deleted' => 0,
+                'user_id' => 1
+            ])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('index', [
+            'products'      => $products,
+            'productsall'   => $productsall,
+            'searchModel'   => $searchModel,
+            'pagination'    => $pagination
+        ]);
+    }
+*/
 
     public function actionRate($pid = 0, $rating = 0)
     {

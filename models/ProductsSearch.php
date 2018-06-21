@@ -18,9 +18,10 @@ class ProductsSearch extends Products
     public function rules()
     {
         return [
-            [['id', 'user_id', 'price', 'limit', 'hits', 'sales'], 'integer'],
-            [['title'], 'string'],
-            [['file', 'tags', 'photos', 'themes', 'created_at'], 'safe'],
+            [['id', 'user_id', 'category', 'limit', 'hits', 'rating'], 'integer'],
+            [['title', 'file', 'tags', 'photos', 'project_info', 'project_path', 'themes', 'themes_index', 'created_at'], 'safe'],
+            [['price', 'sales'], 'number'],
+            [['state', 'deleted'], 'boolean'],
         ];
     }
 
@@ -59,21 +60,22 @@ class ProductsSearch extends Products
         }
 
         // grid filtering conditions
-
         $query->andFilterWhere([
-            'title' => $this->title,
-            'price' => $this->price,
-            'limit' => $this->limit,
-            'hits' => $this->hits,
-            'sales' => $this->sales,
-            'created_at' => $this->created_at,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'category' => $this->category,
+            'state' => 1,
+            'deleted' => 0,
         ]);
 
-        $query->andFilterWhere(['like', 'file', $this->file])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'photos', $this->photos])
-            ->andFilterWhere(['like', 'themes', $this->themes]);
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'file', $this->file])
+            ->andFilterWhere(['in', 'id', ProjectTags::getArtIdsFromTagId($this->tags)])
+            //->andFilterWhere(['like', 'photos', $this->photos])
+            //->andFilterWhere(['like', 'project_info', $this->project_info])
+            //->andFilterWhere(['like', 'project_path', $this->project_path])
+            //->andFilterWhere(['like', 'themes', $this->themes])
+            ->andFilterWhere(['like', 'themes_index', $this->themes_index]);
 
         return $dataProvider;
     }

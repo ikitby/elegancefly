@@ -1,46 +1,31 @@
 <?php
 
+use app\models\Catprod;
 use app\widgets\BasketWidget;
-use app\widgets\CatsearchWidget;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Catalog';
+$catalias = Yii::$app->request->get('catalias'); //get category alias from url
+$curentcat = Catprod::find()->where(['alias' => $catalias])->one();
+
+$this->title = $curentcat->title;
+
+$this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$photos = json::decode($model->photos);
-\app\models\ProjectTags::getArtIdsFromTagId(9);
+//$photos = json::decode($model->photos);
+
 ?>
 <div class="products-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php Pjax::begin();
-    //$actionMethod = $this->context->action->actionMethod;
-
-    //if ($actionMethod !== 'actionTema' || $actionMethod !== 'actionTag') {
-    if (!empty($searchModel)) {
-        print $this->render('_search', ['model' => $searchModel]);
-    }
-
-    ?>
-
-    <?php /* CatsearchWidget::widget([
-        'template' =>'inline',
-        'painter' =>'1',
-        'category' => '1',
-        'type' => '',
-        'tags' =>  '',
-    ])
-    */?>
 
     <p>
         <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
@@ -70,13 +55,10 @@ $photos = json::decode($model->photos);
     ]
     ]);
     foreach ($galery_teaser as $photo) {
-        //print '<div  class="owl-items"><a href="'.Url::to(["view", "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
-        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
-
+        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $curentcat->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
     }
     OwlCarouselWidget::end();
-
-?>
+ ?>
 
  <?= BasketWidget::widget([
      'template' =>'plane_w_download',
@@ -100,5 +82,4 @@ $photos = json::decode($model->photos);
       </div>
     </div>
 
-    <?php Pjax::end(); ?>
 </div>

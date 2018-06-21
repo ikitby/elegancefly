@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "project_tags".
@@ -43,4 +44,11 @@ class ProjectTags extends \yii\db\ActiveRecord
             'tag_id' => 'Tag ID',
         ];
     }
+
+    public static function getArtIdsFromTagId($tag_id)
+    {
+        $tags = ProjectTags::find()->select('project_id')->asArray(['tag_id'])->where(['tag_id' => $tag_id])->all();
+        return (ArrayHelper::getColumn($tags, 'project_id'));
+    }
+
 }
