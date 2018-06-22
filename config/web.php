@@ -93,6 +93,7 @@ $config = [
 
         'urlManager' => [
             'enablePrettyUrl' => true,
+            //'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
@@ -110,9 +111,13 @@ $config = [
                 'catalog/create' => 'catalog/create',
                 'catalog/update' => 'catalog/update',
                 'catalog/rate' => 'catalog/rate',
+                'catalog/show' => 'catalog/show',
+                'catalog/show<ProductsSearch[category]:\d+>' => 'catalog/show',
+
                 'catalog/<catalias:\w+>/<id:\d+>' => 'catalog/category',
                 'catalog/<catalias:\w+>' => 'catalog/category',
                 'catalog/show/<painter:\w+>' => 'catalog/search',
+                '/catalog/author/<painter:\w+>' => 'catalog/author',
 
                 //'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',

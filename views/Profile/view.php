@@ -3,6 +3,7 @@
 use app\models\Transaction;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -71,10 +72,11 @@ dump($painter);
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
             <?php if (empty($model->role) || $model->role != 'User') : ?>
-            <li><strong>Работ: </strong><?= Html::encode($model->getUserProjectsCount($model->id)) ?></li>
+            <li>
+                <strong>Работ: </strong><a href="<?= Url::to(['/catalog/author', 'painter' => $model->username]) ?>"><?= Html::encode($model::getUserProjectsCount($model->id)) ?></a>
+            </li>
             <li><strong>Продаж: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
-            <li><strong>Язык: </strong><?= Html::encode($model->languages) ?></li>
             <?php endif; ?>
         </ul>
         Баланс:

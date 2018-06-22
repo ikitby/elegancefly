@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "project_thems".
@@ -19,6 +20,12 @@ class ProjectThems extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'project_thems';
+    }
+
+    public static function getArtIdsFromTemaId($thema)
+    {
+        $thems = ProjectThems::find()->select('progect_id')->asArray(['tag_id'])->where(['theme_id' => $thema])->all();
+        return (ArrayHelper::getColumn($thems, 'progect_id'));
     }
 
     /**

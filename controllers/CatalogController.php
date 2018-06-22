@@ -87,6 +87,40 @@ class CatalogController extends AppController
 
     }
 
+    public function actionShow()
+    {
+        $searchModel = new ProductsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $products = Products::find()->where($dataProvider->query->where);
+        $productsall = $products;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
+                'totalCount'        => $products->count()
+            ]
+        );
+
+        $products = Products::find()
+            ->where($dataProvider->query->where)
+            //->where(['deleted' => 0])
+            ->with(['user', 'catprod'])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('index', [
+            'products'      => $products,
+            'productsall'   => $productsall,
+            'pagination'    => $pagination,
+            'searchModel'   => $searchModel,
+            'dataProvider'   => $dataProvider,
+        ]);
+
+
+    }
+
     public function actionCategory()
     {
 

@@ -2,6 +2,7 @@
 
 use app\models\Catprod;
 use app\models\Transaction;
+use app\models\User;
 use app\widgets\BasketWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -130,7 +131,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
                     </a>
                 </li>
-                <li><strong>Портфолио: </strong><?= $model::find()->where(['user_id' => $model->user->id])->count() ?></li>
+                <li>
+                    <strong>Работ: </strong><a href="<?= Url::to(['/catalog/author', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
+                </li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
                 <li><strong>Метки: </strong><?php dump($model) ?></li>

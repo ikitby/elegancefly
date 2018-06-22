@@ -71,7 +71,7 @@ class ProductsSearch extends Products
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'file', $this->file])
             ->andFilterWhere(['in', 'id', ProjectTags::getArtIdsFromTagId($this->tags)])
-            //->andFilterWhere(['like', 'photos', $this->photos])
+            ->andFilterWhere(['in', 'id', ProjectThems::getArtIdsFromTemaId($this->themes)])
             //->andFilterWhere(['like', 'project_info', $this->project_info])
             //->andFilterWhere(['like', 'project_path', $this->project_path])
             //->andFilterWhere(['like', 'themes', $this->themes])

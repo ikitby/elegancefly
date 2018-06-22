@@ -17,34 +17,18 @@ $this->title = 'Catalog';
 $this->params['breadcrumbs'][] = $this->title;
 
 $photos = json::decode($model->photos);
-\app\models\ProjectTags::getArtIdsFromTagId(9);
 ?>
 <div class="products-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php Pjax::begin();
-    //$actionMethod = $this->context->action->actionMethod;
+    <?php //Pjax::begin();
 
-    //if ($actionMethod !== 'actionTema' || $actionMethod !== 'actionTag') {
     if (!empty($searchModel)) {
         print $this->render('_search', ['model' => $searchModel]);
     }
 
     ?>
-
-    <?php /* CatsearchWidget::widget([
-        'template' =>'inline',
-        'painter' =>'1',
-        'category' => '1',
-        'type' => '',
-        'tags' =>  '',
-    ])
-    */?>
-
-    <p>
-        <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <div class="row">
     <?php
@@ -70,7 +54,6 @@ $photos = json::decode($model->photos);
     ]
     ]);
     foreach ($galery_teaser as $photo) {
-        //print '<div  class="owl-items"><a href="'.Url::to(["view", "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
         print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
 
     }
@@ -100,5 +83,5 @@ $photos = json::decode($model->photos);
       </div>
     </div>
 
-    <?php Pjax::end(); ?>
+    <?php //Pjax::end(); ?>
 </div>

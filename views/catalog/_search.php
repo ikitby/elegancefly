@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 <div class="products-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['/catalog/show'],
         'method' => 'get',
         'options' => [
             'data-pjax' => 1

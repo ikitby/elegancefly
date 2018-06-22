@@ -38,6 +38,9 @@ use yii\helpers\Url;
         ]); ?>
         <?= $user['rate'] ?>
         (<?= (empty($user->rate_c)) ? "0" : $user->rate_c ?>)
+            <p>
+                <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
         <?php endif; ?>
         <div class="col-md-12 username"><?= Html::encode($user->name) ?></div>
 

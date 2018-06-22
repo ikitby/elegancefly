@@ -34,7 +34,7 @@ class DownloadController extends AppController
 
                 //return json_encode("ok!");
                 } else {
-                return json_encode("Вы не покупали данный товар");
+                return json_encode("You can`t perform this action");
             }
         }
 
