@@ -17,7 +17,7 @@ use kartik\money\MaskMoney;
     <?= $form->field($model, 'photos')->fileInput(['extensions' => ['zip'], 'maxSize' => 1024])->label('Архив проекта') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-info']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
