@@ -112,11 +112,4 @@ class Transaction extends \yii\db\ActiveRecord
     }
 
 
-    //Сколько продаж проекта
-    public static function getProjectSelling($project_id)
-    {
-        return Transaction::find()->where(['prod_id' => $project_id])->count();
-    }
-
-
 }

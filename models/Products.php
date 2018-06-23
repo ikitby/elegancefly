@@ -260,5 +260,10 @@ class Products extends \yii\db\ActiveRecord
         return Yii::$app->formatter->asShortSize($fileSize);
     }
 
+    //Сколько продаж проекта
+    public static function getProjectSelling($project_id)
+    {
+        return Transaction::find()->where(['prod_id' => $project_id, 'type' => 1])->count();
+    }
 
 }

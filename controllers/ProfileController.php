@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ImageUpload;
+use app\models\Products;
 use app\models\Transaction;
 use Yii;
 use app\models\User;
@@ -79,32 +80,62 @@ class ProfileController extends AppController
 
     }
 
-
-    public function actionGoods()
+    public function actionMyprojects()
     {
         $id = $this->checkAccess();
 
-        $payments = Transaction::find()->where(['action_user' => $id]);
-        $allpayments = $payments;
+        $projects = Products::find()->where(['user_id' => Yii::$app->user->id]);
+        $projectsall = $projects;
 
         $pagination = new Pagination(
             [
-                'defaultPageSize'   => ProfileController::STATUS_PAGESIZE,
-                'totalCount'        => $payments->count()
+                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
+                'totalCount'        => $projects->count()
             ]
         );
 
-        $payments = Transaction::find()
-            ->where(['action_user' => $id])
-            ->orderBy(['id' => SORT_DESC])
+        $projects = Products::find()
+            ->where(['user_id' => Yii::$app->user->id,'deleted' => 0])
+            ->with(['user', 'catprod'])
+            ->orderBy(['created_at' => SORT_DESC])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('goods', [
-            'payments' => $payments,
-            'pagination' => $pagination,
-            'allpayments' => $allpayments
+        return $this->render('myprojects', [
+            'projects'      => $projects,
+            'projectsall'   => $projectsall,
+            'pagination'    => $pagination,
+        ]);
+
+    }
+
+    public function actionUpdateproject($id)
+    {
+
+        $model = Products::findOne($id);
+
+        $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
+        $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
+
+        if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
+        {
+
+            $querypost = Yii::$app->request->post('Products');
+            $themes = $querypost['themes'];
+            $model->saveThems($themes);
+
+            $tags = $querypost['tags'];
+            $model->saveTags($tags);
+            $model->save(false);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['myprojects', 'id' => $model->id]);
+        }
+
+        return $this->render('updateproject', [
+            'model' => $model,
         ]);
     }
 

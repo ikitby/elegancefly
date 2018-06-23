@@ -66,13 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-6">
         <div id="r_infowrap<?=$model->id?>">
-        <span id="numRait_<?=$model->id?>"><?= $model->getAllRatings($model->id) ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->getAllVotes($model->id) ?></span>
+        <span id="numRait_<?=$model->id?>"><?= $model->rating ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->tatng_votes ?></span>
         </div>
         <?php
         echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
             'id' => 'input-'.$model->id.'',
-            'value' => Ratings::getAllRatings($model->id),
+            'value' => $model->rating,
             'attribute' => 'rating',
             'pluginOptions' => [
                 'size' => 'xs',
@@ -136,10 +136,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
-                <li><strong>Метки: </strong><?php dump($model) ?></li>
                 <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
                 <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
-                <li><strong>Продано: </strong><?= Transaction::getProjectSelling($model->id)?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
+                <li><strong>Продано: </strong><?= $model::getProjectSelling($model->id)?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
                 <li><strong>Инфо: </strong><br />
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
                 <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>

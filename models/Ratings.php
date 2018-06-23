@@ -136,6 +136,7 @@ class Ratings extends \yii\db\ActiveRecord
                         //Запишем рейтинг в запись проекта для сортировок и ускорения выводе рейтина в дальнейшем
                         $prate = Products::findOne($pid);
                         $prate->rating = $resresult['r_rating'];
+                        $prate->tatng_votes = $resresult['r_allrating'];
                         $prate->save();
                         //Запишем рейтинг в запись проекта для сортировок и ускорения выводе рейтина в дальнейшем
                         //обновим общий рейтинг пользователя за которого голосовали

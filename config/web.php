@@ -113,11 +113,12 @@ $config = [
                 'catalog/rate' => 'catalog/rate',
                 'catalog/show' => 'catalog/show',
                 'catalog/show<ProductsSearch[category]:\d+>' => 'catalog/show',
-
+                'catalog/delete/<id:\d+>' => 'catalog/delete',
                 'catalog/<catalias:\w+>/<id:\d+>' => 'catalog/category',
                 'catalog/<catalias:\w+>' => 'catalog/category',
                 'catalog/show/<painter:\w+>' => 'catalog/search',
                 '/catalog/author/<painter:\w+>' => 'catalog/author',
+                '/profile/updateproject/<id:\d+>' => '/profile/updateproject',
 
                 //'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',

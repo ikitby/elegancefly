@@ -84,7 +84,6 @@ class CatalogController extends AppController
             'dataProvider'   => $dataProvider,
         ]);
 
-
     }
 
     public function actionShow()
@@ -416,15 +415,47 @@ class CatalogController extends AppController
             return $this->render('update', [
                 'model' => $model,
             ]);
-
     }
 
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $id = Yii::$app->request->post('id');
 
-        return $this->redirect(['index']);
+        if (Products::getProjectSelling($id))
+        {
+            //////////Добавить выключение в базе!!! в этом месте
+            return json_encode('Продукт имеет покупателей. Полное удаление невозможно! Выключаю.');
+        } else {
+            return json_encode($this->deleteFileProject($id));
+        }
+    }
+
+    private function deleteFileProject($id)
+    {
+        //Перманентное удаление проекта с чисткой файлов
+        $project = $this->findModel($id);
+        $removeres = json_decode($project->photos);
+        if (file_exists($project->project_path)) $this->delTree($project->project_path); //удаляю папку проекта с всем содержимым
+        foreach ($removeres as $res)
+        {
+            if (file_exists($res->foolpath)) {unlink($res->foolpath);} // Чистим все картинки предпросмотра
+        }
+        $project->delete(); //Удаляем проект из базы
+        return json_encode('Project deleted!');
+    }
+
+    //Удаление директории проекта с файлами в ней
+    private function delTree($dir)
+    {
+        if ($objs = glob($dir."/*"))
+        {
+            foreach($objs as $obj)
+            {
+                is_dir($obj) ? $this->delTree($obj) : unlink($obj);
+            }
+        }
+        rmdir($dir);
     }
 
     protected function findModel($id)

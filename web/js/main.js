@@ -111,7 +111,7 @@ $(function () {
         e.preventDefault();
         var id = $(this).data('id');
 
-        var link='http://elegancefly.loc/download/project?id='+id;
+        var link='/download/project?id='+id;
 
 
         function loadDocument(url) {
@@ -131,22 +131,39 @@ $(function () {
 
         loadDocument(link);
 
+    });
 
-        //link='http://elegancefly.loc/download/project?id='+id;
-/*
+    $(".deletemyproject").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        var link='/catalog/delete/'+id;
+
         $.ajax({
-            url: '/download/project',
+            url: link,
             data: {id: id},
-            type: 'GET',
-            success: function () {
-                console.log("OK!");
+            type: 'POST',
+            success: function (data) {
+
+                if (!data) alert('Error!');
+                var data = jQuery.parseJSON(data);
+
+                var selector = "#project_"+id;
+                $(selector).hide(500);
+                setTimeout(function(){
+                    $(selector).detach()
+                }, 1000);
+
+
+                console.log(data);
+
                 //ShowCart();
             },
             error: function () {
                 alert ('Error!');
             }
         })
-        */
+
     });
 
 // Favourite logic
