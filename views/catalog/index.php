@@ -47,7 +47,9 @@ $photos = json::decode($model->photos);
             'class' => $owlId.' owl-loaded'
     ],
     'pluginOptions' => [
-    'autoPlay' => false,
+     'autoplay' => false,
+     'autoplayTimeout' => 1000,
+    'autoplayHoverPause'     => true,
     'loop'     => true,
     'lazyLoad' => true,
     'items'    => 1
@@ -57,6 +59,7 @@ $photos = json::decode($model->photos);
         print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
 
     }
+
     OwlCarouselWidget::end();
 
 ?>

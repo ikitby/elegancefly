@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $galery = json::decode($model->photos); //декодим json с массивом галереи
         ?>
     </p>
-
+<div class="row">Доступ ограничен!</div>
     <div class="row">
         <div class="col-md-6">
 <?php
@@ -53,7 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'my-container-class'
             ],
             'pluginOptions' => [
-            'autoPlay' => false,
+            'autoPlay' => true,
+            'nav' => true,
+            'dots' => true,
+            'autoplay' => true,
+            'lazyLoad' => true,
+            'loop' => true,
             'items' => 1
             ]
             ]);

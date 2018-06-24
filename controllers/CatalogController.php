@@ -424,11 +424,18 @@ class CatalogController extends AppController
 
         if (Products::getProjectSelling($id))
         {
-            //////////Добавить выключение в базе!!! в этом месте
+            $this->setProdDel($id);
             return json_encode('Продукт имеет покупателей. Полное удаление невозможно! Выключаю.');
         } else {
             return json_encode($this->deleteFileProject($id));
         }
+    }
+
+    private function setProdDel($id)
+    {
+        $project = $this->findModel($id);
+        $project->deleted = 1;
+        return $project->save();
     }
 
     private function deleteFileProject($id)
@@ -460,7 +467,7 @@ class CatalogController extends AppController
 
     protected function findModel($id)
     {
-        if (($model = Products::findOne($id)) !== null) {
+        if (($model = Products::find()->where(['id' => $id, 'state' => 1])->one()) !== null) {
             return $model;
         }
 

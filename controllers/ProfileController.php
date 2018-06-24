@@ -202,6 +202,20 @@ class ProfileController extends AppController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public function actionPublishproject()
+    {
+        $project_id = Yii::$app->request->post('id');
+        $user_id = $this->checkAccess();
+        $product = Products::find()->where(['id' => $project_id, 'user_id' => $user_id])->one();
+        //return json_encode($project_id);
+        if ($product) {
+            $product->state = ($product->state == true) ?  false: true;
+            $product->save();
+            return json_encode($product->state);
+        }
+
+    }
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

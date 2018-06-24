@@ -30,17 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
             $typeclass = "";
             $typedescr = "";
 
-            switch ($payment->type) {
+            switch ($project->state) {
                 case 0:
                     $typeclass = 'success';
-                    $typedescr = 'Продается';
+                    $typedescr = '<span class="state_'.$project->id.' label label-warning">Не продается</span>';
                     break;
                 case 1:
                     $typeclass = 'warning';
-                    $typedescr = 'Не продается';
+                    $typedescr = '<span class="state_'.$project->id.'  label label-success">Продается</span>';
                     break;
                 case 3:
-                    $typedescr = 'Уник!';
+                    $typedescr = '<span class="state_'.$project->id.' label label-info">Уник!</span>';
                     $typeclass = 'info';
                     break;
             }
@@ -82,10 +82,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= Yii::$app->formatter->asDate($project->created_at, 'medium') ?>
                     <?= Yii::$app->formatter->asTime($project->created_at, 'medium') ?>
-                    <div class="row actions">
+                    <div class="col-md-12 actions">
                         <br/>
-                        <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs pull-left']) ?>
-                        <a class="btn btn-danger btn-xs pull-right deletemyproject" href="#" data-id="<?= $project->id ?>" data-confirm="Are you sure you want to delete <?= $project->title ?>?"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                        <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']) ?>
+                        <?= Html::a('Publish', ['/profile/publishproject', 'id' => $project->id], ['class' => 'state_'.$project->id.' btn btn-success btn-xs publishproject', 'data-id' => $project->id]) ?>
+                        <?= Html::a('Set limit', ['/profile/setlimit', 'id' => $project->id], ['class' => 'btn btn-warning btn-xs setlimitproject', 'data-id' => $project->id]) ?>
+                        <a class="btn btn-danger btn-xs deletemyproject" href="#" data-id="<?= $project->id ?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                     </div>
                 </div>
                 <div class="col-md-2">
