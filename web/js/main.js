@@ -100,7 +100,6 @@ $(function () {
                 if (!data) alert('Error!');
                 var data = jQuery.parseJSON(data);
 
-                //ShowCart();
             },
             error: function () {
                 alert ('Error!');
@@ -157,11 +156,8 @@ $(function () {
                         $(selector).detach()
                     }, 1000);
 
-
-                    console.log(data);
-
-                    //ShowCart();
                 },
+
                 error: function () {
                     alert('Error!');
                 }
@@ -181,18 +177,49 @@ $(function () {
             data: {id: id},
             type: 'POST',
             success: function (data) {
+                if (!data) alert('Error!');
+            },
+
+            error: function () {
+                alert ('Error!');
+            }
+        })
+    });
+
+    function ShowUniQuery(UniqProject) {
+        $('#UniqProject .modal-body').html(UniqProject);
+        $('#UniqProject').modal();
+    }
+
+    $(".limitproject").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+        ShowUniQuery();
+    });
+
+    $(".setlimitproject").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: '/profile',
+            data: {id: id},
+            type: 'POST',
+            success: function (data) {
 
                 if (!data) alert('Error!');
                 //var data = jQuery.parseJSON(data);
-                console.log(data);
-                //ShowCart();
+                ShowUniQuery();
 
             },
             error: function () {
                 alert ('Error!');
             }
         })
+
     });
+
+
 
 // Favourite logic
     /*

@@ -3,6 +3,7 @@
 use app\models\Products;
 use app\models\Transaction;
 use kartik\widgets\StarRating;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -86,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <br/>
                         <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']) ?>
                         <?= Html::a('Publish', ['#'], ['class' => 'state_'.$project->id.' btn btn-success btn-xs publishproject', 'data-id' => $project->id]) ?>
-                        <?= Html::a('Set limit', ['/profile/setlimit', 'id' => $project->id], ['class' => 'btn btn-info btn-xs setlimitproject', 'data-id' => $project->id]) ?>
+                        <?= Html::a('Set limit', ['/profile/setlimit', 'id' => $project->id], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]) ?>
                         <a class="btn btn-danger btn-xs deletemyproject" href="#" data-id="<?= $project->id ?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                     </div>
                 </div>
@@ -111,6 +112,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+    <?php
+    Modal::begin([
+        'header' => '<h4 class="modal-title">Сделать проект эксклюзивом</h4>',
+        'id' => 'UniqProject',
+        'footer' => '
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Сделать эксклюзивом!</button>'
+    ]);
+    Modal::end();
+
+    ?>
     <?php Pjax::end(); ?>
     <?php /*
   DetailView::widget([

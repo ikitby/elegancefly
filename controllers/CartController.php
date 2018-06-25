@@ -103,7 +103,7 @@ class CartController extends AppController
 
             foreach ($cartItems as $item)
             {
-                if (Transaction::checkPurchase($item->seller_id, $item->product_id,1)) {
+                if (Transaction::checkPurchase($item->seller_id, $item->product_id,0)) {
                     if ($item->buyer_id != Yii::$app->user->id) die('Подмена пользователя');
 
                     //----- Обработка стоимости

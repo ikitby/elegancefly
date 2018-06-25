@@ -367,7 +367,7 @@ class CatalogController extends AppController
                 $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
             };
 
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
         }
 /*
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -383,17 +383,11 @@ class CatalogController extends AppController
         ]);
     }
 
-
+/*
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        /*
-        if (!Yii::$app->user->can('editOwnProject', ['model' => $model]))
-        {
-            throw new ForbiddenHttpException('This action is not allowed for you!');
-        }
-        */
             $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
             $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
 
@@ -417,7 +411,7 @@ class CatalogController extends AppController
             ]);
     }
 
-
+*/
     public function actionDelete($id)
     {
         $id = Yii::$app->request->post('id');
