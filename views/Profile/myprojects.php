@@ -85,8 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-md-12 actions">
                         <br/>
                         <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                        <?= Html::a('Publish', ['/profile/publishproject', 'id' => $project->id], ['class' => 'state_'.$project->id.' btn btn-success btn-xs publishproject', 'data-id' => $project->id]) ?>
-                        <?= Html::a('Set limit', ['/profile/setlimit', 'id' => $project->id], ['class' => 'btn btn-warning btn-xs setlimitproject', 'data-id' => $project->id]) ?>
+                        <?= Html::a('Publish', ['#'], ['class' => 'state_'.$project->id.' btn btn-success btn-xs publishproject', 'data-id' => $project->id]) ?>
+                        <?= Html::a('Set limit', ['/profile/setlimit', 'id' => $project->id], ['class' => 'btn btn-info btn-xs setlimitproject', 'data-id' => $project->id]) ?>
                         <a class="btn btn-danger btn-xs deletemyproject" href="#" data-id="<?= $project->id ?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                     </div>
                 </div>
@@ -95,7 +95,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <span class=""><?= $typedescr ?></span><br>
                     Просмотров: <?= ($project->hits) ? $project->hits : 0 ?><br/>
                     Продаж: <?= Products::getProjectSelling($project->id) ?>/<?= ($project->limit) ? $project->limit : "&infin;" ?>
-
                 </div>
 
 

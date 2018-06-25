@@ -176,7 +176,6 @@ $(function () {
         var thclass = $('a.state_'+id).toggleClass("btn-success btn-default");
         var lbclass = $('span.label.state_'+id).toggleClass("label-success label-warning");
 
-
         $.ajax({
             url: '/profile/publishproject',
             data: {id: id},
@@ -184,9 +183,10 @@ $(function () {
             success: function (data) {
 
                 if (!data) alert('Error!');
-                var data = jQuery.parseJSON(data);
+                //var data = jQuery.parseJSON(data);
                 console.log(data);
                 //ShowCart();
+
             },
             error: function () {
                 alert ('Error!');
