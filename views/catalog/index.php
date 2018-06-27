@@ -34,12 +34,36 @@ $photos = json::decode($model->photos);
     <?php
     if (!empty($products)) :
         foreach ($products as $product):
+        $reason = '';
         $galery_teaser = json::decode($product->photos);
-        $allowpurchased = true;
+        $allowpurchased = true; //по умолчанию покупку разрешаем
         $limit = $product->limit;
-        $count = count($product->transactions);
-        $allowpurchased = ($limit > $count) ? true : false;
-        //dump(count($product->transactions));
+        $count = count($product->transactions)/2; //Количество продаж равно количеству покупок, по этому делю на два
+        if (empty($limit) or $limit > $count) { //Запрещаем покупку если лимит исчерпан или разрешае если его нет или не ищерпан
+            $allowpurchased = true;
+        } else {
+            $allowpurchased = false;
+            $reason = 'limit is settled';
+        }
+
+            //dump($product->transactions->allowDownld(Yii::$app->user->id, $product->id));
+            dump($product->transactions);
+
+        if ($product->transactions) {
+
+            foreach ($product->transactions as $transaction) {
+                if ($transaction->action_user == Yii::$app->user->id && $transaction->type == 0) {
+                    $allowpurchased = false;
+                    $reason = 'purchased';
+                }
+
+            }
+
+            dump($allowpurchased);
+            dump($reason);
+        }
+
+
     ?>
 
     <?php $owlId = uniqid('owl_'); ?>
