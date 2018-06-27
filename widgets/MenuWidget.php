@@ -21,14 +21,14 @@ class MenuWidget extends Widget{
 
 	public function run() {
         //get cache
-        //$menu = Yii::$app->cache->get('blogmenu');
-        //if ($menu) return $menu;
+        $menu = Yii::$app->cache->get('catmenu');
+        if ($menu) return $menu;
 
         $this->data = Catprod::find()->asArray()->indexBy('id')->all();
         $menu = $this->getHtmlMenu($this->data);
 
         //set cache
-        //Yii::$app->cache->set('blogmenu' , $menu, 60*60*24 );
+        Yii::$app->cache->set('catmenu' , $menu, 60*60 );
 		return $menu;
 	}
 

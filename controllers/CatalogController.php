@@ -71,17 +71,19 @@ class CatalogController extends AppController
         $products = Products::find()
             ->where($dataProvider->query->where)
             //->where(['deleted' => 0])
-            ->with(['user', 'catprod'])
+            ->with(['user', 'catprod', 'transactions'])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
+
+
 
         return $this->render('index', [
             'products'      => $products,
             'productsall'   => $productsall,
             'pagination'    => $pagination,
             'searchModel'   => $searchModel,
-            'dataProvider'   => $dataProvider,
+            'dataProvider'   => $dataProvider
         ]);
 
     }
@@ -160,7 +162,7 @@ class CatalogController extends AppController
                     'deleted' => 0,
                     'category' => $catid,
                 ])
-                ->with(['user', 'catprod'])
+                ->with(['user', 'catprod', 'transactions'])
                 ->offset($pagination->offset)
                 ->limit($pagination->limit)
                 ->all();
@@ -351,7 +353,6 @@ class CatalogController extends AppController
 
         if ($model->load(Yii::$app->request->post())) {
             $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
-
             $userfolder = $this->getUserFolder();
 
             if ( !file_exists($userfolder ) )//проверяем и если нет - создаем папку пользователя по его id

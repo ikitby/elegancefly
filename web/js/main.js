@@ -169,8 +169,6 @@ $(function () {
     $(".publishproject").on('click', function(e){
         e.preventDefault();
         var id = $(this).data('id');
-        var thclass = $('a.state_'+id).toggleClass("btn-success btn-default");
-        var lbclass = $('span.label.state_'+id).toggleClass("label-success label-warning");
 
         $.ajax({
             url: '/profile/publishproject',
@@ -178,6 +176,23 @@ $(function () {
             type: 'POST',
             success: function (data) {
                 if (!data) alert('Error!');
+                var data = jQuery.parseJSON(data);
+
+                if (data === true)
+                {
+                    $('a.state_'+id).toggleClass("btn-warning btn-success").text('Unpublish');
+                    $('span.label.state_'+id).toggleClass("label-warning label-success").text("Продается");
+                    console.log(true);
+                }
+                else if (data === false)
+                {
+                    $('a.state_'+id).toggleClass("btn-success btn-warning").text('Publish');
+                    $('span.label.state_'+id).toggleClass("label-success label-warning").text("Не продается");
+                    console.log(false);
+                }
+
+
+
             },
 
             error: function () {

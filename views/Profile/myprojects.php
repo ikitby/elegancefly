@@ -79,17 +79,25 @@ $this->params['breadcrumbs'][] = $this->title;
                             'showCaption' => false,
                             'showClear'=>false
                         ]]);
+
+                    if ($project->state == 1) {
+                        $state = "success";
+                        $state_text = "Unpublish";
+                    } else {
+                        $state = "warning";
+                        $state_text = "Publish";
+                    }
                     ?>
 
                     <?= Yii::$app->formatter->asDate($project->created_at, 'medium') ?>
                     <?= Yii::$app->formatter->asTime($project->created_at, 'medium') ?>
-                    <div class="col-md-12 actions">
-                        <br/>
-                        <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                        <?= Html::a('Publish', ['#'], ['class' => 'state_'.$project->id.' btn btn-success btn-xs publishproject', 'data-id' => $project->id]) ?>
-                        <?= Html::a('Set limit', ['/profile/setlimit', 'id' => $project->id], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]) ?>
-                        <a class="btn btn-danger btn-xs deletemyproject" href="#" data-id="<?= $project->id ?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                    </div>
+                        <div class="col-md-12 actions">
+                            <br/>
+                            <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']) ?>
+                            <?= Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]) ?>
+                            <?= Html::a($state_text, ['#'], ['class' => 'state_'.$project->id.' btn btn-'.$state.' btn-xs publishproject', 'data-id' => $project->id]) ?>
+                            <a class="btn btn-danger btn-xs deletemyproject" href="#" data-id="<?= $project->id ?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                        </div>
                 </div>
                 <div class="col-md-2">
                     <h4><?= $project->price ?> $</h4>
@@ -97,9 +105,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     Просмотров: <?= ($project->hits) ? $project->hits : 0 ?><br/>
                     Продаж: <?= Products::getProjectSelling($project->id) ?>/<?= ($project->limit) ? $project->limit : "&infin;" ?>
                 </div>
-
-
-
             </div>
             <hr/>
         </div>

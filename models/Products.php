@@ -114,6 +114,12 @@ class Products extends \yii\db\ActiveRecord
                 ->viaTable('project_thems', ['progect_id' => 'id']);
     }
 
+    public function getTransactions()
+    {
+        return $this->hasMany(Transaction::className(), ['prod_id' => 'id']);
+    }
+
+
     public function getTagsprod()
     {
         return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
@@ -165,6 +171,7 @@ class Products extends \yii\db\ActiveRecord
     public function saveProject($filename, $projectpath = '', $galery = '')
     {
         $this->file = $filename;
+        $this->file_size = filesize($projectpath.'/'.$filename);;
         $this->project_path = $projectpath;
         $this->photos = $galery;
         $this->save(false);
@@ -257,7 +264,9 @@ class Products extends \yii\db\ActiveRecord
         $project = Products::findOne($prod_id);
         $path = $project->project_path.$project->file;
         $fileSize  = filesize($path);
-        return Yii::$app->formatter->asShortSize($fileSize);
+        return $fileSize;
+        //return Yii::$app->formatter->asShortSize($fileSize);
+        //return Yii::$app->formatter->asShortSize(file_size);
     }
 
     //Сколько продаж проекта

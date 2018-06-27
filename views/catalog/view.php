@@ -24,6 +24,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 if ($curentcat) {$this->params['breadcrumbs'][] = ['label' => ''.$curentcat->title.'', 'url' => ['catalog/'.$curentcat->alias.'']];}
 $this->params['breadcrumbs'][] = $this->title;
 
+$allowpurchased = true;
+$limit = $model->limit;
+$count = count($model->transactions);
+$allowpurchased = ($limit > $count) ? true : false;
+
 ?>
 <div class="products-view">
 
@@ -153,8 +158,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' =>'plane_w_download',
                 'prod_id' => $model->id,
                 'price' => $model->price,
-                //'discont' => $model->limit,
+                'count' => $count,
                 'limit' =>  $model->limit,
+                'file_size' => $model->file_size,
+                'allowpurchased' => $allowpurchased
             ])
             ?>
         </div>

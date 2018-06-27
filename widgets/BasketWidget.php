@@ -11,8 +11,10 @@ class BasketWidget extends Widget
     public $template;
     public $prod_id;
     public $price;
-    public $discont;
+    public $count;
     public $limit;
+    public $file_size;
+    public $allowpurchased;
 
 
     public function init(){

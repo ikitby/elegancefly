@@ -35,8 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     if (!empty($products)) :
         foreach ($products as $product):
-        $galery_teaser = json::decode($product->photos);
-    ?>
+            $galery_teaser = json::decode($product->photos);
+            $allowpurchased = true;
+            $limit = $product->limit;
+            $count = count($product->transactions);
+            $allowpurchased = ($limit > $count) ? true : false;
+
+            ?>
 
     <?php $owlId = uniqid('owl_'); ?>
 <div class="col-md-3 <?= $owlId ?>">
@@ -64,8 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
      'template' =>'plane_w_download',
      'prod_id' => $product->id,
      'price' => $product->price,
-     //'discont' => $product->limit,
+     'count' => $count,
      'limit' =>  $product->limit,
+     'file_size' => $product->file_size,
+     'allowpurchased' => $allowpurchased
  ])
  ?>
 

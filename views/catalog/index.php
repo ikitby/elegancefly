@@ -35,6 +35,11 @@ $photos = json::decode($model->photos);
     if (!empty($products)) :
         foreach ($products as $product):
         $galery_teaser = json::decode($product->photos);
+        $allowpurchased = true;
+        $limit = $product->limit;
+        $count = count($product->transactions);
+        $allowpurchased = ($limit > $count) ? true : false;
+        //dump(count($product->transactions));
     ?>
 
     <?php $owlId = uniqid('owl_'); ?>
@@ -61,15 +66,16 @@ $photos = json::decode($model->photos);
     }
 
     OwlCarouselWidget::end();
-
 ?>
 
  <?= BasketWidget::widget([
      'template' =>'plane_w_download',
      'prod_id' => $product->id,
      'price' => $product->price,
-     //'discont' => $product->limit,
+     'count' => $count,
      'limit' =>  $product->limit,
+     'file_size' => $product->file_size,
+     'allowpurchased' => $allowpurchased
  ])
  ?>
 
