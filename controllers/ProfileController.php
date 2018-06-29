@@ -168,7 +168,6 @@ class ProfileController extends AppController
         ]);
     }
 
-
     public function actionEdit()
     {
         $id = $this->checkAccess();

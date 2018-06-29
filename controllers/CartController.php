@@ -54,7 +54,7 @@ class CartController extends AppController
 
             return Json::encode($result);
         } else {
-            return 'И таки шо, Зяма, мы тут делаем?';
+            return Json::encode('И таки шо, Зяма, мы тут делаем?') ;
         }
 
     }
@@ -110,7 +110,9 @@ class CartController extends AppController
                     {
                         $cartItem = Cart::findOne($item->id);
                         $cartItem->delete();
-                        throw new BadRequestHttpException('Товар недоступен');
+                        Return json_encode('Вы не можете приобрести! Product id: #'.$item->product_id.' Лимит продаж исчерпан
+Товар удалет из корзины. Проверьте результат и продолжите покупку
+');
                     }
 
                     //----- Обработка стоимости
@@ -158,7 +160,7 @@ class CartController extends AppController
                     return 'No';
                 }
             }
-            Return json_encode('OK!');
+            Return json_encode('Успешная транзакция!');
         } else {
             return json_encode('У вас недостаточно средств на счете!');
         }

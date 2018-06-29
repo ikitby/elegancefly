@@ -30,12 +30,21 @@ class BasketWidget extends Widget
 
         $this->count = count($this->product->transactions)/2; // Получаем количество транзакций и делим пополам для продукта
         $this->limit = $this->product->limit;
+
+        if ($this->limit == $this->count && !empty($this->limit)) {
+            $this->state = 0;
+        }
+
         foreach ($this->product->transactions as $transaction)
         {
-            $this->state = ($transaction->action_user == Yii::$app->user->id && $transaction->type == 0) ? 2 : 1;
-            break;
+            if ($transaction->action_user == Yii::$app->user->id && $transaction->type == 0)
+            {
+                $this->state = 2;
+                print $this->state;
+                break;
+            }
+
         }
-        $this->limit = $this->product->limit;
 
         $this->template .='.php';
     }

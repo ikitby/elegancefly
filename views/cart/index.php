@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
             $i = 1;
             foreach ($cartprod as $product) :
+
             $catalias = $product->cartproduct->catprod->alias;
         ?>
 

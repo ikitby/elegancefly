@@ -99,6 +99,8 @@ $(function () {
                 
                 if (!data) alert('Error!');
                 var data = jQuery.parseJSON(data);
+                alert (data);
+                window.location.reload();
 
             },
             error: function () {

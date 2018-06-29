@@ -2,11 +2,8 @@
 use yii\helpers\Url;
 ?>
 <?php
-//if (Products::allowPurchased($this->prod_id)) :
-dump($this->state);
 if ($this->state == 1) :
-?>
-<?php /*
+/*
     <span class="pull-right">
         <button href="<?= Url::to(['cart/favorite', 'id' => $this->prod_id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></button>
 </span>
@@ -26,6 +23,15 @@ elseif ($this->state == 2):
     <button href="<?= Url::to(['download/project', 'id' => $this->product->id]) ?>" type="button"
             data-id = "<?= $this->product->id ?>" class="btn btn-success btn-block project-download">
             <span class="glyphicon glyphicon-download-alt"></span> Скачать!</button>
+    <br />
+<?php
+elseif ($this->state == 0):
+?>
+    <h4 class="pull-left"><?= Yii::$app->formatter->asShortSize($this->product->file_size) ?></h4>
+    <h4 class="pull-right"><?= $this->count ?>/<?= $this->limit ?></h4>
+    <button href="#" type="button"
+            class="btn btn-default btn-block" disabled="disabled">
+        <span class="glyphicon glyphicon-check"></span> Продан!</button>
     <br />
 <?php
 endif;
