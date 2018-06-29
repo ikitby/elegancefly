@@ -52,7 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <a href="<?= Url::to(["/catalog/category", "catalias" => $purchase->actionProd->catprod->alias, "id" => $purchase->actionProd->id]) ?>">
                         <?= $purchase->actionProd->title ?>
                     </a>
-
                 </h4>
                 <span class="glyphicon glyphicon-calendar" title="Tooltip on top"></span>
                 <?= Yii::$app->formatter->asDate($purchase->created_at, 'medium') ?> <?= Yii::$app->formatter->asTime($purchase->created_at, 'medium') ?>
@@ -70,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <td>
                 <?= BasketWidget::widget([
                     'template' =>'plane_w_download',
-                    'prod_id' => $purchase->actionProd->id
+                    'product' => $purchase->actionProd
                 ])?>
             </td>
         </tr>

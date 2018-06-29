@@ -89,6 +89,7 @@ class Cart extends \yii\db\ActiveRecord
     {
         $product = Products::findOne($prod_id);
         if (empty($product)) return false;
+        if (Products::checkLimit($prod_id) != true) return false;
 
         $user_id = Yii::$app->user->id;
         $incart = Cart::find()->where(['product_id' => $prod_id, 'buyer_id' => $user_id])->one();

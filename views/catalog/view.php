@@ -35,14 +35,7 @@ $allowpurchased = ($limit > $count) ? true : false;
     <h1><?= Html::encode($model->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]);
+        <?php
         $galery = json::decode($model->photos); //декодим json с массивом галереи
         ?>
     </p>
@@ -148,20 +141,14 @@ $allowpurchased = ($limit > $count) ? true : false;
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
                 <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
                 <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
-                <li><strong>Продано: </strong><?= $model::getProjectSelling($model->id)?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
+                <li><strong>Продано: </strong><?= count($model->transactions)/2?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
                 <li><strong>Инфо: </strong><br />
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
-                <?php /*<li><strong>Файл: </strong><?=  $galery[0]['filepath'].$galery[0]['filename']  ?></li>*/ ?>
             </ul>
 
             <?= BasketWidget::widget([
                 'template' =>'plane_w_download',
-                'prod_id' => $model->id,
-                'price' => $model->price,
-                'count' => $count,
-                'limit' =>  $model->limit,
-                'file_size' => $model->file_size,
-                'allowpurchased' => $allowpurchased
+                'product' => $model
             ])
             ?>
         </div>

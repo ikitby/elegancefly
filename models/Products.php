@@ -49,13 +49,31 @@ class Products extends \yii\db\ActiveRecord
         return $product->user->id;
     }
 
+    public static function checkLimit($prod_id)
+    {
+        $buys = Transaction::find()->where(['prod_id' => $prod_id, 'type' => 0])->count();
+        $limit = Products::findOne($prod_id)->limit;
+        if (empty($limit)) return true;
+            if ($buys < $limit) {
+                return true;
+            } else {
+                return false;
+            }
+
+    }
+
+
     public static function allowPurchased($prod_id)
     {
-        $purchased = false;
-        $owner = false;
-        $purchased = Transaction::find()->where(['action_user' => Yii::$app->user->id, 'prod_id' => $prod_id, 'type' => 0])->one();
-        $owner = (Products::checkOwner($prod_id) == Yii::$app->user->id) ? true : false;
-        return ($purchased || $owner) ? false : true;
+        if (Products::checkLimit($prod_id)) {
+            $purchased = false;
+            $owner = false;
+            $purchased = Transaction::find()->where(['action_user' => Yii::$app->user->id, 'prod_id' => $prod_id, 'type' => 0])->one();
+            $owner = (Products::checkOwner($prod_id) == Yii::$app->user->id) ? true : false;
+            return ($purchased || $owner) ? false : true;
+        } else {
+            return true;
+        }
     }
 
 

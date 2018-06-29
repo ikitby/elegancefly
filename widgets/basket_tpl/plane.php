@@ -6,7 +6,7 @@ use yii\helpers\Url;
 <span>
     <span class="pricevalue">
         <?=
-            $this->price
+        $this->product->price
         ?>
     </span>
     <span class="nominal">
@@ -14,9 +14,9 @@ use yii\helpers\Url;
     </span>
 </span>
 <span class="pull-right">
-<button href="<?= Url::to(['cart/favorite', 'id' => $this->prod_id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></button>
+<button href="<?= Url::to(['cart/favorite', 'id' => $this->product->id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></button>
 </span>
-<button href="<?= Url::to(['cart/add', 'id' => $this->prod_id]) ?>" type="button"
-    <?= (Products::allowPurchased($this->prod_id)) ? "" : 'disabled="disabled"' ?>
-        data-id = "<?= $this->prod_id ?>" class="btn btn-<?= (Products::allowPurchased($this->prod_id)) ? "primary" : 'defoult' ?> btn-block add-to-cart">Купить</button>
+<button href="<?= Url::to(['cart/add', 'id' => $this->product->id]) ?>" type="button"
+    <?= (Products::allowPurchased($this->product->id)) ? "" : 'disabled="disabled"' ?>
+        data-id = "<?= $this->product->id ?>" class="btn btn-<?= (Products::allowPurchased($this->product->id)) ? "primary" : 'defoult' ?> btn-block add-to-cart">Купить</button>
 <br />

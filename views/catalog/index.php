@@ -34,8 +34,8 @@ $photos = json::decode($model->photos);
     <?php
     if (!empty($products)) :
         foreach ($products as $product):
-        $reason = '';
         $galery_teaser = json::decode($product->photos);
+ /*
         $allowpurchased = true; //по умолчанию покупку разрешаем
         $limit = $product->limit;
         $count = count($product->transactions)/2; //Количество продаж равно количеству покупок, по этому делю на два
@@ -45,7 +45,6 @@ $photos = json::decode($model->photos);
             $allowpurchased = false;
             $reason = 'limit is settled';
         }
-
             //dump($product->transactions->allowDownld(Yii::$app->user->id, $product->id));
             dump($product->transactions);
 
@@ -62,7 +61,7 @@ $photos = json::decode($model->photos);
             dump($allowpurchased);
             dump($reason);
         }
-
+*/
 
     ?>
 
@@ -94,12 +93,7 @@ $photos = json::decode($model->photos);
 
  <?= BasketWidget::widget([
      'template' =>'plane_w_download',
-     'prod_id' => $product->id,
-     'price' => $product->price,
-     'count' => $count,
-     'limit' =>  $product->limit,
-     'file_size' => $product->file_size,
-     'allowpurchased' => $allowpurchased
+     'product' => $product
  ])
  ?>
 

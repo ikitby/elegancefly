@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             $limit = $product->limit;
             $count = count($product->transactions);
             $allowpurchased = ($limit > $count) ? true : false;
-
             ?>
 
     <?php $owlId = uniqid('owl_'); ?>

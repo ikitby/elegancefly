@@ -15,6 +15,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use yii\helpers\Json;
+use yii\web\BadRequestHttpException;
 
 class CartController extends AppController
 {
@@ -74,6 +75,7 @@ class CartController extends AppController
     public function actionAdd()
     {
         if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+
             $prod_id = Yii::$app->request->get('id');
             if (!Products::allowPurchased($prod_id)) {return false;}
 
@@ -100,17 +102,23 @@ class CartController extends AppController
             $cartItems = $this->getCartItems();
             $transaction_id = UuidHelper::uuid();
 
-
             foreach ($cartItems as $item)
             {
                 if (Transaction::checkPurchase($item->seller_id, $item->product_id,0)) {
                     if ($item->buyer_id != Yii::$app->user->id) die('Подмена пользователя');
+                    if (Products::checkLimit($item->product_id) != true) //Если лимит ищерпан - удаляем из корзины товар
+                    {
+                        $cartItem = Cart::findOne($item->id);
+                        $cartItem->delete();
+                        throw new BadRequestHttpException('Товар недоступен');
+                    }
 
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
                     $autorProcent = $itemprice*0.5;
                     //dump($autorProcent);
                     //----- Обработка стоимости
+
 
                     //Минусуем стоимость работы у покупателя
                     $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
@@ -145,6 +153,7 @@ class CartController extends AppController
                     $cartItem = Cart::findOne($item->id);
                     $cartItem->delete();
 
+
                 } else {
                     return 'No';
                 }
@@ -169,9 +178,5 @@ class CartController extends AppController
                 ->with(['cartproduct', 'buyer'])
                 ->all();
     }
-
-
-
-
 
 }

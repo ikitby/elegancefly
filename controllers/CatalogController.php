@@ -70,12 +70,20 @@ class CatalogController extends AppController
 
         $products = Products::find()
             ->where($dataProvider->query->where)
-            //->where(['deleted' => 0])
-            ->with(['user', 'catprod', 'transactions'])
+            ->andWhere(['deleted' => 0])
+            ->with(['user', 'catprod'])
+            ->joinWith('transactions')
+            //->andWhere(['transaction.action_user' => Yii::$app->user->id])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
 
+        /*
+            $customers = Customer::find()
+            ->joinWith('orders')
+            ->where(['order.status' => Order::STATUS_ACTIVE])
+            ->all();
+        */
 
 
         return $this->render('index', [
