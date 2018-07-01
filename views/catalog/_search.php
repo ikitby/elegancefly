@@ -61,7 +61,7 @@ use yii\widgets\ActiveForm;
         <div class="col-md-3">
             <?=
             $form->field($model, 'user_id')->widget(Select2::classname(), [
-                'data' => User::find()->where(['role' => 'Painter'])->select(['name', 'id'])->indexBy('id')->orderBy(['sales' => SORT_DESC])->column(),
+                'data' => User::find()->where(['role' => 'Painter'])->orWhere(['role' => 'Creator'])->select(['name', 'id'])->indexBy('id')->orderBy(['sales' => SORT_DESC])->column(),
                 'options' => [
                     'placeholder' => 'Painter',
                     'multiple' => false
@@ -89,14 +89,6 @@ use yii\widgets\ActiveForm;
         </div>
 
     </div>
-
-
-
-
-
-
-
-
 
 
     <?php // $form->field($model, 'photos') ?>

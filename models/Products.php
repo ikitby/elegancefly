@@ -37,6 +37,13 @@ class Products extends \yii\db\ActiveRecord
         return 'products';
     }
 
+    public static function isAuthor($prodid, $userid) //Проверка. Является ли пользователь автором продукта
+    {
+        $author = false;
+        $prod_author = Products::findOne($prodid)->user_id;
+        return $author = ($prod_author == $userid) ? true : false;
+    }
+
     public static function getAutor($prodid)
     {
         $product = Products::findOne($prodid);
@@ -47,6 +54,16 @@ class Products extends \yii\db\ActiveRecord
     {
         $product = Products::findOne($prodid);
         return $product->user->id;
+    }
+
+    public static function editableProject($project_id)
+    {
+        $limet = Products::findOne($project_id)->limit;
+        $sales = Transaction::getProdSales($project_id);
+        if ($limet > 0 && $sales > 0) {
+            return false;
+        }
+        return true;
     }
 
     public static function checkLimit($prod_id)
@@ -86,11 +103,18 @@ class Products extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public function beforeValidate()
+    {
+        $this->price=5;
+        return parent::beforeValidate();
+    }
+
     public function rules()
     {
         return [
-            [['user_id', 'limit', 'hits', 'sales'], 'integer'],
-            [[ 'price'], 'double'],
+            [['user_id', 'hits'], 'integer'],
+            [['price'], 'double'],
             [['photos', 'category', 'price','tags', 'project_info', 'title', 'state', 'deleted'], 'required'],
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],
@@ -117,9 +141,7 @@ class Products extends \yii\db\ActiveRecord
             'project_info' => 'Project info',
             'themes' => 'Themes',
             'themes_index' => 'Themes index',
-            'limit' => 'Limit',
             'hits' => 'Hits',
-            'sales' => 'Sales',
             'state' => 'State',
             'deleted' => 'Deleted',
             'created_at' => 'Created At',

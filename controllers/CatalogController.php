@@ -73,7 +73,6 @@ class CatalogController extends AppController
             ->andWhere(['deleted' => 0])
             ->with(['user', 'catprod'])
             ->joinWith('transactions')
-            //->andWhere(['transaction.action_user' => Yii::$app->user->id])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();

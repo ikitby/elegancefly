@@ -111,7 +111,7 @@ class CartController extends AppController
                         $cartItem = Cart::findOne($item->id);
                         $cartItem->delete();
                         Return json_encode('Вы не можете приобрести! Product id: #'.$item->product_id.' Лимит продаж исчерпан
-Товар удалет из корзины. Проверьте результат и продолжите покупку
+Товар удален из корзины. Проверьте результат и продолжите покупку
 ');
                     }
 

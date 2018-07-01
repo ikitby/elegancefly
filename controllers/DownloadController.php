@@ -24,15 +24,12 @@ class DownloadController extends AppController
             $payedprod = Transaction::allowDownload(Yii::$app->user->id, $project_id); //Проверяем есть ли у зарегистрированного пользователя файл в купленых
 
             if ($payedprod) {
-
                 $file = Products::findOne($project_id);
                 $storagePath = Yii::getAlias('@app/web/'.$file->project_path);
                 $filename = $file->file;
                 $dfile = Yii::$app->response->SendFile($storagePath.$filename, $filename, ['MIME' => 'application/zip', 'inline' => false] );
-                //$dfile->setDownloadHeaders($filename, 'application/zip');
                 $dfile->send();
 
-                //return json_encode("ok!");
                 } else {
                 return json_encode("You can`t perform this action");
             }

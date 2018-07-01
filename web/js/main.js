@@ -116,7 +116,6 @@ $(function () {
 
         var link='/download/project?id='+id;
 
-
         function loadDocument(url) {
             var iframeId = 'loadDocument';
 
@@ -211,6 +210,25 @@ $(function () {
     $(".limitproject").on('click', function(e){
         e.preventDefault();
         var id = $(this).data('id');
+
+        $.ajax({
+            url: '/profile/setlimit?id=76&limit=5',
+            data: {id: id},
+            type: 'get',
+            success: function (data) {
+                var data = jQuery.parseJSON(data);
+
+                $('#UniqProject .modal-body').html(data);
+
+                if (!data) alert('Error!');
+                //var data = jQuery.parseJSON(data);
+                ShowUniQuery();
+
+            },
+            error: function () {
+                alert ('Error!');
+            }
+        })
         ShowUniQuery();
     });
 
@@ -223,6 +241,8 @@ $(function () {
             data: {id: id},
             type: 'POST',
             success: function (data) {
+                console.log(data);
+                $('#UniqProject .modal-body').html(data);
 
                 if (!data) alert('Error!');
                 //var data = jQuery.parseJSON(data);

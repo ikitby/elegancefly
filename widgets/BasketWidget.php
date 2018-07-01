@@ -40,10 +40,12 @@ class BasketWidget extends Widget
             if ($transaction->action_user == Yii::$app->user->id && $transaction->type == 0)
             {
                 $this->state = 2;
-                print $this->state;
                 break;
             }
+        }
 
+        if ($this->product->user_id == Yii::$app->user->id) {
+            $this->state = 3;
         }
 
         $this->template .='.php';

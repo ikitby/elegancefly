@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ImageUpload;
+use app\models\Prodlimit;
 use app\models\Products;
 use app\models\Transaction;
 use Yii;
@@ -13,6 +14,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
 
 /**
  * ProfileController implements the CRUD actions for User model.
@@ -83,7 +85,6 @@ class ProfileController extends AppController
     public function actionMyprojects()
     {
         $id = $this->checkAccess();
-
         $projects = Products::find()->where(['user_id' => Yii::$app->user->id]);
         $projectsall = $projects;
 
@@ -107,7 +108,6 @@ class ProfileController extends AppController
             'projectsall'   => $projectsall,
             'pagination'    => $pagination,
         ]);
-
     }
 
     public function actionUpdateproject($id)
@@ -120,7 +120,6 @@ class ProfileController extends AppController
 
         if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
         {
-
             $querypost = Yii::$app->request->post('Products');
             $themes = $querypost['themes'];
             $model->saveThems($themes);
@@ -137,6 +136,35 @@ class ProfileController extends AppController
         return $this->render('updateproject', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSetlimit($id, $limit = 0) //Установка лимита продаж
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            $user_id = Yii::$app->user->id;
+            //$model = Products::findOne($id);
+            $model = Prodlimit::findOne($id);
+            //dump($model);
+            if ($model->load(Yii::$app->request->get())) //обработка категорий и тегов
+            {
+                if ($model->user_id == $user_id && Products::checkLimit($id)) {
+                    $model->limit = $limit;
+                    $model->save(false);
+                }
+            } else {
+                return $this->renderPartial('limitform', [
+                    'price' => $model->price,
+                    'limit' => $model->limit,
+                    'category' => $model->category,
+                    'id' => $model->id,
+                ]);
+            }
+
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
     }
 
 
@@ -222,11 +250,6 @@ class ProfileController extends AppController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    public function actionSetuniqprod()
-    {
-        return 'OK';
     }
 
     /**

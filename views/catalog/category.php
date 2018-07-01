@@ -66,12 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
  <?= BasketWidget::widget([
      'template' =>'plane_w_download',
-     'prod_id' => $product->id,
-     'price' => $product->price,
-     'count' => $count,
-     'limit' =>  $product->limit,
-     'file_size' => $product->file_size,
-     'allowpurchased' => $allowpurchased
+     'product' => $product
  ])
  ?>
 

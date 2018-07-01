@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Products;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
-    if (empty($model->limit)) {
+    if (Products::editableProject($model->id)) {
         print $this->render('_edit', [
             'model' => $model,
         ]);

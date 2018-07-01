@@ -71,7 +71,6 @@ class Transaction extends \yii\db\ActiveRecord
         return $this->hasOne(Products::className(), ['id' => 'prod_id']);
     }
 
-
     //Проверка есть ли в базе продукт купленый пользователем и может ли его купить пользователь еще раз
     public static function checkPurchase($user_id, $prod_id, $type = 1)
     {
@@ -83,16 +82,17 @@ class Transaction extends \yii\db\ActiveRecord
     public static function allowDownload($user_id, $prod_id)
     {
         $count = Transaction::find()->where(['action_user' => $user_id, 'prod_id' => $prod_id, 'type' => 0])->count();
-        return (!empty($count)) ? true : false;
+        $author = Products::isAuthor($prod_id, $user_id);
+        return (!empty($count) || $author) ? true : false;
     }
 
+/*
     public function allowDownld($user_id, $prod_id)
     {
         $count = Transaction::find()->where(['action_user' => $user_id, 'prod_id' => $prod_id, 'type' => 0])->count();
         return (!empty($count)) ? true : false;
     }
-
-
+*/
     //получаем сколько продаж у пользователя
     public static function getUserSales($user_id)
     {
@@ -100,6 +100,12 @@ class Transaction extends \yii\db\ActiveRecord
         return $sales;
     }
 
+    //получаем сколько продаж у пользователя
+    public static function getProdSales($prod_id)
+    {
+        $sales = Transaction::find()->where(['prod_id' => $prod_id, 'type' => 0])->count();
+        return $sales;
+    }
 
     //получаем все продажи пользователя
     public static function getUserTransactions($user_id)

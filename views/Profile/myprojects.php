@@ -93,8 +93,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Yii::$app->formatter->asTime($project->created_at, 'medium') ?>
                         <div class="col-md-12 actions">
                             <br/>
-                            <?= Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']) ?>
-                            <?= Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]) ?>
+                            <?php
+                            if (Products::editableProject($project->id))
+                            {
+                                print Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']).' '.Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]);
+                            } else {
+                                print Html::a('Update', [''], ['class' => 'btn btn-primary btn-xs', 'disabled' => 'disabled']).' '.Html::a('Set limit', [''], ['class' => 'btn btn-info btn-xs', 'data-id' => $project->id, 'disabled' => 'disabled']);
+                            }
+                            ?>
                             <?= Html::a($state_text, ['#'], ['class' => 'state_'.$project->id.' btn btn-'.$state.' btn-xs publishproject', 'data-id' => $project->id]) ?>
                             <a class="btn btn-danger btn-xs deletemyproject" href="#" data-id="<?= $project->id ?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                         </div>

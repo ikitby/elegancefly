@@ -25,6 +25,15 @@ elseif ($this->state == 2):
             <span class="glyphicon glyphicon-download-alt"></span> Скачать!</button>
     <br />
 <?php
+elseif ($this->state == 3):
+    ?>
+    <h4 class="pull-left"><?= Yii::$app->formatter->asShortSize($this->product->file_size) ?></h4>
+    <h4 class="pull-right"><?= $this->count ?>/<?= ($this->product->limit) ? $this->limit : "&infin;" ?></h4>
+    <button href="<?= Url::to(['download/project', 'id' => $this->product->id]) ?>" type="button"
+            data-id = "<?= $this->product->id ?>" class="btn btn-success btn-block project-download">
+        <span class="glyphicon glyphicon-user"></span> Скачать!</button>
+    <br />
+    <?php
 elseif ($this->state == 0):
 ?>
     <h4 class="pull-left"><?= Yii::$app->formatter->asShortSize($this->product->file_size) ?></h4>
