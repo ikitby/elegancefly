@@ -212,11 +212,10 @@ $(function () {
         var id = $(this).data('id');
 
         $.ajax({
-            url: '/profile/setlimit?id=76&limit=5',
+            url: '/profile/setlimit',
             data: {id: id},
-            type: 'get',
+            type: 'POST',
             success: function (data) {
-                var data = jQuery.parseJSON(data);
 
                 $('#UniqProject .modal-body').html(data);
 
@@ -237,7 +236,7 @@ $(function () {
         var id = $(this).data('id');
 
         $.ajax({
-            url: '/profile',
+            url: '/profile/setlimit',
             data: {id: id},
             type: 'POST',
             success: function (data) {

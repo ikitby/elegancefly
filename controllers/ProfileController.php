@@ -138,26 +138,32 @@ class ProfileController extends AppController
         ]);
     }
 
-    public function actionSetlimit($id, $limit = 0) //Установка лимита продаж
+    public function actionSetlimit() //Установка лимита продаж
     {
         if (!Yii::$app->user->isGuest) {
+            $id = Yii::$app->request->post('id');
 
             $user_id = Yii::$app->user->id;
             //$model = Products::findOne($id);
             $model = Prodlimit::findOne($id);
-            //dump($model);
-            if ($model->load(Yii::$app->request->get())) //обработка категорий и тегов
+
+            if (Yii::$app->request->post('Prodlimit')['id'])
             {
+                $model = Prodlimit::findOne(Yii::$app->request->post('Prodlimit')['id']);
+
                 if ($model->user_id == $user_id && Products::checkLimit($id)) {
-                    $model->limit = $limit;
-                    $model->save(false);
+                    if (Transaction::getProdSales($model->id) == 0)
+                    {
+                        $model->limit = Yii::$app->request->post('Prodlimit')['limit'];
+                        $model->price = Yii::$app->request->post('Prodlimit')['price'];
+                        $model->save(false);
+                    }
+                    return $this->redirect(Yii::$app->request->referrer);
+
                 }
             } else {
                 return $this->renderPartial('limitform', [
-                    'price' => $model->price,
-                    'limit' => $model->limit,
-                    'category' => $model->category,
-                    'id' => $model->id,
+                    'model' => $model
                 ]);
             }
 

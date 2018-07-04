@@ -115,6 +115,22 @@ class CartController extends AppController
 ');
                     }
 
+/*
+                    $transaction = Customer::getDb()->beginTransaction();
+                    try {
+                        $customer->id = 200;
+                        $customer->save();
+                        // ...другие операции с базой данных...
+                        $transaction->commit();
+                    } catch(\Exception $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                    } catch(\Throwable $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                    }
+
+*/
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
                     $autorProcent = $itemprice*0.5;

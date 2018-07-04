@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= $this->title ?></h1>
 
-    <?php Pjax::begin(); ?>
+    <?php //Pjax::begin(); ?>
 <div class="row payments">
 
         <?php
@@ -45,11 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     $typeclass = 'info';
                     break;
             }
-
-              //dump($payment);
-         //   dump($payment->actionUser);
-         //   dump($payment->sourcePayment);
-         //   dump($payment->actionProd);
 
         ?>
         <div id="project_<?= $project->id ?>" class="col-md-12 <?= $typeclass ?>">
@@ -96,9 +91,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php
                             if (Products::editableProject($project->id))
                             {
-                                print Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']).' '.Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]);
-                            } else {
-                                print Html::a('Update', [''], ['class' => 'btn btn-primary btn-xs', 'disabled' => 'disabled']).' '.Html::a('Set limit', [''], ['class' => 'btn btn-info btn-xs', 'data-id' => $project->id, 'disabled' => 'disabled']);
+                                print Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']);
+
+                            }
+
+                            if (Transaction::getProdSales($project->id) == 0) {
+                                print ' '.Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]);
                             }
                             ?>
                             <?= Html::a($state_text, ['#'], ['class' => 'state_'.$project->id.' btn btn-'.$state.' btn-xs publishproject', 'data-id' => $project->id]) ?>
@@ -127,44 +125,8 @@ $this->params['breadcrumbs'][] = $this->title;
     Modal::begin([
         'header' => '<h4 class="modal-title">Сделать проект эксклюзивом</h4>',
         'id' => 'UniqProject',
-        'footer' => '
-        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-        <button type="button" class="btn btn-primary">Сделать эксклюзивом!</button>'
     ]);
     Modal::end();
-
     ?>
-    <?php Pjax::end(); ?>
-    <?php /*
-  DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'username',
-            'name',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            'email:email',
-            //'status',
-            'created_at',
-            //'updated_at',
-            //'usertype',
-            'photo',
-            'birthday',
-            'country',
-            'languages',
-            'fbpage',
-            'vkpage',
-            'inpage',
-            'percent',
-            'state',
-            'role',
-            'rate',
-            'balance',
-        ],
-    ])
- */
- ?>
-
+    <?php //Pjax::end(); ?>
 </div>

@@ -68,9 +68,6 @@ use kartik\widgets\Select2;
     <div class="col-md-6 bg-warning">
         <?= $form->field($model, 'price')->textInput() ?>
 
-        <?= $form->field($model, 'limit')->textInput() ?>
-
-        <?= $form->field($model, 'sales')->textInput() ?>
     </div>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

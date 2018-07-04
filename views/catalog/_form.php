@@ -28,10 +28,6 @@ use kartik\money\MaskMoney;
         ]
     ]) ?>
 
-    <?= $form->field($model, 'limit')->textInput() ?>
-
-    <?= $form->field($model, 'sales')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

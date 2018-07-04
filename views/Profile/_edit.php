@@ -1,9 +1,13 @@
 <?php
 
 use app\models\Catprod;
+use app\models\Products;
 use app\models\Tags;
 use app\models\Themsprod;
+use app\models\Transaction;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 
@@ -21,61 +25,70 @@ use kartik\widgets\Select2;
 */
 ?>
 
+    <?php
+    $galery = json::decode($model->photos); //декодим json с массивом галереи
+    ?>
     <?php $form = ActiveForm::begin(); ?>
     <div class="col-md-12">
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= Html::img('/'.$galery[0]['filepath'].'400_400_'.$galery[0]['filename'], ['class' => 'img-responsive']) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+                    <div style="text-align: center;">
+                        <?php if ($model->price && $model->limit > 0) : ?>Текущая цена: <h3><?= $model->price ?>$</h3><?php endif; ?>
+                        <?php
+                        if (Transaction::getProdSales($model->id) == 0)
+                        {
+                            print Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-md limitproject', 'data-id' => $model->id]);
+                        }
+                        ?>
+
+                    </div>
+
+
+
+                <?= ($model->limit > 0) ? false : $form->field($model, 'price')->textInput() ?>
+
+                <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Категория') ?>
+
+                <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
+
+                <?=
+                $form->field($model, 'tags')->widget(Select2::classname(), [
+                    'data' => Tags::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
+                    'options' => [
+                        'placeholder' => 'Добавьте метки проекту',
+                        'multiple' => true
+                    ],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [','],
+                        'maximumInputLength' => 20
+                    ],
+                ])->label('Метки');
+                ?>
+                <?= $form->field($model, 'project_info')->textarea() ?>
+
+            </div>
+        </div>
     </div>
+    <div class="col-md-12 bg-warning">
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>                  ,
 
-    <div class="col-md-6">
-
-        <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Категория') ?>
-
-        <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
-
-        <?php
-    /*
-    $form->field($model, 'themes')->widget(Select2::classname(), [
-        'data' => Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
-        'options' => ['placeholder' => 'Выберите тематику', 'multiple' => true],
-        'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 10
-        ],
-    ])->label('Выберите тематику');
-    */
-    ?>
-
-    <?php // $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
-
-    <?=
-    $form->field($model, 'tags')->widget(Select2::classname(), [
-        'data' => Tags::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
-        'options' => [
-            'placeholder' => 'Добавьте метки проекту',
-            'multiple' => true
-        ],
-        'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators' => [','],
-            'maximumInputLength' => 20
-        ],
-    ])->label('Метки');
-    ?>
-        <?= $form->field($model, 'project_info')->textarea() ?>
-
-    </div>
-    <div class="col-md-6 bg-warning">
-        <?= $form->field($model, 'price')->textInput() ?>
-
-        <?= $form->field($model, 'limit')->textInput() ?>
-
-        <?= $form->field($model, 'sales')->textInput() ?>
-    </div>
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
+    <?php
+    Modal::begin([
+        'header' => '<h4 class="modal-title">Сделать проект эксклюзивом</h4>',
+        'id' => 'UniqProject',
+    ]);
+    Modal::end();
+    ?>
 </div>

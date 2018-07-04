@@ -35,34 +35,6 @@ $photos = json::decode($model->photos);
     if (!empty($products)) :
         foreach ($products as $product):
         $galery_teaser = json::decode($product->photos);
- /*
-        $allowpurchased = true; //по умолчанию покупку разрешаем
-        $limit = $product->limit;
-        $count = count($product->transactions)/2; //Количество продаж равно количеству покупок, по этому делю на два
-        if (empty($limit) or $limit > $count) { //Запрещаем покупку если лимит исчерпан или разрешае если его нет или не ищерпан
-            $allowpurchased = true;
-        } else {
-            $allowpurchased = false;
-            $reason = 'limit is settled';
-        }
-            //dump($product->transactions->allowDownld(Yii::$app->user->id, $product->id));
-            dump($product->transactions);
-
-        if ($product->transactions) {
-
-            foreach ($product->transactions as $transaction) {
-                if ($transaction->action_user == Yii::$app->user->id && $transaction->type == 0) {
-                    $allowpurchased = false;
-                    $reason = 'purchased';
-                }
-
-            }
-
-            dump($allowpurchased);
-            dump($reason);
-        }
-*/
-
     ?>
 
     <?php $owlId = uniqid('owl_'); ?>
@@ -85,7 +57,6 @@ $photos = json::decode($model->photos);
     ]);
     foreach ($galery_teaser as $photo) {
         print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
-
     }
 
     OwlCarouselWidget::end();

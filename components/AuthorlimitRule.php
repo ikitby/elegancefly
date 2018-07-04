@@ -11,19 +11,20 @@ class AuthorlimitRule extends Rule
 {
     public $name = 'isAuthor';
 
-
     public function execute($user, $item, $params)
     {
-        if (empty($params['model'])) {
-            $params['model'] = $this->findModel($params['id']); //если массив параметров пуст - принудительно передаем ему массив параметров с id проекта
-        }
+        //Получаем ID проекта обращающегося к редактированию проекта лимита
+        $proj_id = (!empty(Yii::$app->request->post('id'))) ? Yii::$app->request->post('id') : Yii::$app->request->post('Prodlimit')['id'];
 
-        return isset($params['model']) ? $params['model']->user_id == $user : false; //ен отдает true когда надо.
+        if (empty($model)) {
+            $model = $this->findModel($proj_id);
+        }
+        return isset($model) ? $model->user_id == $user : false;
     }
 
-    private function findModel($params)
+    private function findModel($proj_id)
     {
-        if (($model = Products::findOne($params)) !== null) {
+        if (($model = Products::findOne($proj_id)) !== null) {
             return $model;
         }
     }
