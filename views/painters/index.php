@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Transaction;
+use app\models\User;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
@@ -57,7 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ]); ?>
                             </span>
-                            Работ: <?= $user->getUserProjectsCount($user->id) ?><br/>
+
+                            Работ: <a href="<?= Url::to(['/catalog/painter', 'painter' => $user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($user->id)) ?></a><br/>
                             Продаж: <?= Transaction::getUserSales($user->id) ?>
                         </div>
 

@@ -1,8 +1,10 @@
 <?php
 
 use app\models\Transaction;
+use app\models\User;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -55,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </li>
                 <li><strong>Имя: </strong><?= Html::encode($painter->name) ?></li>
-                <li><strong>Работ: </strong><?= Html::encode($painter->getUserProjectsCount($painter->id)) ?></li>
+                <li><strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $painter->username]) ?>"><?= Html::encode(User::getUserProjectsCount($painter->id)) ?></a></li>
                 <li><strong>Продаж: </strong><?= $painter->sales ?></li>
                 <li><strong>Продаж: </strong><?= Transaction::getUserSales($painter->id) ?></li>
                 <li><strong>Страна: </strong><?= Html::encode($painter->country) ?></li>

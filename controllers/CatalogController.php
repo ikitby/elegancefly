@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Catprod;
+use app\models\ProductsAuthor;
 use app\models\ProductsSearch;
 use app\models\Ratings;
 use app\models\Tags;
@@ -94,6 +95,39 @@ class CatalogController extends AppController
         ]);
 
     }
+
+
+    public function actionPainter()
+    {
+        $painter = User::find()->where(['username' => Yii::$app->request->get('painter')])->select('id')->one();
+
+        $products = Products::find()->where(['user_id' => $painter, 'state' => 1, 'deleted' => 0]);
+        $productsall = $products;
+
+        $pagination = new Pagination(
+            [
+                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
+                'totalCount'        => $products->count()
+            ]
+        );
+
+        $products = Products::find()
+            ->where(['user_id' => $painter, 'state' => 1, 'deleted' => 0])
+            ->with(['user', 'catprod'])
+            ->joinWith('transactions')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+
+        return $this->render('index', [
+            'products'      => $products,
+            'productsall'   => $productsall,
+            'pagination'    => $pagination,
+        ]);
+
+    }
+
 
     public function actionShow()
     {

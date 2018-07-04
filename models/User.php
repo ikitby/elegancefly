@@ -278,6 +278,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getUserProjectsCount($id)
     {
-        return $countProjects = Products::find()->where(['user_id' => $id])->count();
+        return $countProjects = Products::find()->where(['user_id' => $id, 'state' => 1, 'deleted' => 0])->count();
     }
 }

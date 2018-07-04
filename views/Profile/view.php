@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Transaction;
+use app\models\User;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -72,9 +73,9 @@ dump($painter);
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
             <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
             <?php if (empty($model->role) || $model->role != 'User') : ?>
-            <li>
-                <strong>Работ: </strong><a href="<?= Url::to(['/catalog/author', 'painter' => $model->username]) ?>"><?= Html::encode($model::getUserProjectsCount($model->id)) ?></a>
-            </li>
+                <li>
+                    <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a>
+                </li>
             <li><strong>Продаж: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
             <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
             <?php endif; ?>

@@ -115,29 +115,16 @@ class CartController extends AppController
 ');
                     }
 
-/*
-                    $transaction = Customer::getDb()->beginTransaction();
-                    try {
-                        $customer->id = 200;
-                        $customer->save();
-                        // ...другие операции с базой данных...
-                        $transaction->commit();
-                    } catch(\Exception $e) {
-                        $transaction->rollBack();
-                        throw $e;
-                    } catch(\Throwable $e) {
-                        $transaction->rollBack();
-                        throw $e;
-                    }
-
-*/
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
                     $autorProcent = $itemprice*0.5;
                     //dump($autorProcent);
                     //----- Обработка стоимости
 
-
+//--------------------- Start Trasnsaction --------------------
+                    $paymenttransaction = Transaction::getDb()->beginTransaction();
+                    try {
+//--------------------- Start Trasnsaction --------------------
                     //Минусуем стоимость работы у покупателя
                     $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
 
@@ -162,7 +149,16 @@ class CartController extends AppController
                     $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
                     $transaction->save();
-
+//--------------------- End Trasnsaction --------------------
+                        $paymenttransaction->commit();
+                    } catch(\Exception $e) {
+                        $paymenttransaction->rollBack();
+                        throw $e;
+                    } catch(\Throwable $e) {
+                        $paymenttransaction->rollBack();
+                        throw $e;
+                    }
+//--------------------- End Trasnsaction --------------------
                     //Обновляем счетчик продаж пользователя в его аккаунте
                     Transaction::setUserSales($item->seller_id);
 
@@ -170,7 +166,6 @@ class CartController extends AppController
 
                     $cartItem = Cart::findOne($item->id);
                     $cartItem->delete();
-
 
                 } else {
                     return 'No';

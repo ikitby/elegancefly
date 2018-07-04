@@ -135,7 +135,7 @@ $allowpurchased = ($limit > $count) ? true : false;
                     </a>
                 </li>
                 <li>
-                    <strong>Работ: </strong><a href="<?= Url::to(['/catalog/author', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
+                    <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
                 </li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
