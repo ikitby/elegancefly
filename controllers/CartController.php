@@ -16,6 +16,8 @@ use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
+use PayPal\Api\CreditCard;
+use PayPal\Exception\PaypalConnectionException;
 
 class CartController extends AppController
 {
@@ -191,5 +193,30 @@ class CartController extends AppController
                 ->with(['cartproduct', 'buyer'])
                 ->all();
     }
+/*
+    public function actionMakePayments()
+    { // or whatever yours is called
 
+        $card = new PayPalCreditCard;
+        $card->setType('visa')
+            ->setNumber('4111111111111111')
+            ->setExpireMonth('06')
+            ->setExpireYear('2018')
+            ->setCvv2('782')
+            ->setFirstName('Richie')
+            ->setLastName('Richardson');
+
+        try {
+            $card->create(Yii::$app->ppm->getContext());
+            // ...and for debugging purposes
+            echo '<pre>';
+            var_dump('Success scenario');
+            echo $card;
+        } catch (PayPalConnectionException) {
+            echo '<pre>';
+            var_dump('Failure scenario');
+            //echo $e;
+        }
+    }
+*/
 }

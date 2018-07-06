@@ -53,6 +53,16 @@ $config = [
             //'defaultRoles' => ['user'],
         ],
 
+        'ppm' => [ // bad abbreviation of "PaypalMoney"; not sustainable long-term
+            'class' => 'app/components/PaypalMoney', // note: this has to correspond with the newly created folder, else you'd get a ReflectionError
+
+            // Next up, we set the public parameters of the class
+            'client_id' => 'AT9WezRKiN9rgintHa9sXVwywTCPPampyCFSheab7AecgZC3BO---EpUW5b-RK581H6xTcW92_LV9Ru4',
+            'client_secret' => 'ECMqPJ4Iv7vwh9Q1t47kPqDHt9zYVG8ADSqE6cv7JYomTC-Exp9BqlkVmOYl4UtaINtL0Ny7Mtr6yqv4',
+            // You may choose to include other configuration options from PayPal
+            // as they have specified in the documentation
+        ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'mRtgfA1_ru5V5-83LwS2pcqqqa6AnHHh',

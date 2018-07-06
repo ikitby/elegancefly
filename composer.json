@@ -25,7 +25,8 @@
         "ckarjun/yii2-owl-carousel": "*",
         "kartik-v/yii2-popover-x": "dev-master",
         "mdmsoft/yii2-admin": "~2.0",
-        "thamtech/yii2-uuid": "^1.1"
+        "thamtech/yii2-uuid": "^1.1",
+        "paypal/rest-api-sdk-php": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
