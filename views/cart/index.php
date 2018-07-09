@@ -2,6 +2,7 @@
 
 use app\models\Cart;
 use app\models\Products;
+use app\models\Transaction;
 use app\widgets\BasketWidget;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Html;
@@ -90,18 +91,96 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         </tbody>
     </table>
-<hr />
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-danger emptycart pull-right"><span class="glyphicon glyphicon-trash"></span> Clear basket</button>
+        </div>
+    </div>
+<hr class="col-md-12"/>
     <div class="col-md-12 carttable">
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-3">Товаров в корзине:<br> <h3><span class="cartcountres"><?= Cart::getCartCount() ?></span></h3></div>
             <div class="col-md-3">На сумму:<br> <h3><span class="cartsummres"><?= Cart::getCartsumm() ?></span>$</h3></div>
-            <div class="col-md-12">
-                <button type="button" class="btn btn-danger emptycart"><span class="glyphicon glyphicon-trash"></span> Clear basket</button>
-                <button type="button" class="btn btn-success pull-right checkoutcart">Checkout</button>
-            </div>
         </div>
     </div>
+<hr class="col-md-12"/>
+    <div class="row">
+        <div class="col-md-6" style="text-align: center;">
+            <button type="button" class="btn btn-success checkoutcart btn-lg">Personal account (<?= Transaction::getUserBalance(Yii::$app->user->id) ?>$)</button>
+        </div>
+        <div class="col-md-6" style="text-align: center;">
+
+            <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+            <div id="paypal-button-container"></div>
+
+            <script>
+
+                // Render the PayPal button
+
+                paypal.Button.render({
+
+                    // Set your environment
+
+                    env: 'sandbox', // sandbox | production
+
+                    // Specify the style of the button
+
+                    style: {
+                        layout: 'vertical',  // horizontal | vertical
+                        size:   'medium',    // medium | large | responsive
+                        shape:  'rect',      // pill | rect
+                        color:  'gold'       // gold | blue | silver | black
+                    },
+
+                    // Specify allowed and disallowed funding sources
+                    //
+                    // Options:
+                    // - paypal.FUNDING.CARD
+                    // - paypal.FUNDING.CREDIT
+                    // - paypal.FUNDING.ELV
+
+                    funding: {
+                        allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+                        disallowed: [ ]
+                    },
+
+                    // PayPal Client IDs - replace with your own
+                    // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+                    client: {
+                        sandbox:    'AT9WezRKiN9rgintHa9sXVwywTCPPampyCFSheab7AecgZC3BO---EpUW5b-RK581H6xTcW92_LV9Ru4',
+                        production: '<insert production client id>'
+                    },
+
+                    payment: function(data, actions) {
+                        return actions.payment.create({
+                            payment: {
+                                transactions: [
+                                    {
+                                        amount: { total: '<?= Cart::getCartsumm() ?>', currency: 'USD' }
+                                    }
+                                ]
+                            }
+                        });
+                    },
+
+                    onAuthorize: function(data, actions) {
+                        return actions.payment.execute().then(function() {
+                            window.alert('Payment Complete!');
+                        });
+                    }
+
+                }, '#paypal-button-container');
+
+            </script>
+
+
+
+        </div>
+    </div>
+    <hr class="col-md-12"/>
 
 
 </div>

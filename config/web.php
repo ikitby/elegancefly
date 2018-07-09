@@ -60,6 +60,10 @@ $config = [
             'client_id' => 'AT9WezRKiN9rgintHa9sXVwywTCPPampyCFSheab7AecgZC3BO---EpUW5b-RK581H6xTcW92_LV9Ru4',
             'client_secret' => 'ECMqPJ4Iv7vwh9Q1t47kPqDHt9zYVG8ADSqE6cv7JYomTC-Exp9BqlkVmOYl4UtaINtL0Ny7Mtr6yqv4',
             // You may choose to include other configuration options from PayPal
+            'http.ConnectionTimeOut' => 30,
+            'http.Retry'             => 1,
+            'log.LogEnabled'         => YII_DEBUG ? 1 : 0,
+            'log.FileName'           => '@runtime/logs/paypal.log',
             // as they have specified in the documentation
         ],
 
