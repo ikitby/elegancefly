@@ -9,6 +9,7 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
+use thamtech\uuid\helpers\UuidHelper;
 use yii\helpers\Url;
 
 $apiContext = new \PayPal\Rest\ApiContext(
@@ -66,14 +67,15 @@ $transaction->setAmount($amount)
 
 // Блок для генерации ключа-идетификатора корзины (его добавим в базу ко всем записям корзины и к ReturnUrl - по нему дополнительно проверим принадлежность корзины оплате)
 
-
+$buyer_id = Yii::$app->user->id;
+$basket_uniq_id = UuidHelper::uuid();
+Cart::updateAll(['basket_uniq_id' => $basket_uniq_id], ['buyer_id' => $buyer_id]);
 
 // Конец блока генерации ключа
 
 $redirectUrls = new RedirectUrls();
-$redirectUrls->setReturnUrl(Url::toRoute(['/cart/ext-checkout', 'success' => true], true))
+$redirectUrls->setReturnUrl(Url::toRoute(['/cart/ext-checkout', 'success' => true, 'cid' => $basket_uniq_id], true))
         ->setCancelUrl(Url::toRoute(['/cart/ext-checkout', 'success' => false], true));
-
 
 $payment = new Payment();
 $payment->setIntent('sale')
