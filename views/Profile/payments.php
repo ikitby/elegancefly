@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <th>#ID</th>
         <th>Date</th>
         <th>Amount</th>
-        <th>Balance</th>
+        <th>Balance (PAC)</th>
         <th>Source</th>
     </tr>
     </thead>
