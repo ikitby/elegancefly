@@ -82,6 +82,7 @@ dump($painter);
         </ul>
         Баланс:
         <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>
+        <?= \app\widgets\DepositWidget::widget(['tpl' =>'deposit_paypal']) ?>
     </div>
 </div>
 

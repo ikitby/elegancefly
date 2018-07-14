@@ -36,7 +36,7 @@ class MenuWidget extends Widget{
         $res = '<ul class="list-group">';
 
         foreach ($data as $category) {
-            $category{'artcount'} = Products::find()->where(['category' => $category{'id'}, 'state' => 1])->count();
+            $category{'artcount'} = Products::find()->where(['category' => $category{'id'}, 'state' => 1, 'deleted' => 0])->count();
             $res .= $this->getTemplate($category);
         }
         $res .= '</ul>';

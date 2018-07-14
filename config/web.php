@@ -42,6 +42,7 @@ $config = [
             'catalog/view*',
             'catalog/category*',
             'catalog/tema',
+            'catalog/painter*',
             'catalog/tag',
             'painters*',
         ]
@@ -55,10 +56,12 @@ $config = [
 
         'ppm' => [ // bad abbreviation of "PaypalMoney"; not sustainable long-term
             'class' => 'app/components/PaypalMoney', // note: this has to correspond with the newly created folder, else you'd get a ReflectionError
-
+            'isProduction' => false,
             // Next up, we set the public parameters of the class
-            'client_id' => 'AT9WezRKiN9rgintHa9sXVwywTCPPampyCFSheab7AecgZC3BO---EpUW5b-RK581H6xTcW92_LV9Ru4',
-            'client_secret' => 'ECMqPJ4Iv7vwh9Q1t47kPqDHt9zYVG8ADSqE6cv7JYomTC-Exp9BqlkVmOYl4UtaINtL0Ny7Mtr6yqv4',
+            'client_id' => 'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',
+            'client_secret' => 'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm',
+                // ClientID
+                  // ClientSecret
             // You may choose to include other configuration options from PayPal
             'http.ConnectionTimeOut' => 30,
             'http.Retry'             => 1,
@@ -130,6 +133,7 @@ $config = [
                 'catalog/delete/<id:\d+>' => 'catalog/delete',
                 'catalog/<catalias:\w+>/<id:\d+>' => 'catalog/category',
                 'catalog/<catalias:\w+>' => 'catalog/category',
+                'cart/ext-checkout/<gateway:\w+>' => 'cart/ext-checkout',
                 'catalog/show/<painter:\w+>' => 'catalog/search',
                 '/catalog/painter/<painter:\w+>' => 'catalog/painter',
                 '/profile/updateproject/<id:\d+>' => '/profile/updateproject',

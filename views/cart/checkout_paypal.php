@@ -1,0 +1,92 @@
+<?php
+
+use app\models\Cart;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use yii\helpers\Url;
+
+$apiContext = new \PayPal\Rest\ApiContext(
+    new \PayPal\Auth\OAuthTokenCredential(
+        'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
+        'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
+    )
+);
+
+$product = 'Test prod for my check'; //Тенстовое название продукта
+$price = Cart::getCartsumm(); //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
+$shipping = 0; //если доставка платная - указываем ее
+
+$total = $price + $shipping; //калькулируем конечную стоимость с учетом доставки
+
+$payer = new Payer();
+$payer->setPaymentMethod('paypal');
+
+$item = new Item();
+$item->setName($product)
+        ->setCurrency('USD')
+        ->setQuantity(1)
+        ->setPrice($price);
+
+//перебираем товары для itemList
+$ind = "0";
+$items = array();
+foreach ($cartprod as $prod) {
+    $item = new Item();
+    $items[$ind] = $item->setName($prod->name)
+        ->setCurrency('USD')
+        ->setQuantity(1)
+        ->setPrice($prod->price);
+    $ind++;
+}
+//перебираем товары для itemList
+
+$itemList = new ItemList();
+$itemList->setItems($items);
+
+$details = new Details();
+$details->setShipping($shipping)
+        ->setSubtotal($price);
+
+$amount = new Amount();
+$amount->setCurrency('USD')
+        ->setTotal($total)
+        ->setDetails($details);
+
+$transaction = new Transaction();
+$transaction->setAmount($amount)
+        ->setItemList($itemList)
+        ->setDescription('TestPayment')
+        ->setInvoiceNumber(uniqid());
+
+// Блок для генерации ключа-идетификатора корзины (его добавим в базу ко всем записям корзины и к ReturnUrl - по нему дополнительно проверим принадлежность корзины оплате)
+
+
+
+// Конец блока генерации ключа
+
+$redirectUrls = new RedirectUrls();
+$redirectUrls->setReturnUrl(Url::toRoute(['/cart/ext-checkout', 'success' => true], true))
+        ->setCancelUrl(Url::toRoute(['/cart/ext-checkout', 'success' => false], true));
+
+
+$payment = new Payment();
+$payment->setIntent('sale')
+        ->setPayer($payer)
+        ->setRedirectUrls($redirectUrls)
+        ->setTransactions([$transaction]);
+
+try {
+    $payment->create($apiContext);
+} catch (Exception $e) {
+    dump($e);
+}
+
+echo $approvalUrl = $payment->getApprovalLink();
+
+return Yii::$app->response->redirect($approvalUrl);

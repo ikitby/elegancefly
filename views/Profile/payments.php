@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= $this->title ?></h1>
 
-    Текущий баланс:
+    Текущий баланс (PAC):
     <h3><?= Transaction::getUserBalance(Yii::$app->user->id) ?>$</h3>
     <?php Pjax::begin(); ?>
 <div class="payments">
@@ -69,6 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Yii::$app->formatter->asTime($payment->created_at, 'medium') ?>
             </td>
             <td>
+                <span class="label label-success"><?= $payment->action_purse ?></span>
                 <h4><?= $payment->amount ?>$</h4>
             </td>
             <td>

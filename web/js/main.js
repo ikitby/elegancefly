@@ -255,7 +255,20 @@ $(function () {
 
     });
 
+    $('.paypal-buttonkit').on('click', function () {
+        location.href = '/cart/ext-checkout/paypal';
+    });
 
+$('.depowidget .deposit_show').on('click', function () {
+    $(this).hide();
+    $(this).prev().show(300);
+    }
+);
+$('.depowidget .deposit_hide').on('click', function () {
+        $(this).parent().parent().hide();
+        $(this).parent().parent().next().show(50);
+    }
+);
 
 // Favourite logic
     /*

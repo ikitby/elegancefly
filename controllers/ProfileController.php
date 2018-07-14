@@ -6,6 +6,12 @@ use app\models\ImageUpload;
 use app\models\Prodlimit;
 use app\models\Products;
 use app\models\Transaction;
+use PayPal\Api\Amount;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -141,32 +147,9 @@ class ProfileController extends AppController
     public function actionDeposite()
     {
 
-        /*
-        $card = new PayPalCreditCard();
-        $card->setType('visa')
-            ->setNumber('4111111111111111')
-            ->setExpireMonth('06')
-            ->setExpireYear('2018')
-            ->setCvv2('782')
-            ->setFirstName('Richie')
-            ->setLastName('Richardson');
-
-        try {
-            $card->create(Yii::$app->cm->getContext());
-            // ...and for debugging purposes
-            echo '<pre>';
-            var_dump('Success scenario');
-            echo $card;
-        } catch (PayPalConnectionException) {
-            echo '<pre>';
-            var_dump('Failure scenario');
-            echo $e;
-        }
-        */
-        return $this->render('selectpay', [
-            'model' => 0,
-        ]);
     }
+
+
 
     public function actionSetlimit() //Установка лимита продаж
     {

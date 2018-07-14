@@ -11,13 +11,17 @@ namespace app\controllers;
 use app\models\Products;
 use app\models\Cart;
 use app\models\Transaction;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use thamtech\uuid\helpers\UuidHelper;
 use Yii;
+use yii\db\Exception;
 use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use PayPal\Api\CreditCard;
 use PayPal\Exception\PaypalConnectionException;
+use yii\web\NotFoundHttpException;
 
 class CartController extends AppController
 {
@@ -32,6 +36,63 @@ class CartController extends AppController
             'cartprod'      => $cartprod,
         ]);
     }
+
+
+    public function actionExtCheckout()
+    {
+        $gateway = Yii::$app->request->get('gateway');
+        $success = Yii::$app->request->get('success');
+
+        if ($gateway) {
+            $cartprod = $this->getCartItems();
+            if (empty($cartprod)) {
+                return $this->redirect(['/catalog']);
+            }
+
+            return $this->render('checkout_' . $gateway, [
+                'cartprod' => $cartprod,
+                'gateway' => $gateway
+            ]);
+        } elseif ($success == true) {
+
+            $apiContext = new \PayPal\Rest\ApiContext(
+                new \PayPal\Auth\OAuthTokenCredential(
+                    'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
+                    'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
+                )
+            );
+
+            $paymentId = Yii::$app->request->get('paymentId');
+            $token = Yii::$app->request->get('token');
+            $PayerID = Yii::$app->request->get('PayerID');
+
+            if (!isset($success) && $paymentId && $PayerID)
+            {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+
+            $payment = Payment::get($paymentId, $apiContext);
+            $execute = new PaymentExecution();
+            $execute->setPayerId($PayerID);
+
+
+
+            try
+            {
+                $result = $payment->execute($execute, $apiContext);
+            } catch (Exception $e) {
+                throw new NotFoundHttpException($e);
+            }
+
+
+            dump($payment);
+
+            dump(Yii::$app->request->get());
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
 
     /**
      * @return bool
@@ -71,7 +132,6 @@ class CartController extends AppController
         } else {
             return 'И таки шо, Зяма, мы тут делаем?';
         }
-
     }
 
     public function actionAdd()
@@ -132,6 +192,7 @@ class CartController extends AppController
 
                     $transaction = new Transaction();
                     $transaction->action_id = $transaction_id;
+                    $transaction->action_purse = 'PAC';
                     $transaction->action_user = Yii::$app->user->id;
                     $transaction->source_payment = $item->seller_id;
                     $transaction->amount = -$itemprice;
