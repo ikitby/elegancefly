@@ -13,14 +13,15 @@ use app\models\Cart;
 use app\models\Transaction;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use yii\db\Exception;
 use yii\helpers\Json;
-use yii\web\BadRequestHttpException;
-use PayPal\Api\CreditCard;
-use PayPal\Exception\PaypalConnectionException;
+//use yii\web\BadRequestHttpException;
+//use PayPal\Api\CreditCard;
+//use PayPal\Exception\PaypalConnectionException;
 use yii\web\NotFoundHttpException;
 
 class CartController extends AppController
@@ -55,11 +56,9 @@ class CartController extends AppController
             ]);
         } elseif ($success == true) {
 
-            $apiContext = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential(
-                    'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
-                    'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
-                )
+            $apiPaypal = Yii::$app->cm;
+            $apiContext = new apiContext(
+                new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
             );
 
             $paymentId = Yii::$app->request->get('paymentId');

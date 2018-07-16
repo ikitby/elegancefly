@@ -90,6 +90,6 @@ try {
     dump($e);
 }
 
-echo $approvalUrl = $payment->getApprovalLink();
+$approvalUrl = $payment->getApprovalLink();
 
 return Yii::$app->response->redirect($approvalUrl);

@@ -22,7 +22,6 @@ $(function () {
         })
     });
 
-
     $(".delfromcart").on('click', function(e){
         e.preventDefault();
         var id = $(this).data('id');
@@ -183,13 +182,13 @@ $(function () {
                 {
                     $('a.state_'+id).toggleClass("btn-warning btn-success").text('Unpublish');
                     $('span.label.state_'+id).toggleClass("label-warning label-success").text("Продается");
-                    console.log(true);
+                    //console.log(true);
                 }
                 else if (data === false)
                 {
                     $('a.state_'+id).toggleClass("btn-success btn-warning").text('Publish');
                     $('span.label.state_'+id).toggleClass("label-success label-warning").text("Не продается");
-                    console.log(false);
+                    //console.log(false);
                 }
 
 
@@ -201,11 +200,6 @@ $(function () {
             }
         })
     });
-
-    function ShowUniQuery(UniqProject) {
-        $('#UniqProject .modal-body').html(UniqProject);
-        $('#UniqProject').modal();
-    }
 
     $(".limitproject").on('click', function(e){
         e.preventDefault();
@@ -254,6 +248,44 @@ $(function () {
         })
 
     });
+
+
+    $(".send_deposit").on('click', function(e){
+        e.preventDefault();
+        var count = $(this).parent().parent().parent().find('.form-control').val();
+
+        $.ajax({
+            url: '/profile/deposite',
+            data: {count: count},
+            type: 'post',
+            success: function (data) {
+                if (!data) alert('Error!');
+                //var data = jQuery.parseJSON(data);
+                //$('.cartcountres').html(data['cartcount']);
+                //$('.cartsummres').html(data['cartsum']);
+                //ShowCart();
+                $('#InfoModal .modal-body').html(data);
+
+                //var data = jQuery.parseJSON(data);
+                ShowInfoModal();
+                console.log(data);
+            },
+            error: function () {
+                alert ('Error!');
+            }
+        })
+
+    });
+
+    function ShowUniQuery(UniqProject) {
+        $('#UniqProject .modal-body').html(UniqProject);
+        $('#UniqProject').modal();
+    }
+    function ShowInfoModal(InfoModal) {
+        $('#InfoModal .modal-body').html(InfoModal);
+        $('#InfoModal').modal();
+    }
+
 
     $('.paypal-buttonkit').on('click', function () {
         location.href = '/cart/ext-checkout/paypal';

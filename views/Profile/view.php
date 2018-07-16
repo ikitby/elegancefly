@@ -2,6 +2,7 @@
 
 use app\models\Transaction;
 use app\models\User;
+use app\widgets\DepositWidget;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -82,7 +83,7 @@ dump($painter);
         </ul>
         Баланс:
         <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>
-        <?= \app\widgets\DepositWidget::widget(['tpl' =>'deposit_paypal']) ?>
+        <?= DepositWidget::widget(['tpl' =>'deposit_paypal', 'data' => '5']) ?>
     </div>
 </div>
 

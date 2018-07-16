@@ -5,6 +5,7 @@
 
 use app\models\Cart;
 use app\widgets\Alert;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -95,6 +96,14 @@ $cartsumm = Cart::getCartsumm();
 
     </div>
 </div>
+
+<?php
+Modal::begin([
+    //'header' => '<h4 class="modal-title">Info</h4>',
+    'id' => 'InfoModal',
+]);
+Modal::end();
+?>
 
 <footer class="footer">
     <div class="container">

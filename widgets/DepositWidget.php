@@ -22,7 +22,6 @@ class DepositWidget extends Widget{
         //$deposit = Yii::$app->cache->get('deposit');
         //if ($deposit) return $deposit;
 
-        $this->data = 0;
         $deposit = $this->getHtml($this->data);
 
         //set cache
