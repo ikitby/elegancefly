@@ -9,14 +9,15 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 use thamtech\uuid\helpers\UuidHelper;
 use yii\helpers\Url;
 
-$apiContext = new \PayPal\Rest\ApiContext(
-    new \PayPal\Auth\OAuthTokenCredential(
-        'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
-        'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
-    )
+
+$apiPaypal = Yii::$app->cm;
+$apiContext = new apiContext(
+    new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
 );
 
 $product = 'Test prod for my check'; //Тенстовое название продукта

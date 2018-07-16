@@ -12,6 +12,8 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -152,19 +154,17 @@ class ProfileController extends AppController
         $gateway = Yii::$app->request->get('gateway');
         $success = Yii::$app->request->get('success');
 
-        $apiContext = new \PayPal\Rest\ApiContext(
-            new \PayPal\Auth\OAuthTokenCredential(
-                'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
-                'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
-            )
+        $apiPaypal = Yii::$app->cm;
+        $apiContext = new apiContext(
+            new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
         );
 
-        //$apiPaypal = Yii::$app->cm;
 
 
-        //dump($apiPaypal);
-        //dump($apiContext);
-        //die();
+        dump($apiPaypal);
+        //dump($Context);
+        dump($apiContext);
+        die();
 
 
         if ($count) {
