@@ -13,10 +13,11 @@ use yii\base\Component;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 
-class PaypalMoney extends Component
-{
+class CashMoney extends Component {
     public $client_id;
     public $client_secret;
+    public $isProduction;
+
     private $apiContext; // paypal API context
 
     // override Yii object init()

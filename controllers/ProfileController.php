@@ -147,6 +147,114 @@ class ProfileController extends AppController
     public function actionDeposite()
     {
 
+
+        $count = Yii::$app->request->get('count');
+        $gateway = Yii::$app->request->get('gateway');
+        $success = Yii::$app->request->get('success');
+
+        $apiContext = new \PayPal\Rest\ApiContext(
+            new \PayPal\Auth\OAuthTokenCredential(
+                'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
+                'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
+            )
+        );
+
+        //$apiPaypal = Yii::$app->cm;
+
+
+        //dump($apiPaypal);
+        //dump($apiContext);
+        //die();
+
+
+        if ($count) {
+            $cartprod = $this->getCartItems();
+
+            return $this->render('deposit_' . $gateway, [
+                'cartprod' => $cartprod,
+                'gateway' => $gateway
+            ]);
+        } elseif ($success == true) {
+
+            $apiContext = new \PayPal\Rest\ApiContext(
+                new \PayPal\Auth\OAuthTokenCredential(
+                    'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
+                    'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
+                )
+            );
+
+
+
+            $paymentId = Yii::$app->request->get('paymentId');
+            $token = Yii::$app->request->get('token');
+            $PayerID = Yii::$app->request->get('PayerID');
+
+            if (!isset($success) && $paymentId && $PayerID)
+            {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+
+            $payment = Payment::get($paymentId, $apiContext);
+            $execute = new PaymentExecution();
+            $execute->setPayerId($PayerID);
+
+            try
+            {
+                $result = $payment->execute($execute, $apiContext);
+
+
+                //Блок раздачи плюшек всем авторам при оплате кокупки paypal.
+
+                $transaction_id = UuidHelper::uuid();
+                $cartItems = $this->getCartItems();
+
+                foreach ($cartItems as $item) {
+
+                    //----- Обработка стоимости
+                    $itemprice = $item->price; //Полная цена товара
+                    $autorProcent = $itemprice*0.5;
+                    //----- Обработка стоимости
+
+                    //--------------------- Start Trasnsaction --------------------
+                    $paymenttransaction = Transaction::getDb()->beginTransaction();
+                    try {
+//--------------------- Start Trasnsaction --------------------
+                        //Отдаем денежку автору за работу
+                        $current_balance = $this->getUserBalance($item->seller_id); //баланс художника
+                        $transaction = new Transaction();
+                        $transaction->action_id = $transaction_id;
+                        $transaction->action_user = $item->seller_id;
+                        $transaction->source_payment = Yii::$app->user->id;
+                        $transaction->amount = $autorProcent;
+                        $transaction->c_balance = $current_balance + $autorProcent; //пополняем запись текущего баланска в транзакции
+                        $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
+                        $transaction->prod_id = $item->product_id;
+                        $transaction->save();
+//--------------------- End Trasnsaction --------------------
+                        $paymenttransaction->commit();
+                    } catch (\Exception $e) {
+                        $paymenttransaction->rollBack();
+                        throw $e;
+                    } catch (\Throwable $e) {
+                        $paymenttransaction->rollBack();
+                        throw $e;
+                    }
+//--------------------- End Trasnsaction --------------------
+
+                }
+
+                return $this->redirect(['/profile']);
+
+            } catch (Exception $e) {
+                throw new NotFoundHttpException($e);
+            }
+
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+
+
+
+
     }
 
 

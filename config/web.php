@@ -54,8 +54,8 @@ $config = [
             //'defaultRoles' => ['user'],
         ],
 
-        'ppm' => [ // bad abbreviation of "PaypalMoney"; not sustainable long-term
-            'class' => 'app/components/PaypalMoney', // note: this has to correspond with the newly created folder, else you'd get a ReflectionError
+        'cm' => [ // bad abbreviation of "PaypalMoney"; not sustainable long-term
+            'class' => 'app\components\CashMoney', // note: this has to correspond with the newly created folder, else you'd get a ReflectionError
             'isProduction' => false,
             // Next up, we set the public parameters of the class
             'client_id' => 'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',
@@ -63,10 +63,12 @@ $config = [
                 // ClientID
                   // ClientSecret
             // You may choose to include other configuration options from PayPal
+            /*
             'http.ConnectionTimeOut' => 30,
             'http.Retry'             => 1,
             'log.LogEnabled'         => YII_DEBUG ? 1 : 0,
             'log.FileName'           => '@runtime/logs/paypal.log',
+            */
             // as they have specified in the documentation
         ],
 

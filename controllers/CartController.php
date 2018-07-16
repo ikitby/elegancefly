@@ -78,71 +78,75 @@ class CartController extends AppController
             try
             {
                 $result = $payment->execute($execute, $apiContext);
-            } catch (Exception $e) {
-                throw new NotFoundHttpException($e);
-            }
-            //Блок раздачи плюшек всем авторам при оплате кокупки paypal.
+
+
+                //Блок раздачи плюшек всем авторам при оплате кокупки paypal.
 
                 $transaction_id = UuidHelper::uuid();
                 $cartItems = $this->getCartItems();
 
-            foreach ($cartItems as $item) {
+                foreach ($cartItems as $item) {
 
-                //----- Обработка стоимости
-                $itemprice = $item->price; //Полная цена товара
-                $autorProcent = $itemprice*0.5;
-                //----- Обработка стоимости
+                    //----- Обработка стоимости
+                    $itemprice = $item->price; //Полная цена товара
+                    $autorProcent = $itemprice*0.5;
+                    //----- Обработка стоимости
 
-                //--------------------- Start Trasnsaction --------------------
-                $paymenttransaction = Transaction::getDb()->beginTransaction();
-                try {
+                    //--------------------- Start Trasnsaction --------------------
+                    $paymenttransaction = Transaction::getDb()->beginTransaction();
+                    try {
 //--------------------- Start Trasnsaction --------------------
-                    //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
-                    $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
+                        //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
+                        $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
 
-                    $transaction = new Transaction();
-                    $transaction->action_id = $transaction_id;
-                    $transaction->action_purse = 'Paypal';
-                    $transaction->action_user = Yii::$app->user->id;
-                    $transaction->source_payment = $item->seller_id;
-                    $transaction->amount = 0;
-                    $transaction->c_balance = $current_balance; //пополняем запись текущего баланска в транзакции ни чего не меняя
-                    $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
-                    $transaction->prod_id = $item->product_id;
-                    $transaction->save();
+                        $transaction = new Transaction();
+                        $transaction->action_id = $transaction_id;
+                        $transaction->action_purse = 'Paypal';
+                        $transaction->action_user = Yii::$app->user->id;
+                        $transaction->source_payment = $item->seller_id;
+                        $transaction->amount = 0;
+                        $transaction->c_balance = $current_balance; //пополняем запись текущего баланска в транзакции ни чего не меняя
+                        $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
+                        $transaction->prod_id = $item->product_id;
+                        $transaction->save();
 
-                    //Отдаем денежку автору за работу
-                    $current_balance = $this->getUserBalance($item->seller_id); //баланс художника
-                    $transaction = new Transaction();
-                    $transaction->action_id = $transaction_id;
-                    $transaction->action_user = $item->seller_id;
-                    $transaction->source_payment = Yii::$app->user->id;
-                    $transaction->amount = $autorProcent;
-                    $transaction->c_balance = $current_balance + $autorProcent; //пополняем запись текущего баланска в транзакции
-                    $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
-                    $transaction->prod_id = $item->product_id;
-                    $transaction->save();
+                        //Отдаем денежку автору за работу
+                        $current_balance = $this->getUserBalance($item->seller_id); //баланс художника
+                        $transaction = new Transaction();
+                        $transaction->action_id = $transaction_id;
+                        $transaction->action_user = $item->seller_id;
+                        $transaction->source_payment = Yii::$app->user->id;
+                        $transaction->amount = $autorProcent;
+                        $transaction->c_balance = $current_balance + $autorProcent; //пополняем запись текущего баланска в транзакции
+                        $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
+                        $transaction->prod_id = $item->product_id;
+                        $transaction->save();
 //--------------------- End Trasnsaction --------------------
-                    $paymenttransaction->commit();
-                } catch (\Exception $e) {
-                    $paymenttransaction->rollBack();
-                    throw $e;
-                } catch (\Throwable $e) {
-                    $paymenttransaction->rollBack();
-                    throw $e;
+                        $paymenttransaction->commit();
+                    } catch (\Exception $e) {
+                        $paymenttransaction->rollBack();
+                        throw $e;
+                    } catch (\Throwable $e) {
+                        $paymenttransaction->rollBack();
+                        throw $e;
+                    }
+//--------------------- End Trasnsaction --------------------
+                    //Обновляем счетчик продаж пользователя в его аккаунте
+                    Transaction::setUserSales($item->seller_id);
+
+                    //Удаляем товар из корзины
+
+                    $cartItem = Cart::findOne($item->id);
+                    $cartItem->delete();
+
                 }
-//--------------------- End Trasnsaction --------------------
-                //Обновляем счетчик продаж пользователя в его аккаунте
-                Transaction::setUserSales($item->seller_id);
 
-                //Удаляем товар из корзины
+                return $this->redirect(['/catalog']);
 
-                $cartItem = Cart::findOne($item->id);
-                $cartItem->delete();
 
+            } catch (Exception $e) {
+                throw new NotFoundHttpException($e);
             }
-
-            return $this->redirect(['/catalog']);
 
         }
         throw new NotFoundHttpException('The requested page does not exist.');
