@@ -54,7 +54,7 @@ class CartController extends AppController
                 'cartprod' => $cartprod,
                 'gateway' => $gateway
             ]);
-        } elseif ($success == true) {
+        } elseif ($success) {
 
             $apiPaypal = Yii::$app->cm;
             $apiContext = new apiContext(
@@ -73,11 +73,10 @@ class CartController extends AppController
             $payment = Payment::get($paymentId, $apiContext);
             $execute = new PaymentExecution();
             $execute->setPayerId($PayerID);
-
+            
             try
             {
                 $result = $payment->execute($execute, $apiContext);
-
 
                 //Блок раздачи плюшек всем авторам при оплате кокупки paypal.
 
@@ -94,6 +93,9 @@ class CartController extends AppController
                     //--------------------- Start Trasnsaction --------------------
                     $paymenttransaction = Transaction::getDb()->beginTransaction();
                     try {
+
+
+
 //--------------------- Start Trasnsaction --------------------
                         //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
                         $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника

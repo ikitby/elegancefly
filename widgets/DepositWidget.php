@@ -36,7 +36,7 @@ class DepositWidget extends Widget{
 
     protected function getTemplate(){
         ob_start();
-            include __DIR__ . '/Deposit_tpl/' . $this->tpl;
+            include __DIR__ . '/deposit_tpl/' . $this->tpl;
         return ob_get_clean();
     }
 }

@@ -13,8 +13,8 @@ use kartik\widgets\TouchSpin;
                 'pluginOptions' => [
                     'initval' => $this->data,
                     'min' => 0,
-                    'max' => 100,
-                    'placeholder' => 'Adjust ...'],
+                    'max' => 15,
+                    'placeholder' => '...'],
             ]) ?>
             <span class="input-group-btn">
                 <button type="button" class="btn btn-success send_deposit"><span class="glyphicon glyphicon-usd"></span> Отправить</button>

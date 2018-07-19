@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\ImageUpload;
 use app\models\Prodlimit;
 use app\models\Products;
-//use app\models\Transaction;
+use app\models\Transaction;
 use Exception;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -13,8 +13,9 @@ use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
-use PayPal\Api\Transaction;
+//use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use thamtech\uuid\helpers\UuidHelper;
@@ -150,154 +151,126 @@ class ProfileController extends AppController
 
     public function actionDeposite()
     {
+
         $count = Yii::$app->request->post('count');
         $gateway = Yii::$app->request->get('gateway');
         $success = Yii::$app->request->get('success');
+        $paymentId = Yii::$app->request->get('paymentId');
+        $PayerID = Yii::$app->request->get('PayerID');
+        $token = Yii::$app->request->get('token');
 
-        // Инициализируем paypal
-        $apiPaypal = Yii::$app->cm;
-        $apiContext = new apiContext(
-            new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
-        );
-        // Инициализируем paypal
-
-        $product = 'Пополнение личного счета на сайте '; //Тенстовое название продукта
-        $price = $count; //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
-        $shipping = 0; //если доставка платная - указываем ее
-
-        $total = $price + $shipping; //калькулируем конечную стоимость с учетом доставки
-
-        $payer = new Payer();
-        $payer->setPaymentMethod('paypal');
-
-        $item = new Item();
-        $item->setName($product)
-            ->setCurrency('USD')
-            ->setQuantity(1)
-            ->setPrice($price);
-
-        $itemList = new ItemList();
-        $itemList->setItems([$item]);
-
-        $details = new Details();
-        $details->setShipping($shipping)
-            ->setSubtotal($price);
-
-        $amount = new Amount();
-        $amount->setCurrency('USD')
-            ->setTotal($total)
-            ->setDetails($details);
-
-        $transaction = new ();
-        $transaction->setAmount($amount)
-            ->setItemList($itemList)
-            ->setDescription('TestPayment')
-            ->setInvoiceNumber(uniqid());
-
-// Блок для генерации ключа-идетификатора корзины (его добавим в базу ко всем записям корзины и к ReturnUrl - по нему дополнительно проверим принадлежность корзины оплате)
-
-        $buyer_id = Yii::$app->user->id;
-        $basket_uniq_id = UuidHelper::uuid();
-
-// Конец блока генерации ключа
-
-        $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl(Url::toRoute(['/cart/ext-checkout', 'success' => true, 'cid' => $basket_uniq_id], true))
-            ->setCancelUrl(Url::toRoute(['/cart/ext-checkout', 'success' => false], true));
-
-        $payment = new Payment();
-        $payment->setIntent('sale')
-            ->setPayer($payer)
-            ->setRedirectUrls($redirectUrls)
-            ->setTransactions([$transaction]);
-
-        return print 'ok';
-        die();
-
-        try {
-            $payment->create($apiContext);
-        } catch (Exception $e) {
-            dump($e);
-        }
-
-        $approvalUrl = $payment->getApprovalLink();
-
-
-        return $approvalUrl = $payment->getApprovalLink();
-        die();
-        dump($apiPaypal);
-        //dump($Context);
-        dump($apiContext);
-        //die();
-
-
-        if ($count) {
-            //Здесь будет запрос к
-
-            return $this->render('deposit_' . $gateway, [
-                'cartprod' => $cartprod,
-                'gateway' => $gateway
-            ]);
-        } elseif ($success == true) {
-
-            $apiContext = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential(
-                    'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',     // ClientID
-                    'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm'      // ClientSecret
-                )
-            );
-
-
-
-            $paymentId = Yii::$app->request->get('paymentId');
-            $token = Yii::$app->request->get('token');
-            $PayerID = Yii::$app->request->get('PayerID');
-
+        if ($success) {
             if (!isset($success) && $paymentId && $PayerID)
             {
                 throw new NotFoundHttpException('The requested page does not exist.');
             }
 
-            $payment = Payment::get($paymentId, $apiContext);
-            $execute = new PaymentExecution();
-            $execute->setPayerId($PayerID);
-
-            try
+            if ($success == true)
             {
-                $result = $payment->execute($execute, $apiContext);
+                // Инициализируем paypal
+                $apiPaypal = Yii::$app->cm;
+                $apiContext = new apiContext(
+                    new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
+                );
+                // Инициализируем paypal
 
+                $payment = Payment::get($paymentId, $apiContext);
+                $execute = new PaymentExecution();
+                $execute->setPayerId($PayerID);
 
-                //Блок раздачи плюшек всем авторам при оплате кокупки paypal.
+                $checkoutDetails = $payment->getToken();
 
-                $transaction_id = UuidHelper::uuid();
-                $cartItems = $this->getCartItems();
+                $amount = '';
+                dump($checkoutDetails );
+                dump($payment);
+                dump($payment->getTransactions->getAmount);
 
+                die();
 
-                    //--------------------- Start Trasnsaction --------------------
-                    $paymenttransaction = Transaction::getDb()->beginTransaction();
-                    try {
-//--------------------- Start Trasnsaction --------------------
+                try {
 
-//--------------------- End Trasnsaction --------------------
-                        $paymenttransaction->commit();
-                    } catch (\Exception $e) {
-                        $paymenttransaction->rollBack();
-                        throw $e;
-                    } catch (\Throwable $e) {
-                        $paymenttransaction->rollBack();
-                        throw $e;
-                    }
-//--------------------- End Trasnsaction --------------------
+                    $result = $payment->execute($execute, $apiContext);
 
-                return $this->redirect(['/profile']);
+                } catch (Exception $e) {
+                    $data = json_decode($e->getData());
 
-            } catch (Exception $e) {
-                throw new NotFoundHttpException($e);
+                    throw new NotFoundHttpException($data->message);
+                }
+
+                throw new NotFoundHttpException('The requested page does not exist.');
             }
 
+        } else {
+            // Инициализируем paypal
+            $apiPaypal = Yii::$app->cm;
+            $apiContext = new apiContext(
+                new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
+            );
+            // Инициализируем paypal
+
+            $product = 'Пополнение личного счета на сайте '; //Тенстовое название продукта
+            $price = $count; //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
+            $shipping = 0; //если доставка платная - указываем ее
+
+            $total = $price + $shipping; //калькулируем конечную стоимость с учетом доставки
+
+            $payer = new Payer();
+            $payer->setPaymentMethod('paypal');
+
+            $item = new Item();
+            $item->setName($product)
+                ->setCurrency('USD')
+                ->setQuantity(1)
+                ->setPrice($price);
+
+            $itemList = new ItemList();
+            $itemList->setItems([$item]);
+
+            $details = new Details();
+            $details->setShipping($shipping)
+                ->setSubtotal($price);
+
+            $amount = new Amount();
+            $amount->setCurrency('USD')
+                ->setTotal($total)
+                ->setDetails($details);
+
+            $transaction = new \PayPal\Api\Transaction(); // Вот тут мой прокол. Из за одноименной модели Транзакций - я не могу глобально подключить пайпал
+            $transaction->setAmount($amount)
+                ->setItemList($itemList)
+                ->setDescription('Payment')
+                ->setInvoiceNumber(uniqid());
+
+// Блок для генерации ключа-идетификатора корзины (его добавим в базу ко всем записям корзины и к ReturnUrl - по нему дополнительно проверим принадлежность корзины оплате)
+
+            $buyer_id = Yii::$app->user->id;
+            $basket_uniq_id = UuidHelper::uuid();
+
+// Конец блока генерации ключа
+
+            $redirectUrls = new RedirectUrls();
+            $redirectUrls->setReturnUrl(Url::toRoute(['/profile/deposite', 'success' => true], true))
+                ->setCancelUrl(Url::toRoute(['/profile/deposite', 'success' => false], true));
+
+            $payment = new Payment();
+            $payment->setIntent('sale')
+                ->setPayer($payer)
+                ->setRedirectUrls($redirectUrls)
+                ->setTransactions([$transaction]);
+
+            try {
+                $payment->create($apiContext);
+            } catch (Exception $e) {
+                dump($e);
+            }
+
+            $approvalUrl = $payment->getApprovalLink();
+
+            return $approvalUrl;
+
+            //return Yii::$app->response->redirect($approvalUrl);
         }
         throw new NotFoundHttpException('The requested page does not exist.');
-
     }
 
 

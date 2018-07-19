@@ -249,26 +249,16 @@ $(function () {
 
     });
 
-
     $(".send_deposit").on('click', function(e){
         e.preventDefault();
         var count = $(this).parent().parent().parent().find('.form-control').val();
-
         $.ajax({
             url: '/profile/deposite',
             data: {count: count},
             type: 'post',
             success: function (data) {
                 if (!data) alert('Error!');
-                //var data = jQuery.parseJSON(data);
-                //$('.cartcountres').html(data['cartcount']);
-                //$('.cartsummres').html(data['cartsum']);
-                //ShowCart();
-                $('#InfoModal .modal-body').html(data);
-
-                //var data = jQuery.parseJSON(data);
-                ShowInfoModal();
-                console.log(data);
+                location.href = data;
             },
             error: function () {
                 alert ('Error!');
@@ -280,10 +270,6 @@ $(function () {
     function ShowUniQuery(UniqProject) {
         $('#UniqProject .modal-body').html(UniqProject);
         $('#UniqProject').modal();
-    }
-    function ShowInfoModal(InfoModal) {
-        $('#InfoModal .modal-body').html(InfoModal);
-        $('#InfoModal').modal();
     }
 
 

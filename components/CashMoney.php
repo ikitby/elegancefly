@@ -27,6 +27,11 @@ class CashMoney extends Component {
         );
     }
 
+    public function getTotalAmount()
+    {
+        dump($this);
+    }
+
     public function getContext() {
         return $this->apiContext;
     }

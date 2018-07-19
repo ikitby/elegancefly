@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View Тесть */
 /* @var $model app\models\User */
 
 if (empty($model->photo)) {
@@ -85,6 +85,7 @@ dump($painter);
         <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>
         <?= DepositWidget::widget(['tpl' =>'deposit_paypal', 'data' => '5']) ?>
     </div>
+
 </div>
 
     <?php /*
