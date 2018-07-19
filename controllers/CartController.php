@@ -64,6 +64,7 @@ class CartController extends AppController
             $paymentId = Yii::$app->request->get('paymentId');
             $token = Yii::$app->request->get('token');
             $PayerID = Yii::$app->request->get('PayerID');
+            $cid = Yii::$app->request->get('cid');
 
             if (!isset($success) && $paymentId && $PayerID)
             {
@@ -73,7 +74,7 @@ class CartController extends AppController
             $payment = Payment::get($paymentId, $apiContext);
             $execute = new PaymentExecution();
             $execute->setPayerId($PayerID);
-            
+
             try
             {
                 $result = $payment->execute($execute, $apiContext);
@@ -82,8 +83,12 @@ class CartController extends AppController
 
                 $transaction_id = UuidHelper::uuid();
                 $cartItems = $this->getCartItems();
-
+                $cart_result = 'Успешная оплата. Спасибо!';
                 foreach ($cartItems as $item) {
+                    if ($item->basket_uniq_id != $cid || !$item->basket_uniq_id) {
+                        $cart_result = 'Внутренняя ошибка корзины. Либо попытка подмены транзакции!';
+                        continue; //
+                    }
 
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
@@ -93,8 +98,6 @@ class CartController extends AppController
                     //--------------------- Start Trasnsaction --------------------
                     $paymenttransaction = Transaction::getDb()->beginTransaction();
                     try {
-
-
 
 //--------------------- Start Trasnsaction --------------------
                         //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
@@ -141,9 +144,9 @@ class CartController extends AppController
                     $cartItem->delete();
 
                 }
+                    Yii::$app->session->setFlash('success', $cart_result); //записываем в сессию сообщение для результата
 
                 return $this->redirect(['/catalog']);
-
 
             } catch (Exception $e) {
                 throw new NotFoundHttpException($e);

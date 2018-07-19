@@ -70,7 +70,7 @@ $transaction->setAmount($amount)
 
 $buyer_id = Yii::$app->user->id;
 $basket_uniq_id = UuidHelper::uuid();
-Cart::updateAll(['basket_uniq_id' => $basket_uniq_id], ['buyer_id' => $buyer_id]);
+Cart::updateAll(['basket_uniq_id' => $basket_uniq_id], ['buyer_id' => $buyer_id]); //Генерим ключ корзины для транзакции
 
 // Конец блока генерации ключа
 

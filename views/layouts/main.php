@@ -39,6 +39,7 @@ $cartsumm = Cart::getCartsumm();
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'encodeLabels' => false,
@@ -77,6 +78,14 @@ $cartsumm = Cart::getCartsumm();
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
+            <?php
+            if( Yii::$app->session->hasFlash('success') ): ?>
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php echo Yii::$app->session->getFlash('success'); ?>
+            </div>
+            <?php endif; ?>
+
         <div class="col-md-3">
             <div id="userblock">
                 <?= \app\widgets\UserWidget::widget(['tpl' =>'user']) ?>
