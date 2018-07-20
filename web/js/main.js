@@ -261,7 +261,7 @@ $(function () {
                 location.href = data;
             },
             error: function () {
-                alert ('Error!');
+                //alert ('Error!');
             }
         })
 

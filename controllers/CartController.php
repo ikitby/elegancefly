@@ -84,10 +84,12 @@ class CartController extends AppController
                 $transaction_id = UuidHelper::uuid();
                 $cartItems = $this->getCartItems();
                 $cart_result = 'Успешная оплата. Спасибо!';
+
                 foreach ($cartItems as $item) {
+
                     if ($item->basket_uniq_id != $cid || !$item->basket_uniq_id) {
                         $cart_result = 'Внутренняя ошибка корзины. Либо попытка подмены транзакции!';
-                        continue; //
+                        continue;
                     }
 
                     //----- Обработка стоимости
@@ -112,6 +114,7 @@ class CartController extends AppController
                         $transaction->c_balance = $current_balance; //пополняем запись текущего баланска в транзакции ни чего не меняя
                         $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                         $transaction->prod_id = $item->product_id;
+                        $transaction->status = '1';
                         $transaction->save();
 
                         //Отдаем денежку автору за работу
@@ -124,7 +127,9 @@ class CartController extends AppController
                         $transaction->c_balance = $current_balance + $autorProcent; //пополняем запись текущего баланска в транзакции
                         $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                         $transaction->prod_id = $item->product_id;
+                        $transaction->status = '1';
                         $transaction->save();
+
 //--------------------- End Trasnsaction --------------------
                         $paymenttransaction->commit();
                     } catch (\Exception $e) {
@@ -144,8 +149,8 @@ class CartController extends AppController
                     $cartItem->delete();
 
                 }
-                    Yii::$app->session->setFlash('success', $cart_result); //записываем в сессию сообщение для результата
 
+                Yii::$app->session->setFlash('success', $cart_result); //записываем в сессию сообщение для результата
                 return $this->redirect(['/catalog']);
 
             } catch (Exception $e) {
@@ -263,6 +268,7 @@ class CartController extends AppController
                     $transaction->c_balance = $current_balance-$itemprice; //пополняем запись текущего баланска в транзакции
                     $transaction->type = 0; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
+                    $transaction->status = '1';
                     $transaction->save();
 
                     //Отдаем денежку автору за работу
@@ -275,6 +281,7 @@ class CartController extends AppController
                     $transaction->c_balance = $current_balance+$autorProcent; //пополняем запись текущего баланска в транзакции
                     $transaction->type = 1; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса)
                     $transaction->prod_id = $item->product_id;
+                    $transaction->status = '1';
                     $transaction->save();
 //--------------------- End Trasnsaction --------------------
                         $paymenttransaction->commit();

@@ -153,7 +153,7 @@ class ProfileController extends AppController
     {
 
         $count = Yii::$app->request->post('count');
-        $gateway = Yii::$app->request->get('gateway');
+        $cid = Yii::$app->request->get('cid');
         $success = Yii::$app->request->get('success');
         $paymentId = Yii::$app->request->get('paymentId');
         $PayerID = Yii::$app->request->get('PayerID');
@@ -165,7 +165,7 @@ class ProfileController extends AppController
                 throw new NotFoundHttpException('The requested page does not exist.');
             }
 
-            if ($success == true)
+            if ($success == true && $cid)
             {
                 // Инициализируем paypal
                 $apiPaypal = Yii::$app->cm;
@@ -174,26 +174,21 @@ class ProfileController extends AppController
                 );
                 // Инициализируем paypal
 
+
                 $payment = Payment::get($paymentId, $apiContext);
                 $execute = new PaymentExecution();
                 $execute->setPayerId($PayerID);
 
-                $checkoutDetails = $payment->getToken();
-
-                $amount = '';
-                dump($checkoutDetails );
-                dump($payment);
-                dump($payment->getTransactions->getAmount);
-
-                die();
-
                 try {
-
                     $result = $payment->execute($execute, $apiContext);
+                    Transaction::ApprowTranaction($cid);
+
+                    Yii::$app->session->setFlash('success', 'Ваш счат на сайте успешно пополнен! Спасибо.'); //записываем в сессию сообщение для результата
+                    return $this->redirect(['/profile']);
+
 
                 } catch (Exception $e) {
                     $data = json_decode($e->getData());
-
                     throw new NotFoundHttpException($data->message);
                 }
 
@@ -241,15 +236,10 @@ class ProfileController extends AppController
                 ->setDescription('Payment')
                 ->setInvoiceNumber(uniqid());
 
-// Блок для генерации ключа-идетификатора корзины (его добавим в базу ко всем записям корзины и к ReturnUrl - по нему дополнительно проверим принадлежность корзины оплате)
-
-            $buyer_id = Yii::$app->user->id;
-            $basket_uniq_id = UuidHelper::uuid();
-
-// Конец блока генерации ключа
+            $cid = Transaction::SetDeposite( 'Paypal', $price); //Создаем транзакцию по умолчанию и возвращаем ее уникальный cid
 
             $redirectUrls = new RedirectUrls();
-            $redirectUrls->setReturnUrl(Url::toRoute(['/profile/deposite', 'success' => true], true))
+            $redirectUrls->setReturnUrl(Url::toRoute(['/profile/deposite', 'success' => true, 'cid' => $cid], true))
                 ->setCancelUrl(Url::toRoute(['/profile/deposite', 'success' => false], true));
 
             $payment = new Payment();
@@ -266,9 +256,7 @@ class ProfileController extends AppController
 
             $approvalUrl = $payment->getApprovalLink();
 
-            return $approvalUrl;
-
-            //return Yii::$app->response->redirect($approvalUrl);
+            return Yii::$app->response->redirect($approvalUrl);
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
@@ -314,7 +302,7 @@ class ProfileController extends AppController
     {
         $id = $this->checkAccess();
 
-        $payments = Transaction::find()->where(['action_user' => $id]);
+        $payments = Transaction::find()->where(['action_user' => $id, 'status' =>1]);
         $allpayments = $payments;
 
         $pagination = new Pagination(
@@ -325,7 +313,7 @@ class ProfileController extends AppController
         );
 
         $payments = Transaction::find()
-            ->where(['action_user' => $id])
+            ->where(['action_user' => $id, 'status' =>1])
             ->orderBy(['id' => SORT_DESC])
             ->offset($pagination->offset)
             ->limit($pagination->limit)

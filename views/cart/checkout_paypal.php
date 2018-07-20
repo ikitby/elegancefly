@@ -69,8 +69,8 @@ $transaction->setAmount($amount)
 // Блок для генерации ключа-идетификатора корзины (его добавим в базу ко всем записям корзины и к ReturnUrl - по нему дополнительно проверим принадлежность корзины оплате)
 
 $buyer_id = Yii::$app->user->id;
-$basket_uniq_id = UuidHelper::uuid();
-Cart::updateAll(['basket_uniq_id' => $basket_uniq_id], ['buyer_id' => $buyer_id]); //Генерим ключ корзины для транзакции
+$basket_uniq_id = UuidHelper::uuid();//Генерим ключ корзины для транзакции
+Cart::updateAll(['basket_uniq_id' => $basket_uniq_id], ['buyer_id' => $buyer_id]); //Запихиваем ключ во все записи текущей козрины
 
 // Конец блока генерации ключа
 
@@ -87,7 +87,8 @@ $payment->setIntent('sale')
 try {
     $payment->create($apiContext);
 } catch (Exception $e) {
-    dump($e);
+    //dump($e);
+    return '"INTERNAL_SERVICE_ERROR" - ошибка платежной системы. Попробуйте еще раз попозже';
 }
 
 $approvalUrl = $payment->getApprovalLink();
