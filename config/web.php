@@ -92,12 +92,24 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        /*
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+        ],
+        */
+        'mailer' => [
+            'useFileTransport' => false,
+            'messageConfig' => [
+                'charset' => 'UTF-8',
+            ],
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'mail.ikit.by',
+                'username' => 'info@ikit.by',
+                'password' => 'HfeK3ksoU',
+                'port' => '25',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
