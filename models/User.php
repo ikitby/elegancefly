@@ -26,7 +26,11 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-
+    const STATUS_NOT_ACTIVE = 0;
+/*
+    public $username;
+    public $status;
+*/
     /**
      * @inheritdoc
      */
@@ -51,6 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+
             [['username', 'auth_key', 'password_hash', 'email'], 'required'],
             [['status', 'created_at', 'updated_at', 'percent', 'state', 'sales'], 'integer'],
             [['rate'], 'number'],
@@ -61,8 +66,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],
+            ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
+
         ];
     }
 
@@ -236,6 +243,15 @@ class User extends ActiveRecord implements IdentityInterface
         ]);
     }
 
+    public static function findByActivateKey($token)
+    {
+        return static::findOne([
+            'password_reset_token' => $token,
+            'status' => self::STATUS_NOT_ACTIVE,
+        ]);
+    }
+
+
     public static function isPasswordResetTokenValid($token)
     {
 
@@ -246,6 +262,7 @@ class User extends ActiveRecord implements IdentityInterface
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
+
     }
 
     public function generatePasswordResetToken()

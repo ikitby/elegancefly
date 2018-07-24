@@ -22,6 +22,7 @@ if(!$model->save()) {
         <div class="col-lg-5">
 
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+
             <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'password')->passwordInput() ?>
@@ -31,6 +32,13 @@ if(!$model->save()) {
             </div>
             <?php ActiveForm::end(); ?>
 
+            <?php
+            if ($model->scenario === 'emailActivation'):
+            ?>
+            <i>На указанный email будет отправлено письмо для активации</i>
+            <?php
+            endif;
+            ?>
         </div>
     </div>
 </div>

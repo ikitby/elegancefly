@@ -37,7 +37,7 @@ $config = [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
-            'rbac/*',
+            //'rbac/*',
             'catalog/index',
             'catalog/view*',
             'catalog/category*',
@@ -99,7 +99,7 @@ $config = [
         ],
         */
         'mailer' => [
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             'messageConfig' => [
                 'charset' => 'UTF-8',
             ],

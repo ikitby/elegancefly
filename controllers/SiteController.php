@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AccountActivation;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
@@ -9,6 +10,8 @@ use app\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 //use yii\web\Controller;
 use yii\web\Response;
@@ -134,20 +137,55 @@ class SiteController extends AppController
 
     public function actionSignup()
     {
-        $model = new SignupForm();
+        $emailActivation = Yii::$app->params['emailActivation'];
+        $model = $emailActivation ? new SignupForm( ['scenario' => 'emailActivation']) : new SignupForm();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($user = $model->signup()):
+                if ($user->status === User::STATUS_ACTIVE):
+                    if (Yii::$app->getUser()->login($user)):
+                        return $this->redirect(['/profile/edit']);
+                    endif;
+                else:
 
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect(['/profile/edit']);
-                }
-            }
+                    if($model->sendActivationEmail($user)):
+                        Yii::$app->session->setFlash('success', 'Письмо с данными для активации аккаунта отправлено на email: <strong>'.Html::encode($user->email).'</strong>. (Проверьте папку спам!)');
+                    else:
+                        Yii::$app->session->setFlash('error', 'Ошибка. Письмо с подтверждением регистрации не отправлено');
+                        Yii::error('Ошибка отправки письма подтверждения');
+                    endif;
+                    return $this->refresh();
+                endif;
+            else:
+                Yii::$app->session->setFlash('error', 'Возникла ошибка при регистрации');
+                Yii::error('Ошибка при регистрации');
+                return $this->refresh();
+            endif;
         }
 
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionActivateAccount($key)
+    {
+        try {
+            $user = new AccountActivation($key);
+        }
+        catch(\HttpInvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($user->activateAccount()):
+            Yii::$app->session->setFlash('success', 'Активация прошла успешно.
+            <strong>'.Html::encode($user->username).'</strong> добро пожаловать');
+        else:
+            Yii::$app->session->setFlash('error', 'Ошибка активации');
+        Yii::error('Ошибка при активации');
+        endif;
+        return $this->redirect(Url::to(['/login']));
+
     }
 
     public function actionRequestPasswordReset()

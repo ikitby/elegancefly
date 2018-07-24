@@ -11,9 +11,13 @@ use yii\base\Model;
 class SignupForm extends Model
 {
 
+    const STATUS_ACTIVE = 10;
+    const STATUS_DELETED = 0;
+    const STATUS_NOT_ACTIVE = 0;
     public $username;
     public $email;
     public $password;
+    public $status;
     public $password_repeat;
 
     /**
@@ -22,19 +26,28 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
+            [['username', 'email', 'password'],  'filter', 'filter' => 'trim'],
+            [['username', 'email', 'password'], 'required'],
             ['username', 'unique', 'targetClass' => '\app\models\User'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 3, 'max' => 25],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User'],
             ['password', 'required'],
+            ['password', 'string', 'min' => 6, 'max' => 255],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],
+            ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
+
             //['password', 'compare', 'compareAttribute' => 'password_repeat'],
-            ['password', 'string', 'min' => 6],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return parent::attributeLabels();
     }
 
     /**
@@ -53,12 +66,25 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
+        //$user->generatePasswordResetToken();
+        if ($this->scenario === 'emailActivation') $user->generatePasswordResetToken();
+
         if ($user->save()) {
             $userRole = Yii::$app->authManager->getRole('user'); // Назначаем роль по умолчани. для пользователя
             Yii::$app->authManager->assign($userRole, $user->id);
             return $user;
         }
         return null;
+    }
+
+    public function sendActivationEmail($user)
+    {
+
+        return Yii::$app->mailer->compose('activtionEmail', ['user' => $user])
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
+            ->setTo($this->email)
+            ->setSubject('Активация для '.Yii::$app->name)
+            ->send();
     }
 
 }

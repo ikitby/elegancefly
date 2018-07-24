@@ -1,8 +1,10 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@elegancefly.com',
+
+    'adminEmail' => 'info@ikit.by',
     'user.passwordResetTokenExpire' => 3600,
-    'supportEmail' => 'noreply@elegancefly.com'
+    'supportEmail' => 'noreply@elegancefly.com',
+    'emailActivation' => true,
 
 ];
