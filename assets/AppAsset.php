@@ -22,8 +22,14 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/template.css',
+        'css/main.css',
     ];
     public $js = [
+        'js/jquery.scrolly.min.js',
+        'js/jquery.scrollex.min.js',
+        'js/browser.min.js',
+        'js/breakpoints.min.js',
+        'js/util.js',
         'js/main.js',
         //'js/jquery-2.2.4.min.js',
     ];

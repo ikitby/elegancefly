@@ -1,8 +1,32 @@
+body a, #nav ul li a {transition: all 0.3s;}
+#nav ul li a:hover {color: #fff;}
 
 
 /* usersgalery */
-ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 0;}
+ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 40px 0 0 0;}
 ul#userblockid>li {flex-basis: 25%;padding: 5px;}
 
 
+/* left block */
+div#header>.top {padding-top: 60px;}
 
+div#userblock .useravatar img {margin: 0 auto 5px;}
+.rating-container.rating-sm.rating-animate.rating-disabled {font-size: 1em;}
+i.glyphicon.glyphicon-star {color: #ffb62d;text-shadow: none;}
+.rating-container .empty-stars {color: rgba(150, 150, 150, 0.2196078431372549) !important;}
+
+.con.tainer {padding: 60px;max-width: 1400px;}
+.rating-container .rating-input {font-size: 0 !important;}
+span.urate {font-size: 12px;line-height: 1em;display: block;}
+
+/* user block */
+div#header ul {float: left; margin: 25px 0; width: 100%; border-top: 1px solid #4e4e4e;padding-top: 20px;font-size: 14pt;}
+.userbalance h3 {margin: 0;}
+.userbalance {font-size: 0.8em;}
+.username {font-weight: bold;color: #ffb62d;}
+.row_boot {padding-top: 20px;}
+a.cablinck {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0.6em;margin: 5px 0;display: inline-block;}
+a.cablinck:hover {background: #33373a;text-decoration: none;}
+.usermenu {text-align: left;}
+
+div#userblock span.authuser>a {color: #ccc;background: #42484c;padding: 10px 15px;}

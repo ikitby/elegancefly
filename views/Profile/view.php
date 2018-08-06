@@ -66,7 +66,13 @@ dump($painter);
 
     </div>
     <div class="col-md-8">
-
+        <?php
+/*
+        dump(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id));
+        dump(Yii::$app->authManager->checkAccess(Yii::$app->user->id,'createProject'));
+        dump(User::Can('createProject'))
+*/
+        ?>
         <ul>
             <li><strong>Профиль: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span>
             </li>

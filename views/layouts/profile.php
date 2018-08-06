@@ -36,9 +36,8 @@ $cartsumm = Cart::getCartsumm();
         <nav id="nav">
             <!-- Social Icons -->
             <div id="userblock">
-                <?= \app\widgets\UserWidget::widget(['tpl' =>'user_short']) ?>
+                <?= \app\widgets\UserWidget::widget(['tpl' =>'user']) ?>
             </div>
-            <?= \app\widgets\MenuWidget::widget(['tpl' =>'menu']) ?>
         </nav>
     </div>
 

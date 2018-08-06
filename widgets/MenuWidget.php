@@ -33,7 +33,7 @@ class MenuWidget extends Widget{
 	}
 
 	protected function getHtmlMenu($data) {
-        $res = '<ul class="list-group">';
+        $res = '<ul class="">';
 
         foreach ($data as $category) {
             $category{'artcount'} = Products::find()->where(['category' => $category{'id'}, 'state' => 1, 'deleted' => 0])->count();

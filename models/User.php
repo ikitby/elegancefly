@@ -251,6 +251,10 @@ class User extends ActiveRecord implements IdentityInterface
         ]);
     }
 
+    public static function Can($permission)
+    {
+        return Yii::$app->authManager->checkAccess(Yii::$app->user->id,$permission);
+    }
 
     public static function isPasswordResetTokenValid($token)
     {

@@ -33,6 +33,7 @@ use yii\web\UploadedFile;
 class ProfileController extends AppController
 {
 
+    public $layout = 'profile';
     const STATUS_PAGESIZE = 20;
 
     /**

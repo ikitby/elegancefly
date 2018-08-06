@@ -1,5 +1,5 @@
-<li class="list-group-item">
+<li class="">
     <a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $category['alias']]) ?>">
-        <?= $category['title'] ?><span class="badge bg-red pull-right"><?= $category{'artcount'} ?></span>
+        <?= $category['title'] ?>
     </a>
 </li>
