@@ -29,7 +29,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #fff;
+		background: #fbfbfb;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 14pt;
 		font-weight: 300;
@@ -37,6 +37,7 @@ input, select, textarea {
 		color: #888;
 	}
 
+.breadcrumb {padding: 8px 0;margin-bottom: 20px;list-style: none;border-radius: 0;background: transparent;}
 
 	header {
 		margin: 0 0 2em 0;

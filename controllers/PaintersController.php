@@ -36,7 +36,11 @@ class PaintersController extends AppController
     public function actionIndex()
     {
 
-        $users = User::find()->where(['state' => 10, 'usertype' => 2]);
+        $users = User::find()->where([
+            'status' => 10,
+            'role' => 'Painter',
+            //'usertype' => 2
+        ]);
         $usersall = $users;
 
         $pagination = new Pagination(
@@ -49,7 +53,8 @@ class PaintersController extends AppController
         $users = User::find()
             ->where([
                 'status' => 10,
-                'role' => 'Painter',
+                'role' => ['Painter', 'creator']
+                //'usertype' => 2
             ])
             ->with('products'/*, 'ratings'*/)
             ->orderBy(['sales' => SORT_DESC])
