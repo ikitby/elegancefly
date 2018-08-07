@@ -6,15 +6,28 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Hi to All!!</h1>
-    </div>
-
     <div class="body-content">
 
-        <div class="row">
-
+        <div class="rowline">
+            <?= \app\widgets\VitrinaWidget::widget(['category_id' => 1]) ?>
         </div>
+
+        <div class="rowline">
+            <?= \app\widgets\VitrinaWidget::widget(['category_id' => 2]) ?>
+        </div>
+
+        <div class="rowline">
+            <?= \app\widgets\VitrinaWidget::widget(['category_id' => 4]) ?>
+        </div>
+
+        <div class="rowline">
+            <?= \app\widgets\VitrinaWidget::widget(['category_id' => 6]) ?>
+        </div>
+
+        <div class="rowline">
+            <?= \app\widgets\VitrinaWidget::widget(['category_id' => 8]) ?>
+        </div>
+
 
     </div>
 </div>
