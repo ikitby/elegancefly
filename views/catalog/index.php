@@ -31,7 +31,7 @@ $photos = json::decode($model->photos);
 
     ?>
 
-    <div class="row">
+    <div class="rowcat"  id="cataloggreedwrapp">
     <?php
     if (!empty($products)) :
         foreach ($products as $product):
@@ -39,7 +39,8 @@ $photos = json::decode($model->photos);
     ?>
 
     <?php $owlId = uniqid('owl_'); ?>
-<div class="col-md-3 <?= $owlId ?>">
+
+<div class="col-cat <?= $owlId ?>">
 
  <?php
     OwlCarouselWidget::begin([
@@ -53,11 +54,14 @@ $photos = json::decode($model->photos);
     'autoplayHoverPause'     => true,
     'loop'     => true,
     'lazyLoad' => true,
+    'nav'       => true,
+    'dots'      => true,
+    'checkVisible'      => true,
     'items'    => 1
     ]
     ]);
     foreach ($galery_teaser as $photo) {
-        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
+        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $product->catprod->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'400_400_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
     }
 
     OwlCarouselWidget::end();

@@ -22,7 +22,7 @@ OwlCarouselWidget::begin([
         'nav'       => true,
         'dots'      => true,
         'checkVisible'      => true,
-        'margin'    => 15,
+        'margin'    => 10,
         'items'     => $this->items_inline,
         'responsiveClass'     => true,
         'responsive' => [

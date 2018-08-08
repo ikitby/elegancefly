@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <div class="row">
+    <div class="rowcat" id="cataloggreedwrapp">
     <?php
     if (!empty($products)) :
         foreach ($products as $product):
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
 
     <?php $owlId = uniqid('owl_'); ?>
-<div class="col-md-3 <?= $owlId ?>">
+<div class="col-cat <?= $owlId ?>">
 
  <?php
     OwlCarouselWidget::begin([
@@ -56,11 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
     'autoPlay' => false,
     'loop'     => true,
     'lazyLoad' => true,
+    'nav'       => true,
+    'dots'      => true,
+    'checkVisible'      => true,
     'items'    => 1
     ]
     ]);
     foreach ($galery_teaser as $photo) {
-        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $curentcat->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'200_200_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
+        print '<div  class="owl-items"><a href="'.Url::to(["/catalog/category", "catalias" => $curentcat->alias, "id" => $product->id]).'" type="button" class=""><img class="owl-lazy img-responsive" data-src="/'.$photo['filepath'].'400_400_'.$photo['filename'].'" alt = "'.$photo["title"].'" title = "'.$photo["title"].'"></a></div>';
     }
     OwlCarouselWidget::end();
  ?>

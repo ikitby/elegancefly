@@ -32,16 +32,30 @@ div#userblock span.authuser>a {color: #ccc;background: #42484c;padding: 10px 15p
 
 /* slider */
 .owl-carousel.owlslide {position: relative;}
-.owlslide .owl-nav {height: 0;}
+.owlslide .owl-nav, .owl-nav {height: 0;}
 .owlslide .owl-nav button>span {background: #000;padding: 30px 15px;display: block;opacity: 0.3;position: absolute;top: 0;bottom: 0;font-size: 0;transition: 0.7s;}
-.owlslide:hover .owl-nav button>span {opacity: 0.7;}
+.owlslide:hover .owl-nav button>span, .owl-carousel:hover .owl-nav button>span {opacity: 0.7;}
+.owl-nav button>span {padding: 30px 15px;display: block;opacity: 0.2;position: absolute;top: 0;bottom: 0;font-size: 0;transition: 0.7s;}
 
-.owlslide .owl-nav button.owl-prev>span {left: 0;background: #000 url(images/prev.png) no-repeat center;}
-.owlslide .owl-nav button.owl-next>span {right: 0;background: #000 url(images/next.png) no-repeat center;}
+.owlslide .owl-nav button.owl-prev>span, .owl-nav button.owl-prev>span {left: 0;background: url(images/prev.png) no-repeat center;}
+.owlslide .owl-nav button.owl-next>span, .owl-nav button.owl-next>span {right: 0;background: url(images/next.png) no-repeat center;}
 .owlslide .owl-dots {position: absolute;top: 100%;left: 0;right: 0;text-align: center;}
 .owlslide .owl-dots>button.owl-dot {display: inline-block;background: #ccc;height: 5px; width: 15px;margin: 0 2px;}
 .owlslide .owl-dots>button.owl-dot.active {background: #212528;}
 .rowline {display: block;float: left;width: 100%;margin-bottom: 20px;}
+
+ .owl-dots {position: absolute;top: 100%;left: 0;right: 0;text-align: center;}
+ .owl-dots>button.owl-dot {display: inline-block;background: #ccc;height: 5px; width: 15px;margin: 0 2px;}
+ .owl-dots>button.owl-dot.active {background: #212528;}
+
+div#cataloggreedwrapp .owl-dots button.owl-dot span, div#cataloggreedwrapp .owl-dots button.owl-dot, div#cataloggreedwrapp .owl-dots {line-height: 0;bottom: 0;top: auto;}
+div#cataloggreedwrapp .owl-dots>button.owl-dot {display: inline-block;background: rgba(255, 255, 255, 0.4);height: 5px;width: 10px;margin: 0 2px;}
+div#cataloggreedwrapp .owl-dots>button.owl-dot.active {background: #337ab7 !important;opacity: 0.8;}
+
+
+
+.file_price {font-weight: bold;color: #2d4254;}
+.file_size {padding-top: 4px;font-size: 14px;color: #ccc;}
 
 
 
