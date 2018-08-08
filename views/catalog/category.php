@@ -6,6 +6,7 @@ use ckarjun\owlcarousel\OwlCarouselWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\BadRequestHttpException;
 use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
@@ -74,8 +75,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     endforeach;
-    else: ?>
-        Нет тут ни чего!
+    else:
+        throw new BadRequestHttpException('Пустая категория');
+        ?>
     <?php endif;
     ?>
       <div class="row">

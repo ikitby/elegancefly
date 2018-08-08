@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\BadRequestHttpException;
 use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -72,8 +73,9 @@ $photos = json::decode($model->photos);
 
     <?php
     endforeach;
-    else: ?>
-        Нет тут ни чего!
+    else:
+        throw new BadRequestHttpException('Пустая категория');
+        ?>
     <?php endif;
     ?>
       <div class="row">
