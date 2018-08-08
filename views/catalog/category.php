@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     endforeach;
     else:
-        throw new BadRequestHttpException('Пустая категория');
+        throw new BadRequestHttpException('Empty category');
         ?>
     <?php endif;
     ?>
