@@ -24,7 +24,7 @@ class MenuWidget extends Widget{
         $menu = Yii::$app->cache->get('catmenu');
         if ($menu) return $menu;
 
-        $this->data = Catprod::find()->asArray()->indexBy('id')->all();
+        $this->data = Catprod::find()->asArray()->indexBy('id')->orderBy(['order' => SORT_ASC])->all();
         $menu = $this->getHtmlMenu($this->data);
 
         //set cache

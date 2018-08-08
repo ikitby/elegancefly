@@ -45,10 +45,7 @@ use kartik\widgets\Select2;
                             print Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-md limitproject', 'data-id' => $model->id]);
                         }
                         ?>
-
                     </div>
-
-
 
                 <?= ($model->limit > 0) ? false : $form->field($model, 'price')->textInput() ?>
 
@@ -78,8 +75,7 @@ use kartik\widgets\Select2;
     <div class="col-md-12 bg-warning">
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-        </div>                  ,
-
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>
