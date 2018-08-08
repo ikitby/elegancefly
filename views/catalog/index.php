@@ -17,6 +17,9 @@ use yii\widgets\Pjax;
 $this->title = 'Catalog';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
 $photos = json::decode($model->photos);
 ?>
 <div class="products-index">

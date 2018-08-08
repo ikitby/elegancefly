@@ -52,8 +52,6 @@ div#cataloggreedwrapp .owl-dots button.owl-dot span, div#cataloggreedwrapp .owl-
 div#cataloggreedwrapp .owl-dots>button.owl-dot {display: inline-block;background: rgba(255, 255, 255, 0.4);height: 5px;width: 10px;margin: 0 2px;}
 div#cataloggreedwrapp .owl-dots>button.owl-dot.active {background: #337ab7 !important;opacity: 0.8;}
 
-
-
 .file_price {font-weight: bold;color: #2d4254;}
 .file_size {padding-top: 4px;font-size: 14px;color: #ccc;}
 
