@@ -19,7 +19,8 @@ use yii\widgets\ActiveForm;
         'action' => ['/catalog/show'],
         'method' => 'get',
         'options' => [
-            'data-pjax' => 1
+            'data-pjax' => 1,
+            //'onchange' => 'this.form.submit()'
         ],
     ]); ?>
 
@@ -34,6 +35,7 @@ use yii\widgets\ActiveForm;
                 'data' => Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
                 'options' => [
                     'placeholder' => 'Category',
+                    'onchange' => 'this.form.submit()',
                     'multiple' => false
                 ],
                 'pluginOptions' => [
@@ -49,6 +51,7 @@ use yii\widgets\ActiveForm;
                 'data' => Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
                 'options' => [
                     'placeholder' => 'Theme',
+                    'onchange' => 'this.form.submit()',
                     'multiple' => false
                 ],
                 'pluginOptions' => [
@@ -64,6 +67,7 @@ use yii\widgets\ActiveForm;
                 'data' => User::find()->where(['role' => 'Painter'])->orWhere(['role' => 'Creator'])->select(['name', 'id'])->indexBy('id')->orderBy(['sales' => SORT_DESC])->column(),
                 'options' => [
                     'placeholder' => 'Painter',
+                    'onchange' => 'this.form.submit()',
                     'multiple' => false
                 ],
                 'pluginOptions' => [
@@ -79,6 +83,7 @@ use yii\widgets\ActiveForm;
                 'data' => Tags::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
                 'options' => [
                     'placeholder' => 'Tag',
+                    'onchange' => 'this.form.submit()',
                     'multiple' => false
                 ],
                 'pluginOptions' => [
@@ -104,11 +109,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'sales') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 

@@ -22,7 +22,7 @@ span.urate {font-size: 12px;line-height: 1em;display: block;}
 div#header ul {float: left; margin: 25px 0; width: 100%; border-top: 1px solid #4e4e4e;padding-top: 20px;font-size: 14pt;}
 .userbalance h3 {margin: 0;}
 .userbalance {font-size: 0.8em;}
-.username {font-weight: bold;color: #ffb62d;}
+.username {font-weight: bold;color: #ffb62d;display: block;}
 .row_boot {padding-top: 20px;}
 a.cablinck {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0.6em;margin: 5px 0;display: inline-block;}
 a.cablinck:hover {background: #33373a;text-decoration: none;}

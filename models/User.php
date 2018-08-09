@@ -145,6 +145,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Cart::className(), ['buyer_id' => 'id']);
     }
 
+    public function getUserLevel()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+
     /**
      * @inheritdoc
      */

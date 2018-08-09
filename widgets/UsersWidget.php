@@ -20,15 +20,22 @@ class UsersWidget extends Widget{
 
     public function run() {
         //get cache
-        $menu = Yii::$app->cache->get('usergallery');
-        if ($menu) return $menu;
+        $users = Yii::$app->cache->get('usergallery');
+        if ($users) return $users;
 
-        $this->data = User::find()->where(['role' => 'Painter'])->orWhere(['role' => 'Creator'])->limit(10)->all();
-        $menu = $this->getHtmlMenu($this->data);
+        $this->data = User::find()
+            ->joinWith('userLevel')
+            ->where(['auth_assignment.item_name' => 'Painter'])
+            ->orWhere(['auth_assignment.item_name' => 'Creator'])
+            ->andWhere(['status' => '10'])
+            ->limit(10)
+            ->all();
+
+        $users = $this->getHtmlMenu($this->data);
 
         //set cache
-        Yii::$app->cache->set('usergallery' , $menu, 60*60*24 );
-        return $menu;
+        Yii::$app->cache->set('usergallery' , $users, 60*5);
+        return $users;
     }
 
     protected function getHtmlMenu($data) {

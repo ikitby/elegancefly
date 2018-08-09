@@ -38,6 +38,7 @@ $config = [
         'allowActions' => [
             'site/*',
             'rbac/*',
+            'show*',
             'catalog/index',
             'catalog/view*',
             'catalog/category*',

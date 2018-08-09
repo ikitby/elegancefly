@@ -51,11 +51,11 @@ class PaintersController extends AppController
         );
 
         $users = User::find()
-            ->where([
-                'status' => 10,
-                'role' => ['Painter', 'creator']
-                //'usertype' => 2
-            ])
+            ->joinWith('userLevel')
+            ->where(['auth_assignment.item_name' => 'Painter'])
+            ->orWhere(['auth_assignment.item_name' => 'Creator'])
+            ->andWhere(['status' => '10'])
+            ->limit(10)
             ->with('products'/*, 'ratings'*/)
             ->orderBy(['sales' => SORT_DESC])
             ->offset($pagination->offset)
