@@ -26,8 +26,9 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['username', 'email', 'password'],  'filter', 'filter' => 'trim'],
-            [['username', 'email', 'password'], 'required'],
+            [['username', 'email', 'password', 'password_repeat'],  'filter', 'filter' => 'trim'],
+            [['username'], 'match', 'pattern' => '/^[a-z]\w*$/i'],
+            [['username', 'email', 'password', 'password_repeat'], 'required'],
             ['username', 'unique', 'targetClass' => '\app\models\User'],
             ['username', 'string', 'min' => 3, 'max' => 25],
             ['email', 'trim'],
@@ -35,8 +36,8 @@ class SignupForm extends Model
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User'],
-            ['password', 'required'],
             ['password', 'string', 'min' => 6, 'max' => 255],
+            ['password', 'compare', 'compareAttribute' => 'password_repeat'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
