@@ -1,8 +1,10 @@
 <?php
 
+use app\models\Countries;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -30,16 +32,23 @@ if (empty($model->photo)) {
 
     <?= $form->field($model, 'birthday')->widget(DatePicker::classname(), ['options' => ['placeholder' => 'Enter birth date ...'], 'pluginOptions' => ['autoclose'=>true, 'format' => 'dd.M.yyyy', 'todayHighlight' => true]]); ?>
 
-    <?= $form->field($model, 'country')->textInput() ?>
+    <?=
+    $form->field($model, 'country')->widget(Select2::classname(), [
+        'data' => Countries::find()->select(['country', 'id'])->indexBy('id')->orderBy(['country' => SORT_ASC])->column(),
+        'options' => [
+            'placeholder' => 'Select country',
+            'multiple' => false
+        ],
+        'pluginOptions' => [
+        ],
+    ])->label('Country');
+    ?>
 
-    <?= $form->field($model, 'languages')->textInput() ?>
+    <?= $form->field($model, 'fbpage')->textInput()->label('Facebook')?>
 
+    <?= $form->field($model, 'vkpage')->textInput()->label('Vkontakte')?>
 
-    <?= $form->field($model, 'fbpage')->textInput() ?>
-
-    <?= $form->field($model, 'vkpage')->textInput() ?>
-
-    <?= $form->field($model, 'inpage')->textInput() ?>
+    <?= $form->field($model, 'inpage')->textInput()->label('Instagram')?>
 
 
     </div>

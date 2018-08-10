@@ -57,15 +57,19 @@ class User extends ActiveRecord implements IdentityInterface
         return [
 
             [['username', 'auth_key', 'password_hash', 'email'], 'required'],
-            [['status', 'created_at', 'updated_at', 'percent', 'state', 'sales'], 'integer'],
+            [['username', 'email'], 'trim'],
+            [['status', 'created_at', 'updated_at', 'percent', 'state', 'sales', 'country'], 'integer'],
             [['rate'], 'number'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['name', 'auth_key'], 'string', 'max' => 32],
             [['photo', 'role', 'languages', 'fbpage', 'vkpage', 'inpage'], 'string', 'max' => 250],
             [['birthday', 'country'], 'string', 'max' => 80],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
+            [['username','email'], 'unique'],
             [['password_reset_token'], 'unique'],
+            [['fbpage', 'vkpage', 'inpage'], 'url', 'defaultScheme' => 'http'],
+            [['fbpage'], 'match', 'pattern' => '/^(https?:\/\/)?(www)\.(facebook)\.(com)([\/\w \.-]*)*\/?$/i'],
+            [['inpage'], 'match', 'pattern' => '/^(https?:\/\/)?(www)\.(instagram)\.(com)([\/\w \.-]*)*\/?$/i'],
+            [['vkpage'], 'match', 'pattern' => '/^(https?:\/\/)?(vk)\.(com)([\/\w \.-]*)*\/?$/i'],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
@@ -136,6 +140,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getStatuses()
     {
         return $this->hasOne(Statuses::className(), ['id' => 'usertype']);
+    }
+
+    public function getUsersCountry()
+    {
+        return $this->hasOne(Countries::className(), ['id' => 'id']);
     }
 
     /* cart */
