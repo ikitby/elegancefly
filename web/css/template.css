@@ -55,5 +55,11 @@ div#cataloggreedwrapp .owl-dots>button.owl-dot.active {background: #337ab7 !impo
 .file_price {font-weight: bold;color: #2d4254;}
 .file_size {padding-top: 4px;font-size: 14px;color: #ccc;}
 
+/* view */
+div.raitcount {font-size: 12px;padding: 0 10px;line-height: 1;color: #ccc;}
+ul#paramsproject {list-style: none;padding: 25px 0;}
+li.authorblock {background: #f7f7f7;padding: 5px 10px;border: 1px solid #e8e8e8;}
+
+
 
 

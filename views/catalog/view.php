@@ -34,12 +34,8 @@ $allowpurchased = ($limit > $count) ? true : false;
 
     <h1><?= Html::encode($model->title) ?></h1>
 
-    <p>
-        <?php
-        $galery = json::decode($model->photos); //декодим json с массивом галереи
-        ?>
-    </p>
-<div class="row">Доступ ограничен!</div>
+    <?php $galery = json::decode($model->photos); //декодим json с массивом галереи ?>
+
     <div class="row">
         <div class="col-md-6">
 <?php
@@ -68,9 +64,7 @@ $allowpurchased = ($limit > $count) ? true : false;
 ?>
         </div>
         <div class="col-md-6">
-        <div id="r_infowrap<?=$model->id?>">
-        <span id="numRait_<?=$model->id?>"><?= $model->rating ?></span>/<span id="numVotes_<?=$model->id?>"><?= $model->tatng_votes ?></span>
-        </div>
+
         <?php
         echo StarRating::widget([
             'name' => 'rating_'.$model->id.'',
@@ -118,24 +112,40 @@ $allowpurchased = ($limit > $count) ? true : false;
 
         ]); ?>
 
+            <div class="raitcount" id="r_infowrap<?=$model->id?>">
+                <span id="numRait_<?=$model->id?>"><?= $model->rating ?></span>/<span id="numVotes_<?=$model->id?>"><?= ($model->tatng_votes) ? $model->tatng_votes : 0 ?></span>
+            </div>
+
         <?php
         if (empty($model->user->photo)) {
             $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
         } else {
-            $userphoto = Html::img("/images/user/user_{$model->user->id}/50_50_{$model->user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
+            $userphoto = Html::img("/images/user/user_{$model->user->id}/100_100_{$model->user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
         }
         ?>
-            <ul>
-                <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
-                <li><strong>Автор: </strong>
+            <ul id="paramsproject">
+                <li class="authorblock">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
+                                <span><?= $userphoto ?></span>
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <strong>Painter: </strong>
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
+                                <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
+                            </a><br/>
+                            <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
+                        </div>
+                    </div>
 
-                    <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
-                        <span><?= $userphoto ?></span>
-                        <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
-                    </a>
+
                 </li>
+                <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
+
                 <li>
-                    <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
+
                 </li>
                 <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
                 <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
