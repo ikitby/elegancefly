@@ -142,9 +142,9 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Statuses::className(), ['id' => 'usertype']);
     }
 
-    public function getUsersCountry()
+    public function getUserCountry()
     {
-        return $this->hasOne(Countries::className(), ['id' => 'id']);
+        return $this->hasOne(Countries::className(), ['id' => 'country']);
     }
 
     /* cart */

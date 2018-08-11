@@ -57,10 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </li>
                 <li><strong>Имя: </strong><?= Html::encode($painter->name) ?></li>
+                <li><strong>Country: </strong><?= $painter->userCountry->country ?></li>
                 <li><strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $painter->username]) ?>"><?= Html::encode(User::getUserProjectsCount($painter->id)) ?></a></li>
                 <li><strong>Продаж: </strong><?= $painter->sales ?></li>
                 <li><strong>Продаж: </strong><?= Transaction::getUserSales($painter->id) ?></li>
-                <li><strong>Страна: </strong><?= Html::encode($painter->country) ?></li>
             </ul>
         </div>
     </div>

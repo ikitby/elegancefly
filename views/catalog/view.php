@@ -136,14 +136,15 @@ $allowpurchased = ($limit > $count) ? true : false;
                             <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
                                 <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
                             </a><br/>
+                            <?= $model->user->userCountry->country ?><br/>
                             <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
                         </div>
                     </div>
 
 
                 </li>
-                <li><strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
-
+                <li>
+                    <strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
                 <li>
 
                 </li>

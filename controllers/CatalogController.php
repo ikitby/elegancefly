@@ -159,8 +159,6 @@ class CatalogController extends AppController
             'searchModel'   => $searchModel,
             'dataProvider'   => $dataProvider,
         ]);
-
-
     }
 
     public function actionCategory()
@@ -520,17 +518,7 @@ class CatalogController extends AppController
         $translit = new Translit();
         return $text = strtolower($translit->translit($text, true, 'ru-en'));
     }
-/*
-    public function actionDownloadFile()
-    {
-        $model = $this->findModel($id);
-        //отключить профайлеры
-        $this->disableProfilers();
-        $file = '/path/to/file/some_file.txt';
-        // отдаем файл
-        Yii::app()->request->sendFile(basename($file),file_get_contents($file));
-    }
-*/
+
     private function addHits($id)
     {
         $model = $this->findModel($id);

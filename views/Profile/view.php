@@ -74,17 +74,17 @@ dump($painter);
 */
         ?>
         <ul>
-            <li><strong>Профиль: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span>
+            <li><strong>Profile: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span>
             </li>
-            <li><strong>Логин: </strong><?= Html::encode($model->username) ?></li>
+            <li><strong>Login: </strong><?= Html::encode($model->username) ?></li>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
-            <li><strong>Имя: </strong><?= Html::encode($model->name) ?></li>
+            <li><strong>Name: </strong><?= Html::encode($model->name) ?></li>
+            <li><strong>Country: </strong><?= $model->userCountry->country ?></li>
             <?php if (empty($model->role) || $model->role != 'User') : ?>
                 <li>
                     <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a>
                 </li>
             <li><strong>Продаж: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
-            <li><strong>Страна: </strong><?= Html::encode($model->country) ?></li>
             <?php endif; ?>
         </ul>
         Баланс:
