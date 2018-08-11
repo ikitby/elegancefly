@@ -53,7 +53,7 @@ $cartsumm = Cart::getCartsumm();
 
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => '<img class="img-responsive" src="/images/logo.png" alt="EleganceFly" title="EleganceFly">',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',

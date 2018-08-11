@@ -1,6 +1,10 @@
 body a, #nav ul li a {transition: all 0.3s;}
 #nav ul li a:hover {color: #fff;}
 
+/* logo */
+div#main a.navbar-brand {padding: 5px 15px;}
+#main .navbar-header {width: 260px;}
+
 
 /* usersgalery */
 ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 40px 0 0 0;}
