@@ -23,7 +23,7 @@ $photos = json::decode($model->photos);
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php //Pjax::begin();
+    <?php Pjax::begin();
 
     if (!empty($searchModel)) {
         print $this->render('_search', ['model' => $searchModel]);
@@ -87,5 +87,5 @@ $photos = json::decode($model->photos);
       </div>
     </div>
 
-    <?php //Pjax::end(); ?>
+    <?php Pjax::end(); ?>
 </div>

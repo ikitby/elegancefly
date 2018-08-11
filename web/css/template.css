@@ -6,6 +6,13 @@ body a, #nav ul li a {transition: all 0.3s;}
 ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 40px 0 0 0;}
 ul#userblockid>li {flex-basis: 25%;padding: 5px;}
 
+/* painters */
+div#painterspage {display: flex;flex-wrap: wrap;}
+div#painterspage .paintergeed {flex-basis: 50%;padding: 15px 10px;}
+.paintergeed h3 {margin: 0;}
+ul.authorteaser>li {list-style: none;line-height: 1.2em;}
+ul.authorteaser {font-size: 0.9em;margin: 5px 0;padding: 0 0 0 20px;}
+
 /* left block */
 div#header>.top {padding-top: 60px;}
 

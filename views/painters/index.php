@@ -21,12 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
 
         <?php// Pjax::begin(); ?>
-        <div class="row">
+        <div id="painterspage" class="row">
             <?php
             if (!empty($users)) :
                 foreach ($users as $user):
                     ?>
-                    <div class="col-md-6">
+                    <div class="paintergeed">
                       <div class="row">
                         <div class="col-md-4">
                             <?php
@@ -36,10 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             $userphoto = Html::img("/images/user/user_{$user->id}/{$user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($user->name) ? $user->name : $user->username), 'title' => Html::encode(($user->name) ? $user->name : $user->username)]);
                             }
                             ?>
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user->username]) ?>">
                             <?= $userphoto ?>
+                            </a>
                         </div>
                         <div class="col-md-8">
-                            <?= ($user->name) ? $user->name : $user->username ?>
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user->username]) ?>">
+                                <h3><?= Html::encode(($user->name) ? $user->name : $user->username) ?></h3>
+                            </a>
                             <span style="font-size: 10px">
                             <?php
                             echo StarRating::widget([
@@ -58,9 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ]); ?>
                             </span>
-
-                            Работ: <a href="<?= Url::to(['/catalog/painter', 'painter' => $user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($user->id)) ?></a><br/>
-                            Продаж: <?= Transaction::getUserSales($user->id) ?>
+                            <ul class="authorteaser">
+                                <?php if ($user->userCountry->country) : ?><li>Country: <?= $user->userCountry->country ?></li><?php endif; ?>
+                                <li>Работ: <a href="<?= Url::to(['/catalog/painter', 'painter' => $user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($user->id)) ?></a></li>
+                                <li>Продаж: <?= Transaction::getUserSales($user->id) ?></li>
+                            </ul>
                         </div>
 
                       </div>
@@ -69,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php
                 endforeach;
             else: ?>
-                Нет тут ни чего!
+                ooops...
             <?php endif;
             ?>
             <div class="row">
