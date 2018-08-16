@@ -5,30 +5,28 @@ use app\models\Products;
 use yii\base\Widget;
 use Yii;
 
-class VitrinaWidget extends Widget
+class UserProjectsWidget extends Widget
 {
     public $tpl;
-    public $category_id;
+    public $user_id;
     public $items_count;
-    public $items_inline;
+    public $current_item;
     public $items;
 
     public function init(){
         parent::init();
         if ($this->tpl === null) {
-            $this->tpl = 'carousel';
+            $this->tpl = 'gallery';
         }
-        if ($this->category_id === null) {
-            $this->category_id = 1;
+        if ($this->user_id === null) {
+            $this->user_id = 0;
         }
         if ($this->items_count === null) {
-            $this->items_count = '16';
+            $this->items_count = '8';
         }
-        if ($this->items_inline === null) {
-            $this->items_inline = '4';
+        if ($this->current_item === null) {
+            $this->current_item = '0';
         }
-
-
         $this->tpl .='.php';
     }
 
@@ -38,9 +36,10 @@ class VitrinaWidget extends Widget
         //if ($items) return $items;
 
         $this->items = Products::find()
-            ->where(['category' => $this->category_id, 'state' => 1, 'deleted' => 0])
+            ->where(['user_id' => $this->user_id, 'state' => 1, 'deleted' => 0])
+            ->andWhere(['not', ['id' => $this->current_item]])
             ->with('catprod')
-            ->orderBy(['created_at' => SORT_DESC])
+            ->orderBy('RAND()')
             ->all();
         $items = $this->getHtmliItems($this->items);
 
@@ -55,7 +54,7 @@ class VitrinaWidget extends Widget
 
     protected function getTemplate($items){
         ob_start();
-        include __DIR__ . '/vitrina_tpl/' . $this->tpl;
+        include __DIR__ . '/userprojects_tpl/' . $this->tpl;
         return ob_get_clean();
     }
 

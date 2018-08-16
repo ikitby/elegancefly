@@ -19,7 +19,7 @@ body {background: #fbfbfb;font-family: 'Source Sans Pro', sans-serif;font-size: 
 header {margin: 0 0 2em 0;}
 header > p {margin: 1em 0 0 0;}
 footer {margin: 2em 0 0 0;}
-strong, b {font-weight: 300;color: #666;}
+strong, b {font-weight: 600;color: #404040;}
 em, i {font-style: italic;}
 
 /* Container */

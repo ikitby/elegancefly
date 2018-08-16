@@ -280,15 +280,32 @@ class Products extends \yii\db\ActiveRecord
 
     public function getTagslist()
     {
+        $total = count($this->tagsprod);
+        $counter = 0;
         foreach ($this->tagsprod as $tag) {
-                print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'btn btn-default btn-xs']);
+            $counter++;
+            if($counter == $total){
+                print Html::a($tag->title, ['/catalog/tema', 'alias' => $tag->alias], ['class' => 'lisltnglinck']);
+            }
+            else{
+                print Html::a($tag->title, ['/catalog/tema', 'alias' => $tag->alias], ['class' => 'lisltnglinck']).', ';
+            }
         }
+
     }
 
     public function getThemslist()
     {
-        foreach ($this->themsprod as $thema) {
-                print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'btn btn-default btn-xs']);
+        $total = count($this->themsprod);
+        $counter = 0;
+        foreach($this->themsprod as $thema){
+            $counter++;
+            if($counter == $total){
+                print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'lisltnglinck']);
+            }
+            else{
+                print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'lisltnglinck']).', ';
+            }
         }
     }
 

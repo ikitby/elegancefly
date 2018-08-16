@@ -26,13 +26,13 @@ class AppAsset extends AssetBundle
         'css/resp.css',
     ];
     public $js = [
+        //'js/jquery-2.2.4.min.js',
         'js/jquery.scrolly.min.js',
         'js/jquery.scrollex.min.js',
         'js/browser.min.js',
         'js/breakpoints.min.js',
         'js/util.js',
         'js/main.js',
-        //'js/jquery-2.2.4.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

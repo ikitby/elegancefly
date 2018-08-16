@@ -1,10 +1,27 @@
+div#main>nav>.container {width: 100%;}
 
 @media (max-width: 500px) {
     .con.tainer {max-width: 1400px;padding: 50px 15px;}
 
 }
 
+@media screen and (max-width: 1880px) and (min-width: 961px) {
+    #main .navbar-header {width: 270px;}
+}
 
+@media screen and (max-width: 1880px) and (min-width: 961px) {
+    #main .navbar-header {width: 200px;}
+    div#main a.navbar-brand {padding: 10px 0;width: 275px;}
+    a.cablinck.scrolly {line-height: 1em;}
+}
+
+@media screen and (max-width: 1880px) and (min-width: 992px) {
+
+}
+
+@media screen and (max-width: 1320px) and (min-width: 961px){
+    a.cablinck.scrolly {line-height: inherit;}
+}
 @media screen and (min-width: 961px) and (max-width: 1880px) {
     .container {width: 1200px;}
 }
@@ -22,7 +39,5 @@
 }
 
 @media screen and (max-width: 736px) {
-
     .container {width: 100%;}
-
 }

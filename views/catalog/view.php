@@ -37,14 +37,14 @@ $allowpurchased = ($limit > $count) ? true : false;
     <?php $galery = json::decode($model->photos); //декодим json с массивом галереи ?>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6 col-md-6">
 <?php
 
             OwlCarouselWidget::begin([
             'container' => 'div',
             'containerOptions' => [
-            'id' => 'my-container-id',
-            'class' => 'my-container-class'
+            'id' => 'project_gallery',
+            'class' => 'project_gallery_cls'
             ],
             'pluginOptions' => [
             'autoPlay' => true,
@@ -62,31 +62,32 @@ $allowpurchased = ($limit > $count) ? true : false;
             }
             OwlCarouselWidget::end();
 ?>
-        </div>
-        <div class="col-md-6">
-
-        <?php
-        echo StarRating::widget([
-            'name' => 'rating_'.$model->id.'',
-            'id' => 'input-'.$model->id.'',
-            'value' => $model->rating,
-            'attribute' => 'rating',
-            'pluginOptions' => [
-                'size' => 'xs',
-                'stars' => 5,
-                'step' => 1,
-                'readonly' => Ratings::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $model->id])->count() ? true : false,
-                'disabled' => Yii::$app->user->isGuest ? true : false,
-                'showCaption' => false,
-                'showClear'=>false
-            ],
-            'pluginEvents' => [
-            'rating:change' => 'function(event, value, caption) {
+<?php
+echo StarRating::widget([
+    'name' => 'rating_'.$model->id.'',
+    'id' => 'input-'.$model->id.'',
+    'value' => $model->rating,
+    'attribute' => 'rating',
+    'pluginOptions' => [
+        'size' => 'xs',
+        'stars' => 5,
+        'step' => 1,
+        'filledStar' => '<i class="glyphicon glyphicon-heart"></i>',
+        'emptyStar' => '<i class="glyphicon glyphicon-heart-empty"></i>',
+        'defaultCaption' => '{rating} hearts',
+        'readonly' => Ratings::find()->where(['user_id' => yii::$app->user->id, 'project_id' => $model->id])->count() ? true : false,
+        'disabled' => Yii::$app->user->isGuest ? true : false,
+        'showCaption' => false,
+        'showClear'=>false
+    ],
+    'pluginEvents' => [
+        'rating:change' => 'function(event, value, caption) {
                    $.ajax({
                         type: "POST",
                         url: "/catalog/rate",
                         data: {"rating": value, "pid": '.$model->id.'},
                         cache: false,
+                        
                         success: function(data) {
                         
                             var data = jQuery.parseJSON(data);
@@ -108,13 +109,18 @@ $allowpurchased = ($limit > $count) ? true : false;
                         }                                              
                     });
                 }',
-        ],
+    ],
 
-        ]); ?>
+]); ?>
 
             <div class="raitcount" id="r_infowrap<?=$model->id?>">
                 <span id="numRait_<?=$model->id?>"><?= $model->rating ?></span>/<span id="numVotes_<?=$model->id?>"><?= ($model->tatng_votes) ? $model->tatng_votes : 0 ?></span>
             </div>
+
+        </div>
+        <div class="col-sm-6 col-md-6">
+
+
 
         <?php
         if (empty($model->user->photo)) {
@@ -132,68 +138,75 @@ $allowpurchased = ($limit > $count) ? true : false;
                             </a>
                         </div>
                         <div class="col-sm-9">
-                            <strong>Painter: </strong>
+                            <strong>Painter:
                             <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
                                 <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
-                            </a><br/>
-                            <?= $model->user->userCountry->country ?><br/>
-                            <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
+                            </a></strong>
+                            <span style="font-size: 0.5em">
+                            <?php
+                            echo StarRating::widget([
+                                'name' => 'rating_'.$model->user->id.'',
+                                'id' => 'input-'.$model->user->id.'',
+                                'value' => $model->user->rate,
+                                'attribute' => 'rating',
+                                'pluginOptions' => [
+                                    'size' => 'xs',
+                                    'stars' => 5,
+                                    'step' => 1,
+                                    'readonly' => true,
+                                    'disabled' => true,
+                                    'showCaption' => false,
+                                    'showClear'=>false
+                                ],
+                            ]); ?>
+                            </span>
+
+                            <strong>Projects: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->user->id)) ?></a>
                         </div>
                     </div>
-
-
                 </li>
                 <li>
-                    <strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a></li>
-                <li>
-
+                    <div id="priceblock">
+                        <?= BasketWidget::widget(['template' =>'plane_w_download_inline', 'product' => $model]) ?>
+                    </div>
                 </li>
-                <li><strong>Тематика: </strong><?= Html::encode($model->getThemslist()) ?></li>
-                <li><strong>Метки: </strong><?= Html::encode($model->getTagslist()) ?></li>
-                <li><strong>Загружено: </strong><?= Html::encode($model->created_at) ?></li>
-                <li><strong>Просмотрено: </strong><?= Html::encode($model->hits) ?></li>
-                <li><strong>Продано: </strong><?= count($model->transactions)/2?>/<?= ($model->limit) ? $model->limit : "&infin;" ?></li>
-                <li><strong>Инфо: </strong><br />
+                <li><strong>ID: </strong><?= Html::encode($model->id) ?></li>
+                <li class="paramslist"><strong>Uploaded: </strong><?= Yii::$app->formatter->asDate($model->created_at) ?></li>
+                <li class="paramslist"><strong>Views: </strong><?= Html::encode($model->hits) ?></li>
+
+                <li class="paramslist info"><strong>Project info: </strong><br />
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
+                <li class="paramslist info"><strong>Сopyrights: </strong><br />
+                    <div id="copyrightsblock">
+                    © <?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?><br />
+                    <?= Url::home(true) ?>
+                    </div>
+                </li>
             </ul>
-
-            <?= BasketWidget::widget([
-                'template' =>'plane_w_download',
-                'product' => $model
-            ])
-            ?>
         </div>
         </div>
-    </div>
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_id',
-            'title',
-            'file',
-            'tags',
-            [
-                'format'  => 'html',
-                'label' => 'Фото галерея',
-                'value' => function($model) {;
-                    $photos = json::decode($model->photos);
-                    $photolist = "";
+    <div class="row">
+<div class="col-md-6">
+    <ul class="list-unstyled">
+        <?php /*<li class="paramslist">
+            <strong>Раздел: </strong><a href="<?= yii\helpers\Url::to(['/catalog/category', 'catalias' => $model->catprod->alias]) ?>"><?= Html::encode($model->catprod->title) ?></a>
+        </li> */
+        ?>
+        <li class="paramslist"><strong>Thems: </strong><?= Html::encode($model->getThemslist()) ?></li>
+        <li class="paramslist"><strong>Tags: </strong><?= Html::encode($model->getTagslist()) ?></li>
+        <li class="paramslist"><strong>More <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
+                    <?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></a> projects:</strong>
+            <div id="userprojectsgalery">
+            <?= \app\widgets\UserProjectsWidget::widget(['user_id' => $model->user->id, 'current_item' => $model->id]) ?>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="col-md-6" id="facecomments">
+    <div class="fb-comments" data-href="<?= Url::current([], true); ?>" data-width="100%" data-numposts="5"></div>
+</div>
+</div>
+</div>
 
-                    foreach ($photos as $photo) {
-                        if ($photo['number'] != 0) {$photolist .= Html::img('/'.$photo['filepath'].'200_200_'.$photo['filename'], ['class' => 'img-responsive1', 'height' => '150', 'style' => 'margin: 5px', 'width' => '150', 'alt' => $model->title, 'title' => $model->title]);}
-                        //$photolist = Html::img('/'.$photo['filepath'].'100_100_'.$photo['filename'], ['class' => 'img-responsive1', 'height' => '100', 'width' => '100', 'alt' => $model->title, 'title' => $model->title]);
-                    }
-                    return $photolist;
-                },
-            ],
-            'price',
-            'themes',
-            'limit',
-            'hits',
-            'sales',
-            'created_at',
-        ],
-    ]) ?>
 
 

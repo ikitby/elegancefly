@@ -6,6 +6,7 @@ use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+
 ?>
 <div class="row_boot" style="text-align: center;">
     <?php if (!empty($user)) :
@@ -63,6 +64,7 @@ use yii\helpers\Url;
                     <?php else: ?>
                         <a href="<?= Url::to(['/logout'])?>" data-method="post">Выход</a>
                     <?php endif; ?>
+
                 </li>
             </ul>
         </div>

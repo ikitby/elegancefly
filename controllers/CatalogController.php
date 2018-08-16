@@ -522,9 +522,8 @@ class CatalogController extends AppController
     private function addHits($id)
     {
         $model = $this->findModel($id);
-        //$model->hits++;
-        $model->updateCounters(['hits' => 1]);
-        //$model->save(false);
+        $model->hits++;
+        $model->save(false);
 
     }
 

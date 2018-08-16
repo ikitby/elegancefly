@@ -37,7 +37,7 @@ $config = [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
-            'rbac/*',
+            //'rbac/*',
             'show*',
             'catalog/index',
             'catalog/view*',
@@ -61,16 +61,6 @@ $config = [
             // Next up, we set the public parameters of the class
             'client_id' => 'AcNgvESyw-HTyZ7cwAk2E7CMl2Qyqt99PUHOCqabZdpQKDvwza3v5ySpOTnBbfGGcJkDdol9_LRCvKa5',
             'client_secret' => 'ELFAsnIMM1_CsPZTVEzC0MktzrtcPY81-DMh0C_RxAH9Z4Pu-fZVuIcBdLKCIeEOkrEGRg2fUOYtAECm',
-                // ClientID
-                  // ClientSecret
-            // You may choose to include other configuration options from PayPal
-            /*
-            'http.ConnectionTimeOut' => 30,
-            'http.Retry'             => 1,
-            'log.LogEnabled'         => YII_DEBUG ? 1 : 0,
-            'log.FileName'           => '@runtime/logs/paypal.log',
-            */
-            // as they have specified in the documentation
         ],
 
         'request' => [
@@ -89,6 +79,7 @@ $config = [
         'user' => [
             'identityClass' => 'mdm\admin\models\User',
             'loginUrl' => ['login'],
+            'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -100,7 +91,7 @@ $config = [
         ],
         */
         'mailer' => [
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             'messageConfig' => [
                 'charset' => 'UTF-8',
             ],
@@ -156,6 +147,14 @@ $config = [
                 //'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',
             ],
+
+        ],
+
+        'formatter' => [
+            'dateFormat' => 'yyyy.dd.MM',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
         ],
 
     ],

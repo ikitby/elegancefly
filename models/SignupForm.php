@@ -37,7 +37,7 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User'],
             ['password', 'string', 'min' => 6, 'max' => 255],
-            ['password', 'compare', 'compareAttribute' => 'password_repeat'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
@@ -61,7 +61,6 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;

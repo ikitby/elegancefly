@@ -29,6 +29,13 @@ $cartsumm = Cart::getCartsumm();
 </head>
 <body class="is-preload">
 <?php $this->beginBody() ?>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <!-- Header -->
 <div id="header">
 
@@ -43,8 +50,11 @@ $cartsumm = Cart::getCartsumm();
     </div>
 
     <div class="bottom">
-
-
+        <div id="sociconsblock">
+            <a href="https://www.facebook.com/groups/elegancefly/" target="_blank"><img class="img-responsive" src="/images/icons/facebook.svg" alt="EleganceFly facebook" title="EleganceFly facebook"></a>
+            <a href="https://www.instagram.com/elegancefly/" target="_blank"><img class="img-responsive" src="/images/icons/instagram.svg" alt="EleganceFly instagram" title="EleganceFly instagram"></a>
+            <a href="https://vk.com/elegancefly" target="_blank"><img class="img-responsive" src="/images/icons/vk.svg" alt="EleganceFly instagram" title="EleganceFly vk"></a>
+        </div>
     </div>
 
 </div>
