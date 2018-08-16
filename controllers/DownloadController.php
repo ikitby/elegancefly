@@ -18,14 +18,15 @@ class DownloadController extends AppController
 
     public function actionProject()
     {
-        if (!Yii::$app->getUser()->isGuest/* && Yii::$app->request->isAjax*/) {
+        if (!Yii::$app->getUser()->isGuest) {
 
             $project_id = Yii::$app->request->get('id');
             $payedprod = Transaction::allowDownload(Yii::$app->user->id, $project_id); //Проверяем есть ли у зарегистрированного пользователя файл в купленых
 
             if ($payedprod) {
                 $file = Products::findOne($project_id);
-                $storagePath = Yii::getAlias('@app/web/'.$file->project_path);
+                $storagePath = Yii::getAlias( $file->project_path);
+
                 $filename = $file->file;
                 $dfile = Yii::$app->response->SendFile($storagePath.$filename, $filename, ['MIME' => 'application/zip', 'inline' => false] );
                 $dfile->send();
@@ -34,8 +35,6 @@ class DownloadController extends AppController
                 return json_encode("You can`t perform this action");
             }
         }
-
-        //return json_encode($project_id);
     }
 
 

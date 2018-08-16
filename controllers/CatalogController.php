@@ -510,7 +510,7 @@ class CatalogController extends AppController
 
     public function getUserFolder()
     {
-        return $userfolder = 'projects/user_'.yii::$app->user->id; //Лепим папку пользоваетеля
+        return $userfolder = Yii::getAlias('@app').'/projects/user_'.yii::$app->user->id; //Лепим папку пользоваетеля
     }
 
     public function translite($text)
