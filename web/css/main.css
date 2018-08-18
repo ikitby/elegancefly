@@ -201,14 +201,15 @@ em, i {font-style: italic;}
 
 		/* Header */
 
-			#header {
-				width: 20%;
-			}
-
-			#logo .image {
-				position: relative;
-				margin: 0 0 0.5em 0;
-			}
+			#header {width: 20%;}
+			div#userblock span.authuser>a {font-size: 14px;padding: 5px !important;}
+			#logo .image {position: relative;	margin: 0 0 0.5em 0;}
+			div#sociconsblock img {width: 30px;opacity: 0.4;transition: 1s;}
+			div#userblock a.cablinck {line-height: 1.2em;font-size: 1em;padding: 5px;margin: 10px 0 0;}
+			div#userblock .col-md-7 {padding: 0;font-size: 14px;line-height: 1.2;}
+			body {line-height: 1.5em;}
+		    div#priceblock {padding: 30px 10px;}
+		    .con.tainer {padding: 60px 30px;}
 
 			#nav ul li a {
 				font-size: 0.8em;
@@ -225,12 +226,8 @@ em, i {font-style: italic;}
 						margin-left: -1.25em;
 						line-height: 2.25em;
 					}
-
 		/* Main */
-
-			#main {
-				margin-left: 20%;
-			}
+			#main {margin-left: 20%;font-size: 16px;}
 
 	}
 

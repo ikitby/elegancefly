@@ -36,6 +36,5 @@ class DownloadController extends AppController
             }
         }
     }
-
-
+    
 }
