@@ -38,7 +38,8 @@ use kartik\widgets\Select2;
                 <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
                     <div style="text-align: center;">
-                        <?php if ($model->price && $model->limit > 0) : ?>Текущая цена: <h3><?= $model->price ?>$</h3><?php endif; ?>
+                        <?php if ($model->price && $model->limit > 0) : ?>
+                            Current price (limit project): <h3><?= $model->price ?>$</h3><?php endif; ?>
                         <?php
                         if (Transaction::getProdSales($model->id) == 0)
                         {
@@ -49,9 +50,9 @@ use kartik\widgets\Select2;
 
                 <?= ($model->limit > 0) ? false : $form->field($model, 'price')->textInput() ?>
 
-                <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Категория') ?>
+                <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Category') ?>
 
-                <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Тематика') ?>
+                <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Themes') ?>
 
                 <?=
                 $form->field($model, 'tags')->widget(Select2::classname(), [

@@ -15,7 +15,7 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
-            'layout' => 'admin',
+            //'layout' => 'admin',
         ],
         'rbac' => [
             'class' => 'mdm\admin\Module',
@@ -81,6 +81,7 @@ $config = [
             'loginUrl' => ['login'],
             'enableAutoLogin' => true,
         ],
+
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -91,7 +92,7 @@ $config = [
         ],
         */
         'mailer' => [
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             'messageConfig' => [
                 'charset' => 'UTF-8',
             ],
@@ -121,6 +122,8 @@ $config = [
             'rules' => [
                 '' => 'site/index',
                 //'signup' => 'site/signup',
+
+                '/catalog/ajaxfile/' => '/catalog/ajaxfile',
                 'catalog/' => 'catalog/index',
                 'catalog/<id:\d+>' => 'catalog/view',
                 'catalog/tag/<alias:\w+>' => 'catalog/tag',
@@ -151,7 +154,7 @@ $config = [
         ],
 
         'formatter' => [
-            'dateFormat' => 'yyyy.dd.MM',
+            'dateFormat' => 'yyyy.MM.dd',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',

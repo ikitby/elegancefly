@@ -21,7 +21,8 @@ class Prodlimit extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'user_id', 'limit'], 'integer'],
-            [[ 'price'], 'double'],
+            [['price'], 'match', 'pattern' => '/^\d{1,3}[\,\.]{1}\d{1,2}$/i'],
+            [['price'], 'required'],
         ];
     }
 

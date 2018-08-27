@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = 'Update';
 
 ?>
 <div class="products-update">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php

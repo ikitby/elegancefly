@@ -40,6 +40,4 @@ class SetLimitProject extends ActiveRecord
     {
         return $limit;
     }
-
-
 }

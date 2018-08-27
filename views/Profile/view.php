@@ -17,9 +17,9 @@ if (empty($model->photo)) {
     $userphoto = Html::img("/images/user/user_{$model->id}/{$model->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->name) ? $model->name : $model->username), 'title' => Html::encode(($model->name) ? $model->name : $model->username)]);
 }
 
-$this->title = Html::encode($model->name);
+$this->title = Html::encode($model->username);
 $this->params['breadcrumbs'][] = ['label' => 'Profile', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = Html::encode($this->title);
 /*
 $painter = false;
 $roles = Yii::$app->authManager->getRolesByUser($model->id);
@@ -32,13 +32,11 @@ dump($painter);
 ?>
 <div class="user-view">
 
-    <h1><?= $this->title ?></h1>
-<div class="col-md-12">
-    <?= Html::a('Edit', ['edit'], ['class' => 'btn btn-primary pull-right']) ?>
-</div>
 <div class="row">
     <div class="col-md-4">
-        <?= $userphoto ?>
+        <div style="text-align: center;">
+        <h2><?= Html::encode($this->title) ?></h2>
+
         <?php
         if (empty($model->role) || $model->role != 'User') :
         echo StarRating::widget([
@@ -56,16 +54,64 @@ dump($painter);
                 'showClear'=>false
             ],
         ]);
-
         ?>
 
         <?= $model->rate ?>
         (<?= (empty($model->rate_c)) ? "0" : $model->rate_c ?>)
         <?php endif; ?>
 
+        <?= $userphoto ?>
+        </div>
+
+        <ul class="userprop">
+
+            <li><strong>Profile: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span></li>
+            <li><strong>Registered: </strong><?= Yii::$app->formatter->asDate($model->created_at) ?></li>
+            <li><strong>Works: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => Html::encode($model->username)]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a></li>
+            <li><strong>Sales: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
+            <?php if ($model->name) : ?>
+            <li><strong>Name: </strong><?= Html::encode($model->name) ?></li>
+            <?php endif; ?>
+            <li><strong>Birthday: </strong><?= Yii::$app->formatter->asDate($model->birthday) ?></li>
+            <li><strong>Country: </strong><?= $model->userCountry->country ?></li>
+            <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
+
+        </ul>
+        <ul class="userpropsocicons">
+            <li><?= Html::a('<img class="img-responsive" src="/images/icons/vk.png" alt="VK" title="'.$model->username.' VK">', Url::to($model->vkpage), ['target' => '_blank']) ?></li>
+            <li><?= Html::a('<img class="img-responsive" src="/images/icons/facebook.png" alt="Facebook" title="'.$model->username.' Facebook">', Url::to($model->fbpage), ['target' => '_blank']) ?></li>
+            <li><?= Html::a('<img class="img-responsive" src="/images/icons/instagram.png" alt="Instagram" title="'.$model->username.' Instagram">', Url::to($model->inpage), ['target' => '_blank']) ?></li>
+            <li><?= Html::a('<img class="img-responsive" src="/images/icons/tumblr.png" alt="Tumblr" title="'.$model->username.' Tumblr">', Url::to($model->tumblrpage), ['target' => '_blank']) ?></li>
+            <li><?= Html::a('<img class="img-responsive" src="/images/icons/youtube.png" alt="Youtube" title="'.$model->username.' Youtube">', Url::to($model->youtubepage), ['target' => '_blank']) ?></li>
+        </ul>
+    <div id="balancewrapp">
+        <div class="balance">
+            Balance:
+            <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>
+        </div>
+        <div class="depos">
+            <?= DepositWidget::widget(['tpl' =>'deposit_paypal_n', 'data' => '5']) ?>
+        </div>
+        <div class="edit">
+            <?= Html::a('Edit', ['edit'], ['class' => 'btn btn-primary pull-right']) ?>
+        </div>
+    </div>
 
     </div>
     <div class="col-md-8">
+
+        <?= \app\widgets\VitrinaWidget::widget(['category_id' => 1, 'user_id' => $model->id, 'loop' => false, 'items_count' => 1000]) ?>
+
+        <?= \app\widgets\VitrinaWidget::widget(['category_id' => 2, 'user_id' => $model->id, 'loop' => false, 'items_count' => 1000]) ?>
+
+        <?= \app\widgets\VitrinaWidget::widget(['category_id' => 9, 'user_id' => $model->id, 'loop' => false, 'items_count' => 1000]) ?>
+
+        <?= \app\widgets\VitrinaWidget::widget(['category_id' => 4, 'user_id' => $model->id, 'loop' => false, 'items_count' => 1000]) ?>
+
+        <?= \app\widgets\VitrinaWidget::widget(['category_id' => 6, 'user_id' => $model->id, 'loop' => false, 'items_count' => 1000]) ?>
+
+        <?= \app\widgets\VitrinaWidget::widget(['category_id' => 8, 'user_id' => $model->id, 'loop' => false, 'items_count' => 1000]) ?>
+
         <?php
 /*
         dump(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id));
@@ -73,57 +119,9 @@ dump($painter);
         dump(User::Can('createProject'))
 */
         ?>
-        <ul>
-            <li><strong>Profile: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span>
-            </li>
-            <li><strong>Login: </strong><?= Html::encode($model->username) ?></li>
-            <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
-            <li><strong>Name: </strong><?= Html::encode($model->name) ?></li>
-            <li><strong>Country: </strong><?= $model->userCountry->country ?></li>
-            <?php if (empty($model->role) || $model->role != 'User') : ?>
-                <li>
-                    <strong>Работ: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => $model->username]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a>
-                </li>
-            <li><strong>Продаж: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
-            <?php endif; ?>
-        </ul>
-        Баланс:
-        <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>
-        <?= DepositWidget::widget(['tpl' =>'deposit_paypal', 'data' => '5']) ?>
+
     </div>
 
 </div>
-
-    <?php /*
-  DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'username',
-            'name',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            'email:email',
-            //'status',
-            'created_at',
-            //'updated_at',
-            //'usertype',
-            'photo',
-            'birthday',
-            'country',
-            'languages',
-            'fbpage',
-            'vkpage',
-            'inpage',
-            'percent',
-            'state',
-            'role',
-            'rate',
-            'balance',
-        ],
-    ])
- */
- ?>
 
 </div>

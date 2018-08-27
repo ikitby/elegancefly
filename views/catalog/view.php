@@ -178,7 +178,7 @@ echo StarRating::widget([
                     <?= Yii::$app->formatter->asNtext($model->project_info) ?></li>
                 <li class="paramslist info"><strong>Сopyrights: </strong><br />
                     <div id="copyrightsblock">
-                    © <?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?><br />
+                    © <?= Html::encode($model->user->username) ?><br />
                     <?= Url::home(true) ?>
                     </div>
                 </li>

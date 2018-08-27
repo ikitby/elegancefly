@@ -133,26 +133,27 @@ class ProfileController extends AppController
         if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
         {
             $querypost = Yii::$app->request->post('Products');
+
+            if ($price = $querypost['price']) {
+            $price = str_replace(",",".", $price);
+            $model->price = $price;
+            }
+
             $themes = $querypost['themes'];
             $model->saveThems($themes);
 
             $tags = $querypost['tags'];
             $model->saveTags($tags);
-            $model->save(false);
-        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->save(false);
             return $this->redirect(['myprojects', 'id' => $model->id]);
         }
 
-        return $this->render('updateproject', [
-            'model' => $model,
-        ]);
+        return $this->render('updateproject', ['model' => $model]);
     }
 
     public function actionDeposite()
     {
-
         $count = Yii::$app->request->post('count');
         $cid = Yii::$app->request->get('cid');
         $success = Yii::$app->request->get('success');
@@ -262,8 +263,6 @@ class ProfileController extends AppController
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
-
     public function actionSetlimit() //Установка лимита продаж
     {
         if (!Yii::$app->user->isGuest) {
@@ -280,9 +279,13 @@ class ProfileController extends AppController
                 if ($model->user_id == $user_id && Products::checkLimit($id)) {
                     if (Transaction::getProdSales($model->id) == 0)
                     {
-                        $model->limit = Yii::$app->request->post('Prodlimit')['limit'];
-                        $model->price = Yii::$app->request->post('Prodlimit')['price'];
-                        $model->save(false);
+                        $price_limit = Yii::$app->request->post('Prodlimit')['price'];
+
+                            $price_limit = str_replace(",",".",$price_limit);
+                            $model->limit = Yii::$app->request->post('Prodlimit')['limit'];
+                            $model->price = $price_limit;
+                            $model->save(false);
+
                     }
                     return $this->redirect(Yii::$app->request->referrer);
                 }
@@ -295,9 +298,7 @@ class ProfileController extends AppController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
     }
-
 
     public function actionPayments()
     {
@@ -338,6 +339,7 @@ class ProfileController extends AppController
         if ($model->load(Yii::$app->request->post())) {
 
             ($model->photo) ? $model->photo : $model->photo  = $currentphoto; //если форма фото пустая - возвращаем значение текущего фото
+
             //$model->user_phones = implode(",", $model->user_phones);   //обрабатываем массив телефонов в строку
             $file = UploadedFile::getInstance($model, 'photo'); //цепляем из нашей модельки файл по его полю
             $model->save();

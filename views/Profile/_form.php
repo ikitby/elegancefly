@@ -50,6 +50,10 @@ if (empty($model->photo)) {
 
     <?= $form->field($model, 'inpage')->textInput()->label('Instagram')?>
 
+    <?= $form->field($model, 'tumblrpage')->textInput()->label('Tumblr')?>
+
+    <?= $form->field($model, 'youtubepage')->textInput()->label('Youtube')?>
+
 
     </div>
     </div>

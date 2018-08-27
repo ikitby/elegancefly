@@ -19,11 +19,15 @@ ul#userblockid>li {flex-basis: 25%;padding: 5px;}
 /* painters */
 div#painterspage {display: flex;flex-wrap: wrap;}
 div#painterspage .paintergeed {flex-basis: 33.33%;padding: 15px 10px;font-size: 16px;}
-.paintergeed h3 {margin: 0; font-size: 20px; font-weight: bold;}
+.paintergeed h3 {margin: 0; font-size: 16px; font-weight: bold;}
+.rating-xs {font-size: 14px;}
 ul.authorteaser>li {list-style: none;line-height: 1.2em;}
 ul.authorteaser {font-size: 0.9em;margin: 5px 0;padding: 0 0 0 20px;}
 .paintergeed .rating-container {line-height: 1;}
 .paintergeed a {margin: 0;color: #000;text-decoration: none;}
+ul.userpropsocicons {padding: 0 5px;list-style: none;text-align: center;display: flex; flex-wrap: wrap;}
+ul.userpropsocicons>li {display: inline-block;flex-basis: 20%;padding: 3px;opacity: 0.8;transition: 0.5s;}
+ul.userpropsocicons>li:hover {opacity: 1;}
 
 /* left block */
 div#header>.top {padding-top: 60px;}
@@ -39,13 +43,19 @@ span.urate {font-size: 12px;line-height: 1em;display: block;}
 
 /* user block */
 div#header ul {float: left; margin: 25px 0; width: 100%; border-top: 1px solid #4e4e4e;padding-top: 20px;font-size: 14pt;}
-.userbalance h3 {margin: 0;}
+.userbalance h3, .user-view h2 {margin: 0;}
 .userbalance {font-size: 0.8em;}
 .username {font-weight: bold;color: #ffb62d;display: block;}
 .row_boot {padding-top: 20px;}
 a.cablinck {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0.6em;margin: 5px 0;display: inline-block;}
 a.cablinck:hover, div#userblock span.authuser>a:hover {background: #33373a;text-decoration: none;}
 .usermenu {text-align: left;}
+div#balancewrapp {display: flex;align-items: center;}
+div#balancewrapp>.balance {flex-basis: 50px;line-height: 1em;font-size: 14px;text-align: center;}
+div#balancewrapp>.depos {flex-basis: 60%; text-align: center;}
+div#balancewrapp input {text-align: center;}
+.depowidget .input-groupn>div {margin-bottom: 5px;}
+div#balancewrapp h3 {margin: 0;color: #ffb62d;font-size: 20px;}
 
 div#userblock span.authuser>a {color: #ccc;background: #42484c;padding: 10px 15px;}
 
@@ -95,6 +105,9 @@ div#copyrightsblock {line-height: 1em;font-size: 0.9em;border: 1px solid #ccc;pa
 .paramslist.info {line-height: 1.3em;padding: 10px;}
 
 ul.list-unstyled>li>strong {display: block;margin: 5px 0;}
+ul.userprop {padding: 20px 0 20px 20px;}
+ul.userprop>li>strong {display: inline-block;padding-right: 5px;width: 90px;}
+ul.list-unstyled.userprop>li {line-height: 1em;}
 .list-unstyled li.paramslist {line-height: 1.2;font-weight: 400;margin-bottom: 30px;}
 .list-unstyled li.paramslist>a {font-size: 0.8em;display: inline-block;padding: 0 0 0 5px;}
 

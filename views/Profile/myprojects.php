@@ -2,6 +2,7 @@
 
 use app\models\Products;
 use app\models\Transaction;
+use kartik\widgets\FileInput;
 use kartik\widgets\StarRating;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
@@ -19,6 +20,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="user-view">
+    <h1>Create new Project</h1>
+    <?php
+
+    echo FileInput::widget([
+        'name' => 'photos',
+        //'language' => 'ru',
+
+        'options' => [
+            'multiple' => false,
+        ],
+        'pluginOptions' => [
+            'showPreview' => false,
+            'showUpload' => true,
+            'previewFileType' => 'zip',
+            //'uploadUrl' => Url::to(["/catalog/create"])
+            'uploadUrl' => Url::to(["/catalog/ajaxfile"])
+        ]
+    ]);
+
+
+    ?>
 
 <h1><?= $this->title ?></h1>
 

@@ -28,9 +28,28 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
     const STATUS_NOT_ACTIVE = 0;
     
-    /* events */
-    const USER_REGISTERED = 'New user registered';
+    /* User events */
 
+    const EVENT_USER_REGISTERED = 'New user registered';
+
+    public function init()
+    {
+        $this->on(User::EVENT_USER_REGISTERED, [$this, 'SendAdminMail']);
+    }
+
+    // Send email about new register User
+    public function SendAdminMail($event)
+    {
+        $user = $event->sender;
+
+        return Yii::$app->mailer->compose('userEventEmail', ['user' => $user])
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
+            ->setTo('alooz@mail.ru')
+            ->setSubject('Новый пользователь на '.Yii::$app->name)
+            ->send();
+    }
+
+    /* User events */
 /*
     public $username;
     public $status;
@@ -74,6 +93,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['fbpage'], 'match', 'pattern' => '/^(https?:\/\/)?(www)\.(facebook)\.(com)([\/\w \.-]*)*\/?$/i'],
             [['inpage'], 'match', 'pattern' => '/^(https?:\/\/)?(www)\.(instagram)\.(com)([\/\w \.-]*)*\/?$/i'],
             [['vkpage'], 'match', 'pattern' => '/^(https?:\/\/)?(vk)\.(com)([\/\w \.-]*)*\/?$/i'],
+            [['youtubepage'], 'match', 'pattern' => '/^(https?:\/\/)?(www)\.(youtube)\.(com).*?$/i'],
+            [['tumblrpage'], 'match', 'pattern' => '/^(https?:\/\/)?(www)\.(tumblr)\.(com).*?$/i'],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
@@ -105,6 +126,8 @@ class User extends ActiveRecord implements IdentityInterface
             'fbpage' => 'Fbpage',
             'vkpage' => 'Vkpage',
             'inpage' => 'Inpage',
+            'youtubepage' => 'youtube',
+            'tumblrpage' => 'tumblr',
             //'percent' => 'Percent',
             'state' => 'State',
             'role' => 'Role',

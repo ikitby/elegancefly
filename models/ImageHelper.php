@@ -76,11 +76,6 @@ class ImageHelper {
         ($delitecurrentimage) ? imagedestroy($this->image) : false;
     }
 
-    /**
-     * Output image
-     *
-     * @param int $image_type
-     */
     public function output($image_type=IMAGETYPE_JPEG)
     {
         if( $image_type == IMAGETYPE_JPEG ) {
@@ -93,27 +88,17 @@ class ImageHelper {
         imagedestroy($this->image);
     }
 
-    /**
-     * @return int
-     */
+
     public function getWidth()
     {
         return imagesx($this->image);
     }
 
-    /**
-     * @return int
-     */
     public function getHeight()
     {
         return imagesy($this->image);
     }
 
-    /**
-     * Resize image to given height
-     *
-     * @param $height
-     */
     public function resizeToHeight($height)
     {
         $ratio = $height / $this->getHeight();
@@ -121,11 +106,6 @@ class ImageHelper {
         $this->resize($width,$height);
     }
 
-    /**
-     * Resize image to given width
-     *
-     * @param $width
-     */
     public function resizeToWidth($width)
     {
         $ratio = $width / $this->getWidth();
@@ -133,12 +113,6 @@ class ImageHelper {
         $this->resize($width,$height);
     }
 
-    /**
-     * Scale image to given percent
-     * 100 equal 100%
-     *
-     * @param $scale int
-     */
     public function scale($scale)
     {
         $width = $this->getWidth() * $scale/100;
@@ -146,12 +120,6 @@ class ImageHelper {
         $this->resize($width,$height);
     }
 
-    /**
-     * Resize image to given width and height
-     *
-     * @param $width
-     * @param $height
-     */
     public function resize($width,$height)
     {
         $new_image = imagecreatetruecolor($width, $height);
@@ -161,10 +129,6 @@ class ImageHelper {
         $this->image = $new_image;
     }
 
-    /**
-     * @param $width
-     * @param $height
-     */
     public function smartCrop($width,$height)
     {
         $w_ratio = $this->getWidth() / $width;
@@ -183,12 +147,6 @@ class ImageHelper {
 
     }
 
-    /**
-     * @param $x0
-     * @param $y0
-     * @param $w
-     * @param $h
-     */
     private function crop($x0, $y0, $w, $h)
     {
         $newImage = imagecreatetruecolor($w, $h);

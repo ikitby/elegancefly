@@ -1,0 +1,19 @@
+body {
+    background: #fff;
+}
+
+#page {
+    margin: 0 auto;
+}
+
+.form-weight-normal {
+    width: 400px;
+}
+
+.autoclear {
+    color: #aaa;
+}
+
+.autoclear-normalcolor {
+    color: #000;
+}

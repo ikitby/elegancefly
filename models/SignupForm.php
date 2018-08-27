@@ -79,7 +79,6 @@ class SignupForm extends Model
 
     public function sendActivationEmail($user)
     {
-
         return Yii::$app->mailer->compose('activtionEmail', ['user' => $user])
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
             ->setTo($this->email)

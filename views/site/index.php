@@ -8,26 +8,17 @@ $this->title = 'My Yii Application';
 
     <div class="body-content">
 
-        <div class="rowline">
             <?= \app\widgets\VitrinaWidget::widget(['category_id' => 1]) ?>
-        </div>
 
-        <div class="rowline">
             <?= \app\widgets\VitrinaWidget::widget(['category_id' => 2]) ?>
-        </div>
 
-        <div class="rowline">
+            <?= \app\widgets\VitrinaWidget::widget(['category_id' => 9]) ?>
+
             <?= \app\widgets\VitrinaWidget::widget(['category_id' => 4]) ?>
-        </div>
 
-        <div class="rowline">
             <?= \app\widgets\VitrinaWidget::widget(['category_id' => 6]) ?>
-        </div>
 
-        <div class="rowline">
             <?= \app\widgets\VitrinaWidget::widget(['category_id' => 8]) ?>
-        </div>
-
 
     </div>
 </div>

@@ -13,11 +13,9 @@ use yii\filters\AccessControl;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
-//use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends AppController
 {
@@ -103,7 +101,6 @@ class SiteController extends AppController
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
@@ -112,6 +109,7 @@ class SiteController extends AppController
      *
      * @return Response|string
      */
+    /*
     public function actionContact()
     {
         $model = new ContactForm();
@@ -124,7 +122,7 @@ class SiteController extends AppController
             'model' => $model,
         ]);
     }
-
+*/
     /**
      * Displays about page.
      *
@@ -142,12 +140,14 @@ class SiteController extends AppController
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($user = $model->signup()):
+                //event new user register
+                $user->trigger($user::EVENT_USER_REGISTERED);
+
                 if ($user->status === User::STATUS_ACTIVE):
                     if (Yii::$app->getUser()->login($user)):
                         return $this->redirect(['/profile/edit']);
                     endif;
                 else:
-
                     if($model->sendActivationEmail($user)):
                         Yii::$app->session->setFlash('success', 'Письмо с данными для активации аккаунта отправлено на email: <strong>'.Html::encode($user->email).'</strong>. (Проверьте папку спам!)');
                     else:

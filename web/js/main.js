@@ -10,7 +10,7 @@ $(function () {
             data: {id: id},
             type: 'GET',
             success: function (data) {
-                if (!data) alert('Error!');
+                //if (!data) alert('Error!');
                 var data = jQuery.parseJSON(data);
                 $('.cartcountres').html(data['cartcount']);
                 $('.cartsummres').html(data['cartsum']);
@@ -31,7 +31,7 @@ $(function () {
                 data: {id: id},
                 type: 'GET',
                 success: function (data) {
-                    if (!data) alert('Error!');
+                    ///if (!data) alert('Error!');
                     var selector = "#catprodrow_" + id;
                     $(selector).hide(500);
                     setTimeout(function () {
@@ -61,7 +61,7 @@ $(function () {
                 data: {id: id},
                 type: 'GET',
                 success: function (data) {
-                    if (!data) alert('Error!');
+                    //if (!data) alert('Error!');
                     var data = jQuery.parseJSON(data);
                     var time = 100;
                     $(".cartrowpr").each(function (index) {
@@ -147,7 +147,7 @@ $(function () {
                 type: 'POST',
                 success: function (data) {
 
-                    if (!data) alert('Error!');
+                    //if (!data) alert('Error!');
                     var data = jQuery.parseJSON(data);
 
                     var selector = "#project_" + id;
@@ -175,7 +175,7 @@ $(function () {
             data: {id: id},
             type: 'POST',
             success: function (data) {
-                if (!data) alert('Error!');
+                //if (!data) alert('Error!');
                 var data = jQuery.parseJSON(data);
 
                 if (data === true)
@@ -213,7 +213,7 @@ $(function () {
 
                 $('#UniqProject .modal-body').html(data);
 
-                if (!data) alert('Error!');
+                //if (!data) alert('Error!');
                 //var data = jQuery.parseJSON(data);
                 ShowUniQuery();
 
@@ -234,10 +234,10 @@ $(function () {
             data: {id: id},
             type: 'POST',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#UniqProject .modal-body').html(data);
 
-                if (!data) alert('Error!');
+                //if (!data) alert('Error!');
                 //var data = jQuery.parseJSON(data);
                 ShowUniQuery();
 
@@ -257,7 +257,7 @@ $(function () {
             data: {count: count},
             type: 'post',
             success: function (data) {
-                if (!data) alert('Error!');
+                //if (!data) alert('Error!');
                 location.href = data;
             },
             error: function () {
@@ -272,7 +272,6 @@ $(function () {
         $('#UniqProject').modal();
     }
 
-
     $('.paypal-buttonkit').on('click', function () {
         location.href = '/cart/ext-checkout/paypal';
     });
@@ -283,8 +282,8 @@ $('.depowidget .deposit_show').on('click', function () {
     }
 );
 $('.depowidget .deposit_hide').on('click', function () {
-        $(this).parent().parent().hide();
-        $(this).parent().parent().next().show(50);
+        $(this).parent().parent().parent().hide();
+        $(this).parent().parent().parent().next().show(50);
     }
 );
 

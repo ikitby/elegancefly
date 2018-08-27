@@ -48,8 +48,6 @@ class CatalogController extends AppController
         ];
     }
 
-
-
     /**
      * Lists all Products models.
      * @return mixed
@@ -146,7 +144,7 @@ class CatalogController extends AppController
 
         $products = Products::find()
             ->where($dataProvider->query->where)
-            //->where(['deleted' => 0])
+            ->andWhere(['deleted' => 0])
             ->with(['user', 'catprod'])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
@@ -157,7 +155,7 @@ class CatalogController extends AppController
             'productsall'   => $productsall,
             'pagination'    => $pagination,
             'searchModel'   => $searchModel,
-            'dataProvider'   => $dataProvider,
+            'dataProvider'  => $dataProvider,
         ]);
     }
 
@@ -263,7 +261,7 @@ class CatalogController extends AppController
         $temaalias = $request->get('alias');
 
         $temsprod = Themsprod::findOne(['alias' => $temaalias]);
-        $tags = ArrayHelper::getColumn($temsprod->products, 'id'); //получаем список id продуктов с неободимым тегом
+        $tags = ArrayHelper::getColumn($temsprod->products, 'id'); //получаем список id продуктов с необходимым тегом
 
         $products = Products::find()
             ->where([
@@ -384,14 +382,28 @@ class CatalogController extends AppController
         ]);
     }
 
-    public function actionCreate()
+    public function actionAjaxfile()
     {
         $model = new Products();
         $filemodel = new UploadProject();
+
         $model->user_id = yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
+
+        if (Yii::$app->request->post() && Yii::$app->request->isAjax) {
+
+            $model->photos = '';
+
+            $postfile = $_FILES['photos'];
+            $file = new UploadedFile();
+            $file->name = $postfile['name'];
+            $file->tempName = $postfile['tempName'];
+            $file->type = $postfile['type'];
+            $file->size = $postfile['size'];
+            $file->error = $postfile['error'];
+
+            $file = UploadedFile::getInstanceByName('photos'); //Вот эта строчка не срабатывает. надо разобраться.
+
             $userfolder = $this->getUserFolder();
 
             if ( !file_exists($userfolder ) )//проверяем и если нет - создаем папку пользователя по его id
@@ -402,7 +414,38 @@ class CatalogController extends AppController
             $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
             if ($file) {
+                $photosmodel = $filemodel->makeGalery($file);
+                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
+            };
 
+            return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCreate()
+    {
+        $model = new Products();
+        $filemodel = new UploadProject();
+
+        $model->user_id = yii::$app->user->id;
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
+
+            $userfolder = $this->getUserFolder();
+
+            if ( !file_exists($userfolder ) )//проверяем и если нет - создаем папку пользователя по его id
+            {
+                mkdir($userfolder, 755); //создаем папку проектов пользователя
+            }
+
+            $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
+
+            if ($file) {
                 $photosmodel = $filemodel->makeGalery($file);
                 $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
             };
@@ -423,35 +466,6 @@ class CatalogController extends AppController
         ]);
     }
 
-/*
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-            $model->themes = $model->getTems(); //Загоняем в модельку связаные темы
-            $model->tags = $model->getItemtags(); //Загоняем в модельку связаные теги
-
-            if ($model->load(Yii::$app->request->post())) //обработка категорий и тегов
-            {
-                $querypost = Yii::$app->request->post('Products');
-                $themes = $querypost['themes'];
-                $model->saveThems($themes);
-
-                $tags = $querypost['tags'];
-                $model->saveTags($tags);
-                $model->save(false);
-            }
-
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-    }
-
-*/
     public function actionDelete($id)
     {
         $id = Yii::$app->request->post('id');

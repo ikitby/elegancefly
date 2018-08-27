@@ -79,7 +79,6 @@ $cartsumm = Cart::getCartsumm();
             ['label' => 'Catalog', 'url' => ['/catalog']],
             ['label' => 'Painters', 'url' => ['/painters']],
             ['label' => 'Cart <span class="label label-warning"><span class="cartsummres">'.$cartsumm.'</span>$</span>', 'url' => ['/cart']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (['label' => 'Signup', 'url' => ['/site/signup']]) : "",
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

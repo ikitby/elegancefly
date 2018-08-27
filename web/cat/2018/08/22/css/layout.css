@@ -1,0 +1,171 @@
+.w20p{width:20%;}
+.w25p{width:25%;}
+.w30p{width:30%;}
+.w33p{width:33.3%;}
+.w50p{width:49.9%;}
+.w80p{width:80%;}
+.w100p{width:100%;}
+
+.w1{width:1px;}
+.w2{width:2px;}
+.w3{width:3px;}
+.w4{width:4px;}
+.w5{width:5px;}
+.w6{width:6px;}
+.w7{width:7px;}
+.w8{width:8px;}
+.w9{width:9px;}
+.w10{width:10px;}
+.w12{width:12px;}
+.w13{width:13px;}
+.w15{width:15px;}
+.w20{width:20px;}
+.w25{width:25px;}
+.w30{width:30px;}
+.w35{width:35px;}
+.w40{width:40px;}
+.w45{width:45px;}
+.w50{width:50px;}
+.w55{width:55px;}
+.w60{width:60px;}
+.w65{width:65px;}
+.w70{width:70px;}
+.w80{width:80px;}
+.w90{width:90px;}
+.w100{width:100px;}
+.w150{width:150px;}
+.w200{width:200px;}
+.w250{width:250px;}
+.w300{width:300px;}
+.w400{width:400px;}
+.w500{width:500px;}
+.w600{width:600px;}
+.w700{width:700px;}
+.w800{width:800px;}
+.w900{width:900px;}
+.w950{width:950px;}
+.w1000{width:1000px;}
+.w1050{width:1050px;}
+.w1100{width:1100px;}
+.w1150{width:1150px;}
+.w1200{width:1200px;}
+
+/* heights */
+.h1{height:1px;}
+.h2{height:2px;}
+.h3{height:3px;}
+.h4{height:4px;}
+.h5{height:5px;}
+.h6{height:6px;}
+.h7{height:7px;}
+.h8{height:8px;}
+.h9{height:9px;}
+.h10{height:10px;}
+.h12{height:12px;}
+.h13{height:13px;}
+.h15{height:15px;}
+.h20{height:20px;}
+.h25{height:25px;}
+.h30{height:30px;}
+.h35{height:35px;}
+.h40{height:40px;}
+.h45{height:45px;}
+.h50{height:50px;}
+.h55{height:55px;}
+.h60{height:60px;}
+.h65{height:65px;}
+.h70{height:70px;}
+.h80{height:80px;}
+.h90{height:90px;}
+.h100{height:100px;}
+.h200{height:200px;}
+.h300{height:300px;}
+.h400{height:400px;}
+.h500{height:500px;}
+.h600{height:600px;}
+.h700{height:700px;}
+.h800{height:800px;}
+.h900{height:900px;}
+.h1000{height:1000px;}
+
+/* often params */
+.hide, .no-show{display:none!important;}
+.show{display:block!important;}
+.no-margin{margin:0!important;}
+.no-padding{padding:0!important;}
+.no-bg{background:none!important;}
+.no-border, .no-bordera img, .no-border a, .no-border img, .no-border td{border:none!important;}
+.no-width{width:auto!important;}
+.no-height{height:auto!important;}
+
+.b-white{border:1px solid #fff!important;}
+.b-red{border:1px solid #f00!important;}
+.b-green{border:1px solid #0f0!important;}
+.b-blue{border:1px solid #00f!important;}
+
+/* margin and padding reset */
+.m0{margin:0px!important;}
+.p0{padding:0px!important;}
+
+/* color */
+.bg-red{background-color:red!important;}
+.bg-yellow{background-color:yellow!important;}
+.bg-blue{background-color:blue!important;}
+.bg-green{background-color:green!important;}
+.bg-white{background-color:white!important;}
+.bg-grey{background-color:gray!important;}
+
+/* font-size */
+.f8{font-size:8px!important;}
+.f9{font-size:9px!important;}
+.f10{font-size:10px!important;}
+.f11{font-size:11px!important;}
+.f12{font-size:12px!important;}
+.f13{font-size:13px!important;}
+.f14{font-size:14px!important;}
+.f15{font-size:15px!important;}
+.f16{font-size:16px!important;}
+.f16{font-size:17px!important;}
+.f18{font-size:18px!important;}
+.f18{font-size:19px!important;}
+.f20{font-size:20px!important;}
+.f20{font-size:21px!important;}
+.f22{font-size:22px!important;}
+.f23{font-size:23px!important;}
+.f24{font-size:24px!important;}
+.f25{font-size:25px!important;}
+.f26{font-size:26px!important;}
+.f27{font-size:27px!important;}
+.f28{font-size:28px!important;}
+.f29{font-size:29px!important;}
+.f30{font-size:30px!important;}
+.f31{font-size:31px!important;}
+.f32{font-size:32px!important;}
+
+/* text-decoration */
+.underline{text-decoration:underline!important;}
+.no-decor{text-decoration:none!important;}
+.bold{font-weight:bold!important;}
+.no-bold{font-weight:normal!important;}
+.italic{font-style:italic!important;}
+.nobr, .nowrap{white-space:nowrap!important;}
+
+/* aligns */
+.a-center{text-align:center;}
+.a-right{text-align:right;}
+.a-left{text-align:left;}
+.a-bottom{vertical-align:bottom;}
+.a-middle{vertical-align:middle;}
+
+/* block aligns */
+.fll{float:left;}
+.flr{float:right;}
+.fln{float:none;}
+
+/* 1x1 */
+img.x1{width:1px;height:1px;border:0;visibility:hidden;display:block}
+
+/* clearfix */
+.clr{clear:both;overflow:hidden;line-height:0!important;height:0!important;}
+.clr:after{content:".";display:block;clear:both;visibility:hidden;line-height:0!important;height:0!important;font-size:0;}
+html[xmlns].clr{display:block;}

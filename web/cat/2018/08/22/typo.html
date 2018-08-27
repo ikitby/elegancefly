@@ -1,0 +1,618 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    
+    <title>Демонстрация возможностей типографики JB-CSS Pack</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="content-Language" content="ru" />
+
+    <link rel="stylesheet" href="./css/reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/layout.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/typography.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="./css/styles.css" type="text/css" media="all" />
+    <!--[if lte IE 7]><link rel="stylesheet" href="./css/ie.css" type="text/css"  media="all" /><![endif]-->
+   
+    <script type="text/javascript" src="./js/jquery.core.pack.js"></script>
+    <script type="text/javascript" src="./js/jquery.pngfix.pack.js"></script>
+    <script type="text/javascript" src="./js/jquery.swfobject.pack.js"></script>
+    <script type="text/javascript" src="./js/jquery.tools.js"></script>
+    <script type="text/javascript" src="./js/scripts.js"></script>
+
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=EmulateIE8" />
+    <meta http-equiv="imagetoolbar" content="false" />
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if (isIE(6) || isIE(7)) { $('#toolbar').hide(); }
+            var codeTags = 'code, pre';
+            $('#hidecode').click(function(){
+                if ($(codeTags).is(':hidden')) { $(codeTags).show(); } else { $(codeTags).hide(); }
+                return false;
+            });
+        });
+    </script>
+    <style type="text/css" media="all">
+    #toolbar {
+        position:fixed;
+        background: #fff;
+        border: 1px solid #ccc;
+        width: 130px;
+        height:30px;
+        margin-top:60px;
+    }
+    </style>
+</head> 
+<body>
+	<div id="toolbar"> <a href="javascript:void(0)" id="hidecode" >Показать/Скрыть примеры HTML-кода</a></div>
+    <div id="page" class="content w1000">
+		<h1>JB-CSS Pack — пакет стилей для быстрой верстки от Joomla-book.ru</h1>
+        
+        <h2>Пример простого текста с картинками</h2>
+		
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        
+        <p><img src="./temp/png.png" alt="sampleImage" title="sampleImage" align="left" style="width:130px;" />Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>    
+        
+        <p><a href="javascript:void(0)" title="Картинка с ссылкой"><img src="./temp/png.png" alt="sampleImage" title="sampleImage" align="left" style="width:130px;" /></a>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        
+        <p style="text-align:justify;"><img src="./temp/png.png" alt="sampleImage" title="sampleImage" align="right" />Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей.</p>
+        
+        <h1>H1 Заголовок 1 уровня</h1>
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+
+        <h2>H2 Заголовок 2 уровня</h2>
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        
+        <h3>H3 Заголовок 3 уровня</h3>
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        
+        <h4>H4 Заголовок 4 уровня</h4>
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        
+        <h5>H5 Заголовок 5 уровня</h5>
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+    
+        <h6>H6 Заголовок 6 уровня</h6>
+        <p>Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+
+		Тег HR<code>&lt;hr/&gt;</code>
+		<hr/>
+
+		<code>&lt;p style="text-align:left;"&gt; ... &lt;/p&gt;</code>
+		<p style="text-align:left;">Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.
+        Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+		<code>&lt;p style="text-align:right;"&gt; ... &lt;/p&gt;</code>
+		<p style="text-align:right;">Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.
+        Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        <code>&lt;p style="text-align:justify;"&gt; ... &lt;/p&gt;</code>
+		<p style="text-align:justify;">Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.
+        Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+        <code>&lt;p style="text-align:center;"&gt; ... &lt;/p&gt;</code>
+		<p style="text-align:center;">Sed scelerisque sagittis lorem. Phasellus sodales. Nulla urna justo, vehicula in, suscipit nec, molestie sed, tellus. Quisque justo. Nam libero leo, elementum in, dapibus a, suscipit vitae, purus. Duis arcu. Integer dignissim fermentum enim. Morbi convallis felis vel nibh. Etiam viverra augue non enim.</p>
+
+        <blockquote>
+            <p>Длинная цитата. Текст, традиционно отображается как выровненный блок с отступами слева и справа, а также с отбивкой сверху и снизу. Визуальные агенты пользователей обычно генерируют элемент BLOCKQUOTE как блок с отступом.</p>
+            <p>Вторая длинная цитата.</p>
+        </blockquote>
+    
+        <code>&lt;pre&gt;первая строка\nвторая строка&lt;/pre&gt;</code>
+        <pre style="display:block!important;"><strong>Тег &lt;pre&gt;</strong> Первая тестовая строка
+               и вторая</pre>
+
+		<h2>Основные теги для форматирования текста <code style="font-weight: normal;">&lt;table&gt;</code></h2>
+		<table>
+            <caption>Примеры тегов форматирования контента <code>&lt;table&gt; &lt;caption&gt;</code></caption>
+            <thead>
+                <tr>
+                    <th class="w200">Имя тега<code style="font-weight: normal;">&lt;thead&gt; &lt;th&gt;</code></th>
+                    <th class="w300">Внешний вид<code style="font-weight: normal;">&lt;thead&gt; &lt;th&gt;</code></th>
+                    <th>Код и краткое описание<code style="font-weight: normal;">&lt;thead&gt; &lt;th&gt;</code></th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td>Подвал таблицы<br/><code style="font-weight: normal;">&lt;tfoot&gt; &lt;td&gt;</code></td>
+                    <th>Подвал таблицы<br/><code style="font-weight: normal;">&lt;tfoot&gt; &lt;th&gt;</code></th>
+                    <td>Подвал таблицы<br/><code style="font-weight: normal;">&lt;tfoot&gt; &lt;td&gt;</code></td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <tr><td colspan="3" style="text-align:center;"><h5>Основной набор тегов</h5></td></tr>
+				<tr>
+                    <td>Ссылка</td>
+                    <td>Это <a href="javascript:void(0)" title="обычная ссылка">пример обычной ссылки</a> в контенте</td>
+                    <td>
+                    	<code>&lt;a href="javascript:void(0)"&gt;текст&lt;/a&gt;</code>
+                    	<p>Тег &lt;a&gt; является одним из важных элементов HTML и предназначен для создания ссылок.</p>
+					</td>
+                </tr>
+                <tr>
+                    <td>Полужирное выделение</td>
+                    <td>
+                    	Это <b>полужирное b</b> в тексте (b)<br/>
+						Это <strong>полужирное</strong> в тексте (strong)
+					</td>
+                    <td>
+                    	<code>&lt;b&gt;полужирное&lt;/b&gt;, &lt;strong&gt;полужирное&lt;/strong&gt;</code>
+						<p>Устанавливают жирное начертание шрифта.</p>
+					</td>
+                </tr>				
+                <tr>
+                   	<td>Курсив</td>
+                    <td>
+                    	Это <i>курсивный</i> текст (i)<br/>
+                    	Это <em>курсивный</em> текст (em)
+					</td>
+                    <td>
+                    	<code>&lt;i&gt;курсив&lt;/i&gt;, &lt;em&gt;курсив&lt;/em&gt;</code>
+						<p>Устанавливает курсивное начертание шрифта.</p>						
+					</td>
+                </tr>				
+                <tr>
+                   	<td>Подчеркивание</td>
+                    <td>Это <u>подчеркивание</u> в тексте</td>
+                    <td>
+                    	<code>&lt;u&gt;подчеркнуто&lt;/u&gt;</code>
+						<p>Добавляет подчеркивание к тексту. Этот тег осуждается спецификацией HTML, взамен рекомендуется использовать стили.</p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Зачеркнутый</td>
+                    <td>
+                    	Это <s>зачеркнутый</s> текст (s)<br/>
+                    	Это <strike>зачеркнутый</strike> текст (strike)
+					</td>
+                    <td>
+                    	<code>&lt;s&gt;зачеркнуто&lt;/s&gt; и &lt;strike&gt;зачеркнуто&lt;/strike&gt;</code>
+						<p>Тег &lt;s&gt; отображает текст как перечеркнутый.</p>
+						<p>Осуждатся спецификацией HTML, взамен рекомендуется использовать стили. </p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Короткая цитата</td>
+                    <td>Это <q>пример</q> цитаты</td>
+                    <td>
+                    	<code>&lt;q&gt;цитата&lt;/q&gt;</code>
+						<p>Тег &lt;q&gt; используется для выделения в тексте цитат.</p>						
+					</td>
+                </tr>
+				
+				<tr><td colspan="3" style="text-align:center;"><h5>Дополнительный набор тегов</h5></td></tr>
+				<tr>
+                   	<td>Нижний индекс</td>
+                    <td>Нижний индекс x<sub>1</sub>, x<sub>2</sub> в тексте</td>
+                    <td>
+                    	<code>x&lt;sub&gt;1&lt;/sub&gt; и x&lt;sub&gt;2&lt;/sub&gt;</code>
+						<p>Отображает шрифт в виде нижнего индекса.</p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Верхний индекс</td>
+                    <td>Верхний индекс x<sup>2</sup>, x<sup>3</sup> в тексте</td>
+                    <td>
+                    	<code>x&lt;sup&gt;2&lt;/sup&gt; и x&lt;sup&gt;3&lt;/sup&gt;</code>
+						<p>Отображает шрифт в виде верхнего индекса.</p>						
+					</td>
+                </tr>
+				<tr>
+                    <td>Удаленный текст</td>
+                    <td>Это <del>удаленный</del> текст</td>
+                    <td>
+                    	<code>&lt;del&gt;удалено&lt;/del&gt;</code>
+						<p>Тег &lt;del&gt; используется для выделения текста, который был удален в новой версии документа. Подобное форматирование позволяет отследить, какие изменения в тексте документа были сделаны.</p>						
+					</td>
+                </tr>
+                <tr>
+                    <td>Адрес</td>
+                    <td>Пример адреса:<address>г.Москва, ул. Солнечная, сайт <a href="javascript:void(0)" title="г.Москва, ул. Солнечная">ссылка на сайт в теле тега</a></address></td>
+                    <td>
+                    	<code>&lt;address&gt;г.Москва &lt;a href="javascript:void(0)"&gt;ссылка&lt;/a&gt;&lt;/address&gt;</code>
+						<p>Тег &lt;address&gt; предназначен для хранения информации об авторе и может включать в себя любые элементы HTML вроде ссылок, текста, выделений и т.д. </p>
+					</td>
+                </tr>
+                <tr>
+                    <td>Аббревиатура</td>
+                    <td>
+                    	Это <abbr>CMS</abbr> — Это aббревиатура без [title]<br/>
+                    	Это <a href="javascript:void(0)"><abbr>CMS</abbr></a> — Это aббревиатура без [title] в ссылке<br/>
+                    	Это <abbr title="Content Management System">CMS</abbr> — Это aббревиатура<br/>
+                    	Это <a href="javascript:void(0)"><abbr title="Content Management System">CMS</abbr></a> — Это aббревиатура в ссылке
+					</td>
+                    <td>
+                    	<code>&lt;abbr title="Content Management System"&gt;CMS&lt;/abbr&gt;</code>
+                    	<p>Тег &lt;abbr&gt; указывает, что последовательность символов является аббревиатурой.</p>
+						<p>С помощью параметра title дается расшифровка сокращения, что позволяет понимать аббревиатуру тем людям, которые с ней не знакомы.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Акроним</td>
+                    <td>
+                    	Слово <acronym>dos</acronym> — Это акроним без [title]<br/>
+                    	Слово <a href="javascript:void(0)"><acronym>dos</acronym></a> — Это акроним без [title] в ссылке<br/>
+                    	Слово <acronym title="DOS">dos</acronym> — Это акроним<br/>
+                    	Слово <a href="javascript:void(0)"><acronym title="DOS">dos</acronym></a> — Это акроним в ссылки
+					</td>
+                    <td>
+                    	<code>&lt;acronym&gt;DOS&lt;/acronym&gt;</code>
+						<p>Элемент &lt;acronym&gt; указывает на то, что текст является акронимом.</p>
+						<p>В отличие от аббревиатуры, акроним — это устоявшееся сокращение, которое применяется как самостоятельное слово.</p>
+					</td>
+                </tr>
+
+                <tr>
+                    <td>Увеличение текста</td>
+                    <td>
+                    	Это <big>увеличенный</big> текст<br/>
+						Это <big><big>вложенный увеличенный</big></big> текст
+					</td>
+                    <td>
+                    	<code>&lt;big&gt;текст&lt;/big&gt;</code>
+						<p>Тег &lt;big&gt; увеличивает размер шрифта на единицу по сравнению с обычным текстом.</p>
+						<p>В HTML размер шрифта измеряется в условных единицах от 1 до 7, средний размер текста, используемый по умолчанию, принят 3.</p>
+						<p>Таким образом, добавление тега &lt;big&gt; увеличивает текст на одну условную единицу.</p>						
+					</td>
+                </tr>
+                <tr>
+                    <td>Сноска</td>
+                    <td>Это <cite>пример текста</cite> сноски или цитаты</td>
+                    <td>
+                    	<code>&lt;cite&gt;сноска&lt;/cite&gt;</code>
+						<p>Тег &lt;cite&gt; помечает текст как цитату или сноску на другой материал.</p>						
+					</td>
+                </tr>
+                <tr>
+                    <td>Код</td>
+                    <td>Это <code style="display:inline!important;">пример кода</code> программы</td>
+                    <td>
+                    	<code>&lt;code&gt;код программы&lt;/code&gt;</code>
+						<p>Тег &lt;code&gt; предназначен для отображения одной или нескольких строк текста, который представляет собой программный код.</p>						
+					</td>
+                </tr>
+
+                <tr>
+                    <td>Новый термин</td>
+                    <td>Это <dfn title="новый термин">пример</dfn> термина</td>
+                    <td>
+                    	<code>&lt;dfn&gt;термин&lt;/dfn&gt;</code>
+						<p>Как правило, в документе, когда упоминается новый термин, он выделяется курсивом и дается его определение.</p>
+						<p>При использовании этого термина в дальнейшем, он считается уже известным читателю. Тег &lt;dfn&gt; применяется для выделения таких терминов при их первом появлении в тексте.</p>						
+					</td>
+                </tr>
+
+                <tr>
+                   	<td>Сочетание клавиш</td>
+                    <td>Это <kbd>&lt;Ctrl&gt;+&lt;Alt&gt;+&lt;Delete&gt;</kbd> сочетание клавиш</td>
+                    <td>
+                    	<code>&lt;kbd&gt;Ctrl+Alt+Delete&lt;/kbd&gt;</code>
+						<p>Тег &lt;kbd&gt; используется для обозначения текста, который набирается на клавиатуре или для сочетания клавиш.</p>						
+					</td>
+                </tr>
+
+                <tr>
+                   	<td>Результат кода</td>
+                    <td>Это <samp>результат</samp> кода</td>
+                    <td>
+                    	<code>&lt;samp&gt;результат&lt;/samp&gt;</code>
+						<p>Элемент &lt;samp&gt; используется для отображения текста, который является результатом вывода компьютерной программы или скрипта.</p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Уменьшение</td>
+                    <td>
+                    	Это <small>уменьшение</small> текста<br/>
+                    	Это <small>двойное уменьшение</small> текста
+					</td>
+                    <td>
+                    	<code>&lt;small&gt;результат&lt;/small&gt;</code>
+						<p>Тег &lt;small&gt; уменьшает размер шрифта на единицу по сравнению с обычным текстом.</p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Текстовый контейнер</td>
+                    <td>Это <span>контейнер</span> текста</td>
+                    <td>
+                    	<code>&lt;span&gt;результат&lt;/span&gt;</code>
+						<p>Тег &lt;span&gt; предназначен для определения встроенных элементов документа.</p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Форматирование</td>
+                    <td>Это <tt>физическое форматирование</tt> текста</td>
+                    <td>
+                    	<code>&lt;tt&gt;Форматирование&lt;/tt&gt;</code>
+						<p>Этот тег относится к группе тегов физического форматирования.</p>						
+					</td>
+                </tr>
+                <tr>
+                   	<td>Компьютерные переменные</td>
+                    <td>Это переменная <var>$GLOBALS</var> в тексте</td>
+                    <td>
+                    	<code>&lt;var&gt;переменная&lt;/var&gt;</code>
+						<p>Тег &lt;var&gt; используется для выделения переменных компьютерных программ.</p>						
+					</td>
+                </tr>
+                
+				<tr><td colspan="3" style="text-align:center;"><h5>Экспериментальные возможности пакета</h5></td></tr>				
+                <tr>
+                    <td>Внешняя ссылка</td>
+                    <td>Это <a href="http://joomla-book.ru" target="_blank" class="external" title="Руководство Joomla CMS">пример внешней ссылки</a> в контенте</td>
+                    <td>
+                    	<code>&lt;a target="_blank" href="http://joomla-book.ru"&gt;ссылка&lt;/a&gt;</code>
+                    	<p>Тег &lt;a&gt;с атрибутом [target="_blank"] или [class="external"] предназначен для создания внешних ссылок.</p>
+                    </td>
+                </tr>                
+				<tr>
+                   	<td>Всплывающая подсказка CSS</td>
+                    <td>
+                    	Это <a class="tooltip" href="javascript:void(0)">ссылка с подсказкой<span>Подсказка на css (без JavaScript)</span></a> в тексте<br/>
+                    	Это <span class="tooltip">простой текст с подсказкой<span>Подсказка на css (без JavaScript)</span></span> в тексте
+					</td>
+                    <td>
+                    	<code>&lt;a class="tooltip" href="javascript:void(0)"&gt;текст&lt;span&gt;подсказка&lt;/span&gt;&lt;/a&gt;</code><br/>
+                    	<code>&lt;span class="tooltip"&gt;текст&lt;span&gt;текст подсказки&lt;/span&gt;&lt;/span&gt;</code>
+						<p>Добавляем всплывающую подсказку на css (работает без JavaScript)</p>						
+					</td>
+                </tr>
+            </tbody>
+        </table>	
+		
+        
+		<h5>Вложенный маркированный список <code style="font-weight: normal;">&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;  &lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;</code></h5>
+		<ul>
+            <li>Элемент 1</li>
+            <li>Элемент 2</li>
+            <li>Элемент 3
+	            <ul>
+	                <li>Элемент 1 вложенный на 2 уровне</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ul>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ul>
+					</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ul>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ul>
+	                </li>
+	            </ul>
+			</li>
+            <li>Элемент 4</li>
+            <li>Элемент 5</li>
+        </ul>
+
+		<h5>Вложенный нумерованный список <code style="font-weight: normal;">&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;  &lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;</code></h5>
+        <ol>
+            <li>Элемент 1</li>
+            <li>Элемент 2</li>
+            <li>Элемент 3
+	            <ol>
+	                <li>Элемент 1 вложенный на 2 уровне</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ol>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ol>
+					</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ol>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ol>
+	                </li>
+	            </ol>
+			</li>
+            <li>Элемент 4</li>
+            <li>Элемент 5</li>
+        </ol>
+
+        <h5>Смешанный список</h5>
+		<ol>
+            <li>Элемент 1</li>
+            <li>Элемент 2</li>
+            <li>Элемент 3
+	            <ul>
+	                <li>Элемент 1 вложенный на 2 уровне</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ul>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ul>
+					</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ul>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ul>
+	                </li>
+	            </ul>
+			</li>
+            <li>Элемент 4</li>
+            <li>Элемент 5</li>
+        </ol>        
+		<ul>
+            <li>Элемент 1</li>
+            <li>Элемент 2</li>
+            <li>Элемент 3
+	            <ol>
+	                <li>Элемент 1 вложенный на 2 уровне</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ul>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ul>
+					</li>
+	                <li>Элемент 2 вложенный на 2 уровне
+		                <ul>
+			                <li>Элемент 1 вложенный на 3 уровне</li>
+		    	            <li>Элемент 2 вложенный на 3 уровне</li>
+		                </ul>
+	                </li>
+	            </ol>
+			</li>
+            <li>Элемент 4</li>
+            <li>Элемент 5</li>
+        </ul>  
+        
+		<h5>Список терминов <code style="font-weight: normal;">&lt;dl&gt;&lt;dt&gt;...&lt;/dt&gt;&lt;dd&gt;...&lt;/dd&gt; &lt;/dl&gt;</code></h5>
+		<dl>
+			<dt>Формат GIF</dt>
+			<dd>Формат графических файлов, широко применяемый при создании сайтов. 
+				GIF использует 8-битовый цвет и эффективно сжимает сплошные цветные области, 
+				при этом сохраняя детали изображения.
+			</dd>
+			
+			<dt>Формат JPEG</dt>
+			<dd>Популярный формат графических файлов, широко применяемый при создании 
+				сайтов и хранения изображений. JPEG поддерживает 24-битовый цвет и сохраняет 
+				яркость и оттенки цветов в фотографиях. Данный формат называют сжатием с потерями, 
+				поскольку алгоритм JPEG выборочно отвергает данные. Метод сжатия может исказить 
+				деталь в рисунке, особенно содержащий текст или изображение с четкими краями. 
+				Формат JPEG не поддерживает прозрачность, когда вы сохраняете фотографию в формате 
+				JPEG, прозрачные пиксели заполняются определенным цветом.
+			</dd>
+ 		</dl>
+    
+    
+		<h5>Форма  <code style="font-weight: normal;">&lt;form&gt; ... &lt;/form&gt;</code></h5>
+        <form action="javascript:void(0)">
+            <fieldset>
+                <legend>Заголовок группы элементов формы</legend>
+                <div>
+                    <input type="text"  id="f1" value="Текст" />
+                    <label for="f1">Однострочное поле для текста</label>
+                </div>
+                <div>
+                    <input type="password"  id="f11" value="Текст" />
+                    <label for="f11">Пароль</label>
+                </div>
+                <div>
+                    <input type="text"  id="f12" value="Текст текст" class="autoclear" />
+                    <label for="f12">Односточный с автоочисткой</label>
+                </div>
+                <div>
+                    <input type="radio"  id="f2" />
+                    <label for="f2">Радио</label>
+                </div>
+                <div>
+                    <input type="checkbox"  id="f3" />
+                    <label for="f3">Флажок</label>
+                </div>
+                <div>
+                    <select id="f4">
+                        <option>Элемент 1</option>
+                        <option>Элемент 2</option>
+                        <option>Элемент 3</option>
+                        <option>Элемент 4</option>
+                        <option>Элемент 5</option>
+                    </select>
+                    <label for="f4">Выпадающий список:</label>
+                </div>
+                <div>
+                    <label for="f5">Текстовое многострочное поле:</label><br />
+                    <textarea id="f5" rows="5" cols="50">Текст текст</textarea>
+                </div>
+                <div>
+                    <input type="button" id="f6" value="Текст кнопки" />
+                    <label for="f6">Кнопка</label>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Пример элементов с постоянной шириной и автоочисткой</legend>
+                <div>
+                	<p>Элементы выравниваются по ширине класса &laquo;<strong>form-weight-normal</strong>&raquo;, сейчас она равна 400px.</p>
+                	<p>Автозаполнение реализуется за счет класса &laquo;<strong>autoclear</strong>&raquo; и <a href="http://jquery.com" class="external">jQuery</a>. При активации элемента добавляется класс &laquo;<strong>autoclear-normalcolor</strong>&raquo;</p>
+                </div>
+				<div><input type="text" id="statwidth1" value="Текст текст" class="form-weight-normal autoclear" /></div>
+                <div><input type="password" id="statwidth2" value="Текст текст" class="form-weight-normal autoclear" /></div>
+                <div><input type="text" id="statwidth3" value="Текст текст" class="form-weight-normal autoclear" /></div>
+                <div><input type="checkbox"  id="f7" /><label for="f7">Текст текст:</label></div>				
+                <div><input type="radio"  id="f8" /><label for="f8">Текст текст:</label></div>				
+                <div><select id="statwidth4" class="form-weight-normal">
+                        <option>Элемент 1</option>
+                        <option>Элемент 2</option>
+                        <option>Элемент 3</option>
+                        <option>Элемент 4</option>
+                        <option>Элемент 5</option>
+                </select></div>
+                <div><select class="form-weight-normal" multiple="multiple">
+                        <option>Элемент 1</option>
+                        <option>Элемент 2</option>
+                        <option>Элемент 3</option>
+                        <option>Элемент 4</option>
+                        <option>Элемент 5</option>
+                </select></div>
+                <div>
+                    <textarea class="form-weight-normal autoclear" rows="5" cols="100">Текст с автоочисткой</textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Пример элементов с ошибкой при отправке</legend>
+                <div>
+                	<p>Подсветка ошибки ввода происходит с помощью добавления класса &laquo;<strong>error</strong>&raquo;</p>
+                </div>				
+                <div><input type="text" value="Текст текст" class="error form-weight-normal autoclear" /></div>
+                <div><input type="checkbox" id="f9" class="error" /><label for="f9">Текст текст:</label></div>				
+                <div><input type="radio" id="f10" class="error" /><label for="f10">Текст текст:</label></div>				
+                <div><select class="error form-weight-normal">
+                        <option>Элемент 1</option>
+                        <option>Элемент 2</option>
+                        <option>Элемент 3</option>
+                        <option>Элемент 4</option>
+                        <option>Элемент 5</option>
+                </select></div>
+                <div><select class="error form-weight-normal" multiple="multiple">
+                        <option>Элемент 1</option>
+                        <option>Элемент 2</option>
+                        <option>Элемент 3</option>
+                        <option>Элемент 4</option>
+                        <option>Элемент 5</option>
+                </select></div>
+                <div>
+                    <textarea class="error form-weight-normal" rows="5" cols="100">Текст</textarea>
+                </div>
+            </fieldset>
+        </form>
+		<h5>Кросброузерная вставка Flash-объектов</h5>
+        <pre>&lt;script type="text/javascript"&gt;
+    $('#flash').flash({
+        swf: './temp/flash.swf',
+        width: 320,
+        height: 240
+    });
+&lt;/script&gt;</pre>		
+        <div id="flash">Алтернативный текст</div>
+		<script type="text/javascript">	
+			$('#flash').flash({
+                swf: './temp/flash.swf',
+                width: 320,
+                height: 240
+            });
+		</script>
+		
+
+        
+		<hr/>
+	    <a href="http://validator.w3.org/check?uri=referer"><img
+    	    src="http://www.w3.org/Icons/valid-xhtml10"
+        	alt="Valid XHTML 1.0 Transitional" height="31" width="88" class="no-border" />
+		</a>
+		<a href="http://jigsaw.w3.org/css-validator/check/referer">
+        	<img style="border:0;width:88px;height:31px"
+            	src="http://jigsaw.w3.org/css-validator/images/vcss"
+            	alt="Правильный CSS!" class="no-border" />
+    	</a>
+    </div>
+</body>
+</html>

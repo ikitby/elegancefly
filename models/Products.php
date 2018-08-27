@@ -37,6 +37,45 @@ class Products extends \yii\db\ActiveRecord
         return 'products';
     }
 
+    public function rules()
+    {
+        return [
+            [['user_id', 'hits'], 'integer'],
+            //[['price'], 'double'],
+            [['price'], 'match', 'pattern' => '/^\d{0,3}[\,\.]{0,1}\d{0,2}$/i'],
+            [['photos', 'category', 'price','tags', 'project_info', 'title', 'state', 'deleted'], 'required'],
+            [['created_at'], 'safe'],
+            [['file', 'title', 'project_path'], 'string', 'max' => 255],
+            [['themes_index'], 'string', 'max' => 4055],
+            [['photos', 'themes', 'themes_index'], 'safe'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'user_id' => 'User id',
+            'title' => 'Title',
+            'category' => 'Category',
+            'file' => 'File',
+            'tags' => 'Tags',
+            'photos' => 'Photos',
+            'project_path' => 'Project path',
+            'price' => 'Price',
+            'project_info' => 'Project info',
+            'themes' => 'Themes',
+            'themes_index' => 'Themes index',
+            'hits' => 'Hits',
+            'state' => 'State',
+            'deleted' => 'Deleted',
+            'created_at' => 'Created At',
+        ];
+    }
+
     public static function isAuthor($prodid, $userid) //Проверка. Является ли пользователь автором продукта
     {
         $author = false;
@@ -108,44 +147,6 @@ class Products extends \yii\db\ActiveRecord
     {
         $this->price=5;
         return parent::beforeValidate();
-    }
-
-    public function rules()
-    {
-        return [
-            [['user_id', 'hits'], 'integer'],
-            [['price'], 'double'],
-            [['photos', 'category', 'price','tags', 'project_info', 'title', 'state', 'deleted'], 'required'],
-            [['created_at'], 'safe'],
-            [['file', 'title', 'project_path'], 'string', 'max' => 255],
-            [['themes_index'], 'string', 'max' => 4055],
-            [['photos', 'themes', 'themes_index'], 'safe'],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'user_id' => 'User id',
-            'title' => 'Title',
-            'category' => 'Category',
-            'file' => 'File',
-            'tags' => 'Tags',
-            'photos' => 'Photos',
-            'project_path' => 'Project path',
-            'price' => 'Price',
-            'project_info' => 'Project info',
-            'themes' => 'Themes',
-            'themes_index' => 'Themes index',
-            'hits' => 'Hits',
-            'state' => 'State',
-            'deleted' => 'Deleted',
-            'created_at' => 'Created At',
-        ];
     }
 
     public function getThemsprod()
@@ -285,10 +286,10 @@ class Products extends \yii\db\ActiveRecord
         foreach ($this->tagsprod as $tag) {
             $counter++;
             if($counter == $total){
-                print Html::a($tag->title, ['/catalog/tema', 'alias' => $tag->alias], ['class' => 'lisltnglinck']);
+                print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'lisltnglinck']);
             }
             else{
-                print Html::a($tag->title, ['/catalog/tema', 'alias' => $tag->alias], ['class' => 'lisltnglinck']).', ';
+                print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'lisltnglinck']).', ';
             }
         }
 

@@ -1,0 +1,43 @@
+/* IE can't handle :before and :after */
+ul { list-style: disc outside; margin-left: 0; }
+ul li { text-indent: 0; margin-left: 0; }
+
+ /* IE form margin bug */
+legend { margin-bottom: 19px; }
+
+ /* IE superscript & subscript bug */
+sup, sub { font-size: 100%; }
+
+/* IE can't handle :first-child */
+blockquote p, blockquote ul, blockquote ol,
+blockquote dl, blockquote pre, blockquote address,
+blockquote table, blockquote form, blockquote h1,
+blockquote h2, blockquote h3, blockquote h4,
+blockquote h5, blockquote h6 { margin-top: 10px 0; }
+
+/* IE < 7 form fix */
+* html textarea, * html input { cursor:auto; }
+
+/* IE 7 button fix */
+input[type='submit'], input[type='button'] { padding: 0; }
+
+ /* we already added legend margin */
+legend+* { margin-top: 0; }
+
+/* IE 7 bug */
+a abbr, a acronym { text-decoration: underline; }
+
+/* IE 6 clearfix */
+ * html .clearfix, * html .clr, * html .br, * html .cboth, .clearfix   {height: 1px;}
+
+* html img {z-index: expression(runtimeStyle.zIndex = 1, align && "left" == align.toLowerCase() ? (className += " alignImageLeft") : 0 ) }
+* html img {scrollbar-face-color: expression(runtimeStyle.scrollbarFaceColor = 1, align && "right" == align.toLowerCase() ? (className += " alignImageRight") : 0 ) }
+
+/* IE 6 scalable images  */
+img { -ms-interpolation-mode: bicubic; } 
+
+/* IE 6 fix for rbox */
+.rbox_tr { _height: 13px; }
+.rbox_b { _height: 13px; _background: #fff; _margin-top: 0; }
+
+.content ol li{_list-style-image:none;_list-style-type:decimal;}
