@@ -142,7 +142,6 @@ class SiteController extends AppController
             if ($user = $model->signup()):
                 //event new user register
                 $user->trigger($user::EVENT_USER_REGISTERED);
-
                 if ($user->status === User::STATUS_ACTIVE):
                     if (Yii::$app->getUser()->login($user)):
                         return $this->redirect(['/profile/edit']);
@@ -154,7 +153,8 @@ class SiteController extends AppController
                         Yii::$app->session->setFlash('error', 'Ошибка. Письмо с подтверждением регистрации не отправлено');
                         Yii::error('Ошибка отправки письма подтверждения');
                     endif;
-                    return $this->refresh();
+                    return $this->redirect(Url::to(['/login']));
+                    //return $this->refresh();
                 endif;
             else:
                 Yii::$app->session->setFlash('error', 'Возникла ошибка при регистрации');
