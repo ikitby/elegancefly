@@ -31,22 +31,31 @@ class User extends ActiveRecord implements IdentityInterface
     /* User events */
 
     const EVENT_USER_REGISTERED = 'New user registered';
+    const EVENT_USER_NEW_PURCHASE = 'New user purchase';
+    const EVENT_USER_NEW_PROJECT = 'New user project';
 
     public function init()
     {
         $this->on(User::EVENT_USER_REGISTERED, [$this, 'SendAdminMail']);
+        $this->on(User::EVENT_USER_NEW_PURCHASE, [$this, 'SendAuthorMail']);
+        $this->on(User::EVENT_USER_NEW_PROJECT, [$this, 'SendProjectAdminMail']);
     }
 
     // Send email about new register User
     public function SendAdminMail($event)
     {
         $user = $event->sender;
+        $mail_admins = User::getUsersByIds(User::UsersByPermission('canReceiveSiteMail'));
 
-        return Yii::$app->mailer->compose('userEventEmail', ['user' => $user])
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
-            ->setTo('alooz@mail.ru')
-            ->setSubject('Новый пользователь на '.Yii::$app->name)
-            ->send();
+        $messages = [];
+        foreach ($mail_admins as $mailadmin) {
+            $messages[] = Yii::$app->mailer->compose('userEventEmail', ['user' => $user])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
+                ->setTo($mailadmin->email)
+                ->setSubject('Новый пользователь на '.Yii::$app->name);
+        }
+        Yii::$app->mailer->sendMultiple($messages);
+
     }
 
     /* User events */
@@ -153,6 +162,33 @@ class User extends ActiveRecord implements IdentityInterface
             ->viaTable('ratings', ['user_id' => 'id']);
     }
 
+    public static function getUsersByIds ($user_ids)
+    {
+        $users = User::find()
+            ->where(['id' => $user_ids, 'status' => self::STATUS_ACTIVE])
+            ->all();
+        return $users;
+    }
+/*
+    //get user mails by id
+    public static function getUserMailsById ($user_ids)
+    {
+        $email = "";
+        $counter = 0;
+        $total = count($user_ids);
+
+        foreach ($user_ids as $id) {
+            $counter++;
+            if($counter == $total){
+                $email .= '\''.static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE])->email.'\'';
+            }
+            else{
+                $email .= '\''.static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE])->email.'\', ';
+            }
+        };
+        return $email;
+    }
+*/
 
     public function getProducts()
     {
@@ -295,6 +331,28 @@ class User extends ActiveRecord implements IdentityInterface
     public static function Can($permission)
     {
         return Yii::$app->authManager->checkAccess(Yii::$app->user->id,$permission);
+    }
+
+    public static function UsersByPermission($permission)
+    {
+        return Yii::$app->authManager->getUserIdsByRole('canReceiveSiteMail');
+    }
+
+    public static function Is($user_id, $role)
+    {
+        $user_roles = User::Roles($user_id);
+        foreach ($user_roles as $user_role) {
+            if (strtolower($user_role->name) == strtolower($role)) {
+                return true;
+                break;
+            };
+        }
+        return false;
+    }
+
+    public static function Roles($user_id) {
+        $roles = Yii::$app->authManager->getRolesByUser($user_id);
+        return $roles;
     }
 
     public static function isPasswordResetTokenValid($token)

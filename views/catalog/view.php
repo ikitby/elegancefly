@@ -124,9 +124,9 @@ echo StarRating::widget([
 
         <?php
         if (empty($model->user->photo)) {
-            $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
+            $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode($model->user->username), 'title' => Html::encode($model->user->username)]);
         } else {
-            $userphoto = Html::img("/images/user/user_{$model->user->id}/100_100_{$model->user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username), 'title' => Html::encode(($model->user->name) ? $model->user->name : $model->user->username)]);
+            $userphoto = Html::img("/images/user/user_{$model->user->id}/100_100_{$model->user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode($model->user->username), 'title' => Html::encode($model->user->username)]);
         }
         ?>
             <ul id="paramsproject">
@@ -140,7 +140,7 @@ echo StarRating::widget([
                         <div class="col-sm-9">
                             <strong>Painter:
                             <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $model->user->username]) ?>">
-                                <span><?= Html::encode(($model->user->name) ? $model->user->name : $model->user->username) ?></span>
+                                <span><?= Html::encode($model->user->username) ?></span>
                             </a></strong>
                             <span style="font-size: 0.5em">
                             <?php

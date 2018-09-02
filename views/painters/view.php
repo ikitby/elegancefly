@@ -16,7 +16,7 @@ if (empty($painter->photo)) {
     $userphoto = Html::img("/images/user/user_{$painter->id}/{$painter->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($painter->name) ? $painter->name : $painter->username), 'title' => Html::encode(($painter->name) ? $painter->name : $painter->username)]);
 }
 
-$this->title = $painter->name;
+$this->title = $painter->username;
 $this->params['breadcrumbs'][] = ['label' => 'Painters', 'url' => '/painters'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-4">
             <div style="text-align: center;">
                 <h2><?= Html::encode($this->title) ?></h2>
-
                 <?php
                 if (empty($painter->role) || $painter->role != 'User') :
                     echo StarRating::widget([
@@ -53,11 +52,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <ul class="userprop">
-
-                <li><strong>Profile: </strong><span class="label label-primary"><?= Html::encode($painter->role) ?></span></li>
+                <li><strong>Profile: </strong>
+                    <?php foreach (User::Roles($painter->id) as $role) : ?>
+                        <span class="label label-primary"><?= $role->name; ?></span>
+                    <?php endforeach; ?>
+                </li>
                 <li><strong>Registered: </strong><?= Yii::$app->formatter->asDate($painter->created_at) ?></li>
-                <li><strong>Works: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => Html::encode($painter->username)]) ?>"><?= Html::encode(User::getUserProjectsCount($painter->id)) ?></a></li>
-                <li><strong>Sales: </strong><?= Html::encode(Transaction::getUserSales($painter->id)) ?></li>
+                <?php if (User::Can('createProject')):?><li><strong>Works: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => Html::encode($painter->username)]) ?>"><?= Html::encode(User::getUserProjectsCount($painter->id)) ?></a></li><?php endif; ?>
+                <?php if (User::Can('createProject')):?><li><strong>Sales: </strong><?= Html::encode(Transaction::getUserSales($painter->id)) ?></li><?php endif; ?>
                 <?php if ($painter->name) : ?>
                     <li><strong>Name: </strong><?= Html::encode($painter->name) ?></li>
                 <?php endif; ?>

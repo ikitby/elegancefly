@@ -20,7 +20,7 @@ $apiContext = new apiContext(
     new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
 );
 
-$product = 'Test prod for my check'; //Тенстовое название продукта
+$product = 'Check projects'; //Тенстовое название продукта
 $price = Cart::getCartsumm(); //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
 $shipping = 0; //если доставка платная - указываем ее
 
@@ -88,7 +88,7 @@ try {
     $payment->create($apiContext);
 } catch (Exception $e) {
     //dump($e);
-    return '"INTERNAL_SERVICE_ERROR" - ошибка платежной системы. Попробуйте еще раз попозже';
+    return '"INTERNAL_SERVICE_ERROR" - payment system error. Try again later';
 }
 
 $approvalUrl = $payment->getApprovalLink();

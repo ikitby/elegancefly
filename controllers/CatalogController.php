@@ -473,7 +473,7 @@ class CatalogController extends AppController
         if (Products::getProjectSelling($id))
         {
             $this->setProdDel($id);
-            return json_encode('Продукт имеет покупателей. Полное удаление невозможно! Выключаю.');
+            return json_encode('The product has buyers. Complete removal is impossible! I turn it off.');
         } else {
             return json_encode($this->deleteFileProject($id));
         }

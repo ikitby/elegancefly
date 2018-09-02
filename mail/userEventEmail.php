@@ -13,6 +13,8 @@ use yii\helpers\Html;
 ?>
 Новый пользователь, <?= Html::encode($user->username) ?> зарегистировался на сайте<br/>
 <br/>
+E-mail: <?= Html::mailto($user->email) ?>
+<br/>
 дата регистрации: <?= Yii::$app->formatter->asDate($user->created_at) ?>
 <br/>
 <br/>

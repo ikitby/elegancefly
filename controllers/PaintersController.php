@@ -38,8 +38,7 @@ class PaintersController extends AppController
 
         $users = User::find()->where([
             'status' => 10,
-            'role' => 'Painter',
-            //'usertype' => 2
+            'role' => ['Painter','Creator']
         ]);
         $usersall = $users;
 
@@ -55,7 +54,6 @@ class PaintersController extends AppController
             ->where(['auth_assignment.item_name' => 'Painter'])
             ->orWhere(['auth_assignment.item_name' => 'Creator'])
             ->andWhere(['status' => '10'])
-            ->limit(10)
             ->with('products'/*, 'ratings'*/)
             ->orderBy(['sales' => SORT_DESC])
             ->offset($pagination->offset)
@@ -98,7 +96,12 @@ class PaintersController extends AppController
 
     private function getPainterByAlias($alias)
     {
-        return User::find()->where(['username' => $alias])->one();
+        return User::find()
+            ->joinWith('userLevel')
+            ->where(['auth_assignment.item_name' => 'Painter'])
+            ->orWhere(['auth_assignment.item_name' => 'Creator'])
+            ->AndWhere(['username' => $alias])
+            ->one();
     }
 
 }

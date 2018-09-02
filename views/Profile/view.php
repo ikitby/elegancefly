@@ -65,26 +65,31 @@ dump($painter);
 
         <ul class="userprop">
 
-            <li><strong>Profile: </strong><span class="label label-primary"><?= Html::encode($model->role) ?></span></li>
+            <li><strong>Profile: </strong>
+                <?php foreach (User::Roles($model->id) as $role) : ?>
+                    <span class="label label-primary"><?= $role->name; ?></span>
+                <?php endforeach; ?>
+            </li>
             <li><strong>Registered: </strong><?= Yii::$app->formatter->asDate($model->created_at) ?></li>
-            <li><strong>Works: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => Html::encode($model->username)]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a></li>
-            <li><strong>Sales: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li>
+            <?php if (User::Can('createProject')):?><li><strong>Works: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => Html::encode($model->username)]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a></li><?php endif; ?>
+            <?php if (User::Can('createProject')):?><li><strong>Sales: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li><?php endif; ?>
             <?php if ($model->name) : ?>
             <li><strong>Name: </strong><?= Html::encode($model->name) ?></li>
             <?php endif; ?>
-            <li><strong>Birthday: </strong><?= Yii::$app->formatter->asDate($model->birthday) ?></li>
-            <li><strong>Country: </strong><?= $model->userCountry->country ?></li>
+            <?php if ($model->birthday) : ?><li><strong>Birthday: </strong><?= Yii::$app->formatter->asDate($model->birthday) ?></li><?php endif; ?>
+            <?php if ($model->userCountry->country) : ?><li><strong>Country: </strong><?= $model->userCountry->country ?></li><?php endif; ?>
             <li><strong>Email: </strong><?= Html::mailto($model->email) ?></li>
 
         </ul>
         <ul class="userpropsocicons">
-            <li><?= Html::a('<img class="img-responsive" src="/images/icons/vk.png" alt="VK" title="'.$model->username.' VK">', Url::to($model->vkpage), ['target' => '_blank']) ?></li>
-            <li><?= Html::a('<img class="img-responsive" src="/images/icons/facebook.png" alt="Facebook" title="'.$model->username.' Facebook">', Url::to($model->fbpage), ['target' => '_blank']) ?></li>
-            <li><?= Html::a('<img class="img-responsive" src="/images/icons/instagram.png" alt="Instagram" title="'.$model->username.' Instagram">', Url::to($model->inpage), ['target' => '_blank']) ?></li>
-            <li><?= Html::a('<img class="img-responsive" src="/images/icons/tumblr.png" alt="Tumblr" title="'.$model->username.' Tumblr">', Url::to($model->tumblrpage), ['target' => '_blank']) ?></li>
-            <li><?= Html::a('<img class="img-responsive" src="/images/icons/youtube.png" alt="Youtube" title="'.$model->username.' Youtube">', Url::to($model->youtubepage), ['target' => '_blank']) ?></li>
+            <?php if ($model->vkpage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/vk.png" alt="VK" title="'.$model->username.' VK">', Url::to($model->vkpage), ['target' => '_blank']) ?></li><?php endif;?>
+            <?php if ($model->fbpage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/facebook.png" alt="Facebook" title="'.$model->username.' Facebook">', Url::to($model->fbpage), ['target' => '_blank']) ?></li><?php endif;?>
+            <?php if ($model->inpage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/instagram.png" alt="Instagram" title="'.$model->username.' Instagram">', Url::to($model->inpage), ['target' => '_blank']) ?></li><?php endif;?>
+            <?php if ($model->tumblrpage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/tumblr.png" alt="Tumblr" title="'.$model->username.' Tumblr">', Url::to($model->tumblrpage), ['target' => '_blank']) ?></li><?php endif;?>
+            <?php if ($model->youtubepage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/youtube.png" alt="Youtube" title="'.$model->username.' Youtube">', Url::to($model->youtubepage), ['target' => '_blank']) ?></li><?php endif;?>
         </ul>
-    <div id="balancewrapp">
+
+        <div id="balancewrapp">
         <div class="balance">
             Balance:
             <h3><?= Transaction::getUserBalance($model->id) ?>$</h3>

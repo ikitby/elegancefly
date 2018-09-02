@@ -132,6 +132,7 @@ $config = [
                 'profile' => 'profile/',
                 'profile/payments' => 'profile/payments/',
                 'cart' => 'cart/',
+                'painters/index' => 'painters',
                 'painters/<alias:\w+>' => 'painters/user',
                 'painters' => 'painters/',
                 'catalog/create' => 'catalog/create',

@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="col-md-8">
                             <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user->username]) ?>">
-                                <h3><?= Html::encode(($user->name) ? $user->name : $user->username) ?></h3>
+                                <h3><?= Html::encode($user->username) ?></h3>
                             </a>
                             <span style="font-size: 10px">
                             <?php

@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Countries;
+use app\models\User;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -43,17 +44,19 @@ if (empty($model->photo)) {
         ],
     ])->label('Country');
     ?>
+    <?php if (User::Can('haveSocial')):?>
 
-    <?= $form->field($model, 'fbpage')->textInput()->label('Facebook')?>
+        <?= $form->field($model, 'fbpage')->textInput()->label('Facebook')?>
 
-    <?= $form->field($model, 'vkpage')->textInput()->label('Vkontakte')?>
+        <?= $form->field($model, 'vkpage')->textInput()->label('Vkontakte')?>
 
-    <?= $form->field($model, 'inpage')->textInput()->label('Instagram')?>
+        <?= $form->field($model, 'inpage')->textInput()->label('Instagram')?>
 
-    <?= $form->field($model, 'tumblrpage')->textInput()->label('Tumblr')?>
+        <?= $form->field($model, 'tumblrpage')->textInput()->label('Tumblr')?>
 
-    <?= $form->field($model, 'youtubepage')->textInput()->label('Youtube')?>
+        <?= $form->field($model, 'youtubepage')->textInput()->label('Youtube')?>
 
+    <? endif; ?>
 
     </div>
     </div>

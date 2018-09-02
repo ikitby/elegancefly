@@ -1,4 +1,4 @@
-<?php
+                       <?php
 
 use app\widgets\BasketWidget;
 use app\widgets\CatsearchWidget;

@@ -185,7 +185,7 @@ class ProfileController extends AppController
                     $result = $payment->execute($execute, $apiContext);
                     Transaction::ApprowTranaction($cid);
 
-                    Yii::$app->session->setFlash('success', 'Ваш счат на сайте успешно пополнен! Спасибо.'); //записываем в сессию сообщение для результата
+                    Yii::$app->session->setFlash('success', 'Your account on the site has been successfully replenished! Thank you.'); //записываем в сессию сообщение для результата
                     return $this->redirect(['/profile']);
 
 
@@ -205,7 +205,7 @@ class ProfileController extends AppController
             );
             // Инициализируем paypal
 
-            $product = 'Пополнение личного счета на сайте '; //Тенстовое название продукта
+            $product = 'Replenishment of personal account on the site '; //Тенстовое название продукта
             $price = $count; //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
             $shipping = 0; //если доставка платная - указываем ее
 
