@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= $this->title ?></h1>
 
+    <?php if (!empty($projects)) { ?>
     <?php //Pjax::begin(); ?>
 <div class="row payments">
 
@@ -136,7 +137,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <?php
         endforeach;
-        ?>
+        } else {
+        print '<center><br /><br /><br /><h2>Empty!</h2></center>';
+    } ?>
 
     <div class="row">
         <?= LinkPager::widget(['pagination' => $pagination]) ?>

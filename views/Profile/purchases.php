@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-view">
 
 <h1><?= $this->title ?></h1>
-
+<?php if (!empty($purchases)) { ?>
     <?php Pjax::begin(); ?>
 <div class="row payments">
     <table class="table table-striped table-hover">
@@ -85,7 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
     <?php Pjax::end(); ?>
-    <?php /*
+    <?php } else {
+    print '<center><br /><br /><br /><h2>Empty!</h2></center>';
+}
+            /*
   DetailView::widget([
         'model' => $model,
         'attributes' => [
