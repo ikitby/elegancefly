@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php // Html::a('Добавить проект', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="rowcat" id="cataloggreedwrapp">
