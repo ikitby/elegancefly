@@ -389,7 +389,6 @@ class CatalogController extends AppController
 
         $model->user_id = yii::$app->user->id;
 
-
         if (Yii::$app->request->post() && Yii::$app->request->isAjax) {
 
             $model->photos = '';
@@ -413,10 +412,16 @@ class CatalogController extends AppController
 
             $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
+
+
             if ($file) {
                 $photosmodel = $filemodel->makeGalery($file);
                 $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
             };
+
+            //event new user project
+            $project = $model;
+            $project->trigger(Products::EVENT_USER_NEW_PROJECT);
 
             return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
         }

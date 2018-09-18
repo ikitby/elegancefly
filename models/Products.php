@@ -32,6 +32,34 @@ class Products extends \yii\db\ActiveRecord
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
 
+    /* Products events */
+
+    const EVENT_USER_NEW_PROJECT = 'New user project';
+
+    public function init()
+    {
+        $this->on(Products::EVENT_USER_NEW_PROJECT, [$this, 'SendNewProjectAdminMail']);
+    }
+
+    // ==================== Send email about new User project
+    public function SendNewProjectAdminMail($event)
+    {
+        $product = $event->sender;
+        $image = json_decode($product->photos);
+
+        $mail_admins = User::getUsersByIds(User::UsersByPermission('canReceiveNewProjectMail'));
+
+        $messages = [];
+        foreach ($mail_admins as $mailadmin) {
+            $messages[] = Yii::$app->mailer->compose('userNewProjectEmail', ['imageProject' => $image[0]->foolpath, 'product' => $product])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
+                ->setTo($mailadmin->email)
+                ->setSubject('Новый проект пользователя на сайте '.Yii::$app->name);
+
+        }
+        Yii::$app->mailer->sendMultiple($messages);
+    }
+
     public static function tableName()
     {
         return 'products';

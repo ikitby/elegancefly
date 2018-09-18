@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use function foo\func;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -32,16 +33,16 @@ class User extends ActiveRecord implements IdentityInterface
 
     const EVENT_USER_REGISTERED = 'New user registered';
     const EVENT_USER_NEW_PURCHASE = 'New user purchase';
-    const EVENT_USER_NEW_PROJECT = 'New user project';
+    //const EVENT_USER_NEW_PROJECT = 'New user project';
 
     public function init()
     {
         $this->on(User::EVENT_USER_REGISTERED, [$this, 'SendAdminMail']);
         $this->on(User::EVENT_USER_NEW_PURCHASE, [$this, 'SendAuthorMail']);
-        $this->on(User::EVENT_USER_NEW_PROJECT, [$this, 'SendProjectAdminMail']);
+        //$this->on(User::EVENT_USER_NEW_PROJECT, [$this, 'SendNewProjectAdminMail']);
     }
 
-    // Send email about new register User
+    // ==================== Send email about new register User
     public function SendAdminMail($event)
     {
         $user = $event->sender;
@@ -55,8 +56,8 @@ class User extends ActiveRecord implements IdentityInterface
                 ->setSubject('Новый пользователь на '.Yii::$app->name);
         }
         Yii::$app->mailer->sendMultiple($messages);
-
     }
+
 
     /* User events */
 /*
