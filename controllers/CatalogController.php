@@ -10,6 +10,7 @@ use app\models\Tags;
 use app\models\Themsprod;
 use app\models\UploadProject;
 use app\models\User;
+use app\models\Userevent;
 use Yii;
 use app\models\Products;
 use yii\data\Pagination;
@@ -297,51 +298,6 @@ class CatalogController extends AppController
 
     }
 
-/*
-    public function actionSearch()
-    {
-        $searchModel = new ProductsSearch();
-
-        $request = Yii::$app->request;
-
-        $painter = $request->get('painter');
-        $painter_id = User::find()->where(['username' => $painter])->select('id')->one();
-
-        $products = Products::find()
-            ->where([
-                'state' => 1,
-                'deleted' => 0,
-                'user_id' => 1,
-            ]);
-
-        $productsall = $products;
-
-        $pagination = new Pagination(
-            [
-                'defaultPageSize'   => CatalogController::STATUS_PAGESIZE,
-                'totalCount'        => $products->count() //ограничиваем пагинацию по размеру массива тега
-            ]
-        );
-
-        $products = Products::find()
-            ->where([
-                'state' => 1,
-                'deleted' => 0,
-                'user_id' => 1
-            ])
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
-
-        return $this->render('index', [
-            'products'      => $products,
-            'productsall'   => $productsall,
-            'searchModel'   => $searchModel,
-            'pagination'    => $pagination
-        ]);
-    }
-*/
-
     public function actionRate($pid = 0, $rating = 0)
     {
 
@@ -419,9 +375,13 @@ class CatalogController extends AppController
                 $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
             };
 
+            //-----------------------------------------------------------------
+
             //event new user project
             $project = $model;
             $project->trigger(Products::EVENT_USER_NEW_PROJECT);
+
+            //-----------------------------------------------------------------
 
             return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
         }
