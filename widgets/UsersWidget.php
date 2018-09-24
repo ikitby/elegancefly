@@ -10,31 +10,34 @@ class UsersWidget extends Widget{
     public $tpl;
     public $data;
     public $usertype;
+    public $order;
 
     public function init(){
         parent::init();
         if ($this->usertype === null) {$this->usertype = 'painter';}
         if ($this->tpl === null) {$this->tpl = 'gallery';}
         $this->tpl .='.php';
+        if ($this->order === null) {$this->order = ['sales' => SORT_DESC];}
     }
 
     public function run() {
         //get cache
-        $users = Yii::$app->cache->get('usergallery');
-        if ($users) return $users;
+        //$users = Yii::$app->cache->get('usergallery');
+        //if ($users) return $users;
 
         $this->data = User::find()
             ->joinWith('userLevel')
             ->where(['auth_assignment.item_name' => 'Painter'])
             ->orWhere(['auth_assignment.item_name' => 'Creator'])
             ->andWhere(['status' => '10'])
+            ->orderBy($this->order)
             ->limit(10)
             ->all();
 
         $users = $this->getHtmlMenu($this->data);
 
         //set cache
-        Yii::$app->cache->set('usergallery' , $users, 60*5);
+        //Yii::$app->cache->set('usergallery' , $users, 60*5);
         return $users;
     }
 

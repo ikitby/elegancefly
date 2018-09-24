@@ -13,7 +13,7 @@ div#sociconsblock {text-align: center;}
 div#sociconsblock>a {display: inline-block;}
 
 /* usersgalery */
-ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 40px 0 0 0;}
+ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 0;}
 ul#userblockid>li {flex-basis: 25%;padding: 5px;}
 
 /* painters */

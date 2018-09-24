@@ -15,7 +15,7 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
-            //'layout' => 'admin',
+            'layout' => 'admin',
         ],
         'rbac' => [
             'class' => 'mdm\admin\Module',
