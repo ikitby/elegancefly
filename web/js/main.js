@@ -287,6 +287,29 @@ $('.depowidget .deposit_hide').on('click', function () {
     }
 );
 
+    $(".getusercashe").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: '/profile/getcache',
+            data: {id: id},
+            type: 'POST',
+            success: function (data) {
+
+                $('.getusercashe').addClass("blackZone").attr("disabled", "disabled").html('Sended!');
+
+                //if (!data) alert('Error!');disabled="disabled"
+                //var data = jQuery.parseJSON(data);
+                ShowUniQuery();
+            },
+            error: function () {
+                alert ('Error!');
+            }
+        })
+        ShowUniQuery();
+    });
+
 // Favourite logic
     /*
     $(".add-to-cart").on('click', function(e){

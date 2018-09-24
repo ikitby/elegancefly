@@ -6,6 +6,7 @@ use app\models\ImageUpload;
 use app\models\Prodlimit;
 use app\models\Products;
 use app\models\Transaction;
+use app\models\Userevent;
 use Exception;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -18,6 +19,7 @@ use PayPal\Api\RedirectUrls;
 //use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use app\models\User;
@@ -46,6 +48,7 @@ class ProfileController extends AppController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'getcache' => ['POST'],
                 ],
             ],
         ];
@@ -383,6 +386,70 @@ class ProfileController extends AppController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /*
+     * Блок вывод денег
+     */
+    public function actionGetcache ()
+    {
+
+        $requestDelay = Yii::$app->params['requestDelay'];
+        $minLimitCasheMoney = Yii::$app->params['minLimitCasheMoney'];
+        $currentTime = time();
+
+        //Проверим может ли пользователь по балансу сделать запрос
+        $userBalance = Transaction::getUserBalance(Yii::$app->user->id);
+        $user = User::findOne(Yii::$app->user->id);
+        if ($userBalance >= $minLimitCasheMoney) { //Если баланс соответствуюе лимитам - разрешаем запрос
+
+            //Проверка наличия запроса в базе (Берем последний запрос с неактивным статусом и проверяем когда он был)
+            $request = Userevent::find()->where(['event_type' => 'casherequest', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
+            $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
+            if (!$request) {//Есдли нет запроса - создаем.
+                // установка события о новом запросе. если
+                //-----------------------------------------------------------------
+
+                $userEvent = new Userevent();
+                $userEvent->setLog(Yii::$app->user->id, 'casherequest', 'Заявка на вывод денег', '0');
+
+                //-----------------------------------------------------------------
+            }
+            // Если пользователь еще не отправлял запроса или отправлял, но со времени отправки
+            // прошло больше времени чем разрешено для отправки повторного запроса и при этом запрос
+            // еще не был закрыт - отправляем новое писмо ответственным и обновляем запись
+            if ($currentTime - $event_time > $requestDelay) {
+
+                if (!empty($request)) {
+                    $request->event_time = date('Y-m-d H:i:s');//обновляем дату запроса
+                    $request->save();//Сохраняем
+                }
+
+                $mail_admins = User::getUsersByIds(User::UsersByPermission('canReceiveCasheMail'));
+
+                $messages = [];
+                foreach ($mail_admins as $mailadmin) {
+                    $messages[] = Yii::$app->mailer->compose('userCasheMail', ['$userBalance' => $userBalance, 'user' => $user])
+                        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (Запрос от '.$user->username.' на обналичку).'])
+                        ->setTo($mailadmin->email)
+                        ->setSubject('Запрос выводе данег от '.$user->username);
+                }
+                Yii::$app->mailer->sendMultiple($messages);
+
+                Return "OK отправляем письмо";
+
+            } else {
+                $message = "Вы уже отправавляли заявку ".$request->event_time;
+                Return $message;
+            }
+
+
+        } else {
+
+            return ('You have not enough money for this action');
+        }
+
+
     }
 
     /**

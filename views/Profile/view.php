@@ -2,6 +2,7 @@
 
 use app\models\Transaction;
 use app\models\User;
+use app\models\Userevent;
 use app\widgets\DepositWidget;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
@@ -88,6 +89,21 @@ dump($painter);
             <?php if ($model->tumblrpage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/tumblr.png" alt="Tumblr" title="'.$model->username.' Tumblr">', Url::to($model->tumblrpage), ['target' => '_blank']) ?></li><?php endif;?>
             <?php if ($model->youtubepage) : ?><li><?= Html::a('<img class="img-responsive" src="/images/icons/youtube.png" alt="Youtube" title="'.$model->username.' Youtube">', Url::to($model->youtubepage), ['target' => '_blank']) ?></li><?php endif;?>
         </ul>
+
+        <?php
+        $request = Userevent::find()->where(['event_type' => 'casherequest', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
+        $event_time = strtotime($request->event_time);
+        $attr = '';
+        $tbtn = '<span class="glyphicon glyphicon-usd"></span>Вывести';
+        if (time() - $event_time <= Yii::$app->params['requestDelay'])
+        {
+            $attr = 'disabled="disabled"';
+            $tbtn = 'Sended!';
+
+        }
+        if (Transaction::getUserBalance($model->id) >= Yii::$app->params['minLimitCasheMoney']) : ?>
+            <button type="button" class="btn btn-success btn-xs deposit_show getusercashe" <?= $attr ?>><?= $tbtn ?></Вывести></button>
+        <?php endif; ?>
 
         <div id="balancewrapp">
         <div class="balance">

@@ -68,6 +68,17 @@ class CatalogController extends AppController
             ]
         );
 
+
+
+        //-----------------------------------------------------------------
+/*
+        $userEvent = new Userevent();
+        $userEvent->UsercCanReciveMoney(Yii::$app->user->id,'1');
+*/
+        //-----------------------------------------------------------------
+
+
+
         $products = Products::find()
             ->where($dataProvider->query->where)
             ->andWhere(['deleted' => 0])
@@ -383,6 +394,13 @@ class CatalogController extends AppController
 
             //-----------------------------------------------------------------
 
+            //-----------------------------------------------------------------
+
+            $userEvent = new Userevent();
+            $userEvent->setLog(Yii::$app->user->id,'user','Uploaded new project ID:'.$project->id,'1');
+
+            //-----------------------------------------------------------------
+
             return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
         }
         return $this->render('create', [
@@ -461,7 +479,15 @@ class CatalogController extends AppController
         {
             if (file_exists($res->foolpath)) {unlink($res->foolpath);} // Чистим все картинки предпросмотра
         }
-        $project->delete(); //Удаляем проект из базы
+         $project->delete(); //Удаляем проект из базы
+
+        //-----------------------------------------------------------------
+
+        $userEvent = new Userevent();
+        $userEvent->setLog(Yii::$app->user->id,'user','Deleted project ID:'.$id,'1');
+
+        //-----------------------------------------------------------------
+
         return json_encode('Project deleted!');
     }
 

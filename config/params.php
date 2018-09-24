@@ -7,4 +7,7 @@ return [
     'supportEmail' => 'noreply@elegancefly.com',
     'emailActivation' => true,
 
+    'minLimitCasheMoney' => 50,
+    'requestDelay' => 60,
+
 ];
