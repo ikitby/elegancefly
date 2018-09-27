@@ -142,7 +142,13 @@ Modal::begin([
 ]);
 Modal::end();
 ?>
-
+<?php
+Modal::begin([
+    'header' => '<h4 class="modal-title">Profile upgrade</h4>',
+    'id' => 'upgProfile',
+]);
+Modal::end();
+?>
 <?php $this->endBody() ?>
 </body>
 </html>

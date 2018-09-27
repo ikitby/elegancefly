@@ -407,4 +407,16 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $countProjects = Products::find()->where(['user_id' => $id, 'state' => 1, 'deleted' => 0])->count();
     }
+
+    public static function getUsersCount($usertype){
+        $userlevel = ($usertype) ? $usertype : 'User';
+
+        $count = User::find()
+            ->joinWith('userLevel')
+            ->where(['auth_assignment.item_name' => $userlevel])
+            ->count();
+
+        return $count;
+    }
+
 }

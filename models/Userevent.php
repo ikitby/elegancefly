@@ -166,7 +166,7 @@ class Userevent extends \yii\db\ActiveRecord
 
     public function getEventUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'event_user']);
     }
 
 }

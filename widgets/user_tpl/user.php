@@ -3,6 +3,7 @@
 use app\models\Transaction;
 use app\models\User;
 use kartik\widgets\StarRating;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -58,17 +59,16 @@ use yii\helpers\Url;
                 <?php if (User::Can('viewOwnProjects')):?><li class=""><a href="<?= Url::to('/profile/myprojects') ?>">My projects</a></li><?php endif; ?>
                 <?php if (User::Can('viewPurchases')):?><li class=""><a href="<?= Url::to('/profile/purchases') ?>">My purchases</a></li><?php endif; ?>
                 <?php if (User::Can('viewPayments')):?><li class=""><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li><?php endif; ?>
-                <li class="">
-                    <?php if (Yii::$app->user->isGuest) : ?>
-                        <a href="<?= Url::to(['/login'])?>" data-method="post">Авторизация</a> | <a href="<?= Url::to(['/signup'])?>" data-method="post">Регистрация</a>
+                <?php if (User::Can('canUpgradeProfile')):
+                    if (\app\controllers\ProfileController::userCanNewRequest('profileupdate', 0)): ?>
+                        <li class="profileupli"><a class="profileup" href="#">Profile upgrade</a></li>
                     <?php else: ?>
-                        <a href="<?= Url::to(['/logout'])?>" data-method="post">Выход</a>
+                        <li class="profileupli"><a class="">Profile upgrade sended</a></li>
                     <?php endif; ?>
 
-                </li>
+                <?php endif; ?>
             </ul>
         </div>
-
     <?php endif; ?>
     <div class="col-md-12">
         <?php if (Yii::$app->user->isGuest) : ?>
@@ -78,6 +78,7 @@ use yii\helpers\Url;
         <?php*/ endif; ?>
 
     </div>
+
 
 </div>
 

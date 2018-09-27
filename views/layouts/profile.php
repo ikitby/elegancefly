@@ -142,7 +142,15 @@ Modal::begin([
 ]);
 Modal::end();
 ?>
+<?php
+Modal::begin([
+    'header' => '<h4 class="modal-title">Profile upgrade</h4>',
+    'footer' => '<button type="button" id="imPainter" style="margin: 0 auto;display: inherit;" class="btn btn-success btn-lg">Я - Художник!</button>',
+    'id' => 'upgProfile',
+]);
 
+Modal::end();
+?>
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -4,17 +4,20 @@
 /* @var $content string */
 
 use app\models\Cart;
+use app\models\User;
 use app\widgets\Alert;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
+use app\assets\AdminAssets;
+//use app\assets\AppAsset;
 
-AppAsset::register($this);
+AdminAssets::register($this);
+//AppAsset::register($this);
 
-$cartsumm = Cart::getCartsumm();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -29,20 +32,16 @@ $cartsumm = Cart::getCartsumm();
 </head>
 <body class="is-preload">
 <?php $this->beginBody() ?>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
 <!-- Header -->
 <div id="header">
 
     <div class="top">
         <nav id="nav">
 
-            nav
+            <div class="usermenu">
+                <ul class="">
+                    <li class=""><a href="<?= Url::to('/admin/users') ?>">Пользователи</a></li>
+                </ul>
 
         </nav>
     </div>
@@ -59,7 +58,7 @@ $cartsumm = Cart::getCartsumm();
     <?php
     NavBar::begin([
         'brandLabel' => '<img class="img-responsive" src="/images/logo.png" alt="EleganceFly" title="EleganceFly">',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => '/admin',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -92,25 +91,12 @@ $cartsumm = Cart::getCartsumm();
 
     <div class="con tainer">
         <div class="row">
-            <div class="col-md-12 col-lg-9">
+            <div class="col-md-12">
                 <?= Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ]) ?>
                 <?= Alert::widget() ?>
                 <?= $content ?>
-            </div>
-            <div class="col-md-12 col-lg-3">
-
-                <h3>Новые<span class="label label-info"></span></h3>
-                <ul id="userblockid">
-                    <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => 'painter', 'order' => (['created_at' => SORT_DESC])]) ?>
-                </ul>
-
-                <h3>Популярные<span class="label label-info"></span></h3>
-                <ul id="userblockid">
-                    <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => 'painter', 'order' => ['sales' => SORT_DESC]]) ?>
-                </ul>
-
             </div>
 
             <?php

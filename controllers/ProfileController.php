@@ -49,6 +49,7 @@ class ProfileController extends AppController
                 'actions' => [
                     'delete' => ['POST'],
                     'getcache' => ['POST'],
+                    'upgrade' => ['POST'],
                 ],
             ],
         ];
@@ -404,14 +405,16 @@ class ProfileController extends AppController
         if ($userBalance >= $minLimitCasheMoney) { //Если баланс соответствуюе лимитам - разрешаем запрос
 
             //Проверка наличия запроса в базе (Берем последний запрос с неактивным статусом и проверяем когда он был)
-            $request = Userevent::find()->where(['event_type' => 'casherequest', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
+            //$request = Userevent::find()->where(['event_type' => 'casherequest', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
+            $request = $this->userHaveRequest('casherequest', 0);
+
             $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
             if (!$request) {//Есдли нет запроса - создаем.
                 // установка события о новом запросе. если
                 //-----------------------------------------------------------------
 
                 $userEvent = new Userevent();
-                $userEvent->setLog(Yii::$app->user->id, 'casherequest', 'Заявка на вывод денег', '0');
+                $userEvent->setLog(Yii::$app->user->id, 'casherequest', 'Заявка на вывод <span class="label label-warning">'.$userBalance.'$</span>', '0');
 
                 //-----------------------------------------------------------------
             }
@@ -452,6 +455,65 @@ class ProfileController extends AppController
 
     }
 
+    /*
+     * Обновление профиля до более высокого уровня
+     */
+    public function actionUpgrade()
+    {
+        $userid = Yii::$app->user->id;
+        $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"]->name;
+        $user = User::getUsersByIds(Yii::$app->user->id);
+        $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
+        $currentTime = time(); //текущее время
+
+        if ($userLever == 'User') {
+            //Проверяем наличие второго этапа!
+            if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+                $imPainter = Yii::$app->request->POST('imPainter');
+                if ($imPainter == 'ok') {
+
+                    //$request = Userevent::find()->where(['event_type' => 'profileupdate', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
+
+                    $request = $this->userHaveRequest('profileupdate', 0);
+
+                    $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
+
+                    if (!$request) {//Если нет запроса - создаем.
+                        //тут вызываем событие запроса!
+                        //-----------------------------------------------------------------
+
+                        $userEvent = new Userevent();
+                        $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос на профиль художника', '0');
+
+                        //-----------------------------------------------------------------
+
+                        $this->sendAdminMail('user', '0', 'Запрос на профиль художника');
+                        return $imPainter;
+                    }
+                   //---------------------------------!!!!!!!!!!
+                    if ($request && $currentTime - $event_time > $requestDelay) {
+
+                        $request->event_time = date('Y-m-d H:i:s');//обновляем дату запроса
+                        $request->save();//Сохраняем
+
+                        // Напомним еще раз письмом
+                        $this->sendAdminMail('user', '0', 'Запрос на профиль художника');
+                        return $imPainter;
+                    }
+
+                }
+                return $this->renderPartial('usernote', [
+                    'userLever' => $userLever,
+                    'user' => $user[0]
+                ]);
+            }
+        } elseif ($userLever == 'Painter') {
+            return 'Painter';
+        }
+
+        return $userLever;
+    }
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -477,5 +539,43 @@ class ProfileController extends AppController
     {
         if (Yii::$app->user->isGuest) {return $this->redirect(['/login']);}
         return $id = Yii::$app->user->id;
+    }
+
+    /*
+    *   Отправка письма администратору ---------------------------------
+    */
+    private function sendAdminMail ($event_type = 'user', $event_progress = 0, $event_desc='Запрос на смену профиля') {
+
+        $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
+        $currentTime = time(); //текущее время
+        $user = User::findOne(Yii::$app->user->id); //текущий пользователь
+
+
+        $mail_admins = User::getUsersByIds(User::UsersByPermission('canApprowPainterMail')); //Берем пользователей, что могут получать уведомления о запросах художников
+
+        $messages = [];
+        foreach ($mail_admins as $mailadmin) {
+            $messages[] = Yii::$app->mailer->compose('userCangeProfileMail', ['user' => $user])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (Запрос '.$user->username.' на смену профиля).'])
+                ->setTo($mailadmin->email)
+                ->setSubject($event_desc.' от '.$user->username);
+        }
+        return Yii::$app->mailer->sendMultiple($messages);
+    }
+
+    public static function userHaveRequest($eventtype='user', $eventprogress='0') {
+        return Userevent::find()->where(['event_user' => Yii::$app->user->id, 'event_type' => $eventtype, 'event_progress' => $eventprogress])->orderBy(['event_time' => SORT_DESC])->one();
+    }
+
+    //
+    public static function userCanNewRequest($eventtype='user', $eventprogress='0') {
+        $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
+        $currentTime = time(); //текущее время
+        $event = Userevent::find()->where(['event_user' => Yii::$app->user->id, 'event_type' => $eventtype, 'event_progress' => $eventprogress])->orderBy(['event_time' => SORT_DESC])->one();
+        $event_time = strtotime($event->event_time);
+        if ($event && $currentTime - $event_time > $requestDelay) {
+            return true;
+        }
+        return false;
     }
 }

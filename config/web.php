@@ -148,6 +148,10 @@ $config = [
                 '/catalog/painter/<painter:\w+>' => 'catalog/painter',
                 '/profile/updateproject/<id:\d+>' => '/profile/updateproject',
 
+                'admin' => 'admin/',
+                '/admin/users/view/<id:\d+>' => '/admin/users/view',
+
+
                 //'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',
             ],

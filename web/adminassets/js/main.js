@@ -267,69 +267,6 @@ $(function () {
 
     });
 
-    $(".profileup").on('click', function(e){
-        e.preventDefault();
-        ShowUpQuery();
-        var id = $(this).data('id');
-
-        $.ajax({
-            url: '/profile/upgrade',
-            data: {id: id},
-            type: 'POST',
-            success: function (data) {
-                //console.log(data);
-                $('#upgProfile .modal-body').html(data);
-
-                //if (!data) alert('Error!');
-                //var data = jQuery.parseJSON(data);
-                ShowUpQuery();
-
-            },
-            error: function () {
-                alert ('Error!');
-            }
-        })
-
-    });
-
-    $("#imPainter").on('click', function(e){
-        e.preventDefault();
-        $.ajax({
-            url: '/profile/upgrade',
-            data: {imPainter: 'ok'},
-            type: 'POST',
-            success: function (data) {
-                //console.log(data);
-                if (!data) alert('Error!');
-                if (data == 'ok') {
-                    $('.profileup').fadeOut(300, function () {
-                        $('.profileupli').html('<a>Profile upgrade sended</a>').removeClass("profileup");
-                    });
-
-                    $('#upgProfile .modal-body').fadeOut();
-                    $('#upgProfile .modal-footer').fadeOut();
-                    setTimeout(function () {
-                        $('#upgProfile .modal-body').fadeIn().html('<div style="text-align: center"><h3>Спасибо!</h3>Администратор получил ваш запрос и рассмотрит его в ближайшее время.</div>');
-                    }, 500);
-                    setTimeout(function () {
-                        $('#upgProfile').modal('hide');
-                    }, 3000);
-                }
-                //var data = jQuery.parseJSON(data);
-                ShowUpQuery();
-
-            },
-            error: function () {
-                alert ('Error!');
-            }
-        })
-
-    });
-
-    function ShowUpQuery(UpProfile) {
-        $('#upgProfile .modal-body').html(UpProfile);
-        $('#upgProfile').modal();
-    }
     function ShowUniQuery(UniqProject) {
         $('#UniqProject .modal-body').html(UniqProject);
         $('#UniqProject').modal();
