@@ -497,7 +497,7 @@ class ProfileController extends AppController
                         $request->save();//Сохраняем
 
                         // Напомним еще раз письмом
-                        $this->sendAdminMail('user', '0', 'Запрос на профиль художника');
+
                         return $imPainter;
                     }
 
@@ -573,6 +573,7 @@ class ProfileController extends AppController
         $currentTime = time(); //текущее время
         $event = Userevent::find()->where(['event_user' => Yii::$app->user->id, 'event_type' => $eventtype, 'event_progress' => $eventprogress])->orderBy(['event_time' => SORT_DESC])->one();
         $event_time = strtotime($event->event_time);
+        if (!$event) {return true;}
         if ($event && $currentTime - $event_time > $requestDelay) {
             return true;
         }
