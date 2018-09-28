@@ -487,7 +487,7 @@ class ProfileController extends AppController
 
                         //-----------------------------------------------------------------
 
-                        $this->sendAdminMail('user', '0', 'Запрос на профиль художника');
+                        $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль художника');
                         return $imPainter;
                     }
                    //---------------------------------!!!!!!!!!!
@@ -497,7 +497,7 @@ class ProfileController extends AppController
                         $request->save();//Сохраняем
 
                         // Напомним еще раз письмом
-
+                        $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль художника');
                         return $imPainter;
                     }
 
@@ -568,13 +568,12 @@ class ProfileController extends AppController
     }
 
     //
-    public static function userCanNewRequest($eventtype='user', $eventprogress='0') {
+    public static function userCanNewRequest($eventtype='profileupdate', $eventprogress='0') {
         $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
         $currentTime = time(); //текущее время
         $event = Userevent::find()->where(['event_user' => Yii::$app->user->id, 'event_type' => $eventtype, 'event_progress' => $eventprogress])->orderBy(['event_time' => SORT_DESC])->one();
         $event_time = strtotime($event->event_time);
-        if (!$event) {return true;}
-        if ($event && $currentTime - $event_time > $requestDelay) {
+        if (!$event || ($event && $currentTime - $event_time > $requestDelay)) {
             return true;
         }
         return false;

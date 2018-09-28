@@ -53,11 +53,11 @@ use app\models\User;
         </div>
         <div class="col-sm-4">
             <h3>Смена статуса</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'casherequest']) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'profileupdate']) ?>
         </div>
         <div class="col-sm-4">
             <h3>Последние события</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user']]) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user','profileupdate']]) ?>
         </div>
     </div>
 </div>
