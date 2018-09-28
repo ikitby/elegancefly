@@ -462,6 +462,7 @@ class ProfileController extends AppController
     {
         $userid = Yii::$app->user->id;
         $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"]->name;
+
         $user = User::getUsersByIds(Yii::$app->user->id);
         $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
         $currentTime = time(); //текущее время
@@ -508,6 +509,34 @@ class ProfileController extends AppController
                 ]);
             }
         } elseif ($userLever == 'Painter') {
+            if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+                $request = $this->userHaveRequest('profileupdate', 0);
+
+                $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
+
+                if (!$request) {//Если нет запроса - создаем.
+                    //тут вызываем событие запроса!
+                    //-----------------------------------------------------------------
+
+                    $userEvent = new Userevent();
+                    $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос на профиль творца', '0');
+
+                    //-----------------------------------------------------------------
+
+                    $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль творца');
+                    return 'ok';
+                }
+                //---------------------------------!!!!!!!!!!
+                if ($request && $currentTime - $event_time > $requestDelay) {
+
+                    $request->event_time = date('Y-m-d H:i:s');//обновляем дату запроса
+                    $request->save();//Сохраняем
+
+                    // Напомним еще раз письмом
+                    $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль художника');
+                    return 'ok';
+                }
+            }
             return 'Painter';
         }
 

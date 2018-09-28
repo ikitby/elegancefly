@@ -59,13 +59,25 @@ use yii\helpers\Url;
                 <?php if (User::Can('viewOwnProjects')):?><li class=""><a href="<?= Url::to('/profile/myprojects') ?>">My projects</a></li><?php endif; ?>
                 <?php if (User::Can('viewPurchases')):?><li class=""><a href="<?= Url::to('/profile/purchases') ?>">My purchases</a></li><?php endif; ?>
                 <?php if (User::Can('viewPayments')):?><li class=""><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li><?php endif; ?>
-                <?php if (User::Can('canUpgradeProfile')):
-                    if (\app\controllers\ProfileController::userCanNewRequest('profileupdate', 0)): ?>
-                        <li class="profileupli"><a class="profileup" href="#">Profile upgrade</a></li>
-                    <?php else: ?>
-                        <li class="profileupli"><a class="">Profile upgrade sended</a></li>
-                    <?php endif; ?>
 
+                <?php
+                $userid = Yii::$app->user->id;
+                $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"];
+
+                if (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["User"]):
+                    if (\app\controllers\ProfileController::userCanNewRequest('profileupdate', 0)): ?>
+                        <li class="profileupli"><a class="profileup" href="#">I am painter!</a></li>
+                    <?php else: ?>
+                        <li class="profileupli"><a class="">Profile upgrade sended!</a></li>
+                    <?php endif; ?>
+                <?php endif;
+
+                if (Yii::$app->authManager->getRolesByUser($userid)["Painter"]):
+                    if (\app\controllers\ProfileController::userCanNewRequest('profileupdate', 0)): ?>
+                        <li class="profileupli"><a class="profilecrup" href="#">I am creator!</a></li>
+                    <?php else: ?>
+                        <li class="profileupli"><a class="">Profile upgrade sended!</a></li>
+                    <?php endif; ?>
                 <?php endif; ?>
             </ul>
         </div>
