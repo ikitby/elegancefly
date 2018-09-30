@@ -278,11 +278,44 @@ $(function () {
             type: 'POST',
             success: function (data) {
                 //console.log(data);
+
+
                 $('#upgProfile .modal-body').html(data);
 
                 //if (!data) alert('Error!');
                 //var data = jQuery.parseJSON(data);
                 ShowUpQuery();
+
+            },
+            error: function () {
+                alert ('Error!');
+            }
+        })
+
+    });
+
+    $(".profilecrup ").on('click', function(e){
+        e.preventDefault();
+
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: '/profile/upgrade',
+            data: {imCreator: id},
+            type: 'POST',
+            success: function (data) {
+                //console.log(data);
+                if (!data) alert('Error!');
+                if (data == 'ok') {
+                    $('.profilecrup').fadeOut(300, function () {
+                        $('.profileupli').html('<a>Profile upgrade sended!</a>').removeClass("profileup");
+                    });
+                }
+                //$('#upgProfile .modal-body').html(data);
+
+                //if (!data) alert('Error!');
+                //var data = jQuery.parseJSON(data);
+                //ShowUpQuery();
 
             },
             error: function () {
@@ -303,7 +336,7 @@ $(function () {
                 if (!data) alert('Error!');
                 if (data == 'ok') {
                     $('.profileup').fadeOut(300, function () {
-                        $('.profileupli').html('<a>Profile upgrade sended</a>').removeClass("profileup");
+                        $('.profileupli').html('<a>Profile upgrade sended!</a>').removeClass("profileup");
                     });
 
                     $('#upgProfile .modal-body').fadeOut();
@@ -325,6 +358,8 @@ $(function () {
         })
 
     });
+
+
 
     function ShowUpQuery(UpProfile) {
         $('#upgProfile .modal-body').html(UpProfile);

@@ -149,6 +149,7 @@ $config = [
                 '/profile/updateproject/<id:\d+>' => '/profile/updateproject',
 
                 'admin' => 'admin/',
+
                 '/admin/users/view/<id:\d+>' => '/admin/users/view',
 
 

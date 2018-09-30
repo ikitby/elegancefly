@@ -461,13 +461,13 @@ class ProfileController extends AppController
     public function actionUpgrade()
     {
         $userid = Yii::$app->user->id;
-        $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"]->name;
+
 
         $user = User::getUsersByIds(Yii::$app->user->id);
         $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
         $currentTime = time(); //текущее время
 
-        if ($userLever == 'User') {
+        if (Yii::$app->authManager->getRolesByUser($userid)["User"]) {
             //Проверяем наличие второго этапа!
             if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
                 $imPainter = Yii::$app->request->POST('imPainter');
@@ -504,12 +504,13 @@ class ProfileController extends AppController
 
                 }
                 return $this->renderPartial('usernote', [
-                    'userLever' => $userLever,
                     'user' => $user[0]
                 ]);
             }
-        } elseif ($userLever == 'Painter') {
+        } elseif (Yii::$app->authManager->getRolesByUser($userid)["Painter"]) {
             if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
+                $imCreator = Yii::$app->request->POST('imCreator');
+
                 $request = $this->userHaveRequest('profileupdate', 0);
 
                 $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
@@ -537,10 +538,10 @@ class ProfileController extends AppController
                     return 'ok';
                 }
             }
-            return 'Painter';
+            return true;
         }
 
-        return $userLever;
+        return false;
     }
 
     /**

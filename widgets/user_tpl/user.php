@@ -79,6 +79,14 @@ use yii\helpers\Url;
                         <li class="profileupli"><a class="">Profile upgrade sended!</a></li>
                     <?php endif; ?>
                 <?php endif; ?>
+
+                <?php
+                if (Yii::$app->authManager->getRolesByUser($userid)["Admin"]) : ?>
+                    <hr/>
+                    <li class=""><a href="<?= Url::to('/admin') ?>">Admin</a></li>
+                <?php
+                endif;
+                ?>
             </ul>
         </div>
     <?php endif; ?>
