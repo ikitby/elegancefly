@@ -3,6 +3,8 @@
 use app\widgets\Alert;
 use yii\helpers\Html;
 use app\models\User;
+use yii\helpers\Url;
+
 //AdminAsset::register($this);
 
 ?>
@@ -13,19 +15,19 @@ use app\models\User;
     <div class="container" style="background-color: #212528;color:  #ccc;">
         <div class="col-sm-3" style="text-align: center; color: #eed77d;">
             Пользователей:
-            <h1><?= User::getUsersCount(['Painter','Creator','User']) ?></h1>
+            <a style="color: #eed77d;" href="<?= Url::to(['/admin/users']) ?>"><h1><?= User::getUsersCount(['Painter','Creator','User']) ?></h1></a>
         </div>
         <div class="col-sm-3" style="text-align: center;">
             Покупателей:
-            <h1><?= User::getUsersCount('User') ?></h1>
+            <a style="color: #ccc;" href="<?= Url::to(['/admin/users', 'UsersSearch[role]' => 'User']) ?>"><h1><?= User::getUsersCount('User') ?></h1></a>
         </div>
         <div class="col-sm-3" style="text-align: center;">
             Художников:
-            <h1><?= User::getUsersCount('Painter') ?></h1>
+            <a style="color: #ccc;" href="<?= Url::to(['/admin/users', 'UsersSearch[role]' => 'Painter']) ?>"><h1><?= User::getUsersCount('Painter') ?></h1></a>
         </div>
         <div class="col-sm-3" style="text-align: center;">
             Творцов:
-            <h1><?= User::getUsersCount('Creator') ?></h1>
+            <a style="color: #ccc;" href="<?= Url::to(['/admin/users', 'UsersSearch[role]' => 'Creator']) ?>"><h1><?= User::getUsersCount('Creator') ?></h1></a>
         </div>
     </div>
 </div>

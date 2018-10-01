@@ -28,7 +28,7 @@ $config = [
                 ],
             ],
             'layout' => 'left-menu',
-            'mainLayout' => '@app/views/layouts/main.php',
+            'mainLayout' => '@app/modules/admin/views/layouts/admin.php',
 
         ]
 

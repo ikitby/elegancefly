@@ -51,19 +51,48 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Username',
                 'attribute' => 'username',
                 'value' => function($model){
+                    return '<a href="'.yii\helpers\Url::to(["/admin/users/view", "id" => $model->id]).'">'.$model->username.'</a>
+                    <br/><h6 style="margin: 0">'.Yii::$app->formatter->asDate($model->created_at).'</h6>';
+                },
+            ],
+
+            [
+                'headerOptions' => ['width' => '100'],
+                'format'  => 'html',
+                'label' => 'Роль',
+                'attribute' => 'role',
+                'value' => function($model){
                     $uroles = '';
                     foreach (User::Roles($model->id) as $role) :
-                        $uroles .= $model->username.'<br />';
-                        $uroles .= '<span class="label label-primary">'.$role->name.'</span>';
+                        $label = 'default';
+                        switch ($role->name) {
+                            case 'Admin';
+                                $label = 'danger';
+                            break;
+                            case 'Painter';
+                                $label = 'primary';
+                            break;
+                            case 'Creator';
+                                $label = 'success';
+                            break;
+                        }
+
+                        $uroles = '<span class="label label-'.$label.'">'.$role->name.'</span>';
+
                     endforeach;
                     return $uroles;
                 },
+                'filter' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'),
+
             ],
+
+            /*
             [
                 'label' => 'Роль',
                 'filter' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'),
                 'attribute' => 'role',
             ],
+            */
             /*[
                 'label' => 'Картинка',
                 'format' => 'image',
@@ -84,9 +113,25 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password_reset_token',
             [
                 'headerOptions' => ['width' => '50'],
+                'format'  => 'html',
                 'label' => 'Вкл?',
                 'attribute' => 'status',
-                'filter' => [10 => 'Вкл.', 0 => 'Выкл.'],
+                'filter' => [10 => 'Активен.', 0 => 'Не активен.'],
+                'value' => function($model){
+                    $label = 'success';
+                    switch ($model->status) {
+                        case '0';
+                            $label = 'danger';
+                            $text = 'Не активен';
+                            break;
+                        case '10';
+                            $label = 'success';
+                            $text = 'Активен';
+                            break;
+                    }
+                    return '<span class="label label-'.$label.'">'.$text.'</span>';
+                }
+
             ],
             //'created_at',0
             //'updated_at',

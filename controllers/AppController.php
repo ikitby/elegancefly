@@ -17,6 +17,7 @@ class AppController extends Controller
     public function init()
     {
         // Проверяем роль пользователя и если она не соответствует той, которая отмечена у него - меняем отметку
+
         if (!Yii::$app->user->isGuest) {
             $user = User::findOne(Yii::$app->user->id);
             $userrole = $user->role;
@@ -29,6 +30,7 @@ class AppController extends Controller
                 $user->save(false);
             }
         }
+
         // Проверяем роль пользователя и если она не соответствует той, которая отмечена у него - меняем отметку
 
     }

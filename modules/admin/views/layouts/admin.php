@@ -41,6 +41,7 @@ AdminAssets::register($this);
             <div class="usermenu">
                 <ul class="">
                     <li class=""><a href="<?= Url::to('/admin/users') ?>">Пользователи</a></li>
+                    <li class=""><a href="<?= Url::to('/rbac/user') ?>">Управление правами</a></li>
                     <hr/>
                     <li class=""><a href="<?= Url::to('/') ?>">Фронт сайта</a></li>
                 </ul>
