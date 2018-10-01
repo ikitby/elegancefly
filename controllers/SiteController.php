@@ -139,7 +139,7 @@ class SiteController extends AppController
         $model = $emailActivation ? new SignupForm( ['scenario' => 'emailActivation']) : new SignupForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($user = $model->signup()):
+            if ($user = $model->si1gnup()):
                 //event new user register
                 $user->trigger($user::EVENT_USER_REGISTERED);
                 if ($user->status === User::STATUS_ACTIVE):
