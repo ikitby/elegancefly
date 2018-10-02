@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 
 /**
  * Signup form
@@ -62,7 +63,7 @@ class SignupForm extends Model
             return null;
         }
         $user = new User();
-        $user->username = $this->username;
+        $user->username = mb_strtolower(Html::encode($this->username), 'UTF8');
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();

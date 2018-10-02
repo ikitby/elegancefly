@@ -7,6 +7,8 @@ use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
 use app\models\User;
+
+use app\models\Userevent;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
@@ -78,6 +80,7 @@ class SiteController extends AppController
      */
     public function actionLogin()
     {
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -139,9 +142,10 @@ class SiteController extends AppController
         $model = $emailActivation ? new SignupForm( ['scenario' => 'emailActivation']) : new SignupForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($user = $model->si1gnup()):
+            if ($user = $model->signup()):
                 //event new user register
                 $user->trigger($user::EVENT_USER_REGISTERED);
+
                 if ($user->status === User::STATUS_ACTIVE):
                     if (Yii::$app->getUser()->login($user)):
                         return $this->redirect(['/profile/edit']);
@@ -178,11 +182,16 @@ class SiteController extends AppController
         }
 
         if ($user->activateAccount()):
-            Yii::$app->session->setFlash('success', 'Активация прошла успешно.
-            <strong>'.Html::encode($user->username).'</strong> добро пожаловать');
+            //-----------------------------------------------------------------
+
+            $userEvent = new Userevent();
+            $userEvent->setLog($user->userid, 'user', 'Зарегистрировался новый пользователь <span class="nusername">'.$user->username.'</span>', '1');
+
+            //-----------------------------------------------------------------
+            Yii::$app->session->setFlash('success', 'Активация прошла успешно. Добро пожаловать, <strong>'.Html::encode($user->username).'</strong>');
         else:
             Yii::$app->session->setFlash('error', 'Ошибка активации');
-        Yii::error('Ошибка при активации');
+            Yii::error('Ошибка при активации');
         endif;
         return $this->redirect(Url::to(['/login']));
 

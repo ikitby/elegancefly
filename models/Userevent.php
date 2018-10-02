@@ -113,9 +113,9 @@ class Userevent extends \yii\db\ActiveRecord
         if ($userbalance >= $limitCashe) {
             dump($userbalance);
         }
-        die();
+
         $userevent = new Userevent();
-        $userevent->event_user = $usesr_id;
+        $userevent->event_user = $user_id;
         $userevent->event_time = date('Y-m-d H:i:s');
         $userevent->event_type = $event->data['type'];
         $userevent->event_desc = $event->data['descr'];

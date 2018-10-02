@@ -37,11 +37,13 @@ class AccountActivation extends Model
 
     public function activateAccount()
     {
+
         if ($this->_user) {
             $user = $this->_user;
             $user->status = User::STATUS_ACTIVE;
             $user->removePasswordResetToken();
             return $user->save();
+
         } else {
             Yii::$app->session->setFlash('error', 'Ошибка активации');
             return false;
@@ -55,6 +57,11 @@ class AccountActivation extends Model
     {
         $user = $this->_user;
         return $user->username;
+    }
+    public function getUserid()
+    {
+        $user = $this->_user;
+        return $user->id;
     }
 
 

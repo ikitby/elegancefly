@@ -9,6 +9,7 @@ mark {
 div#cataloggreedwrapp {display: flex;flex-wrap: wrap;}
 div#cataloggreedwrapp>.col-cat {flex-basis: 20%;padding: 5px;overflow: hidden;}
 
+span.nusername {font-weight: bold;text-transform: uppercase;color: #3a87ad;}
 /* Basic */
 
 html {box-sizing: border-box;}
@@ -372,3 +373,4 @@ em, i {font-style: italic;}
 	@media screen and (max-width: 736px) {
 
 	}
+
