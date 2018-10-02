@@ -31,6 +31,7 @@ class CartController extends AppController
     {
         $cartprod = $this->getCartItems();
 
+        Yii::$app->session->setFlash('warning', 'Your basket is empty. Put the goods in the basket.');
         if (empty($cartprod)) {return $this->redirect(['/catalog']);}
 
         return $this->render('index', [
@@ -47,7 +48,8 @@ class CartController extends AppController
         if ($gateway) {
             $cartprod = $this->getCartItems();
             if (empty($cartprod)) {
-                return $this->redirect(['/catalog']);
+                Yii::$app->session->setFlash('warning', 'Your basket is empty. Put the goods in the basket.');
+                return $this->redirect(['/catalog']); //Если корзина пуста - бросаем пользвоателя на главку каталога
             }
 
             return $this->render('checkout_' . $gateway, [

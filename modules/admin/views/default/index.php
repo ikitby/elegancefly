@@ -59,7 +59,7 @@ use yii\helpers\Url;
         </div>
         <div class="col-sm-4">
             <h3>Последние события</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user','profileupdate']]) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user','profileupdate','addfunds']]) ?>
         </div>
     </div>
 </div>

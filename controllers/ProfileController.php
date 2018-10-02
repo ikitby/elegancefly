@@ -166,6 +166,7 @@ class ProfileController extends AppController
         $token = Yii::$app->request->get('token');
 
         if ($success) {
+
             if (!isset($success) && $paymentId && $PayerID)
             {
                 throw new NotFoundHttpException('The requested page does not exist.');
@@ -190,6 +191,7 @@ class ProfileController extends AppController
                     Transaction::ApprowTranaction($cid);
 
                     Yii::$app->session->setFlash('success', 'Your account on the site has been successfully replenished! Thank you.'); //записываем в сессию сообщение для результата
+
                     return $this->redirect(['/profile']);
 
 
