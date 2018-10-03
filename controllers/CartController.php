@@ -31,8 +31,10 @@ class CartController extends AppController
     {
         $cartprod = $this->getCartItems();
 
-        Yii::$app->session->setFlash('warning', 'Your basket is empty. Put the goods in the basket.');
-        if (empty($cartprod)) {return $this->redirect(['/catalog']);}
+
+        if (empty($cartprod)) {
+            Yii::$app->session->setFlash('warning', 'Your basket is empty. Put the goods in the basket.');
+            return $this->redirect(['/catalog']);}
 
         return $this->render('index', [
             'cartprod'      => $cartprod,
@@ -103,7 +105,7 @@ class CartController extends AppController
                     $paymenttransaction = Transaction::getDb()->beginTransaction();
                     try {
 
-//--------------------- Start Trasnsaction --------------------
+                    //--------------------- Start Trasnsaction --------------------
                         //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
                         $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
 
@@ -142,13 +144,12 @@ class CartController extends AppController
                         throw $e;
                     }
 //--------------------- End Trasnsaction --------------------
-                    //Обновляем счетчик продаж пользователя в его аккаунте
-                    Transaction::setUserSales($item->seller_id);
-
                     //Удаляем товар из корзины
-
                     $cartItem = Cart::findOne($item->id);
                     $cartItem->delete();
+
+                    //Обновляем счетчик продаж пользователя в его аккаунте
+                    Transaction::setUserSales($item->seller_id);
 
                 }
 

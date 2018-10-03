@@ -336,7 +336,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function Can($permission)
     {
-        return Yii::$app->authManager->checkAccess(Yii::$app->user->id,$permission);
+        return Yii::$app->authManager->checkAccess(Yii::$app->user->id, $permission);
     }
 
     public static function UsersByPermission($permission)
@@ -419,4 +419,8 @@ class User extends ActiveRecord implements IdentityInterface
         return $count;
     }
 
+    public static function getPercent($userId)
+    {
+        return User::findOne($userId)/100;
+    }
 }

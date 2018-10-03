@@ -142,6 +142,9 @@ class ProfileController extends AppController
             $price = str_replace(",",".", $price);
             $model->price = $price;
             }
+            if (User::Can('canResaleForResale') && $model->category == 2) {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
 
             $themes = $querypost['themes'];
             $model->saveThems($themes);

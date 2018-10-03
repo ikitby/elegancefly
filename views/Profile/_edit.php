@@ -5,6 +5,7 @@ use app\models\Products;
 use app\models\Tags;
 use app\models\Themsprod;
 use app\models\Transaction;
+use app\models\User;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -41,7 +42,7 @@ use kartik\widgets\Select2;
                         <?php if ($model->price && $model->limit > 0) : ?>
                             Current price (limit project): <h3><?= $model->price ?>$</h3><?php endif; ?>
                         <?php
-                        if (Transaction::getProdSales($model->id) == 0)
+                        if (Transaction::getProdSales($model->id) == 0 && User::Can('canSetLimitProject'))
                         {
                             print Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-md limitproject', 'data-id' => $model->id]);
                         }
@@ -50,7 +51,27 @@ use kartik\widgets\Select2;
 
                 <?= ($model->limit > 0) ? false : $form->field($model, 'price')->textInput() ?>
 
-                <?= $form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Category') ?>
+                <?php //$form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Category') ?>
+
+                <?php
+                $distate = true;
+                if (User::Can('canResaleForResale')) { $distate = false; }
+
+                print $form->field($model, 'category')->widget(Select2::classname(), [
+                'data' => Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
+                'options' => [
+                    'placeholder' => 'Category',
+
+                    'options' => [
+                        2 => ['disabled' => $distate],
+                    ],
+
+                    'multiple' => false,
+                ],
+                'pluginOptions' => [
+                'allowClear' => true
+                ],
+                ])->label('Category'); ?>
 
                 <?= $form->field($model, 'themes')->checkboxList(Themsprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Themes') ?>
 

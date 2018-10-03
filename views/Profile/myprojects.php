@@ -2,6 +2,7 @@
 
 use app\models\Products;
 use app\models\Transaction;
+use app\models\User;
 use kartik\widgets\FileInput;
 use kartik\widgets\StarRating;
 use yii\bootstrap\Modal;
@@ -117,8 +118,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 print Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']);
 
                             }
-
-                            if (Transaction::getProdSales($project->id) == 0) {
+                            //canSetLimitProject <?php if (User::Can('createProject')):
+                            if (Transaction::getProdSales($project->id) == 0 && User::Can('canSetLimitProject')) {
                                 print ' '.Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]);
                             }
                             ?>
