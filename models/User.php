@@ -419,8 +419,12 @@ class User extends ActiveRecord implements IdentityInterface
         return $count;
     }
 
-    public static function getPercent($userId)
+    public static function getPercent($userId, $render = 0)
     {
-        return User::findOne($userId)/100;
+        $user = User::findOne($userId);
+        $userPercent = ($user->percent <= 0 || $user->percent > 100) ? 50 : $user->percent;
+        $userPercent = ($render == 1) ? $userPercent.'%' : $userPercent/100;
+
+        return $userPercent;
     }
 }

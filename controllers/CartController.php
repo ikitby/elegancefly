@@ -11,6 +11,7 @@ namespace app\controllers;
 use app\models\Products;
 use app\models\Cart;
 use app\models\Transaction;
+use app\models\User;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Auth\OAuthTokenCredential;
@@ -98,14 +99,17 @@ class CartController extends AppController
 
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
-                    $autorProcent = $itemprice*0.5;
+
+                    $sellerPercent = User::getPercent($item->seller_id); //получаем персональный процент автора
+
+                    $autorProcent = $itemprice*$sellerPercent;
                     //----- Обработка стоимости
 
                     //--------------------- Start Trasnsaction --------------------
                     $paymenttransaction = Transaction::getDb()->beginTransaction();
                     try {
 
-                    //--------------------- Start Trasnsaction --------------------
+//--------------------- Start Trasnsaction --------------------
                         //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
                         $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
 
@@ -144,12 +148,13 @@ class CartController extends AppController
                         throw $e;
                     }
 //--------------------- End Trasnsaction --------------------
-                    //Удаляем товар из корзины
-                    $cartItem = Cart::findOne($item->id);
-                    $cartItem->delete();
-
                     //Обновляем счетчик продаж пользователя в его аккаунте
                     Transaction::setUserSales($item->seller_id);
+
+                    //Удаляем товар из корзины
+
+                    $cartItem = Cart::findOne($item->id);
+                    $cartItem->delete();
 
                 }
 
@@ -251,7 +256,10 @@ class CartController extends AppController
 
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
-                    $autorProcent = $itemprice*0.5;
+
+                    $sellerPercent = User::getPercent($item->seller_id); //получаем персональный процент автора
+
+                    $autorProcent = $itemprice*$sellerPercent;
                     //dump($autorProcent);
                     //----- Обработка стоимости
 

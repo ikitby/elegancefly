@@ -71,6 +71,7 @@ dump($painter);
                     <span class="label label-primary"><?= $role->name; ?></span>
                 <?php endforeach; ?>
             </li>
+            <?php if (User::Can('createProject')):?><li><strong>Percent: </strong><?= User::getPercent($model->id, 1) ?></li><?php endif; ?>
             <li><strong>Registered: </strong><?= Yii::$app->formatter->asDate($model->created_at) ?></li>
             <?php if (User::Can('createProject')):?><li><strong>Works: </strong><a href="<?= Url::to(['/catalog/painter', 'painter' => Html::encode($model->username)]) ?>"><?= Html::encode(User::getUserProjectsCount($model->id)) ?></a></li><?php endif; ?>
             <?php if (User::Can('createProject')):?><li><strong>Sales: </strong><?= Html::encode(Transaction::getUserSales($model->id)) ?></li><?php endif; ?>

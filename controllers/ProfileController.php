@@ -183,8 +183,6 @@ class ProfileController extends AppController
                     new OAuthTokenCredential($apiPaypal->client_id, $apiPaypal->client_secret)
                 );
                 // Инициализируем paypal
-
-
                 $payment = Payment::get($paymentId, $apiContext);
                 $execute = new PaymentExecution();
                 $execute->setPayerId($PayerID);

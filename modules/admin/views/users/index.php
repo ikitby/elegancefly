@@ -85,8 +85,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'),
 
             ],
+            [
+                'headerOptions' => ['width' => '100'],
+                'format'  => 'html',
+                'label' => 'Процент',
+                'attribute' => 'percent',
+                'filter' =>  User::find()->select('percent')->indexBy('percent')->column(),
+
+            ],
 
             /*
+             * Countries::find()->select(['country', 'id'])->indexBy('id')->orderBy(['country' => SORT_ASC])->column(),
             [
                 'label' => 'Роль',
                 'filter' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'),
