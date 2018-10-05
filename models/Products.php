@@ -104,6 +104,13 @@ class Products extends \yii\db\ActiveRecord
         ];
     }
 
+    // Связи проектов с акцией через таблицу promotion_products
+    public function getPromProducts()
+    {
+        return $this->hasMany(Promotions::className(), ['id' => 'prom_id'])
+            ->viaTable('promotion_products', ['prod_id' => 'id']);
+    }
+
     public static function isAuthor($prodid, $userid) //Проверка. Является ли пользователь автором продукта
     {
         $author = false;
