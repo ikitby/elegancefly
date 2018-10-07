@@ -105,7 +105,7 @@ class Products extends \yii\db\ActiveRecord
     }
 
     // Связи проектов с акцией через таблицу promotion_products
-    public function getPromProducts()
+    public function getProductsProm()
     {
         return $this->hasMany(Promotions::className(), ['id' => 'prom_id'])
             ->viaTable('promotion_products', ['prod_id' => 'id']);

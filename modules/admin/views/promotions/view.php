@@ -1,12 +1,14 @@
 <?php
 
+use app\models\Promotions;
+use app\widgets\BasketWidget;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Promotions */
 
-$this->title = $model->id;
+$this->title = $model->action_title;
 $this->params['breadcrumbs'][] = ['label' => 'Promotions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -42,5 +44,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'action_state',
         ],
     ]) ?>
+<h3>Работы в акции</h3>
+    <div class="row" style="text-align: center;">
+    <?php
+        $promotions = $model->getPromPod(1);
+if (!empty($promotions)) {
+    foreach ($promotions as $promotion) :
+        $photos = json_decode($promotion->photos);
+        $photo = $photos[0]->filepath . '200_200_' . $photos[0]->filename;
+        ?>
 
+        <div class="col-sm-2">
+            <?= Html::img('/' . $photo, ['class' => 'img-responsive']) ?>
+            <h6><?= Html::encode($promotion->title) ?></h6>
+            <?= BasketWidget::widget(['template' => 'price', 'product' => $promotion])
+            ?>
+        </div>
+        <?php
+    endforeach;
+}
+else {
+    print 'Пусто...';
+}
+    ?>
+    </div>
 </div>

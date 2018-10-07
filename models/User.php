@@ -137,7 +137,7 @@ class User extends ActiveRecord implements IdentityInterface
             'vkpage' => 'Vkpage',
             'inpage' => 'Inpage',
             'youtubepage' => 'youtube',
-            'tumblrpage' => 'tumblr',
+            'tu mblrpage' => 'tumblr',
             //'percent' => 'Percent',
             'state' => 'State',
             'role' => 'Role',

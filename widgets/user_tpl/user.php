@@ -3,7 +3,6 @@
 use app\models\Transaction;
 use app\models\User;
 use kartik\widgets\StarRating;
-use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -30,8 +29,8 @@ use yii\helpers\Url;
             <?php
             if (empty($user['role']) || $user['role'] != 'User') :
                 echo StarRating::widget([
-                    'name' => 'rating_'.$model->id.'',
-                    'id' => 'input-'.$model->id.'',
+                    'name' => 'rating_'.$user->id.'',
+                    'id' => 'input-'.$user->id.'',
                     'value' => $user['rate'],
                     'attribute' => 'rating',
                     'pluginOptions' => [

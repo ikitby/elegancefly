@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "promotions".
@@ -65,10 +66,23 @@ class Promotions extends \yii\db\ActiveRecord
     }
 
     // Связи проектов с акцией через таблицу promotion_products
-    public function getPromProducts()
+    private function _getPromProducts()
     {
         return $this->hasMany(Products::className(), ['id' => 'prod_id'])
             ->viaTable('promotion_products', ['prom_id' => 'id']);
     }
+
+    public function getPromPod($promId = 1) {
+        $Products = $this->_getPromProducts()->select(['id','title','user_id','category','photos','price'])->all();
+        return $Products;
+    }
+
+    public function getPromPodId($promId = 1) {
+        $Products = $this->_getPromProducts()->select('id')->asArray()->all();
+        $selProducts = ArrayHelper::getColumn($Products, 'id');
+        return $selProducts;
+    }
+
+
 
 }

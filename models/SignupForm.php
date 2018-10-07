@@ -71,7 +71,7 @@ class SignupForm extends Model
         if ($this->scenario === 'emailActivation') $user->generatePasswordResetToken();
 
         if ($user->save()) {
-            $userRole = Yii::$app->authManager->getRole('user'); // Назначаем роль по умолчани. для пользователя
+            $userRole = Yii::$app->authManager->getRole('User'); // Назначаем роль по умолчани. для пользователя
             Yii::$app->authManager->assign($userRole, $user->id);
             return $user;
         }

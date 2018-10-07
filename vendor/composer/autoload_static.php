@@ -143,7 +143,7 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         ),
         'yii\\debug\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-debug',
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-debug/src',
         ),
         'yii\\composer\\' => 
         array (
@@ -181,11 +181,11 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         ),
         'kartik\\typeahead\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-typeahead',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-typeahead/src',
         ),
         'kartik\\touchspin\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-touchspin',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-touchspin/src',
         ),
         'kartik\\time\\' => 
         array (
@@ -205,19 +205,19 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         ),
         'kartik\\select2\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2/src',
         ),
         'kartik\\rating\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-rating',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-rating/src',
         ),
         'kartik\\range\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-rangeinput',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-rangeinput/src',
         ),
         'kartik\\popover\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-popover-x',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-popover-x/src',
         ),
         'kartik\\plugins\\popover\\' => 
         array (
@@ -241,11 +241,11 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         ),
         'kartik\\form\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-activeform',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-activeform/src',
         ),
         'kartik\\file\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput/src',
         ),
         'kartik\\depdrop\\' => 
         array (
@@ -253,19 +253,19 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         ),
         'kartik\\datetime\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker/src',
         ),
         'kartik\\date\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker/src',
         ),
         'kartik\\color\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-colorinput',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-colorinput/src',
         ),
         'kartik\\base\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
         'kartik\\alert\\' => 
         array (
