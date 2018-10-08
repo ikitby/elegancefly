@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\Catprod;
-use app\models\ProductsAuthor;
 use app\models\ProductsSearch;
 use app\models\Ratings;
 use app\models\Tags;
@@ -17,11 +16,9 @@ use yii\data\Pagination;
 
 use yii\helpers\ArrayHelper;
 
-use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\filters\AccessControl;
 use dastanaron\translit\Translit;
 
 
@@ -68,16 +65,12 @@ class CatalogController extends AppController
             ]
         );
 
-
-
         //-----------------------------------------------------------------
 /*
         $userEvent = new Userevent();
         $userEvent->UsercCanReciveMoney(Yii::$app->user->id,'1');
 */
         //-----------------------------------------------------------------
-
-
 
         $products = Products::find()
             ->where($dataProvider->query->where)

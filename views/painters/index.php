@@ -30,26 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
                       <div class="row">
                         <div class="col-md-4">
                             <?php
-                            if (empty($user->photo)) {
+                            $username = ($user['name']) ? $user['name'] : $user['username'];
+                            if (empty($user['photo'])) {
                             $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($user->name) ? $user->name : $user->username), 'title' => Html::encode(($user->name) ? $user->name : $user->username)]);
                             } else {
-                            $userphoto = Html::img("/images/user/user_{$user->id}/{$user->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($user->name) ? $user->name : $user->username), 'title' => Html::encode(($user->name) ? $user->name : $user->username)]);
+                            $userphoto = Html::img("/images/user/user_{$user['id']}/{$user['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($user->name) ? $user->name : $user->username), 'title' => Html::encode(($user->name) ? $user->name : $user->username)]);
                             }
                             ?>
-                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user->username]) ?>">
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $username]) ?>">
                             <?= $userphoto ?>
                             </a>
                         </div>
                         <div class="col-md-8">
-                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user->username]) ?>">
-                                <h3><?= Html::encode($user->username) ?></h3>
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $username]) ?>">
+                                <h3><?= $username ?></h3>
                             </a>
                             <span style="font-size: 10px">
                             <?php
                             echo StarRating::widget([
-                                'name' => 'rating_'.$user->id.'',
-                                'id' => 'input-'.$user->id.'',
-                                'value' => $user->rate,
+                                'name' => 'rating_'.$user['id'].'',
+                                'id' => 'input_'.$user['id'].'',
+                                'value' => $user['rate'],
                                 'attribute' => 'rating',
                                 'pluginOptions' => [
                                     'size' => 'xs',
@@ -64,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </span>
                             <ul class="authorteaser">
                                 <?php if ($user->userCountry->country) : ?><li>Country: <?= $user->userCountry->country ?></li><?php endif; ?>
-                                <li>Работ: <a href="<?= Url::to(['/catalog/painter', 'painter' => $user->username]) ?>"><?= Html::encode(User::getUserProjectsCount($user->id)) ?></a></li>
+                                <li>Работ: <a href="<?= Url::to(['/catalog/painter', 'painter' => $username]) ?>"><?= Html::encode(User::getUserProjectsCount($user['id'])) ?></a></li>
                                 <li>Продаж: <?= Transaction::getUserSales($user->id) ?></li>
                             </ul>
                         </div>

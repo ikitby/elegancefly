@@ -13,12 +13,12 @@ use yii\widgets\DetailView;
 /* @var $model app\models\User */
 
 if (empty($model->photo)) {
-    $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($model->name) ? $model->name : $model->username), 'title' => Html::encode(($model->name) ? $model->name : $model->username)]);
+    $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($model['name']) ? $model['name'] : $model['username']), 'title' => Html::encode(($model['name']) ? $model['name'] : $model['username'])]);
 } else {
-    $userphoto = Html::img("/images/user/user_{$model->id}/{$model->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($model->name) ? $model->name : $model->username), 'title' => Html::encode(($model->name) ? $model->name : $model->username)]);
+    $userphoto = Html::img("/images/user/user_{$model['id']}/{$model['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($model['name']) ? $model['name'] : $model['username']), 'title' => Html::encode(($model['name']) ? $model['name'] : $model['username'])]);
 }
 
-$this->title = Html::encode($model->username);
+$this->title = Html::encode(($model['name']) ? $model['name'] : $model['username']);
 $this->params['breadcrumbs'][] = ['label' => 'Profile', 'url' => ['index']];
 $this->params['breadcrumbs'][] = Html::encode($this->title);
 /*
@@ -39,11 +39,12 @@ dump($painter);
         <h2><?= Html::encode($this->title) ?></h2>
 
         <?php
-        if (empty($model->role) || $model->role != 'User') :
+
+        if (empty($model['role']) || $model['role'] != 'User') :
         echo StarRating::widget([
-            'name' => 'rating_'.$model->id.'',
-            'id' => 'input-'.$model->id.'',
-            'value' => $model->rate,
+            'name' => 'rating_'.$model['id'].'',
+            'id' => 'input_'.$model['id'].'',
+            'value' => ($model['rate']) ? "0" : $model['rate'],
             'attribute' => 'rating',
             'pluginOptions' => [
                 'size' => 'sm',
@@ -57,8 +58,8 @@ dump($painter);
         ]);
         ?>
 
-        <?= $model->rate ?>
-        (<?= (empty($model->rate_c)) ? "0" : $model->rate_c ?>)
+        <?= ($model['rate']) ? "0" : $model['rate'] ?>
+        (<?= (empty($model['rate_c']) ? "0" : $model['rate_c']) ?>)
         <?php endif; ?>
 
         <?= $userphoto ?>
@@ -93,7 +94,7 @@ dump($painter);
 
         <?php
         $request = Userevent::find()->where(['event_type' => 'casherequest', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
-        $event_time = strtotime($request->event_time);
+        $event_time = strtotime($request['event_time']);
         $attr = '';
         $tbtn = '<span class="glyphicon glyphicon-usd"></span>Вывести';
         if (time() - $event_time <= Yii::$app->params['requestDelay'])

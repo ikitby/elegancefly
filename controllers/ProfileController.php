@@ -605,7 +605,7 @@ class ProfileController extends AppController
         $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
         $currentTime = time(); //текущее время
         $event = Userevent::find()->where(['event_user' => Yii::$app->user->id, 'event_type' => $eventtype, 'event_progress' => $eventprogress])->orderBy(['event_time' => SORT_DESC])->one();
-        $event_time = strtotime($event->event_time);
+        $event_time = strtotime($event['event_time']);
         if (!$event || ($event && $currentTime - $event_time > $requestDelay)) {
             return true;
         }

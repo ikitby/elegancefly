@@ -64,9 +64,9 @@ $allowpurchased = ($limit > $count) ? true : false;
 ?>
 <?php
 echo StarRating::widget([
-    'name' => 'rating_'.$model->id.'',
-    'id' => 'input-'.$model->id.'',
-    'value' => $model->rating,
+    'name' => 'rating_'.$model['id'].'',
+    'id' => 'input_'.$model['id'].'',
+    'value' => $model['rating'],
     'attribute' => 'rating',
     'pluginOptions' => [
         'size' => 'xs',
@@ -85,26 +85,26 @@ echo StarRating::widget([
                    $.ajax({
                         type: "POST",
                         url: "/catalog/rate",
-                        data: {"rating": value, "pid": '.$model->id.'},
+                        data: {"rating": value, "pid": '.$model['id'].'},
                         cache: false,
                         
                         success: function(data) {
                         
                             var data = jQuery.parseJSON(data);
-                            var inputRating = $("#input-'.$model->id.'");
+                            var inputRating = $("#input-'.$model['id'].'");
                             
                             if (typeof data.message !== "undefined") {
                                 
                              }else{                                
-                                $("#numRait_'.$model->id.'").text(data.r_rating);
-                                $("#numVotes_'.$model->id.'").text(data.r_allrating);
+                                $("#numRait_'.$model['id'].'").text(data.r_rating);
+                                $("#numVotes_'.$model['id'].'").text(data.r_allrating);
                                 inputRating.rating("refresh", {disabled: true});
                             }
                                 inputRating.rating("reset");
-                                $("#r_infowrap'.$model->id.' #rm_cont").detach();
-                                $("#r_infowrap'.$model->id.'").append("<span id=\"rm_cont\" style=\"display:none\"></span>");
-                                $("#r_infowrap'.$model->id.' #rm_cont").empty();
-                                $("#r_infowrap'.$model->id.' #rm_cont").text(data.r_message).fadeIn(300).fadeOut(5000);   
+                                $("#r_infowrap'.$model['id'].' #rm_cont").detach();
+                                $("#r_infowrap'.$model['id'].'").append("<span id=\"rm_cont\" style=\"display:none\"></span>");
+                                $("#r_infowrap'.$model['id'].' #rm_cont").empty();
+                                $("#r_infowrap'.$model['id'].' #rm_cont").text(data.r_message).fadeIn(300).fadeOut(5000);   
                             
                         }                                              
                     });
@@ -146,8 +146,8 @@ echo StarRating::widget([
                             <?php
                             echo StarRating::widget([
                                 'name' => 'rating_'.$model->user->id.'',
-                                'id' => 'input-'.$model->user->id.'',
-                                'value' => $model->user->rate,
+                                'id' => 'input_'.$model->user->id.'',
+                                'value' => ($model->user->rate) ? $model->user->rate : 0,
                                 'attribute' => 'rating',
                                 'pluginOptions' => [
                                     'size' => 'xs',

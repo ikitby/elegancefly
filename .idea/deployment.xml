@@ -9,6 +9,16 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="Elegancefly.com">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/config/db.php" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="poligon-01">
         <serverdata>
           <mappings>

@@ -61,6 +61,7 @@ use yii\helpers\Url;
 
                 <?php
                 $userid = Yii::$app->user->id;
+
                 $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"];
 
                 if (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["User"]):

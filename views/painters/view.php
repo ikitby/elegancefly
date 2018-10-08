@@ -11,12 +11,12 @@ use yii\widgets\DetailView;
 /* @var $painter app\models\User */
 
 if (empty($painter->photo)) {
-    $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($painter->name) ? $painter->name : $painter->username), 'title' => Html::encode(($painter->name) ? $painter->name : $painter->username)]);
+    $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($painter['name']) ? $painter['name'] : $painter['username']), 'title' => Html::encode(($painter['name']) ? $painter['name'] : $painter['username'])]);
 } else {
-    $userphoto = Html::img("/images/user/user_{$painter->id}/{$painter->photo}", ['class' => 'img-responsive', 'alt' => Html::encode(($painter->name) ? $painter->name : $painter->username), 'title' => Html::encode(($painter->name) ? $painter->name : $painter->username)]);
+    $userphoto = Html::img("/images/user/user_{$painter['id']}/{$painter['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($painter['name']) ? $painter['name'] : $painter['username']), 'title' => Html::encode(($painter['name']) ? $painter['name'] : $painter['username'])]);
 }
 
-$this->title = $painter->username;
+$this->title = ($painter['name']) ? $painter['name'] : $painter['username'];
 $this->params['breadcrumbs'][] = ['label' => 'Painters', 'url' => '/painters'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,12 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-4">
             <div style="text-align: center;">
                 <h2><?= Html::encode($this->title) ?></h2>
+
                 <?php
-                if (empty($painter->role) || $painter->role != 'User') :
+                if (empty($painter['role']) || $painter['role'] != 'User') :
                     echo StarRating::widget([
-                        'name' => 'rating_'.$painter->id.'',
-                        'id' => 'input-'.$painter->id.'',
-                        'value' => $painter->rate,
+                        'name' => 'rating_'.$painter['id'].'',
+                        'id' => 'input_'.$painter['id'].'',
+                        'value' => ($painter['rate']) ? "0" : $painter['rate'],
                         'attribute' => 'rating',
                         'pluginOptions' => [
                             'size' => 'sm',
@@ -44,8 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);
                     ?>
 
-                    <?= $painter->rate ?>
-                    (<?= (empty($painter->rate_c)) ? "0" : $painter->rate_c ?>)
+                    <?= ($painter['rate']) ? "0" : $painter['rate'] ?>
+                    (<?= (empty($painter['rate_c']) ? "0" : $painter['rate_c']) ?>)
                 <?php endif; ?>
 
                 <?= $userphoto ?>
@@ -53,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <ul class="userprop">
                 <li><strong>Profile: </strong>
-                    <?php foreach (User::Roles($painter->id) as $role) : ?>
+                    <?php foreach (User::Roles($painter['id']) as $role) : ?>
                         <span class="label label-primary"><?= $role->name; ?></span>
                     <?php endforeach; ?>
                 </li>
@@ -64,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li><strong>Name: </strong><?= Html::encode($painter->name) ?></li>
                 <?php endif; ?>
                 <li><strong>Birthday: </strong><?= Yii::$app->formatter->asDate($painter->birthday) ?></li>
-                <li><strong>Country: </strong><?= $painter->userCountry->country ?></li>
+                <?php if ($painter->userCountry->country) : ?> <li><strong>Country: </strong><?= $painter->userCountry->country ?></li><?php endif; ?>
                 <li><strong>Email: </strong><?= Html::mailto($painter->email) ?></li>
 
             </ul>
