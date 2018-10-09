@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name'=>'Elegancefly.com',
     'basePath' => dirname(__DIR__),
     'language' => 'en',
     'bootstrap' => ['log'],
@@ -94,8 +95,8 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.beget.com',
                 'username' => 'info@elegancefly.com',
-                'password' => '%jUTstq3',
-                'port' => '25',
+                'password' => 'JfwE2feW2',
+                'port' => '2525',
             ],
         ],
         'log' => [

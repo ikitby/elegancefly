@@ -500,7 +500,7 @@ class CatalogController extends AppController
 
     protected function findModel($id)
     {
-        if (($model = Products::find()->where(['id' => $id])->one()) !== null) {
+        if (($model = Products::find()->where(['id' => $id, ])->andWhere(['state' => 1])->one()) !== null) {
             return $model;
         }
 

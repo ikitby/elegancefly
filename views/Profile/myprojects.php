@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= LinkPager::widget(['pagination' => $pagination]) ?>
     </div>
 
-</div>
+
     <?php
     Modal::begin([
         'header' => '<h4 class="modal-title">Сделать проект эксклюзивом</h4>',
@@ -155,4 +155,5 @@ $this->params['breadcrumbs'][] = $this->title;
     Modal::end();
     ?>
     <?php //Pjax::end(); ?>
+</div>
 </div>

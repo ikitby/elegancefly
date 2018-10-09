@@ -51,7 +51,7 @@ class UploadProject extends Model
         //займемся распаковкой архива и генерацией всех вариантов размеров картинок
         $catfolder = $this->getCatFolder('cat'); //Определяем генерацию папок и подпапок для галлерей проектов
         $file->saveAs($catfolder . '/' . $file->name, false); //Грузим картинку в папку с нашими файлами
-        $goodarchive = false;
+        //$goodarchive = false;
         $archive = new PclZip();
         $archive->PclZip($catfolder . '/' . $file->name); //получили
         $result = $archive->extract(PCLZIP_OPT_PATH, $catfolder); //распаковали

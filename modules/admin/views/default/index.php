@@ -49,6 +49,7 @@ use yii\helpers\Url;
     <h1>События</h1>
     <hr>
     <div class="row">
+        <?= Yii::$app->name ?>
         <div class="col-sm-4">
             <h3>Вывод денег</h3>
             <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'casherequest']) ?>

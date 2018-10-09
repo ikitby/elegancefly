@@ -10,15 +10,16 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-/*$user = \app\models\User::findOne($product->user_id);
+
+$user = \app\models\User::findOne($product->user_id);
 if (empty($user->photo)) {
     $userphoto = Html::img(Url::base(true)."/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($user['name']) ? $user['name'] : $user['username']), 'title' => Html::encode(($user['name']) ? $user['name'] : $user['username'])]);
 } else {
     $userphoto = Html::img(Url::base(true)."/images/user/user_{$user['id']}/50_50_{$user['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($user['name']) ? $user['name'] : $user['username']), 'title' => Html::encode(($user['name']) ? $user['name'] : $user['username'])]);
-}*/
+}
 ?>
 <h1>Новый проект на сайте!</h1>
-<?php /* ?>
+
 <table>
     <tr>
         <td>
@@ -47,4 +48,4 @@ $image = json_decode($product->photos);
 Письмо носит информационный характер и высылается до <br/>
 публикации проекта. Cразу же после удачной загрузки проекта на сайт.
 <br/>
-<?php */ ?>
+
