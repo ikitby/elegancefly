@@ -372,11 +372,12 @@ class CatalogController extends AppController
 
             $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
 
-
-
             if ($file) {
+
                 $photosmodel = $filemodel->makeGalery($file);
+
                 $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
+
             };
 
             //-----------------------------------------------------------------
@@ -390,7 +391,7 @@ class CatalogController extends AppController
             //-----------------------------------------------------------------
 
             $userEvent = new Userevent();
-            $userEvent->setLog(Yii::$app->user->id,'user','Uploaded new project ID:'.$project->id,'1');
+            $userEvent->setLog(Yii::$app->user->id,'user','Uploaded new project ID: #'.$model->id,'1');
 
             //-----------------------------------------------------------------
 

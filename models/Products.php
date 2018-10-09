@@ -55,7 +55,6 @@ class Products extends \yii\db\ActiveRecord
                 ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
                 ->setTo($mailadmin->email)
                 ->setSubject('Новый проект пользователя на сайте '.Yii::$app->name);
-
         }
         Yii::$app->mailer->sendMultiple($messages);
     }

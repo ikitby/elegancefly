@@ -21,7 +21,7 @@ class VitrinaWidget extends Widget
             $this->tpl = 'carousel';
         }
         if ($this->loop === null) {
-            $this->loop = true;
+            $this->loop = Yii::$app->params['owlLoopFront'];
         }
         if ($this->category_id === null) {
             $this->category_id = 1;

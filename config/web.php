@@ -85,22 +85,16 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => false,
-        ],
-        */
-        'mailer' => [
-            'useFileTransport' => true,
             'messageConfig' => [
                 'charset' => 'UTF-8',
             ],
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'mail.ikit.by',
-                'username' => 'info@ikit.by',
-                'password' => 'HfeK3ksoU',
+                'host' => 'smtp.beget.com',
+                'username' => 'info@elegancefly.com',
+                'password' => '%jUTstq3',
                 'port' => '25',
             ],
         ],

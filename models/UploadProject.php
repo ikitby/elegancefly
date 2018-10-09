@@ -27,9 +27,8 @@ class UploadProject extends Model
     public function uploadZip(UploadedFile $file, $userfolder = 'user_00', $projectpatf = '', $model)
     {
         $filename = '';
-
         $folder = $userfolder.'/'.$projectpatf;
-        //Yii::$app->session->setFlash('info', 'Тест ошибки');
+        //Yii::$app->session->setFlash('info', 'Текст ошибки');
         if ($this->validate()) {
 
             if (!file_exists($this->getFolder($folder))) {
