@@ -126,7 +126,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/models/Transaction.php" />
         <option value="$PROJECT_DIR$/web/adminassets/css/main.css" />
         <option value="$PROJECT_DIR$/models/Userevent.php" />
         <option value="$PROJECT_DIR$/models/AccountActivation.php" />
@@ -177,6 +176,7 @@
         <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/pages/index.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/pages/_form.php" />
+        <option value="$PROJECT_DIR$/modules/admin/views/pages/view.php" />
       </list>
     </option>
   </component>
@@ -557,12 +557,12 @@
       <workItem from="1538819615384" duration="8594000" />
       <workItem from="1538899092321" duration="8622000" />
       <workItem from="1539072126608" duration="26490000" />
-      <workItem from="1539152574002" duration="8268000" />
+      <workItem from="1539152574002" duration="9685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2259943000" />
+    <option name="totallyTimeSpent" value="2261360000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="55" width="1290" height="989" extended-state="0" />
@@ -609,13 +609,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/Grey/___МадиолаР___/_Sites/radaway24.ru/radaway24/css/template.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="239" column="48" lean-forward="false" selection-start-line="239" selection-start-column="48" selection-end-line="239" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/widgets/UserWidget.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -1027,6 +1020,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="86" column="4" lean-forward="false" selection-start-line="86" selection-start-column="4" selection-end-line="91" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/admin/views/pages/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
