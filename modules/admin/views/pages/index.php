@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\StringHelper;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\PagesSearch */
@@ -26,13 +27,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'title',
-            'alias',
-            'seo_title',
-            'seo_keyworlds',
+            ///'id',
+            [
+                'headerOptions' => ['width' => '250'],
+                'format'  => 'html',
+                'label' => 'title',
+                'attribute' => 'title',
+                'value' => function($model){
+                    return '<a href="'.yii\helpers\Url::to(["/admin/pages/update", "id" => $model->id]).'">'.$model->title.'</a>';
+                }
+            ],
+            //'alias',
+            //'seo_title',
+            //'seo_keyworlds',
             //'seo_desc',
             //'text:ntext',
+            [
+                ///'headerOptions' => ['width' => '50'],
+                'format'  => 'html',
+                'label' => 'text',
+                'attribute' => 'text',
+                'value' => function($model){
+                    return StringHelper::truncate(Yii::$app->formatter->asText($model->text), 300, '...');
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
