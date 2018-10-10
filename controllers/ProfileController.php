@@ -470,7 +470,7 @@ class ProfileController extends AppController
         $requestDelay = Yii::$app->params['requestDelay']; //глобальная задержка между запросами
         $currentTime = time(); //текущее время
 
-        if (Yii::$app->authManager->getRolesByUser($userid)["User"]) {
+        if (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["User"]) {
             //Проверяем наличие второго этапа!
             if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
                 $imPainter = Yii::$app->request->POST('imPainter');
@@ -510,7 +510,7 @@ class ProfileController extends AppController
                     'user' => $user[0]
                 ]);
             }
-        } elseif (Yii::$app->authManager->getRolesByUser($userid)["Painter"]) {
+        } elseif (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["Painter"]) {
             if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
                 $imCreator = Yii::$app->request->POST('imCreator');
 
@@ -543,7 +543,9 @@ class ProfileController extends AppController
             }
             return true;
         }
-
+        Yii::$app->session->setFlash('warning', 'You have already submitted a request!');
+        Yii::$app->getResponse()->redirect( '/profile/upgrade' )->send(); # Укажите ссылку
+        Yii::$app->end();
         return false;
     }
 

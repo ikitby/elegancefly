@@ -42,6 +42,8 @@ AdminAssets::register($this);
                 <ul class="">
                     <li class=""><a href="<?= Url::to('/admin/users') ?>">Пользователи</a></li>
                     <li class=""><a href="<?= Url::to('/rbac/user') ?>">Управление правами</a></li>
+                    <li class=""><a href="<?= Url::to('/admin/pages') ?>">Статичные страницы</a></li>
+                    <li class=""><a href="<?= Url::to('/admin/promotions') ?>">Акции</a></li>
                     <hr/>
                     <li class=""><a href="<?= Url::to('/') ?>">Фронт сайта</a></li>
                 </ul>

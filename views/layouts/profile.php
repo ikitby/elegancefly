@@ -9,6 +9,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -50,6 +51,11 @@ $cartsumm = Cart::getCartsumm();
     </div>
 
     <div class="bottom">
+        <div class="bottommenu">
+            <ul>
+                <li><a href="<?= Url::to('/about') ?>">About us</a></li>
+            </ul>
+        </div>
         <div id="sociconsblock">
             <a href="https://www.facebook.com/groups/elegancefly/" target="_blank"><img class="img-responsive" src="/images/icons/facebook.svg" alt="EleganceFly facebook" title="EleganceFly facebook"></a>
             <a href="https://www.instagram.com/elegancefly/" target="_blank"><img class="img-responsive" src="/images/icons/instagram.svg" alt="EleganceFly instagram" title="EleganceFly instagram"></a>

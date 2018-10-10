@@ -116,7 +116,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                //'<alias:\w+>' => 'site/page',
                 //'signup' => 'site/signup',
+                'about' => 'site/about',
+
 
                 '/catalog/ajaxfile/' => '/catalog/ajaxfile',
                 'catalog/' => 'catalog/index',

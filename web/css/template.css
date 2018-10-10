@@ -1,5 +1,5 @@
-body a, #nav ul li a {transition: all 0.3s;}
-#nav ul li a:hover {color: #fff;}
+body a, #nav ul li a, div#header ul li a {transition: all 0.3s;}
+#nav ul li a:hover, div#header ul li a:hover {color: #fff;}
 
 /* logo */
 div#main a.navbar-brand {padding: 5px 15px;width: 100%;margin: 0;}
@@ -42,7 +42,7 @@ i.glyphicon.glyphicon-star {color: #ffb62d;text-shadow: none;}
 span.urate {font-size: 12px;line-height: 1em;display: block;}
 
 /* user block */
-div#header ul {float: left; margin: 25px 0; width: 100%; border-top: 1px solid #4e4e4e;padding-top: 20px;font-size: 14pt;}
+div#header ul {float: left; padding: 0; margin: 25px 0; width: 100%; border-top: 1px solid #4e4e4e;padding-top: 20px;font-size: 14pt;}
 .userbalance h3, .user-view h2 {margin: 0;}
 .userbalance {font-size: 0.8em;}
 .username {font-weight: bold;color: #ffb62d;display: block;}

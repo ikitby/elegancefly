@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\AccountActivation;
+use app\models\Pages;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
@@ -112,30 +113,29 @@ class SiteController extends AppController
      *
      * @return Response|string
      */
-    /*
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
 
-            return $this->refresh();
-        }
-        return $this->render('contact', [
+    public function actionAbout()
+    {
+        $model = Pages::find()
+            ->where(['alias' => 'about'])
+            ->one();
+
+        return $this->render('page', [
             'model' => $model,
         ]);
     }
-*/
+
     /**
      * Displays about page.
      *
      * @return string
      */
+    /*
     public function actionAbout()
     {
         return $this->render('about');
     }
-
+*/
     public function actionSignup()
     {
         $emailActivation = Yii::$app->params['emailActivation'];
