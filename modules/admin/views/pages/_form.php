@@ -17,11 +17,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
+    <?php /*$form->field($model, 'seo_title')->textInput(['maxlength' => true]) */?>
 
-    <?= $form->field($model, 'seo_keyworlds')->textInput(['maxlength' => true]) ?>
+    <?php /*$form->field($model, 'seo_keyworlds')->textInput(['maxlength' => true]) */?>
 
-    <?= $form->field($model, 'seo_desc')->textInput(['maxlength' => true]) ?>
+    <?php /*$form->field($model, 'seo_desc')->textInput(['maxlength' => true]) */?>
 
     <?= $form->field($model, 'text')->widget(CKEditor::className(),[
         'editorOptions' => [
