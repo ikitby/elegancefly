@@ -12,4 +12,6 @@ return [
 
     'owlLoopFront'  => false, //Петля кареселек на главке
 
+
+
 ];

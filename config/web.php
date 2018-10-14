@@ -53,7 +53,7 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
             'cache' => 'cache',
-            //'defaultRoles' => ['user'],
+            'defaultRoles' => ['User'],
         ],
 
         'cm' => [ // bad abbreviation of "PaypalMoney"; not sustainable long-term
@@ -95,7 +95,7 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.beget.com',
                 'username' => 'info@elegancefly.com',
-                'password' => 'JfwE2feW2',
+                'password' => 'MyElegance090',
                 'port' => '2525',
             ],
         ],
