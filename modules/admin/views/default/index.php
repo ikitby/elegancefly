@@ -56,7 +56,7 @@ use yii\helpers\Url;
         </div>
         <div class="col-sm-4">
             <h3>Смена статуса</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'profileupdate']) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventsreqlist', 'etype' => 'profileupdate']) ?>
         </div>
         <div class="col-sm-4">
             <h3>Последние события</h3>

@@ -109,7 +109,7 @@ class CartController extends AppController
                     $paymenttransaction = Transaction::getDb()->beginTransaction();
                     try {
 
-//--------------------- Start Trasnsaction --------------------
+                    //--------------------- Start Trasnsaction --------------------
                         //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
                         $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
 

@@ -482,16 +482,19 @@ class ProfileController extends AppController
 
                     $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
 
+                    $user = User::findById(Yii::$app->user->id);
+                    $userName = ($user->name) ? $user->name : $user->username;
+
                     if (!$request) {//Если нет запроса - создаем.
                         //тут вызываем событие запроса!
                         //-----------------------------------------------------------------
 
                         $userEvent = new Userevent();
-                        $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос на профиль художника', '0');
+                        $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль художника', '0');
 
                         //-----------------------------------------------------------------
 
-                        $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль художника');
+                        $this->sendAdminMail('profileupdate', '0', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль художника');
                         return $imPainter;
                     }
                    //---------------------------------!!!!!!!!!!
@@ -501,7 +504,7 @@ class ProfileController extends AppController
                         $request->save();//Сохраняем
 
                         // Напомним еще раз письмом
-                        $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль художника');
+                        $this->sendAdminMail('profileupdate', '0', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль художника');
                         return $imPainter;
                     }
 
@@ -521,23 +524,26 @@ class ProfileController extends AppController
                 if (!$request) {//Если нет запроса - создаем.
                     //тут вызываем событие запроса!
                     //-----------------------------------------------------------------
-
+                    $user = User::findById(Yii::$app->user->id);
+                    $userName = ($user->name) ? $user->name : $user->username;
                     $userEvent = new Userevent();
-                    $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос на профиль творца', '0');
+                    $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль творца', '0');
 
                     //-----------------------------------------------------------------
 
-                    $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль творца');
+                    $this->sendAdminMail('profileupdate', '0', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль творца');
                     return 'ok';
                 }
                 //---------------------------------!!!!!!!!!!
                 if ($request && $currentTime - $event_time > $requestDelay) {
 
+                    $user = User::findById(Yii::$app->user->id);
+                    $userName = ($user->name) ? $user->name : $user->username;
                     $request->event_time = date('Y-m-d H:i:s');//обновляем дату запроса
                     $request->save();//Сохраняем
 
                     // Напомним еще раз письмом
-                    $this->sendAdminMail('profileupdate', '0', 'Запрос на профиль художника');
+                    $this->sendAdminMail('profileupdate', '0', 'Повторный запрос от <span class="nusername">'.$userName.'</span> на профиль художника');
                     return 'ok';
                 }
             }

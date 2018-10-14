@@ -427,4 +427,9 @@ class User extends ActiveRecord implements IdentityInterface
 
         return $userPercent;
     }
+
+    public static function findById($id) {
+        return self::findOne($id);
+    }
+
 }

@@ -25,9 +25,10 @@ class Transaction extends \yii\db\ActiveRecord
 
             $transaction->status = 1; //Меняем статус транзакции с нужным токеном для текущего пользователя
             //-----------------------------------------------------------------
-
+            $user = User::findById(Yii::$app->user->id);
+            $userName = ($user->name) ? $user->name : $user->username;
             $userEvent = new Userevent();
-            $userEvent->setLog(Yii::$app->user->id, 'addfunds', 'Пополнение PAC на <span class="label label-warning">'.$transaction->amount.'$</span>', '1');
+            $userEvent->setLog(Yii::$app->user->id, 'addfunds', '<span class="nusername">'.$userName.'</span> пополненил PAC на <span class="label label-warning">'.$transaction->amount.'$</span>', '1');
 
             //-----------------------------------------------------------------
             $transaction->save();
