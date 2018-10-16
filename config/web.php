@@ -53,7 +53,7 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
             'cache' => 'cache',
-            'defaultRoles' => ['User'],
+            //'defaultRoles' => ['User'],
         ],
 
         'cm' => [ // bad abbreviation of "PaypalMoney"; not sustainable long-term
@@ -147,9 +147,10 @@ $config = [
                 '/profile/updateproject/<id:\d+>' => '/profile/updateproject',
 
                 'admin' => 'admin/',
+                '/admin/userup' => '/admin/default/userup',
+                '/admin/userref' => '/admin/default/userref',
 
                 '/admin/users/view/<id:\d+>' => '/admin/users/view',
-
 
                 //'users/<user:\w+>' => 'users',
                 '<action>'=>'site/<action>',

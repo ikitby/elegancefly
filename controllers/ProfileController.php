@@ -482,7 +482,7 @@ class ProfileController extends AppController
 
                     $event_time = strtotime($request->event_time); //время последнего неподтвержденного события
 
-                    $user = User::findById(Yii::$app->user->id);
+                    $user = User::getById(Yii::$app->user->id);
                     $userName = ($user->name) ? $user->name : $user->username;
 
                     if (!$request) {//Если нет запроса - создаем.
@@ -515,7 +515,7 @@ class ProfileController extends AppController
             }
         } elseif (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["Painter"]) {
             if (!Yii::$app->getUser()->isGuest && Yii::$app->request->isAjax) {
-                $imCreator = Yii::$app->request->POST('imCreator');
+               // $imCreator = Yii::$app->request->POST('imCreator');
 
                 $request = $this->userHaveRequest('profileupdate', 0);
 
@@ -524,8 +524,9 @@ class ProfileController extends AppController
                 if (!$request) {//Если нет запроса - создаем.
                     //тут вызываем событие запроса!
                     //-----------------------------------------------------------------
-                    $user = User::findById(Yii::$app->user->id);
+                    $user = User::getById(Yii::$app->user->id);
                     $userName = ($user->name) ? $user->name : $user->username;
+
                     $userEvent = new Userevent();
                     $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль творца', '0');
 
@@ -537,13 +538,13 @@ class ProfileController extends AppController
                 //---------------------------------!!!!!!!!!!
                 if ($request && $currentTime - $event_time > $requestDelay) {
 
-                    $user = User::findById(Yii::$app->user->id);
+                    $user = User::getById(Yii::$app->user->id);
                     $userName = ($user->name) ? $user->name : $user->username;
                     $request->event_time = date('Y-m-d H:i:s');//обновляем дату запроса
                     $request->save();//Сохраняем
 
                     // Напомним еще раз письмом
-                    $this->sendAdminMail('profileupdate', '0', 'Повторный запрос от <span class="nusername">'.$userName.'</span> на профиль художника');
+                    $this->sendAdminMail('profileupdate', '0', 'Повторный запрос от <span class="nusername">'.$userName.'</span> на профиль творца');
                     return 'ok';
                 }
             }

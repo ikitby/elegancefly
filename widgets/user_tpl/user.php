@@ -60,8 +60,8 @@ use yii\helpers\Url;
                 <?php if (User::Can('viewPayments')):?><li class=""><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li><?php endif; ?>
 
                 <?php
-                $userid = Yii::$app->user->id;
 
+                $userid = Yii::$app->user->id;
                 $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"];
 
                 if (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["User"]):

@@ -52,6 +52,10 @@ class CatalogController extends AppController
      */
     public function actionIndex()
     {
+
+        $userid = Yii::$app->user->id;
+        $userLever = Yii::$app->authManager->getRolesByUser($userid)["Admin"];
+
         $searchModel = new ProductsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

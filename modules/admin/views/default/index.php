@@ -4,6 +4,7 @@ use app\widgets\Alert;
 use yii\helpers\Html;
 use app\models\User;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 //AdminAsset::register($this);
 
@@ -45,22 +46,25 @@ use yii\helpers\Url;
         </ul>
 
     </div>
+    </div>
 </div>
     <h1>События</h1>
     <hr>
     <div class="row">
-        <?= Yii::$app->name ?>
         <div class="col-sm-4">
             <h3>Вывод денег</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'casherequest']) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'casherequest', 'eprogress' => 0]) ?>
         </div>
         <div class="col-sm-4">
             <h3>Смена статуса</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventsreqlist', 'etype' => 'profileupdate']) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventsreqlist', 'etype' => 'profileupdate', 'eprogress' => '0']) ?>
         </div>
         <div class="col-sm-4">
             <h3>Последние события</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user','profileupdate','addfunds']]) ?>
+            <?php Pjax::begin([ 'id' => 'refreshevent']); ?>
+                <?= Html::a("Обновить", ['/admin'], ['class' => 'btn']);?>
+                <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user','profileupdate','addfunds']]) ?>
+            <?php Pjax::end(); ?>
         </div>
     </div>
-</div>
+

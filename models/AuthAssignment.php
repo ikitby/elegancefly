@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use mdm\admin\models\AuthItem;
 use Yii;
 
 /**

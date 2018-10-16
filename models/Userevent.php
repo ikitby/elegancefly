@@ -35,9 +35,9 @@ class Userevent extends \yii\db\ActiveRecord
         return 'userevent';
     }
 
-
     const USER_EVENT_LOG = 'New user event log';
     const USER_EVENT_CAN_RECIVE_MONEY = 'User can recive money from PAC';
+    const USER_INFO_MAIL = 'info mail to user';
 
     /**
      * {@inheritdoc}
@@ -73,6 +73,19 @@ class Userevent extends \yii\db\ActiveRecord
         $this->on(Userevent::USER_EVENT_LOG, [$this, 'SetEventLog']);
     }
 */
+
+    public function noteToUser($userid, $type = 'info', $descr, $mailShab = 'defaultUserMail', $mailTitle = '', $progress = 1) {
+        $this->on(Userevent::USER_INFO_MAIL, [$this, 'sendUserInfoMail'],[
+            'user_id' => $userid,
+            'type' => $type,
+            'descr' => $descr,
+            'mailShab' => $mailShab,
+            'mailTitle' => $mailTitle,
+            'progress' => $progress
+        ]);
+        $this->trigger($this::USER_INFO_MAIL);
+    }
+
     public function setLog($userid, $type = 'system', $descr, $progress = 1) {
         $this->on(Userevent::USER_EVENT_LOG, [$this, 'SetEventLog'],[
             'user_id' => $userid,
@@ -94,9 +107,12 @@ class Userevent extends \yii\db\ActiveRecord
         $this->trigger($this::USER_EVENT_CAN_RECIVE_MONEY);
     }
 
+
+
     // ==================== Send email about user cashe
     protected function NoteUserCash($event)
     {
+
         $user_id = $event->data['user_id'];
         $limitCashe = Yii::$app->params['minLimitCasheMoney'];
         $userbalance = Transaction::getUserBalance($user_id);
@@ -109,9 +125,9 @@ class Userevent extends \yii\db\ActiveRecord
             ->andWhere(['status' => '10'])
             //->limit(10)
             ->all();
-            dump($users);
+            //dump($users);
         if ($userbalance >= $limitCashe) {
-            dump($userbalance);
+            //dump($userbalance);
         }
 
         $userevent = new Userevent();
@@ -136,6 +152,26 @@ class Userevent extends \yii\db\ActiveRecord
         Yii::$app->mailer->sendMultiple($messages);
         */
     }
+
+    // =========== send User info mail =================
+
+    public function sendUserInfoMail($event)
+    {
+        $user_id = $event->data['user_id'];
+        $user = User::getById($user_id);//Берем почту пользователя события
+        $user_mail = $user->email;
+
+        //------------------------ отправка уведомления пользователю -----------------------
+
+        Yii::$app->mailer->compose($event->data['mailShab'], ['user' => $user])
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
+            ->setTo($user_mail)
+            ->setSubject($event->data['mailTitle'])
+            ->send();
+
+        return true;
+    }
+
 
 
     // ==================== Send email about new register User
