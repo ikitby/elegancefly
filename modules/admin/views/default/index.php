@@ -61,7 +61,7 @@ use yii\widgets\Pjax;
         </div>
         <div class="col-sm-4">
             <h3>Последние события</h3>
-            <?php Pjax::begin([ 'id' => 'refreshevent']); ?>
+            <?php Pjax::begin([ 'id' => 'refreshevent', 'class' => 'refreshevent']); ?>
                 <?= Html::a("Обновить", ['/admin'], ['class' => 'btn']);?>
                 <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','rmoney','user','profileupdate','addfunds']]) ?>
             <?php Pjax::end(); ?>
