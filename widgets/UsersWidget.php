@@ -17,7 +17,7 @@ class UsersWidget extends Widget{
         if ($this->usertype === null) {$this->usertype = 'painter';}
         if ($this->tpl === null) {$this->tpl = 'gallery';}
         $this->tpl .='.php';
-        if ($this->order === null) {$this->order = ['sales' => SORT_DESC];}
+        if ($this->order === null) {$this->order = ['sales' => SORT_DESC, 'rate' => SORT_DESC, 'name' => SORT_DESC];}
     }
 
     public function run() {
