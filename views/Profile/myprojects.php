@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="user-view">
+ <?php /*
     <h1>Create new Project</h1>
     <?php
 
@@ -40,8 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]);
 
-
-    ?>
+*/    ?>
 
 <h1><?= $this->title ?></h1>
 

@@ -54,7 +54,7 @@ use yii\helpers\Url;
         </div>
         <div class="usermenu">
             <ul class="">
-                <?php if (User::Can('createProject')):?><li class=""><a href="<?= Url::to('/catalog/create') ?>">New project</a></li><?php endif; ?>
+                <?php if (User::Can('createProject')):?><li class=""><a href="<?= Url::to('/profile/create-project') ?>">New project</a></li><?php endif; ?>
                 <?php if (User::Can('viewOwnProjects')):?><li class=""><a href="<?= Url::to('/profile/myprojects') ?>">My projects</a></li><?php endif; ?>
                 <?php if (User::Can('viewPurchases')):?><li class=""><a href="<?= Url::to('/profile/purchases') ?>">My purchases</a></li><?php endif; ?>
                 <?php if (User::Can('viewPayments')):?><li class=""><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li><?php endif; ?>

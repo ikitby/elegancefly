@@ -22,6 +22,7 @@ use yii\web\UploadedFile;
 use dastanaron\translit\Translit;
 
 
+
 /**
  * CatalogController implements the CRUD actions for Products model.
  */
@@ -405,7 +406,7 @@ class CatalogController extends AppController
             'model' => $model,
         ]);
     }
-
+/*
     public function actionCreate()
     {
         $model = new Products();
@@ -441,12 +442,12 @@ class CatalogController extends AppController
             $model->saveThems($themes);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-*/
+
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-
+*/
     public function actionDelete($id)
     {
         $id = Yii::$app->request->post('id');
@@ -462,7 +463,7 @@ class CatalogController extends AppController
 
     private function setProdDel($id)
     {
-        $project = $this->findModel($id);
+        $project = $this->findModelNP($id);
         $project->deleted = 1;
         return $project->save();
     }
@@ -470,12 +471,16 @@ class CatalogController extends AppController
     private function deleteFileProject($id)
     {
         //Перманентное удаление проекта с чисткой файлов
-        $project = $this->findModel($id);
+        $project = $this->findModelNP($id);
         $removeres = json_decode($project->photos);
+
         if (file_exists($project->project_path)) $this->delTree($project->project_path); //удаляю папку проекта с всем содержимым
         foreach ($removeres as $res)
         {
-            if (file_exists($res->foolpath)) {unlink($res->foolpath);} // Чистим все картинки предпросмотра
+
+            if (file_exists($res->foolpath)) {
+                unlink($res->foolpath);
+            } // Чистим все картинки предпросмотра
         }
          $project->delete(); //Удаляем проект из базы
 
@@ -505,6 +510,16 @@ class CatalogController extends AppController
     protected function findModel($id)
     {
         if (($model = Products::find()->where(['id' => $id, ])->andWhere(['state' => 1])->one()) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //Поиск модели без учета статуса
+    protected function findModelNP($id)
+    {
+        if (($model = Products::find()->where(['id' => $id, ])->one()) !== null) {
             return $model;
         }
 

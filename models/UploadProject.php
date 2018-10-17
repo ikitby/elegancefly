@@ -69,7 +69,7 @@ class UploadProject extends Model
         //предварительно даляем все папки с содержимым из архива
 
         foreach ($resultlist as $item) {
-            if ($item['folder'] == 1) { //Если видим папку - удаляем со всей требухой
+            if ($item['folder'] == true) { //Если видим папку - удаляем со всей требухой
                 FileHelper::removeDirectory($catfolder.'/'.$item['filename']);
             }
         }
@@ -79,14 +79,18 @@ class UploadProject extends Model
             $item_ext = pathinfo($item['filename'], PATHINFO_EXTENSION); //расширение файла
             $item_name = basename($item['filename'], '.'.$item_ext); //Имя файла
 
-            if ($item['folder'] == 1) { //Если видим папку - удаляем со всей требухой
+            if ($item['folder'] == true ) { //Если видим папку - удаляем со всей требухой
                 FileHelper::removeDirectory($catfolder.'/'.$item['filename']);
-                //continue; //и пропускаем этот шаг цикла
-            } elseif (!preg_match("/^preview_\d$/i", $item_name) || $item['size'] > 1024*1024*3){ //Проверяем файл. И если он не нужен - удаляем
+                //continue;
+            } elseif (!preg_match("/^preview_\d\.png|jp?eg$/i", $item['filename']) || $item['size'] > 1024*1024*3){ //Проверяем файл. И если он не нужен - удаляем
+
                 if (file_exists($catfolder.'/'.$item['filename'])) {
                     unlink($catfolder.'/'.$item['filename']);
+                    //continue;
                 }
-            } elseif (preg_match("/^preview_\d$/i", $item_name)) { //Если все соответствует маске превьюшки и размер файл
+
+            } elseif (preg_match("/^preview_\d\.png|jp?eg$/i", $item['filename'])) { //Если все соответствует маске превьюшки и размер файл
+
                 $photos[$i] = [
                     'number'   => $i,
                     'foolpath' => $catfolder.'/'.$item['filename'],
@@ -95,7 +99,9 @@ class UploadProject extends Model
                 ];
                 $i++;
             }
+
         }
+
         //Смотрим сколько превьюшек нашел скрипт и если ни одной - сообщаем
         if ($i == 0){
             //Если нет ни одной превьюшки - прерываем загрузку и сощаем что там все плохо
@@ -111,35 +117,14 @@ class UploadProject extends Model
         fwrite($fp, serialize($photos) . PHP_EOL);
         fclose($fp);
 */
-/*
-        foreach ($result as $file) //пересобираем массив результата распаковки и удаляем не нужные файлы
-        {
-            if (preg_match("/^.*?\.psd$/i", $file['filename']) || !preg_match("/^.*?\/Preview_\d\.\w{3}$/i", $file['filename'])) {
-                unlink($file['filename']); //Проверяем что за файд и если это psd или не Preview_**
-            } elseif ($i < $limit && preg_match("/^.*?\/Preview_\d\.\w{3}$/i", $file['filename'])) {
-                //Если файл соответствует маске файла для галереи и не больше лимита по количеству дополняем массив и инкременируем счетчик
-                preg_match("/^(.*?)\/\w*_\d\.\w{3}$/i", $file['filename'], $matches); //Ищем путь к файлу
-                preg_match("/^.*\/(.*?)$/i", $file['filename'], $filename); //Ищем имя файла
-                $photos[$i] = [
-                    'number'   => $i,
-                    'foolpath' => $file['filename'],
-                    'filepath' => $matches[1].'/',
-                    'filename' => $filename[1]
-                ];
-
-                $fp = fopen($catfolder.'/'.'log.txt', 'a+');
-                fwrite($fp, $file['filename'] . PHP_EOL);
-                fclose($fp);
-
-                $i++;
-            } else {
-                unlink($file['filename']);
-            }
-            sort($photos);
-        }
-*/
+        $photonumber = 0;
         foreach ($photos as $photo) {
 
+            //if (file_exists($photo['foolpath']))
+            //dump($photo['number']);
+            if (!file_exists($photo['foolpath'])) continue;
+
+            $photo['number'] = $photonumber;
             $image->load($photo['foolpath']); //грузим текущую картинку
 
             $newname = $photo['number'].'_'.md5(uniqid()).'.jpg';
@@ -163,6 +148,7 @@ class UploadProject extends Model
             $photos[$photo['number']]['foolpath'] = $newphoto; //подменяем полный пть к картинке
             $photos[$photo['number']]['filename'] = $newname; //подменяем имя картинки
 
+            $photonumber++;
         }
 
         $photos = Json::encode($photos); //в этом месте имеем готовый массив фотографий для галлереи

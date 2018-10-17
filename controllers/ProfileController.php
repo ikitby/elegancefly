@@ -6,7 +6,9 @@ use app\models\ImageUpload;
 use app\models\Prodlimit;
 use app\models\Products;
 use app\models\Transaction;
+use app\models\UploadProject;
 use app\models\Userevent;
+use dastanaron\translit\Translit;
 use Exception;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -457,6 +459,60 @@ class ProfileController extends AppController
 
 
     }
+
+    //Новый проект
+    public function actionCreateProject()
+    {
+        $model = new Products();
+        $filemodel = new UploadProject();
+
+        $model->user_id = yii::$app->user->id;
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
+
+            $userfolder = $this->getUserFolder();
+
+            if ( !file_exists($userfolder ) )//проверяем и если нет - создаем папку пользователя по его id
+            {
+                mkdir($userfolder, 755); //создаем папку проектов пользователя
+            }
+
+            $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
+
+            if ($file) {
+                $photosmodel = $filemodel->makeGalery($file);
+                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
+            };
+
+            return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
+        }
+        /*
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    $themes = Yii::$app->request->post('Products');
+                    $themes = $themes['themes'];
+                    $model->saveThems($themes);
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+        */
+        return $this->render('create_project', [
+            'model' => $model,
+        ]);
+    }
+
+    public function getUserFolder()
+    {
+        return $userfolder = Yii::getAlias('@app').'/projects/user_'.yii::$app->user->id; //Лепим папку пользоваетеля
+    }
+
+    public function translite($text)
+    {
+        $translit = new Translit();
+        return $text = strtolower($translit->translit($text, true, 'ru-en'));
+    }
+
 
     /*
      * Обновление профиля до более высокого уровня
