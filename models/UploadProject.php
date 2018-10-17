@@ -102,7 +102,7 @@ class UploadProject extends Model
         //Смотрим сколько превьюшек нашел скрипт и если ни одной - сообщаем
         if ($i == 0){
             //Если нет ни одной превьюшки - прерываем загрузку и сощаем что там все плохо
-            Yii::$app->session->setFlash('warning', 'Ваш пакет не соответствует требованиям и не может быть принят.');
+            Yii::$app->session->setFlash('warning', 'Ваш пакет не соответствует требованиям и не может быть принят. <br/>(Проверьте наличие в корне хотя бы одного файла preview_*.png/jpg/jpeg с максимальным размером 3mB)');
             Yii::$app->getResponse()->redirect( '/profile/myprojects'); # Укажите ссылку
             Yii::$app->end();
             Return false;
