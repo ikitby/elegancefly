@@ -115,9 +115,7 @@ dump($painter);
         <div class="depos">
             <?= DepositWidget::widget(['tpl' =>'deposit_paypal_n', 'data' => '5']) ?>
         </div>
-        <div class="edit">
-            <?= Html::a('Edit', ['edit'], ['class' => 'btn btn-primary pull-right']) ?>
-        </div>
+
     </div>
 
     </div>
