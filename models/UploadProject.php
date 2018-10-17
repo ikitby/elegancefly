@@ -59,8 +59,6 @@ class UploadProject extends Model
         $resultlist = $archive->listContent();
         $result = $archive->extract(PCLZIP_OPT_PATH, $catfolder); //распаковали
         unlink($catfolder . '/' . $file->name); // удаление Архива исходника
-
-
         $photos = array();
         $i = 0;
         $limit = 10;
@@ -82,14 +80,14 @@ class UploadProject extends Model
             if ($item['folder'] == true ) { //Если видим папку - удаляем со всей требухой
                 FileHelper::removeDirectory($catfolder.'/'.$item['filename']);
                 //continue;
-            } elseif (!preg_match("/^preview_\d\.png|jp?eg$/i", $item['filename']) || $item['size'] > 1024*1024*3){ //Проверяем файл. И если он не нужен - удаляем
+            } elseif (!preg_match("/^preview_\d\.png|jpe?g$/i", $item['filename']) || $item['size'] > 1024*1024*3){ //Проверяем файл. И если он не нужен - удаляем
 
                 if (file_exists($catfolder.'/'.$item['filename'])) {
                     unlink($catfolder.'/'.$item['filename']);
                     //continue;
                 }
 
-            } elseif (preg_match("/^preview_\d\.png|jp?eg$/i", $item['filename'])) { //Если все соответствует маске превьюшки и размер файл
+            } elseif (preg_match("/^preview_\d\.png|jpe?g$/i", $item['filename'])) { //Если все соответствует маске превьюшки и размер файл
 
                 $photos[$i] = [
                     'number'   => $i,
