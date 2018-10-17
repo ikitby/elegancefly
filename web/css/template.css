@@ -51,8 +51,8 @@ a.cablinck {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0
 a.cablinck:hover, div#userblock span.authuser>a:hover {background: #33373a;text-decoration: none;}
 .usermenu {text-align: left;}
 div#balancewrapp {display: flex;align-items: center;}
-div#balancewrapp>.balance {flex-basis: 50px;line-height: 1em;font-size: 14px;text-align: center;}
-div#balancewrapp>.depos {flex-basis: 60%; text-align: center;}
+div#balancewrapp>.balance {flex-basis: 30%;line-height: 1em;font-size: 14px;text-align: center;}
+div#balancewrapp>.depos {flex-basis: 70%; text-align: center;}
 div#balancewrapp input {text-align: center;}
 .depowidget .input-groupn>div {margin-bottom: 5px;}
 div#balancewrapp h3 {margin: 0;color: #ffb62d;font-size: 20px;}
