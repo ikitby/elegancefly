@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <h1><?= Html::encode($this->title) ?></h1>
 
-        <?php// Pjax::begin(); ?>
         <div id="painterspage" class="row">
             <?php
             if (!empty($users)) :
@@ -84,5 +83,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
 
-        <?php // Pjax::end(); ?>
     </div>

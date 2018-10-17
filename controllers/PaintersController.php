@@ -40,6 +40,7 @@ class PaintersController extends AppController
             'status' => 10,
             'role' => ['Painter','Creator']
         ]);
+
         $usersall = $users;
 
         $pagination = new Pagination(

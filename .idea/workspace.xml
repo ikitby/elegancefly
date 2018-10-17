@@ -30,8 +30,8 @@
       <file leaf-file-name="UploadProject.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="105" column="88" lean-forward="false" selection-start-line="105" selection-start-column="88" selection-end-line="105" selection-end-column="88" />
+            <state relative-caret-position="300">
+              <caret line="91" column="37" lean-forward="true" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
               <folding>
                 <element signature="e#6204#9922#0#PHP" expanded="false" />
               </folding>
@@ -100,8 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/painters/index.php" />
-        <option value="$PROJECT_DIR$/views/painters/view.php" />
         <option value="$PROJECT_DIR$/models/Products.php" />
         <option value="$PROJECT_DIR$/widgets/VitrinaWidget.php" />
         <option value="$PROJECT_DIR$/views/site/index.php" />
@@ -151,6 +149,8 @@
         <option value="$PROJECT_DIR$/widgets/user_tpl/user.php" />
         <option value="$PROJECT_DIR$/web/css/template.css" />
         <option value="$PROJECT_DIR$/models/UploadProject.php" />
+        <option value="$PROJECT_DIR$/controllers/PaintersController.php" />
+        <option value="$PROJECT_DIR$/views/painters/index.php" />
       </list>
     </option>
   </component>
@@ -266,6 +266,12 @@
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="painters" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="profile" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -344,15 +350,15 @@
     <property name="node.js.selected.package.standard" value="" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\OSPanel\domains\elegancefly.loc\views\profile" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\OSPanel\domains\elegancefly.loc\views\profile" />
       <recent name="D:\OSPanel\domains\elegancefly.loc\mail" />
       <recent name="D:\OSPanel\domains\elegancefly.loc\widgets\events_tpl" />
       <recent name="D:\OSPanel\domains\elegancefly.loc\widgets\basket_tpl" />
       <recent name="D:\OSPanel\domains\elegancefly.loc\widgets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OSPanel\domains\elegancefly.loc\views\profile" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -530,18 +536,19 @@
       <workItem from="1539504360635" duration="33713000" />
       <workItem from="1539585237377" duration="28104000" />
       <workItem from="1539678779466" duration="18382000" />
-      <workItem from="1539755470678" duration="19487000" />
+      <workItem from="1539755470678" duration="21269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2409677000" />
+    <option name="totallyTimeSpent" value="2411459000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="141" y="50" width="1664" height="945" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18021844" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18021844" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280899" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -581,14 +588,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/admin/views/pages/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Afm.by/angm.by/css/css.css" />
     <entry file="file://D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Afm.by/iblank/css/css.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2227">
@@ -984,10 +983,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/painters/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-157">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/PaintersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="105" column="88" lean-forward="false" selection-start-line="105" selection-start-column="88" selection-end-line="105" selection-end-column="88" />
+        <state relative-caret-position="300">
+          <caret line="91" column="37" lean-forward="true" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
           <folding>
             <element signature="e#6204#9922#0#PHP" expanded="false" />
           </folding>
