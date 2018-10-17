@@ -15,36 +15,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="view.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="view.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/catalog/view.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="49" column="30" lean-forward="false" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+            <state relative-caret-position="404">
+              <caret line="54" column="31" lean-forward="true" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProfileController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="484" column="46" lean-forward="false" selection-start-line="484" selection-start-column="46" selection-end-line="484" selection-end-column="46" />
-              <folding>
-                <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UploadProject.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-              <folding>
-                <element signature="e#6191#9909#0#PHP" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -114,7 +90,6 @@
         <option value="$PROJECT_DIR$/views/profile/view.php" />
         <option value="$PROJECT_DIR$/views/painters/index.php" />
         <option value="$PROJECT_DIR$/views/painters/view.php" />
-        <option value="$PROJECT_DIR$/views/catalog/view.php" />
         <option value="$PROJECT_DIR$/models/Products.php" />
         <option value="$PROJECT_DIR$/widgets/VitrinaWidget.php" />
         <option value="$PROJECT_DIR$/views/site/index.php" />
@@ -161,6 +136,7 @@
         <option value="D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Penoplex.by/bootstrap_kit/renderer/basket/_table.php" />
         <option value="$PROJECT_DIR$/controllers/CatalogController.php" />
         <option value="$PROJECT_DIR$/models/UploadProject.php" />
+        <option value="$PROJECT_DIR$/views/catalog/view.php" />
       </list>
     </option>
   </component>
@@ -515,12 +491,12 @@
       <workItem from="1539504360635" duration="33713000" />
       <workItem from="1539585237377" duration="28104000" />
       <workItem from="1539678779466" duration="18382000" />
-      <workItem from="1539755470678" duration="9475000" />
+      <workItem from="1539755470678" duration="13511000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2399665000" />
+    <option name="totallyTimeSpent" value="2403701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="141" y="50" width="1664" height="945" extended-state="0" />
@@ -942,17 +918,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/catalog/view.php">
+    <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="49" column="30" lean-forward="false" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="384">
+          <caret line="139" column="53" lean-forward="true" selection-start-line="139" selection-start-column="53" selection-end-line="139" selection-end-column="53" />
+          <folding>
+            <element signature="e#6152#9870#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="1037">
           <caret line="484" column="46" lean-forward="false" selection-start-line="484" selection-start-column="46" selection-end-line="484" selection-end-column="46" />
           <folding>
             <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
@@ -960,13 +938,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
+    <entry file="file://$PROJECT_DIR$/views/catalog/view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding>
-            <element signature="e#6191#9909#0#PHP" expanded="false" />
-          </folding>
+        <state relative-caret-position="404">
+          <caret line="54" column="31" lean-forward="true" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

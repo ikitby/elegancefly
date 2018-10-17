@@ -47,18 +47,18 @@ $allowpurchased = ($limit > $count) ? true : false;
             'class' => 'project_gallery_cls'
             ],
             'pluginOptions' => [
-            'autoPlay' => true,
-            'nav' => true,
-            'dots' => true,
-            'autoplay' => true,
-            'lazyLoad' => true,
-            'loop' => true,
-            'items' => 1
+                'autoPlay' => true,
+                'nav' => true,
+                'dots' => true,
+                'autoplay' => true,
+                'lazyLoad' => true,
+                'loop' => true,
+                'items' => 1
             ]
             ]);
 
             foreach ($galery as $photo) {
-            print Html::img('/'.$photo['filepath'].$photo['filename'], ['class' => 'img-responsive', 'style' => 'margin: 5px', 'alt' => $model->title, 'title' => $model->title]);
+            print Html::img('/'.$photo['filepath'].$photo['filename'], ['class' => 'img-responsive', 'style' => 'margin: -1px', 'alt' => $model->title, 'title' => $model->title]);
             }
             OwlCarouselWidget::end();
 ?>
