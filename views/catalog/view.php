@@ -51,6 +51,7 @@ $allowpurchased = ($limit > $count) ? true : false;
                 'nav' => true,
                 'dots' => true,
                 'autoplay' => true,
+                'autoplayHoverPause' => true,
                 'lazyLoad' => true,
                 'loop' => true,
                 'items' => 1
