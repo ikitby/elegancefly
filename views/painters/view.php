@@ -27,11 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h2><?= Html::encode($this->title) ?></h2>
 
                 <?php
-                if (empty($painter['role']) || $painter['role'] != 'User') :
+
+                if (!Yii::$app->authManager->getRolesByUser($painter['id'])["User"]) :
                     echo StarRating::widget([
                         'name' => 'rating_'.$painter['id'].'',
                         'id' => 'input_'.$painter['id'].'',
-                        'value' => ($painter['rate']) ? "0" : $painter['rate'],
+                        'value' => ($painter['rate']) ? $painter['rate'] : 0,
                         'attribute' => 'rating',
                         'pluginOptions' => [
                             'size' => 'sm',

@@ -15,26 +15,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProfileController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
+      <file leaf-file-name="user.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/widgets/user_tpl/user.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="484" column="49" lean-forward="false" selection-start-line="484" selection-start-column="49" selection-end-line="484" selection-end-column="49" />
-              <folding>
-                <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
-              </folding>
+            <state relative-caret-position="217">
+              <caret line="66" column="29" lean-forward="false" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="85" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UploadProject.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
+      <file leaf-file-name="view.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/painters/view.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="91" column="37" lean-forward="true" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
-              <folding>
-                <element signature="e#6204#9922#0#PHP" expanded="false" />
-              </folding>
+            <state relative-caret-position="285">
+              <caret line="34" column="75" lean-forward="true" selection-start-line="34" selection-start-column="75" selection-end-line="34" selection-end-column="75" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -100,7 +96,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/models/Products.php" />
         <option value="$PROJECT_DIR$/widgets/VitrinaWidget.php" />
         <option value="$PROJECT_DIR$/views/site/index.php" />
         <option value="$PROJECT_DIR$/mail/userNewProjectEmail.php" />
@@ -151,6 +146,7 @@
         <option value="$PROJECT_DIR$/models/UploadProject.php" />
         <option value="$PROJECT_DIR$/controllers/PaintersController.php" />
         <option value="$PROJECT_DIR$/views/painters/index.php" />
+        <option value="$PROJECT_DIR$/views/painters/view.php" />
       </list>
     </option>
   </component>
@@ -536,12 +532,12 @@
       <workItem from="1539504360635" duration="33713000" />
       <workItem from="1539585237377" duration="28104000" />
       <workItem from="1539678779466" duration="18382000" />
-      <workItem from="1539755470678" duration="21269000" />
+      <workItem from="1539755470678" duration="22756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2411459000" />
+    <option name="totallyTimeSpent" value="2412946000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="141" y="50" width="1664" height="945" extended-state="0" />
@@ -588,13 +584,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Afm.by/iblank/css/css.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Afm.by/templates/bootstrap_kit/renderer/item/product/full.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
@@ -941,14 +930,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/user_tpl/user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="65" column="46" lean-forward="true" selection-start-line="65" selection-start-column="46" selection-end-line="65" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/profile/view.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -973,16 +954,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="484" column="49" lean-forward="false" selection-start-line="484" selection-start-column="49" selection-end-line="484" selection-end-column="49" />
-          <folding>
-            <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/painters/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-157">
@@ -1003,11 +974,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="91" column="37" lean-forward="true" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
+        <state relative-caret-position="1048">
+          <caret line="96" column="21" lean-forward="true" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
           <folding>
             <element signature="e#6204#9922#0#PHP" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="484" column="49" lean-forward="false" selection-start-line="484" selection-start-column="49" selection-end-line="484" selection-end-column="49" />
+          <folding>
+            <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/widgets/user_tpl/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="66" column="29" lean-forward="false" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/painters/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="34" column="75" lean-forward="true" selection-start-line="34" selection-start-column="75" selection-end-line="34" selection-end-column="75" />
+          <folding />
         </state>
       </provider>
     </entry>
