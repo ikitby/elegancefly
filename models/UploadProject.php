@@ -78,18 +78,16 @@ class UploadProject extends Model
             $item_name = basename($item['filename'], '.'.$item_ext); //Имя файла
 
             if ($item['folder'] == true ) { //Если видим папку - удаляем со всей требухой
-                FileHelper::removeDirectory($catfolder.'/'.$item['filename']);
-                //continue;
-            } elseif (!preg_match("/^preview_\d\.(png|jp?eg)$/i", $item['filename']) || $item['size'] > 1024*1024*3){ //Проверяем файл. И если он не нужен - удаляем
+                  FileHelper::removeDirectory($catfolder.'/'.$item['filename']);
+
+            } elseif (!preg_match("/^preview_\d\.(png|jpg|jpeg)$/i", $item['filename']) || $item['size'] > 1024*1024*3){ //Проверяем файл. И если он не нужен - удаляем
 
                 if (file_exists($catfolder.'/'.$item['filename'])) {
                     unlink($catfolder.'/'.$item['filename']);
-                    //continue;
                 }
 
             //} elseif (preg_match("/^preview_\d\.png|jpe?g$/i", $item['filename'])) { //Если все соответствует маске превьюшки и размер файл
-            } elseif (preg_match("/^preview_\d\.(png|jp?eg)$/i", $item['filename']) && $item['size'] < 1024*1024*3) { //Если все соответствует маске превьюшки и размер файл
-
+            } elseif (preg_match("/^preview_\d\.(png|jpg|jpeg)$/i", $item['filename']) && $item['size'] < 1024*1024*3) { //Если все соответствует маске превьюшки и размер файл
                 $photos[$i] = [
                     'number'   => $i,
                     'foolpath' => $catfolder.'/'.$item['filename'],
@@ -97,10 +95,9 @@ class UploadProject extends Model
                     'filename' => $item['filename']
                 ];
                 $i++;
+
             }
-
         }
-
 
         //Смотрим сколько превьюшек нашел скрипт и если ни одной - сообщаем
         if ($i == 0){

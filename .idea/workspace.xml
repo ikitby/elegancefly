@@ -14,7 +14,32 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ProfileController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="254">
+              <caret line="484" column="49" lean-forward="false" selection-start-line="484" selection-start-column="49" selection-end-line="484" selection-end-column="49" />
+              <folding>
+                <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UploadProject.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="453">
+              <caret line="94" column="51" lean-forward="true" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
+              <folding>
+                <element signature="e#6099#9817#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -120,12 +145,12 @@
         <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
         <option value="D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Penoplex.by/bootstrap_kit/renderer/basket/_table.php" />
         <option value="$PROJECT_DIR$/controllers/CatalogController.php" />
-        <option value="$PROJECT_DIR$/models/UploadProject.php" />
         <option value="$PROJECT_DIR$/views/catalog/view.php" />
         <option value="$PROJECT_DIR$/web/adminassets/css/template.css" />
         <option value="$PROJECT_DIR$/views/profile/view.php" />
         <option value="$PROJECT_DIR$/widgets/user_tpl/user.php" />
         <option value="$PROJECT_DIR$/web/css/template.css" />
+        <option value="$PROJECT_DIR$/models/UploadProject.php" />
       </list>
     </option>
   </component>
@@ -505,18 +530,19 @@
       <workItem from="1539504360635" duration="33713000" />
       <workItem from="1539585237377" duration="28104000" />
       <workItem from="1539678779466" duration="18382000" />
-      <workItem from="1539755470678" duration="17274000" />
+      <workItem from="1539755470678" duration="17836000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2407464000" />
+    <option name="totallyTimeSpent" value="2408026000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="141" y="50" width="1664" height="945" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18021844" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18021844" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280899" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -893,34 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile/create_project.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="11" column="3" lean-forward="false" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="139" column="53" lean-forward="true" selection-start-line="139" selection-start-column="53" selection-end-line="139" selection-end-column="53" />
-          <folding>
-            <element signature="e#6152#9870#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="484" column="46" lean-forward="false" selection-start-line="484" selection-start-column="46" selection-end-line="484" selection-end-column="46" />
-          <folding>
-            <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/adminassets/css/template.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -966,6 +964,34 @@
         <state relative-caret-position="153">
           <caret line="54" column="38" lean-forward="false" selection-start-line="54" selection-start-column="38" selection-end-line="54" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profile/create_project.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="11" column="3" lean-forward="false" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="484" column="49" lean-forward="false" selection-start-line="484" selection-start-column="49" selection-end-line="484" selection-end-column="49" />
+          <folding>
+            <marker date="1539691377055" expanded="true" signature="19819:19859" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/UploadProject.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="94" column="51" lean-forward="true" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
+          <folding>
+            <element signature="e#6099#9817#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
