@@ -477,9 +477,11 @@ class CatalogController extends AppController
         if (file_exists($project->project_path)) $this->delTree($project->project_path); //удаляю папку проекта с всем содержимым
         foreach ($removeres as $res)
         {
-
             if (file_exists($res->foolpath)) {
-                unlink($res->foolpath);
+                unlink($res->filepath.$res->filename);
+                unlink($res->filepath.'100_100_'.$res->filename);
+                unlink($res->filepath.'200_200_'.$res->filename);
+                unlink($res->filepath.'400_400_'.$res->filename);
             } // Чистим все картинки предпросмотра
         }
          $project->delete(); //Удаляем проект из базы
