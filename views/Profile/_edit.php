@@ -54,8 +54,8 @@ use kartik\widgets\Select2;
                 <?php //$form->field($model, 'category')->dropdownList(Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column())->label('Category') ?>
 
                 <?php
-                $distate = true;
-                if (User::Can('canResaleForResale')) { $distate = false; }
+                $distate = (User::Can('canResaleForResale')) ? false : true;
+                $distateex = (User::Can('canExclusive'))? false : true;
 
                 print $form->field($model, 'category')->widget(Select2::classname(), [
                 'data' => Catprod::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
@@ -64,6 +64,7 @@ use kartik\widgets\Select2;
 
                     'options' => [
                         2 => ['disabled' => $distate],
+                        9 => ['disabled' => $distateex],
                     ],
 
                     'multiple' => false,
