@@ -144,7 +144,8 @@ class ProfileController extends AppController
             $price = str_replace(",",".", $price);
             $model->price = $price;
             }
-            if (User::Can('canResaleForResale') && $model->category == 2) {
+
+            if ((!User::Can('canResaleForResale') && $model['category'] == 2) || (!User::Can('canExclusive') && $model['category'] == 9)) {
                 throw new NotFoundHttpException('The requested page does not exist.');
             }
 
@@ -160,6 +161,9 @@ class ProfileController extends AppController
 
         return $this->render('updateproject', ['model' => $model]);
     }
+
+
+    //Пополнение баланса счета
 
     public function actionDeposite()
     {
