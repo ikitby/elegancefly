@@ -119,8 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     print Html::a('Update', ['/profile/updateproject', 'id' => $project->id], ['class' => 'btn btn-primary btn-xs']);
 
                                 }
-                                //canSetLimitProject <?php if (User::Can('createProject')):
-                                if (Transaction::getProdSales($project->id) == 0 && User::Can('canSetLimitProject')) {
+                                if (Transaction::getProdSales($model->id) == 0 && (User::Can('canSetLimitProject') || User::Can('canSetLimitOwnProject', $project->id))) {
                                     print ' ' . Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-xs limitproject', 'data-id' => $project->id]);
                                 }
                                 ?>
@@ -141,9 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php
             endforeach;
-        } else {
-            print '<center><br /><br /><br /><h2>Empty!</h2></center>';
-        }
+        }        else
         ?>
 
     <div class="row">

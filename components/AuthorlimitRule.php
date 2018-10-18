@@ -16,6 +16,11 @@ class AuthorlimitRule extends Rule
         //Получаем ID проекта обращающегося к редактированию проекта лимита
         $proj_id = (!empty(Yii::$app->request->post('id'))) ? Yii::$app->request->post('id') : Yii::$app->request->post('Prodlimit')['id'];
 
+        //dump(Yii::$app->request->post('id'));
+        //dump($proj_id);
+
+        if ($params) {$proj_id = $params;}
+
         if (empty($model)) {
             $model = $this->findModel($proj_id);
         }
@@ -28,7 +33,6 @@ class AuthorlimitRule extends Rule
             return $model;
         }
     }
-
 }
 
 

@@ -278,6 +278,7 @@ class ProfileController extends AppController
 
     public function actionSetlimit() //Установка лимита продаж
     {
+
         if (!Yii::$app->user->isGuest) {
             $id = Yii::$app->request->post('id');
 

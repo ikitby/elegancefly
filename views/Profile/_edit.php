@@ -42,7 +42,7 @@ use kartik\widgets\Select2;
                         <?php if ($model->price && $model->limit > 0) : ?>
                             Current price (limit project): <h3><?= $model->price ?>$</h3><?php endif; ?>
                         <?php
-                        if (Transaction::getProdSales($model->id) == 0 && User::Can('canSetLimitProject'))
+                        if (Transaction::getProdSales($model->id) == 0 && (User::Can('canSetLimitProject') || User::Can('canSetLimitOwnProject', $model->id)))
                         {
                             print Html::a('Set limit', ['#'], ['class' => 'btn btn-info btn-md limitproject', 'data-id' => $model->id]);
                         }

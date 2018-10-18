@@ -334,9 +334,9 @@ class User extends ActiveRecord implements IdentityInterface
         ]);
     }
 
-    public static function Can($permission)
+    public static function Can($permission, $itemid = '')
     {
-        return Yii::$app->authManager->checkAccess(Yii::$app->user->id, $permission);
+        return Yii::$app->authManager->checkAccess(Yii::$app->user->id, $permission, $itemid);
     }
 
     public static function UsersByPermission($permission)
