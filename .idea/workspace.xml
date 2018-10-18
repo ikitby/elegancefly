@@ -14,22 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="myprojects.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/profile/myprojects.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="149" column="63" lean-forward="true" selection-start-line="149" selection-start-column="63" selection-end-line="149" selection-end-column="63" />
-              <folding>
-                <element signature="e#556#1033#0#PHP" expanded="true" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,7 +26,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tr</find>
       <find>col-md-12</find>
       <find>row</find>
       <find>ajax</find>
@@ -71,6 +55,7 @@
       <find>getUserFolder</find>
       <find>delete</find>
       <find>updateproject</find>
+      <find>col-md-12 col-lg-9</find>
     </findStrings>
     <replaceStrings>
       <replace>$painter</replace>
@@ -123,8 +108,6 @@
         <option value="$PROJECT_DIR$/config/web.php" />
         <option value="$PROJECT_DIR$/models/AuthAssignment.php" />
         <option value="$PROJECT_DIR$/models/SignupForm.php" />
-        <option value="$PROJECT_DIR$/widgets/UsersWidget.php" />
-        <option value="$PROJECT_DIR$/modules/admin/views/default/index.php" />
         <option value="$PROJECT_DIR$/web/adminassets/js/main.js" />
         <option value="$PROJECT_DIR$/views/catalog/create.php" />
         <option value="D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Penoplex.by/bootstrap_kit/renderer/basket/_table.php" />
@@ -141,6 +124,8 @@
         <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
         <option value="$PROJECT_DIR$/views/profile/_edit.php" />
         <option value="$PROJECT_DIR$/views/profile/myprojects.php" />
+        <option value="$PROJECT_DIR$/widgets/UsersWidget.php" />
+        <option value="$PROJECT_DIR$/modules/admin/views/default/index.php" />
       </list>
     </option>
   </component>
@@ -527,19 +512,18 @@
       <workItem from="1539585237377" duration="28104000" />
       <workItem from="1539678779466" duration="18382000" />
       <workItem from="1539755470678" duration="23318000" />
-      <workItem from="1539852346462" duration="7569000" />
+      <workItem from="1539852346462" duration="10706000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2421077000" />
+    <option name="totallyTimeSpent" value="2424214000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="141" y="50" width="1664" height="945" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18021844" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18021844" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280899" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -748,21 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/admin/views/default/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
-          <folding>
-            <marker date="1539688377494" expanded="true" signature="1674:1743" ph="..." />
-            <marker date="1539688377494" expanded="true" signature="1742:1743" ph="..." />
-            <marker date="1539688377494" expanded="true" signature="1976:2096" ph="..." />
-            <marker date="1539688377494" expanded="true" signature="2007:2096" ph="..." />
-            <marker date="1539688377494" expanded="true" signature="2212:2303" ph="..." />
-            <marker date="1539688377494" expanded="true" signature="2425:2497" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/adminassets/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -795,14 +764,6 @@
           <folding>
             <element signature="e#30#60#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/UsersWidget.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="100" lean-forward="false" selection-start-line="19" selection-start-column="100" selection-end-line="19" selection-end-column="100" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1000,13 +961,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/profile/myprojects.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="149" column="63" lean-forward="true" selection-start-line="149" selection-start-column="63" selection-end-line="149" selection-end-column="63" />
+        <state relative-caret-position="375">
+          <caret line="148" column="21" lean-forward="true" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="21" />
           <folding>
             <element signature="e#556#1033#0#PHP" expanded="true" />
             <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/admin/views/default/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+          <folding>
+            <marker date="1539865489286" expanded="true" signature="1708:1827" ph="..." />
+            <marker date="1539865489286" expanded="true" signature="1776:1827" ph="..." />
+            <marker date="1539865489286" expanded="true" signature="2043:2163" ph="..." />
+            <marker date="1539865489286" expanded="true" signature="2074:2163" ph="..." />
+            <marker date="1539865489286" expanded="true" signature="2279:2370" ph="..." />
+            <marker date="1539865489286" expanded="true" signature="2492:2564" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/widgets/UsersWidget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="21" column="59" lean-forward="true" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -36,13 +36,13 @@ use yii\widgets\Pjax;
     <div class="col-sm-6">
         <h3>Последние зарегистрировавшиеся</h3>
         <ul id="userblockid">
-            <?= \app\widgets\UsersWidget::widget(['tpl' =>'admingallery', 'usertype' => 'painter', 'order' => (['created_at' => SORT_DESC])]) ?>
+            <?= \app\widgets\UsersWidget::widget(['tpl' =>'admingallery', 'order' => (['created_at' => SORT_DESC]), 'usertype' => ['Painter','Creator','User'], 'limit' => 10]) ?>
         </ul>
     </div>
     <div class="col-sm-6">
         <h3>Популярные художники</h3>
         <ul id="userblockid">
-            <?= \app\widgets\UsersWidget::widget(['tpl' =>'admingallery', 'usertype' => 'painter', 'order' => ['sales' => SORT_DESC]]) ?>
+            <?= \app\widgets\UsersWidget::widget(['tpl' =>'admingallery', 'usertype' => ['Painter','Creator'], 'order' => ['sales' => SORT_DESC, 'rate' => SORT_DESC]]) ?>
         </ul>
 
     </div>

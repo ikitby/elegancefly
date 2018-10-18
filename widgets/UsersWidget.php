@@ -11,11 +11,15 @@ class UsersWidget extends Widget{
     public $data;
     public $usertype;
     public $order;
+    public $limit;
+    public $status;
 
     public function init(){
         parent::init();
-        if ($this->usertype === null) {$this->usertype = 'painter';}
+        if ($this->usertype === null) {$this->usertype = ['Admin','Painter','Creator','User'];}
         if ($this->tpl === null) {$this->tpl = 'gallery';}
+        if ($this->limit === null) {$this->limit = '5';}
+        if ($this->status === null) {$this->status = '10';}
         $this->tpl .='.php';
         if ($this->order === null) {$this->order = ['sales' => SORT_DESC, 'rate' => SORT_DESC, 'name' => SORT_DESC];}
     }
@@ -27,11 +31,11 @@ class UsersWidget extends Widget{
 
         $this->data = User::find()
             ->joinWith('userLevel')
-            ->where(['auth_assignment.item_name' => 'Painter'])
-            ->orWhere(['auth_assignment.item_name' => 'Creator'])
-            ->andWhere(['status' => '10'])
+            ->where(['auth_assignment.item_name' => $this->usertype])
+            //->orWhere(['auth_assignment.item_name' => 'Creator'])
+            ->andWhere($this->status)
             ->orderBy($this->order)
-            ->limit(10)
+            ->limit($this->limit)
             ->all();
 
         $users = $this->getHtmlMenu($this->data);
