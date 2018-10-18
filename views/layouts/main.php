@@ -118,7 +118,7 @@ $cartsumm = Cart::getCartsumm();
 
             <h3>Топ художников<span class="label label-info"></span></h3>
             <ul id="userblockid">
-                <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => 'painter']) ?>
+                <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => ['Painter','Creator'], 'limit' => 10]) ?>
             </ul>
 
         </div>
