@@ -39,6 +39,8 @@ AdminAssets::register($this);
         <nav id="nav">
 
             <div class="usermenu">
+                <?= \Yii::$app->view->renderFile('@app/widgets/views/_newactions.php') ?>
+                <?php // $this->render('_newactions') ?>
                 <ul class="">
                     <li class=""><a href="<?= Url::to('/admin/users') ?>">Пользователи</a></li>
                     <li class=""><a href="<?= Url::to('/rbac/user') ?>">Управление правами</a></li>

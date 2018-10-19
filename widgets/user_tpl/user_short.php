@@ -5,6 +5,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
+
+<?= $this->render('_newactions') ?>
+
 <div class="row_boot" style="text-align: center;">
     <?php if (!empty($user)) :
 

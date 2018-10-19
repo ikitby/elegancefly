@@ -2,12 +2,16 @@
 
 use app\models\Transaction;
 use app\models\User;
+use app\models\Userevent;
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-
+$userid = Yii::$app->user->id;
 ?>
+
+<?= $this->render('_newactions') ?>
+
 <div class="row_boot" style="text-align: center;">
     <?php if (!empty($user)) :
         if (empty($user['photo'])) {
@@ -64,7 +68,7 @@ use yii\helpers\Url;
 
                 <?php
 
-                $userid = Yii::$app->user->id;
+
                 $userLever = Yii::$app->authManager->getRolesByUser($userid)["User"];
 
                 if (User::Can('canUpgradeProfile') && Yii::$app->authManager->getRolesByUser($userid)["User"]):
