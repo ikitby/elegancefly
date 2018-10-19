@@ -123,18 +123,18 @@ class UploadProject extends Model
             $newname = $photo['number'].'_'.md5(uniqid()).'.jpg';
             $newphoto = $photo['filepath'].$newname; //генерим новое рандомное имя для картинки а формате jpg
             $image->resize(600, 600); //ресайзим картинку
-            $image->save($newphoto, IMAGETYPE_JPEG, 80, null, false);//сохраняем картинку нового размера
+            $image->save($newphoto, IMAGETYPE_JPEG, 80, 640, false);//сохраняем картинку нового размера
             //тут будем накладывать вотермарк
             $this->putWotermark($newphoto);
 
             $image->resize(400, 400); //ресайзим картинку 400/400
-            $image->save($photo['filepath'].'400_400_'.$newname, IMAGETYPE_JPEG, 80, null, false);
+            $image->save($photo['filepath'].'400_400_'.$newname, IMAGETYPE_JPEG, 80, 644, false);
 
             $image->resize(200, 200); //ресайзим картинку 200/200
-            $image->save($photo['filepath'].'200_200_'.$newname, IMAGETYPE_JPEG, 80, null, false);
+            $image->save($photo['filepath'].'200_200_'.$newname, IMAGETYPE_JPEG, 80, 644, false);
 
             $image->resize(100, 100); //ресайзим картинку 100/100
-            $image->save($photo['filepath'].'100_100_'.$newname, IMAGETYPE_JPEG, 80); //последний ресайз удаляет за собой временную картинку
+            $image->save($photo['filepath'].'100_100_'.$newname, IMAGETYPE_JPEG, 80, 644, true); //последний ресайз удаляет за собой временную картинку
 
             //сохраняем измененную картинку и, если сохранили, удаляем оригинал и меняем имя в массиве
             unlink($photo['foolpath']);

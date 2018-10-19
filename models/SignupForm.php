@@ -37,7 +37,7 @@ class SignupForm extends Model
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User'],
-            ['password', 'string', 'min' => 6, 'max' => 255],
+            ['password', 'string', 'min' => 6, 'max' => 50],
             ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_NOT_ACTIVE]],

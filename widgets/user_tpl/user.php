@@ -59,6 +59,7 @@ use yii\helpers\Url;
                 <?php if (User::Can('viewPurchases')):?><li class=""><a href="<?= Url::to('/profile/purchases') ?>">My purchases</a></li><?php endif; ?>
                 <?php if (User::Can('viewPayments')):?><li class=""><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li><?php endif; ?>
                 <li class=""><?= Html::a('Profile edit', ['edit']) ?></li>
+                <li class=""><?= Html::a('Change Password', ['/request-password-reset']) ?></li>
 
 
                 <?php

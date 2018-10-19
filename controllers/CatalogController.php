@@ -16,6 +16,7 @@ use yii\data\Pagination;
 
 use yii\helpers\ArrayHelper;
 
+use yii\helpers\FileHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -475,16 +476,21 @@ class CatalogController extends AppController
         $removeres = json_decode($project->photos);
 
         if (file_exists($project->project_path)) $this->delTree($project->project_path); //удаляю папку проекта с всем содержимым
+
         foreach ($removeres as $res)
         {
-            if (file_exists($res->foolpath)) {
+
+            if (file_exists($res->filepath.$res->filename)) {
+
                 unlink($res->filepath.$res->filename);
                 unlink($res->filepath.'100_100_'.$res->filename);
                 unlink($res->filepath.'200_200_'.$res->filename);
                 unlink($res->filepath.'400_400_'.$res->filename);
             } // Чистим все картинки предпросмотра
         }
+
          $project->delete(); //Удаляем проект из базы
+
 
         //-----------------------------------------------------------------
 
@@ -499,6 +505,10 @@ class CatalogController extends AppController
     //Удаление директории проекта с файлами в ней
     private function delTree($dir)
     {
+
+        FileHelper::removeDirectory($dir);
+
+/*
         if ($objs = glob($dir."/*"))
         {
             foreach($objs as $obj)
@@ -506,7 +516,7 @@ class CatalogController extends AppController
                 is_dir($obj) ? $this->delTree($obj) : unlink($obj);
             }
         }
-        rmdir($dir);
+        rmdir($dir);*/
     }
 
     protected function findModel($id)

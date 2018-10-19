@@ -12,6 +12,7 @@ class ResetPasswordForm extends Model
 {
 
     public $password;
+    public $password_repeat;
 
     /**
      * @var \app\models\User
@@ -47,8 +48,10 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            [['password', 'password_repeat'],  'filter', 'filter' => 'trim'],
+            [['password', 'password_repeat'], 'required'],
+            [['password', 'password_repeat'], 'string', 'min' => 6, 'max' => '50'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
         ];
     }
 
