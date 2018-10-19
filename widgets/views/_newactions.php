@@ -13,10 +13,9 @@ $(document).ready(function() {
 JS;
 $this->registerJs($script);
 
-?>
-<?php Pjax::begin(['id' =>'topiccontainer']); ?>
-
-    <?php if (Yii::$app->authManager->getRolesByUser($userid)["Admin"]) : ?>
+if (Yii::$app->authManager->getRolesByUser($userid)["Admin"]) :
+    Pjax::begin(['id' =>'topiccontainer']);
+    ?>
 
         <div class="topinfoicons" style="text-align: center;">
             <?php
@@ -32,6 +31,7 @@ $this->registerJs($script);
 
         </div>
 
-    <?php endif; ?>
+    <?php
+    Pjax::end();
+    endif; ?>
 
-<?php Pjax::end(); ?>
