@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);
                     ?>
 
-                    <?= ($painter['rate']) ? "0" : $painter['rate'] ?>
-                    (<?= (empty($painter['rate_c']) ? "0" : $painter['rate_c']) ?>)
+                    <?= (empty($painter['rate'])) ? "0" : $painter['rate'] ?>
+                    (<?= (empty($painter['rate_c'])) ? "0" : $painter['rate_c'] ?>)
                 <?php endif; ?>
 
                 <?= $userphoto ?>

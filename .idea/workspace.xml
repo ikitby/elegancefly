@@ -37,7 +37,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_newactions.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_newactions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/widgets/views/_newactions.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
@@ -51,21 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="view.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/profile/view.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="217">
               <caret line="111" column="20" lean-forward="false" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/painters/view.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="48" column="44" lean-forward="false" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -211,7 +201,6 @@
         <option value="$PROJECT_DIR$/web/css/template.css" />
         <option value="$PROJECT_DIR$/controllers/PaintersController.php" />
         <option value="$PROJECT_DIR$/views/painters/index.php" />
-        <option value="$PROJECT_DIR$/views/painters/view.php" />
         <option value="$PROJECT_DIR$/widgets/UsersWidget.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/default/index.php" />
         <option value="$PROJECT_DIR$/views/profile/myprojects.php" />
@@ -233,6 +222,7 @@
         <option value="$PROJECT_DIR$/widgets/user_tpl/user_short.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/layouts/admin.php" />
         <option value="$PROJECT_DIR$/widgets/views/_newactions.php" />
+        <option value="$PROJECT_DIR$/views/painters/view.php" />
       </list>
     </option>
   </component>
@@ -244,8 +234,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="507" />
-    <option name="y" value="55" />
+    <option name="x" value="299" />
+    <option name="y" value="58" />
     <option name="width" value="1391" />
     <option name="height" value="945" />
   </component>
@@ -293,6 +283,11 @@
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="mail" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
@@ -619,15 +614,15 @@
       <workItem from="1539755470678" duration="23318000" />
       <workItem from="1539852346462" duration="14769000" />
       <workItem from="1539869960112" duration="10926000" />
-      <workItem from="1539927275314" duration="15103000" />
+      <workItem from="1539927275314" duration="17632000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2454306000" />
+    <option name="totallyTimeSpent" value="2456835000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="507" y="55" width="1391" height="945" extended-state="0" />
+    <frame x="299" y="58" width="1391" height="945" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1095,22 +1090,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="111" column="20" lean-forward="false" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/painters/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="48" column="44" lean-forward="false" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/widgets/views/_newactions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1120,6 +1099,22 @@
             <marker date="1539960859271" expanded="true" signature="155:244" ph="{...}" />
             <marker date="1539960859271" expanded="true" signature="457:532" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/painters/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profile/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="111" column="20" lean-forward="false" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
