@@ -1,6 +1,7 @@
 <?php
 namespace app\widgets;
 
+use app\models\Promotions;
 use yii\base\Widget;
 use app\models\Products;
 use Yii;
@@ -13,6 +14,7 @@ class BasketWidget extends Widget
     private $count;
     private $limit;
     private $state;
+    private $saleprice;
 
     //states ot basket:
     //0 - disable
@@ -23,6 +25,14 @@ class BasketWidget extends Widget
     public function init(){
         parent::init();
         $this->state = 1;
+
+        //Подменяем цену в продуктк в соответствии со скидками
+        $price = Promotions::getSalePrice($this->product);
+
+        if (!empty($price) && $this->product->price > 0) {
+            $this->product->price = $price['price'];//скидка не пуста - подменяем цену
+            $this->saleprice = $price;//скидка не пуста - подменяем цену
+        }
 
         if ($this->template === null) {
             $this->template = 'plane';
@@ -61,7 +71,7 @@ class BasketWidget extends Widget
 
     protected function getHtml($data) {
         $res = '';
-            $res = $this->getTemplate();
+        $res = $this->getTemplate();
         return $res;
     }
 

@@ -12,7 +12,9 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Promotions */
 /* @var $form yii\widgets\ActiveForm */
 
+/*
 $model->action_catergories = explode(",", $model->action_catergories);
+*/
 $model->action_userroles = explode(",", $model->action_userroles);
 
 ?>
@@ -60,7 +62,7 @@ $model->action_userroles = explode(",", $model->action_userroles);
         ],
     ])->label('Разделы каталога'); ?>
 
-    <?= $form->field($model, 'action_userroles')->widget(Select2::classname(), [
+    <?php /* $form->field($model, 'action_userroles')->widget(Select2::classname(), [
         //'data' => User::find()->select(['title', 'id'])->indexBy('id')->orderBy(['id' => SORT_ASC])->column(),
         'data' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'),
         'options' => [
@@ -71,7 +73,7 @@ $model->action_userroles = explode(",", $model->action_userroles);
             'tags' => true,
             'allowClear' => true
         ],
-    ])->label('Роль пользователя'); ?>
+    ])->label('Роль пользователя'); */?>
 
     </fieldset>
 

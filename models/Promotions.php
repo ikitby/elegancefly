@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use phpDocumentor\Reflection\Types\Self_;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -72,6 +73,20 @@ class Promotions extends \yii\db\ActiveRecord
             ->viaTable('promotion_products', ['prom_id' => 'id']);
     }
 
+/*    public function getCatprod()
+    {
+        return $this->hasMany(Catprod::className(), ['id' => 'category_id'])
+            ->viaTable('promocat', ['promo_id' => 'id']);
+    }
+*/
+    public function getPromocat()
+    {
+        return $this->hasMany(Catprod::className(), ['id' => 'category_id'])
+            ->viaTable('promocat', ['promo_id' => 'id']);
+    }
+
+
+
     public function getPromPod($promId = 1) {
         $Products = $this->_getPromProducts()->select(['id','title','user_id','category','photos','price'])->all();
         return $Products;
@@ -83,6 +98,82 @@ class Promotions extends \yii\db\ActiveRecord
         return $selProducts;
     }
 
+    //возвращает объект скидки если такойй соответствует датам и разделу
+    private static function _getActiveProm($product) {
+
+        $catId = $product->category;
+
+        $promo = Promotions::find()
+            //->With('promocat')
+            ->joinWith('promocat')
+            ->Where(['in', 'promocat.category_id', $catId])
+            ->andWhere([/*'action_catergories' => $catId,*/ 'action_state' => 1])
+            ->andWhere(['<', 'action_start', date('Y-m-d h:m')])
+            ->andWhere(['>', 'action_end', date('Y-m-d h:m')])
+            ->one();
+        return $promo;
+    }
+
+    //Возвращает объект скидки
+    public static function getSale($product) {
+        //Получаем объект скидки
+        $promo = Promotions::_getActiveProm($product->category);
+        //если обекст пуст - вылетаем по false
+        if (empty($promo)) return false;
+        //В итоге возвращаем скидку цельным объектом
+        return $promo;
+    }
+
+    //Возвращает новый массив цены с процентом сидки, экономией, старой ценой, новой ценой
+    public static function getSalePrice($product) {
+
+        if ($product->price <= 0 || empty($product->price)) return false;
+
+        $salePrice = array();
+        //Получаем объект скидки
+        $promo = Promotions::_getActiveProm($product);
+
+        //если обекст пуст - вылетаем по false
+        if (empty($promo)) return false;
+
+        $price = $product->price;
+
+        //получаем цену с учетом скидки
+        $salePrice = [
+            'procent' => '-'.$promo->action_percent.'%',
+            'price' => $price-($price*$promo->action_percent/100),
+            'oldPrice' => $price,
+            'economy' => $price-($price*$promo->action_percent/100)
+            ];
+
+        return $salePrice;
+    }
+
+    public function getPromocats()
+    {
+        $selCats = $this->getPromocat()->select('id')->asArray()->all();
+        $selCats = ArrayHelper::getColumn($selCats, 'id');
+        return $selCats;
+    }
+
+    public function savePromocat($categories)
+    {
+        if(is_array($categories))
+        {
+            $this->clearCurrentCats();
+
+            foreach ($categories as $theme_id)
+            {
+                $promocat = Catprod::findOne($theme_id); // link tems
+                $this->link('promocat', $promocat);
+            }
+        }
+    }
+
+    public function clearCurrentCats()
+    {
+        Promocat::deleteAll(['promo_id' => $this->id]);
+    }
 
 
 }

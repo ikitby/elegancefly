@@ -87,14 +87,16 @@ class PromotionsController extends Controller
         $model = $this->findModel($id);
         $loadmodel = Yii::$app->request->post();
 
+        $model->action_catergories = $model->getPromocats(); //Загоняем в модельку связаные темы
+
         if ($model->load($loadmodel)){
 
-            if ($loadmodel['Promotions']['action_catergories']) {$categories = implode(",", $loadmodel['Promotions']['action_catergories']);} else {$categories = '';}
-            if ($loadmodel['Promotions']['action_userroles']) {$userroles = implode(",", $loadmodel['Promotions']['action_userroles']);} else {$userroles = '';}
+            $promotions = Yii::$app->request->post('Promotions');
 
             $model->load(Yii::$app->request->post());
-            $model->action_catergories = $categories;
-            $model->action_userroles = $userroles;
+
+            $categories = $promotions['action_catergories'];
+            $model->savePromocat($categories);
 
             if ($model->load($loadmodel) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);

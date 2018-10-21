@@ -6,14 +6,15 @@ use yii\widgets\Pjax;
 
 $userid = Yii::$app->user->id;
 
+if (Yii::$app->authManager->getRolesByUser($userid)["Admin"]) :
+/*
 $script = <<< JS
 $(document).ready(function() {
     setInterval(function(){ $.pjax.reload({container : '#topiccontainer'}); }, 3000);
 });
 JS;
 $this->registerJs($script);
-
-if (Yii::$app->authManager->getRolesByUser($userid)["Admin"]) :
+*/
     Pjax::begin(['id' =>'topiccontainer']);
     ?>
 

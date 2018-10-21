@@ -131,9 +131,9 @@ class Products extends \yii\db\ActiveRecord
 
     public static function editableProject($project_id)
     {
-        $limet = Products::findOne($project_id)->limit;
+        $limit = Products::findOne($project_id)->limit;
         $sales = Transaction::getProdSales($project_id);
-        if ($limet > 0 && $sales > 0) {
+        if ($limit > 0 && $sales > 0) {
             return false;
         }
         return true;
@@ -272,9 +272,9 @@ class Products extends \yii\db\ActiveRecord
         {
             $this->clearCurrentTems();
 
-            foreach ($themes as $theme_id)
+            foreach ($themes as $category_id)
             {
-                $themsprod = Themsprod::findOne($theme_id); // link tems
+                $themsprod = Themsprod::findOne($category_id); // link tems
                 $this->link('themsprod', $themsprod);
             }
         }
