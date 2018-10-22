@@ -379,7 +379,6 @@ class ProfileController extends AppController
     public function actionPublishproject()
     {
         $project_id = Yii::$app->request->post('id');
-        //$project_id = 58;
         //return json_encode($project_id);
         $user_id = $this->checkAccess();
         $product = Products::find()->where(['id' => $project_id, 'user_id' => $user_id])->one();
@@ -389,6 +388,7 @@ class ProfileController extends AppController
             $product->save();
             return json_encode($product->state);
         }
+
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 

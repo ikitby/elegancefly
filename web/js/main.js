@@ -1,5 +1,53 @@
 $(function () {
-//cart logic
+
+    $(function() {
+        $('[rel="popover"]').popover({
+            placement: "top",
+            html: true,
+            title: "",
+            trigger: "hover"
+        });
+    });
+
+//PROMO logic
+    $(".prodpromoset").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+        var pid = $(this).data('pid');
+
+        $.ajax({
+            url: '/promo/accept',
+            data: {id: id, pid: pid},
+            type: 'POST',
+            success: function (data) {
+                if (!data) alert('Ahtung!');
+            },
+            error: function () {
+                alert ('Error!');
+            }
+        });
+    });
+
+
+
+   $(".prodpromodel").on('click', function(e){
+            e.preventDefault();
+            var id = $(this).data('id');
+            var pid = $(this).data('pid');
+
+            $.ajax({
+                url: '/promo/reject',
+                data: {id: id, pid: pid},
+                type: 'POST',
+                success: function (data) {
+                    if (!data) alert('Ahtung!');
+
+                },
+                error: function () {
+                    alert ('Error!');
+                }
+            });
+        });
 
     $(".add-to-cart").on('click', function(e){
         e.preventDefault();
@@ -19,7 +67,7 @@ $(function () {
             error: function () {
                 alert ('Error!');
             }
-        })
+        });
     });
 
     $(".delfromcart").on('click', function(e){

@@ -177,9 +177,10 @@ class Products extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
 
+    //Валидация
     public function beforeValidate()
     {
-        $this->price=5;
+        //$this->price=5;
         return parent::beforeValidate();
     }
 

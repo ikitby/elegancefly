@@ -9,6 +9,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+use app\widgets\UserpromograntWidget;
 use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
 
@@ -129,11 +130,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="col-md-2">
+                            <?= UserpromograntWidget::widget(['product' => $project]) ?>
                             <h4><?= $project->price ?> $</h4>
                             <span class=""><?= $typedescr ?></span><br>
-                            Просмотров: <?= ($project->hits) ? $project->hits : 0 ?><br/>
-                            Продаж: <?= Products::getProjectSelling($project->id) ?>
-                            /<?= ($project->limit) ? $project->limit : "&infin;" ?>
+                            <h6>Просмотров: <?= ($project->hits) ? $project->hits : 0 ?></h6>
+                            <h6>Продаж: <?= Products::getProjectSelling($project->id) ?>/<?= ($project->limit) ? $project->limit : "&infin;" ?></h6>
                         </div>
                     </div>
                     <hr/>

@@ -118,4 +118,5 @@ div#userprojectsgalery>.userprojectgallery {flex-basis: 25%;padding: 3px;}
 .btn-primary {color: #fff;background-color: #42484c;border-color: #212528;}
 .btn-primary:hover {color: #fff;background-color: #212528;border-color: #222629;}
 
-
+/* popover */
+.popover {min-width: 300px;}

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Faker\Provider\DateTime;
 use phpDocumentor\Reflection\Types\Self_;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -99,6 +100,25 @@ class Promotions extends \yii\db\ActiveRecord
     }
 
     //возвращает объект скидки если такойй соответствует датам и разделу
+    private static function _getActivePromUser($product) {
+
+        $catId = $product->category;
+        $offset = '';
+        $date = new \DateTime('now + 1 month', new \DateTimeZone('UTC')); //Получаем новый объект даты относительно сегодня + 1 месяц
+        $date = $date->format('Y-m-d h:m'); //устанавливаем нужный формат
+
+        $promo = Promotions::find()
+            //->With('promocat')
+            ->joinWith('promocat')
+            ->Where(['in', 'promocat.category_id', $catId])
+            ->andWhere(['action_state' => 1])
+            ->andWhere(['<', 'action_start', $date])
+            ->andWhere(['>', 'action_end', date('Y-m-d h:m')])
+            ->one();
+        return $promo;
+    }
+
+    //возвращает объект скидки если такойй соответствует датам и разделу
     private static function _getActiveProm($product) {
 
         $catId = $product->category;
@@ -107,7 +127,7 @@ class Promotions extends \yii\db\ActiveRecord
             //->With('promocat')
             ->joinWith('promocat')
             ->Where(['in', 'promocat.category_id', $catId])
-            ->andWhere([/*'action_catergories' => $catId,*/ 'action_state' => 1])
+            ->andWhere(['action_state' => 1])
             ->andWhere(['<', 'action_start', date('Y-m-d h:m')])
             ->andWhere(['>', 'action_end', date('Y-m-d h:m')])
             ->one();
@@ -115,13 +135,57 @@ class Promotions extends \yii\db\ActiveRecord
     }
 
     //Возвращает объект скидки
-    public static function getSale($product) {
+    public static function getSaleUser($product) {
         //Получаем объект скидки
-        $promo = Promotions::_getActiveProm($product->category);
+
+        $promo = Promotions::_getActivePromUser($product);
         //если обекст пуст - вылетаем по false
         if (empty($promo)) return false;
         //В итоге возвращаем скидку цельным объектом
         return $promo;
+    }
+
+    //Возвращает объект скидки
+    public static function getSale($product) {
+        //Получаем объект скидки
+
+        $promo = Promotions::_getActiveProm($product);
+        //если обекст пуст - вылетаем по false
+        if (empty($promo)) return false;
+        //В итоге возвращаем скидку цельным объектом
+        return $promo;
+    }
+
+    //Возвращает новый массив цены с процентом сидки, экономией, старой ценой, новой ценой
+    public static function getSalePriceUser($product) {
+
+        if ($product->price <= 0 || empty($product->price)) return false;
+
+        $salePrice = array();
+        //Получаем объект скидки
+        $promo = Promotions::_getActivePromUser($product);
+
+//Блок проверки соответствия id скидки скидки полю active_promo в проекте
+        //если включена проверка по умолчанию проверка включена для всех цен. Значение 0 выключает ее и позволяет делать запрос возможной скидки
+
+        //если обекст пуст - вылетаем по false
+        if (empty($promo)) return false;
+
+        $price = $product->price;
+
+        //получаем цену с учетом скидки
+        $salePrice = [
+            'pid' => $promo->id,
+            'procent' => '-'.$promo->action_percent.'%',
+            'price' => $price-($price*$promo->action_percent/100),
+            'oldPrice' => $price,
+            'economy' => $price-($price*$promo->action_percent/100),
+            'promosrart' => $promo->action_start,
+            'promostop' => $promo->action_end,
+            'promotitle' => $promo->action_title,
+        ];
+
+        return $salePrice;
     }
 
     //Возвращает новый массив цены с процентом сидки, экономией, старой ценой, новой ценой
@@ -133,6 +197,10 @@ class Promotions extends \yii\db\ActiveRecord
         //Получаем объект скидки
         $promo = Promotions::_getActiveProm($product);
 
+//Блок проверки соответствия id скидки скидки полю active_promo в проекте
+        //если включена проверка по умолчанию проверка включена для всех цен. Значение 0 выключает ее и позволяет делать запрос возможной скидки
+        if ($product->active_promo != $promo->id || !$product->active_promo) return false;
+
         //если обекст пуст - вылетаем по false
         if (empty($promo)) return false;
 
@@ -140,10 +208,14 @@ class Promotions extends \yii\db\ActiveRecord
 
         //получаем цену с учетом скидки
         $salePrice = [
+            'pid' => $promo->id,
             'procent' => '-'.$promo->action_percent.'%',
             'price' => $price-($price*$promo->action_percent/100),
             'oldPrice' => $price,
-            'economy' => $price-($price*$promo->action_percent/100)
+            'economy' => $price-($price*$promo->action_percent/100),
+            'promosrart' => $promo->action_start,
+            'promostop' => $promo->action_end,
+            'promotitle' => $promo->action_title,
             ];
 
         return $salePrice;
