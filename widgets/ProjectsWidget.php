@@ -1,6 +1,7 @@
 <?php
 
 namespace app\widgets;
+use app\models\Products;
 use yii\base\Widget;
 use app\models\User;
 use Yii;
@@ -8,52 +9,56 @@ use Yii;
 class ProjectsWidget extends Widget{
 
     public $tpl;
-    public $data;
+    protected $data;
     public $category;
     public $order;
     public $limit;
-    public $status;
+    public $state;
 
     public function init(){
         parent::init();
-        if ($this->usertype === null) {$this->category = ['6'];}
+        if ($this->category === null) {$this->category = '1';}
         if ($this->tpl === null) {$this->tpl = 'gallery';}
         if ($this->limit === null) {$this->limit = '5';}
-        if ($this->status === null) {$this->status = '10';}
+        if ($this->state === null) {$this->state = '1';}
         $this->tpl .='.php';
-        if ($this->order === null) {$this->order = ['sales' => SORT_DESC, 'rate' => SORT_DESC, 'name' => SORT_DESC];}
+        if ($this->order === null) {$this->order = ['sales' => SORT_DESC];}
     }
 
     public function run() {
         //get cache
         //$users = Yii::$app->cache->get('usergallery');
         //if ($users) return $users;
+        $date = new \DateTime('now - 1 month', new \DateTimeZone('UTC')); //Получаем новый объект даты относительно сегодня + 1 месяц
+        $date = $date->format('Y-m-d h:m:s'); //устанавливаем нужный формат
 
-        $this->data = User::find()
-            ->joinWith('userLevel')
-            ->where(['auth_assignment.item_name' => $this->usertype])
+        $this->data = Products::find()
+            //->joinWith('userLevel')
+           // ->where(['auth_assignment.item_name' => $this->usertype])
             //->orWhere(['auth_assignment.item_name' => 'Creator'])
-            ->andWhere($this->status)
+            ->with('catprod')
+            ->where(['state' => $this->state, 'category' => $this->category ])
+            ->andWhere(['>', 'created_at', $date])
             ->orderBy($this->order)
             ->limit($this->limit)
             ->all();
 
-        $users = $this->getHtmlMenu($this->data);
+        $projects = $this->getHtmlMenu($this->data);
 
         //set cache
         //Yii::$app->cache->set('usergallery' , $users, 60*5);
-        return $users;
+        return $projects;
     }
 
-    protected function getHtmlMenu($data) {
+    protected function getHtmlMenu($projects) {
         $res = '';
-        foreach ($data as $user) {
-            $res .= $this->getTemplate($user);
+        foreach ($projects as $project) {
+            $res .= $this->getTemplate($project);
         }
         return $res;
     }
 
-    protected function getTemplate($user){
+    protected function getTemplate($project){
         ob_start();
         include __DIR__ . '/projects_tpl/' . $this->tpl;
         return ob_get_clean();

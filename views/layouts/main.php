@@ -5,6 +5,7 @@
 
 use app\models\Cart;
 use app\widgets\Alert;
+use app\widgets\ProjectsWidget;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -116,10 +117,35 @@ $cartsumm = Cart::getCartsummWS();
         </div>
         <div class="col-md-12 col-lg-3">
 
-            <h3>Топ художников<span class="label label-info"></span></h3>
+            <h3 class="rightwidget">Top painters<span class="label label-info"></span></h3>
             <ul id="userblockid">
-                <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => ['Painter','Creator'], 'limit' => 10]) ?>
+                <?= \app\widgets\UsersWidget::widget(['tpl' =>'gallery', 'usertype' => ['Painter','Creator'], 'limit' => 8]) ?>
             </ul>
+
+            <?php if (ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 1])) : ?>
+            <h3 class="rightwidget"><a href="<?= Url::to(['/catalog/tubes']) ?>">Top Tubes for the month</a></h3>
+            <ul class="galleryblock">
+                <?= ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 1]) ?>
+            </ul>
+            <?php endif; ?>
+            <?php if (ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 4])) : ?>
+            <h3 class="rightwidget"><a href="<?= Url::to(['/catalog/resale_products']) ?>">Top Resale Products for the month</a></h3>
+            <ul class="galleryblock">
+                <?= ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 4]) ?>
+            </ul>
+            <?php endif; ?>
+            <?php if (ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 8])) : ?>
+            <h3 class="rightwidget"><a href="<?= Url::to(['/catalog/scrap_kits']) ?>">Top Scrap Kits for the month</a></h3>
+            <ul class="galleryblock">
+                <?= ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 8]) ?>
+            </ul>
+            <?php endif; ?>
+            <?php if (ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 6])) : ?>
+            <h3 class="rightwidget"><a href="<?= Url::to(['/catalog/3d_poser']) ?>">Top 3D Poser for the month</a></h3>
+            <ul class="galleryblock">
+                <?= ProjectsWidget::widget(['tpl' =>'gallery', 'limit' => 8, 'category' => 6]) ?>
+            </ul>
+            <?php endif; ?>
 
         </div>
 

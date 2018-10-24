@@ -1,13 +1,12 @@
 <?php
 use yii\helpers\Html;
-if (empty($user['photo'])) {
-    $userphoto = Html::img("/images/user/nophoto.png", ['class' => 'img-responsive', 'alt' => Html::encode(($user['name']) ? $user['name'] : $user['username']), 'title' => Html::encode(($user['name']) ? $user['name'] : $user['username'])]);
-} else {
-    $userphoto = Html::img("/images/user/user_{$user['id']}/100_100_{$user['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($user['name']) ? $user['name'] : $user['username']), 'title' => Html::encode(($user['name']) ? $user['name'] : $user['username'])]);
-}
+use yii\helpers\Url;
+
+$photo = json_decode($project->photos);
+if (empty($project)) return '<center>Empty<center>';
 ?>
 <li>
-    <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user['username']]) ?>">
-        <?= $userphoto ?>
+    <a href="<?= Url::to(['/catalog/category', "catalias" => $project->catprod->alias, "id" => $project->id]) ?>">
+        <?= Html::img('/'.$photo[0]->filepath.'100_100_'.$photo[0]->filename, ['class' => 'img-responsive', 'title' => $project->title]) ?>
     </a>
 </li>

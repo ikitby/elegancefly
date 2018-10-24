@@ -13,8 +13,10 @@ div#sociconsblock {text-align: center;}
 div#sociconsblock>a {display: inline-block;}
 
 /* usersgalery */
-ul#userblockid {display: flex;flex-wrap: wrap;list-style: none;padding: 0;}
-ul#userblockid>li {flex-basis: 25%;padding: 5px;}
+ul#userblockid, .galleryblock {display: flex;flex-wrap: wrap;list-style: none;padding: 0;}
+ul#userblockid>li, .galleryblock>li {flex-basis: 25%;padding: 5px;}
+.galleryblock>li img.img-responsive {border: 1px solid #dcdcdc;}
+ul#userblockid {background: #9133b7;}
 
 /* painters */
 div#painterspage {display: flex;flex-wrap: wrap;}
@@ -131,4 +133,8 @@ span.oldproce>span {color: #8e8e8e;}
 span.oldproce:before {content: "";display: block;height: 1px;background: #8c8c8c;position: absolute;top: 50%;right: 0;left: 0;}
 div#priceblock h4.file_price span.oldproce {opacity: 0.5;}
 .cartrowpr h5 {color: #b1b1b1;margin: 0;}
+
+/* right widgets */
+h3.rightwidget a, h3.rightwidget {font-size: 18px;color: #3a3a3a;text-transform: uppercase;font-weight: bold;margin-top: 35px;display: block;}
+
 
