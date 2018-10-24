@@ -2,6 +2,7 @@
 
 use app\models\Cart;
 use app\models\Products;
+use app\models\Promotions;
 use app\models\Transaction;
 use app\widgets\BasketWidget;
 use ckarjun\owlcarousel\OwlCarouselWidget;
@@ -49,10 +50,22 @@ $this->params['breadcrumbs'][] = $this->title;
             $i = 1;
             foreach ($cartprod as $product) :
 
+                //получаем обект продукта
+                //Подменяем цену в продуктк в соответствии со скидками
+                $price = Promotions::getSalePrice($product->cartproduct);
+                if ($price) $product->price = round($price['price'], 2);
+
+/*
+                if (!empty($price) && $product->price > 0) {
+                    $this->product->price = $price['price'];//скидка не пуста - подменяем цену
+                    $this->saleprice = $price;//скидка не пуста - подменяем цену
+                }
+*/
             $catalias = $product->cartproduct->catprod->alias;
         ?>
 
             <tr class="cartrowpr" id="catprodrow_<?= $product->id ?>">
+
                 <td>
                     <?= $i ?>
                 </td>
@@ -65,14 +78,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h4>
                         <a href="<?= Url::to(["/catalog/category", "catalias" => $catalias, "id" => $product->product_id]) ?>"><?= Html::encode($product->name) ?></a>
                     </h4>
-                    Product id: <strong><?= Html::encode($product->product_id) ?></strong><br />
+                    <h5>Product id#: <strong><?= Html::encode($product->product_id) ?></strong></h5>
                     <?php $author = Products::getAutor($product->product_id);?>
-                    <span class="glyphicon glyphicon-user"></span> <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $author->username]) ?>">
-                        <?=  Html::encode($author->name) ?>
-                    </a><br />
+                    <h5><span class="glyphicon glyphicon-user"></span> Author: <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $author->username]) ?>">
+                        <?=  Html::encode((!empty($author->name)) ? $author->name : $author->username) ?>
+                    </a></h5>
                 </td>
                 <td>
-                    <h4><?= Html::encode($product->price) ?>$</h4>
+                    <h3><?= Html::encode($product->price) ?>$</h3>
+                    <?php if ($price['procent']) print '<h5><span class="bascetprocent">Sale: '.$price['procent'].'</span><br></h5>'; ?>
+                    <?php if ($price['oldPrice']) print '<h5><span class="bascetoldprice">Price without discount: '.$price['oldPrice'].'$</span><h5>'; ?>
                 </td>
                 <td>
                     <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', "#", [
@@ -101,13 +116,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-3">Товаров в корзине:<br> <h3><span class="cartcountres"><?= Cart::getCartCount() ?></span></h3></div>
-            <div class="col-md-3">На сумму:<br> <h3><span class="cartsummres"><?= Cart::getCartsumm() ?></span>$</h3></div>
+            <div class="col-md-3">На сумму:<br> <h3><span class="cartsummres"><?= Cart::getCartsummWS() ?></span>$</h3></div>
         </div>
     </div>
 <hr class="col-md-12"/>
     <div class="row">
         <div class="col-md-4" style="text-align: center;">
-            <button type="button" class="btn btn-success checkoutcart btn-lg">Personal account (<?= Transaction::getUserBalance(Yii::$app->user->id) ?>$)</button>
+            <?php
+            $bstyle = 'success';
+            if (Transaction::getUserBalance(Yii::$app->user->id) < Cart::getCartsummWS()) {$bstyle = 'danger';}
+            ?>
+            <button type="button" class="btn btn-<?= $bstyle ?> checkoutcart btn-lg">Personal account&nbsp;<span class="badge pull-right"><?= Transaction::getUserBalance(Yii::$app->user->id) ?>$</span></button>
         </div>
         <div class="col-md-4" style="text-align: center;">
 

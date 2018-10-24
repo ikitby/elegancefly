@@ -15,7 +15,7 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 
-$cartsumm = Cart::getCartsumm();
+$cartsumm = Cart::getCartsummWS();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

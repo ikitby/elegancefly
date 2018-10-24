@@ -7,7 +7,7 @@ mark {
 }
 
 div#cataloggreedwrapp {display: flex;flex-wrap: wrap;}
-div#cataloggreedwrapp>.col-cat {flex-basis: 20%;padding: 5px;overflow: hidden;}
+div#cataloggreedwrapp>.col-cat {flex-basis: 20%;padding: 5px;overflow: hidden;position: relative;}
 
 /* Basic */
 

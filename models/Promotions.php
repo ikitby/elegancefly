@@ -115,6 +115,7 @@ class Promotions extends \yii\db\ActiveRecord
             ->andWhere(['<', 'action_start', $date])
             ->andWhere(['>', 'action_end', date('Y-m-d h:m')])
             ->one();
+
         return $promo;
     }
 
@@ -131,8 +132,10 @@ class Promotions extends \yii\db\ActiveRecord
             ->andWhere(['<', 'action_start', date('Y-m-d h:m')])
             ->andWhere(['>', 'action_end', date('Y-m-d h:m')])
             ->one();
+
         return $promo;
     }
+
 
     //Возвращает объект скидки
     public static function getSaleUser($product) {
@@ -148,6 +151,18 @@ class Promotions extends \yii\db\ActiveRecord
     //Возвращает объект скидки
     public static function getSale($product) {
         //Получаем объект скидки
+
+        $promo = Promotions::_getActiveProm($product);
+        //если обекст пуст - вылетаем по false
+        if (empty($promo)) return false;
+        //В итоге возвращаем скидку цельным объектом
+        return $promo;
+    }
+
+    //Получение цены с оскидкой по ID продукта
+    public static function getSaleId($product_id) {
+        //Получаем объект скидки
+        $product = Products::find()->where(['id' => $product_id])->One();
 
         $promo = Promotions::_getActiveProm($product);
         //если обекст пуст - вылетаем по false
@@ -177,9 +192,9 @@ class Promotions extends \yii\db\ActiveRecord
         $salePrice = [
             'pid' => $promo->id,
             'procent' => '-'.$promo->action_percent.'%',
-            'price' => $price-($price*$promo->action_percent/100),
-            'oldPrice' => $price,
-            'economy' => $price-($price*$promo->action_percent/100),
+            'price' => round($price-($price*$promo->action_percent/100), 2),
+            'oldPrice' => round($price, 2),
+            'economy' => round($price-($price*$promo->action_percent/100), 2),
             'promosrart' => $promo->action_start,
             'promostop' => $promo->action_end,
             'promotitle' => $promo->action_title,
@@ -195,9 +210,10 @@ class Promotions extends \yii\db\ActiveRecord
 
         $salePrice = array();
         //Получаем объект скидки
+
         $promo = Promotions::_getActiveProm($product);
 
-//Блок проверки соответствия id скидки скидки полю active_promo в проекте
+        //Блок проверки соответствия id скидки скидки полю active_promo в проекте
         //если включена проверка по умолчанию проверка включена для всех цен. Значение 0 выключает ее и позволяет делать запрос возможной скидки
         if ($product->active_promo != $promo->id || !$product->active_promo) return false;
 
@@ -210,9 +226,9 @@ class Promotions extends \yii\db\ActiveRecord
         $salePrice = [
             'pid' => $promo->id,
             'procent' => '-'.$promo->action_percent.'%',
-            'price' => $price-($price*$promo->action_percent/100),
-            'oldPrice' => $price,
-            'economy' => $price-($price*$promo->action_percent/100),
+            'price' => round($price-($price*$promo->action_percent/100), 2),
+            'oldPrice' => round($price, 2),
+            'economy' => round($price-($price*$promo->action_percent/100), 2),
             'promosrart' => $promo->action_start,
             'promostop' => $promo->action_end,
             'promotitle' => $promo->action_title,

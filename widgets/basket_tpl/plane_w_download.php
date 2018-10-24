@@ -10,9 +10,11 @@ if ($this->state == 1) :
  */
 $sale = $this->saleprice;
 $sale_procent = $sale['procent'];
+$oldprice = $sale['oldPrice'];
 ?>
-    <?= $sale_procent ?>
-    <h4 class="pull-left file_price"><?= $this->product->price ?>$</h4>
+    <?php if ($sale_procent) : ?><span class="salew1"><span class="salew2"><span class="small">SALE</span><?= $sale_procent ?></span></span><?php endif; ?>
+    <h4 class="pull-left file_price"><?= $this->product->price ?><span>$</span></h4>
+    <?php if ($oldprice) : ?><span class="oldproce" title="Price without discount: <?= $oldprice ?>$"> <?= $oldprice ?><span>$</span> </span><?php endif; ?>
     <h4 class="pull-right"><?= $this->count ?>/<?= ($this->limit) ? $this->product->limit : "&infin;" ?></h4>
     <button href="<?= Url::to(['cart/add', 'id' => $this->product->id]) ?>" type="button"
         <?= ($this->product) ? "" : 'disabled="disabled"' ?>

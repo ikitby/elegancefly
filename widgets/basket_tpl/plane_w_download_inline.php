@@ -7,10 +7,16 @@ if ($this->state == 1) :
     <span class="pull-right">
         <button href="<?= Url::to(['cart/favorite', 'id' => $this->prod_id]) ?>" data-method="post" type="button" class="glyphicon glyphicon-heart btn btn-default btn-xs pull-right"></button>
 </span>
- */ ?>
+ */
+    $sale = $this->saleprice;
+    $sale_procent = $sale['procent'];
+    $oldprice = $sale['oldPrice'];
+?>
     <h4 class="pull-left file_price">
+        <?php if ($sale_procent) : ?><span class="salew1"><span class="salew2"><span class="small">SALE</span><?= $sale_procent ?></span></span><?php endif; ?>
         <span class="desc">Price</span>
         <?= $this->product->price ?><span>$</span>
+        <?php if ($oldprice) : ?><span class="oldproce" title="Price without discount: <?= $oldprice ?>$"> <?= $oldprice ?><span>$</span> </span><?php endif; ?>
     </h4>
 
     <button href="<?= Url::to(['cart/add', 'id' => $this->product->id]) ?>" type="button"

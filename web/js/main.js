@@ -73,7 +73,7 @@ $(function () {
     $(".delfromcart").on('click', function(e){
         e.preventDefault();
         var id = $(this).data('id');
-        if (confirm("Are you sure you want to delete?")) {
+
             $.ajax({
                 url: '/cart/del',
                 data: {id: id},
@@ -96,7 +96,6 @@ $(function () {
                     alert('Error!');
                 }
             })
-        }
     });
 
 

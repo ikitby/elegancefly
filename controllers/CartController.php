@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use app\models\Products;
 use app\models\Cart;
+use app\models\Promotions;
 use app\models\Transaction;
 use app\models\User;
 use PayPal\Api\Payment;
@@ -100,6 +101,10 @@ class CartController extends AppController
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
 
+                    //Пересчитаем новую цену товара в соответствии со скидками
+                    $sale = Promotions::getSalePrice($item->cartproduct);
+                    $itemprice = (!empty($sale['price'])) ? $sale['price'] : $itemprice;
+
                     $sellerPercent = User::getPercent($item->seller_id); //получаем персональный процент автора
 
                     $autorProcent = $itemprice*$sellerPercent;
@@ -108,7 +113,6 @@ class CartController extends AppController
                     //--------------------- Start Trasnsaction --------------------
                     $paymenttransaction = Transaction::getDb()->beginTransaction();
                     try {
-
                     //--------------------- Start Trasnsaction --------------------
                         //Минусуем стоимость работы у покупателя (В данном случае ни чего не минусуем)
                         $current_balance = $this->getUserBalance(Yii::$app->user->id); //баланс художника
@@ -127,6 +131,7 @@ class CartController extends AppController
 
                         //Отдаем денежку автору за работу
                         $current_balance = $this->getUserBalance($item->seller_id); //баланс художника
+
                         $transaction = new Transaction();
                         $transaction->action_id = $transaction_id;
                         $transaction->action_user = $item->seller_id;
@@ -185,7 +190,7 @@ class CartController extends AppController
                 $cart->delFromCart($cart_id); //Удаление из карты
             }
 
-            $cartsum = Cart::getCartsumm();
+            $cartsum = Cart::getCartsummWS();
             $cartcount = Cart::getCartCount();
 
             $result['cartsum'] = $cartsum;
@@ -222,7 +227,7 @@ class CartController extends AppController
                 $cart = new Cart();
                 $cart->addToCart($prod_id);
 
-                $cartsum = Cart::getCartsumm();
+                $cartsum = Cart::getCartsummWS();
                 $cartcount = Cart::getCartCount();
 
                 $result['cartsum'] = $cartsum;
@@ -249,13 +254,17 @@ class CartController extends AppController
                     {
                         $cartItem = Cart::findOne($item->id);
                         $cartItem->delete();
-                        Return json_encode('Вы не можете приобрести! Product id: #'.$item->product_id.' Лимит продаж исчерпан
-Товар удален из корзины. Проверьте результат и продолжите покупку
-');
+                        Return json_encode('Sorry, but you can\'t buy this. The goods id: #'.$item->product_id.' was sold out. Item removed from the cart. Please, check the result and continue purchasing.');
                     }
+
 
                     //----- Обработка стоимости
                     $itemprice = $item->price; //Полная цена товара
+
+                    //Пересчитаем новую цену товара в соответствии со скидками
+                    $sale = Promotions::getSalePrice($item->cartproduct);
+                    $itemprice = (!empty($sale['price'])) ? $sale['price'] : $itemprice;
+                    //-------------------конец пересчата скидок---------------
 
                     $sellerPercent = User::getPercent($item->seller_id); //получаем персональный процент автора
 

@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Cart;
+use app\models\Promotions;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -21,7 +22,7 @@ $apiContext = new apiContext(
 );
 
 $product = 'Check projects'; //Тенстовое название продукта
-$price = Cart::getCartsumm(); //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
+$price = Cart::getCartsummWS(); //Полдучаем стоимость товара в данном случае полную стоимость товаров в корзине для теста
 $shipping = 0; //если доставка платная - указываем ее
 
 $total = $price + $shipping; //калькулируем конечную стоимость с учетом доставки
@@ -39,6 +40,10 @@ $item->setName($product)
 $ind = "0";
 $items = array();
 foreach ($cartprod as $prod) {
+    //Пересчитаем новую цену товара в соответствии со скидками
+    $sale = Promotions::getSalePrice($prod->cartproduct);
+    $prod->price = (!empty($sale['price'])) ? $sale['price'] : $prod->price;
+    //-------------------конец пересчата скидок---------------
     $item = new Item();
     $items[$ind] = $item->setName($prod->name)
         ->setCurrency('USD')

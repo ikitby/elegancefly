@@ -63,6 +63,28 @@ class Cart extends \yii\db\ActiveRecord
             ->sum('price');
     }
 
+    public static function getCartsummWS()
+    {
+        $summ = 0;
+        //Получаем все продукты в корзине
+        $cartprod = Cart::find()
+            ->where(['buyer_id' => Yii::$app->user->id])
+            ->With('cartproduct')
+            ->all();
+        //перебираем их проверяя скидки и считаем общую сумму
+        foreach ($cartprod as $product) {
+            $price = Promotions::getSalePrice($product->cartproduct);
+            if ($price) {
+                $summ = $summ+$price['price'];
+            } else {
+                $summ = $summ + $product->cartproduct->price;
+            }
+
+        }
+
+        return round($summ, 2);
+    }
+
     public static function getCartCount()
     {
         return Cart::find()
@@ -84,6 +106,7 @@ class Cart extends \yii\db\ActiveRecord
         {
             return $this->hasOne(Products::className(), ['id' => 'product_id']);
         }
+
 
     public function addToCart($prod_id)
     {
