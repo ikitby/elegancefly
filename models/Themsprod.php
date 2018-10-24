@@ -26,8 +26,8 @@ class Themsprod extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 20],
+            [['title', 'alias'], 'required'],
+            [['title', 'alias'], 'string', 'max' => 20],
         ];
     }
 
@@ -45,6 +45,7 @@ class Themsprod extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
+            'alias' => 'Alias',
         ];
     }
 }

@@ -43,9 +43,13 @@ AdminAssets::register($this);
                 <?php // $this->render('_newactions') ?>
                 <ul class="">
                     <li class=""><a href="<?= Url::to('/admin/users') ?>">Пользователи</a></li>
-                    <li class=""><a href="<?= Url::to('/rbac/user') ?>">Управление правами</a></li>
                     <li class=""><a href="<?= Url::to('/admin/pages') ?>">Статичные страницы</a></li>
                     <li class=""><a href="<?= Url::to('/admin/promotions') ?>">Акции</a></li>
+                </ul>
+                <ul>
+                    <li class=""><a href="<?= Url::to('/admin/themsprod') ?>">Управление темами</a></li>
+                    <li class=""><a href="<?= Url::to('/admin/tags') ?>">Управление тегами</a></li>
+                    <li class=""><a href="<?= Url::to('/rbac/user') ?>">Управление правами</a></li>
                     <hr/>
                     <li class=""><a href="<?= Url::to('/') ?>">Фронт сайта</a></li>
                 </ul>
