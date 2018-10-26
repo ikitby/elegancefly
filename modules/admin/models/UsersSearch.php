@@ -60,13 +60,13 @@ class UsersSearch extends User
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'status' => $this->status,
-            'usertype' => $this->usertype,
-            'percent' => $this->percent,
-            'state' => $this->state,
-            'rate' => $this->rate,
-            'sales' => $this->sales,
+            //'id' => $this->id,
+            //'status' => $this->status,
+            //'usertype' => $this->usertype,
+            //'percent' => $this->percent,
+            'state' => 10,
+            //'rate' => $this->rate,
+            //'sales' => $this->sales,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

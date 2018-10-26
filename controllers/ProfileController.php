@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\ImageUpload;
 use app\models\Prodlimit;
 use app\models\Products;
+use app\models\StatisticSearch;
 use app\models\Transaction;
 use app\models\UploadProject;
 use app\models\Userevent;
@@ -681,4 +682,16 @@ class ProfileController extends AppController
         }
         return false;
     }
+
+    public function actionStatistic()
+    {
+        $searchModel = new StatisticSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('statistic', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
 }

@@ -195,7 +195,6 @@ class Products extends \yii\db\ActiveRecord
         return $this->hasMany(Transaction::className(), ['prod_id' => 'id']);
     }
 
-
     public function getTagsprod()
     {
         return $this->hasMany(Tags::className(), ['id' => 'tag_id'])

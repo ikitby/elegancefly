@@ -41,6 +41,17 @@ class Transaction extends \yii\db\ActiveRecord
 
     }
 
+    //Запрос количетства продаж и суммы
+    public static function getSales($id)
+    {
+        $sales = array();
+
+        $sales['sum'] = Transaction::find()->where(['prod_id' => $id, 'type' => 1])->sum('amount');
+        $sales['count'] = Transaction::find()->where(['prod_id' => $id, 'type' => 1])->count();
+
+        return $sales;
+    }
+
     /**
      * {@inheritdoc}
      */
