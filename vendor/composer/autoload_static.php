@@ -57,9 +57,11 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
             'kartik\\plugins\\fileinput\\' => 25,
             'kartik\\plugins\\depdrop\\' => 23,
             'kartik\\money\\' => 13,
+            'kartik\\helpers\\' => 15,
             'kartik\\growl\\' => 13,
             'kartik\\form\\' => 12,
             'kartik\\file\\' => 12,
+            'kartik\\field\\' => 13,
             'kartik\\depdrop\\' => 15,
             'kartik\\datetime\\' => 16,
             'kartik\\date\\' => 12,
@@ -235,6 +237,10 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-money',
         ),
+        'kartik\\helpers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-helpers/src',
+        ),
         'kartik\\growl\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-growl',
@@ -246,6 +252,10 @@ class ComposerStaticInit85e6c53d84b4b2172baabae9528b6115
         'kartik\\file\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput/src',
+        ),
+        'kartik\\field\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-field-range/src',
         ),
         'kartik\\depdrop\\' => 
         array (

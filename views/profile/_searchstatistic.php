@@ -1,6 +1,8 @@
 <?php
 
+use app\models\Transaction;
 use kartik\date\DatePicker;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,81 +14,55 @@ use yii\widgets\ActiveForm;
 <div class="products-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['/profile/statistic'],
         'method' => 'get',
         'options' => [
             'data-pjax' => 1
         ],
     ]); ?>
 
-    <?php $form->field($model, 'user_id') ?>
-
-   <?php echo DatePicker::widget([
-    'name' => 'from_date',
-    'value' => '01-Feb-1996',
-    'type' => DatePicker::TYPE_RANGE,
-    'name2' => 'to_date',
-    'value2' => '27-Feb-1996',
-    'pluginOptions' => [
-    'autoclose'=>true,
-    'format' => 'dd-M-yyyy'
-    ]
-    ]); ?>
-    <?= $form->field($model, 'birthday')->widget(DatePicker::classname(), ['options' => ['placeholder' => 'Enter birth date ...'], 'pluginOptions' => ['autoclose'=>true, 'format' => 'dd.M.yyyy', 'todayHighlight' => true]]); ?>
-
     <?php // $form->field($model, 'user_id') ?>
+    <div class="row1">
+    <div class="col-md-12 well">
+        <div class="col-md-6">
+        <?php
 
-    <?php // $form->field($model, 'title') ?>
+        $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
+        $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
 
-    <?php // $form->field($model, 'id') ?>
+        $mindate = (!empty($from_date))? $from_date : newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
+        //$maxdate = newdate(Transaction::find()->select(['created_at', 'id'])->indexBy('created_at')->max('created_at'));
+        $maxdate = (!empty($to_date))? $to_date : newdate(date("Y-m-d"));
 
-    <?php // $form->field($model, 'user_id') ?>
+        echo DatePicker::widget([
+            'name' => 'from_date',
+            'value' => $mindate,
+            'type' => DatePicker::TYPE_RANGE,
+            'name2' => 'to_date',
+            'value2' => $maxdate,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'todayHighlight' => true,
+                'todayBtn' => true,
+                'format' => 'yyyy-mm-dd'
+            ],
+            'options' => [
+                //'onchange' => 'this.form.submit()'
+            ],
+        ]);
 
-    <?php // $form->field($model, 'title') ?>
+        function newdate($date) {
+            $date = strtotime($date); // переводит из строки в дату
+            $date = date("Y-m-d", $date);
+            return $date;
+        }
+        ?>
+        </div>
 
-    <?php // $form->field($model, 'category') ?>
-
-    <?php // $form->field($model, 'file') ?>
-
-    <?php // echo $form->field($model, 'file_size') ?>
-
-    <?php // echo $form->field($model, 'tags') ?>
-
-    <?php // echo $form->field($model, 'photos') ?>
-
-    <?php // echo $form->field($model, 'project_info') ?>
-
-    <?php // echo $form->field($model, 'project_path') ?>
-
-    <?php // echo $form->field($model, 'price') ?>
-
-    <?php // echo $form->field($model, 'themes') ?>
-
-    <?php // echo $form->field($model, 'themes_index') ?>
-
-    <?php // echo $form->field($model, 'limit') ?>
-
-    <?php // echo $form->field($model, 'hits') ?>
-
-    <?php // echo $form->field($model, 'sales') ?>
-
-    <?php // echo $form->field($model, 'rating') ?>
-
-    <?php // echo $form->field($model, 'tatng_votes') ?>
-
-    <?php // echo $form->field($model, 'state')->checkbox() ?>
-
-    <?php // echo $form->field($model, 'deleted')->checkbox() ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'active_promo') ?>
-
-    <div class="form-group">
+    <div class="col-md-6">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
-
+    </div>
+</div>
     <?php ActiveForm::end(); ?>
-
 </div>

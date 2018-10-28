@@ -18,11 +18,22 @@
       <file leaf-file-name="statistic.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/profile/statistic.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+            <state relative-caret-position="1326">
+              <caret line="81" column="57" lean-forward="true" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
               <folding>
                 <element signature="e#7#34#0#PHP" expanded="true" />
+                <marker date="1540722885137" expanded="true" signature="1867:1987" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Transaction.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Transaction.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="47" column="52" lean-forward="true" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="52" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -30,8 +41,8 @@
       <file leaf-file-name="_searchstatistic.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/profile/_searchstatistic.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+            <state relative-caret-position="267">
+              <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
               <folding>
                 <element signature="e#7#34#0#PHP" expanded="true" />
               </folding>
@@ -42,9 +53,23 @@
       <file leaf-file-name="StatisticSearch.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/StatisticSearch.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="46" column="64" lean-forward="false" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="64" />
-              <folding />
+            <state relative-caret-position="250">
+              <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+              <folding>
+                <element signature="e#30#38#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfileController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11203">
+              <caret line="687" column="8" lean-forward="false" selection-start-line="687" selection-start-column="8" selection-end-line="687" selection-end-column="8" />
+              <folding>
+                <marker date="1540670237769" expanded="true" signature="19923:19963" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -119,7 +144,6 @@
         <option value="$PROJECT_DIR$/views/painters/view.php" />
         <option value="$PROJECT_DIR$/widgets/views/_newactions.php" />
         <option value="$PROJECT_DIR$/widgets/basket_tpl/plane_wds.php" />
-        <option value="$PROJECT_DIR$/views/catalog/index.php" />
         <option value="$PROJECT_DIR$/controllers/CatalogController.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/promotions/_form.php" />
         <option value="$PROJECT_DIR$/modules/admin/controllers/PromotionsController.php" />
@@ -152,13 +176,14 @@
         <option value="$PROJECT_DIR$/views/layouts/profile.php" />
         <option value="$PROJECT_DIR$/web/css/template.css" />
         <option value="$PROJECT_DIR$/controllers/StatisticController.php" />
-        <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
         <option value="$PROJECT_DIR$/modules/admin/models/UsersSearch.php" />
         <option value="$PROJECT_DIR$/models/Products.php" />
-        <option value="$PROJECT_DIR$/models/Transaction.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/users/index.php" />
         <option value="$PROJECT_DIR$/views/profile/_search.php" />
+        <option value="$PROJECT_DIR$/views/catalog/index.php" />
         <option value="$PROJECT_DIR$/models/StatisticSearch.php" />
+        <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
+        <option value="$PROJECT_DIR$/models/Transaction.php" />
         <option value="$PROJECT_DIR$/views/profile/statistic.php" />
         <option value="$PROJECT_DIR$/views/profile/_searchstatistic.php" />
       </list>
@@ -193,8 +218,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -225,44 +250,13 @@
             <path>
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="catalog" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="layouts" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="profile" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="statistic" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
@@ -274,23 +268,6 @@
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="widgets" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="widgets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="projects_tpl" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="widgets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="users_tpl" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -516,21 +493,24 @@
       <workItem from="1540358786742" duration="25848000" />
       <workItem from="1540444906721" duration="18964000" />
       <workItem from="1540534019910" duration="18977000" />
+      <workItem from="1540622285459" duration="21517000" />
+      <workItem from="1540714681523" duration="5897000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2654744000" />
+    <option name="totallyTimeSpent" value="2686795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="80" y="71" width="1548" height="946" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16733871" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17137097" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280899" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13161132" sideWeight="0.48203126" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -542,7 +522,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33053893" sideWeight="0.496875" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13161132" sideWeight="0.48203126" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -584,33 +563,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="85" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/views/catalog/_search.php</url>
+          <line>2</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="87" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/Cart.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="76" column="25" lean-forward="false" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/cart/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="140" column="36" lean-forward="false" selection-start-line="140" selection-start-column="36" selection-end-line="140" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/ProjectTags.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/cart/checkout_paypal.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
@@ -632,13 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/admin/models/ThemsprodSearch.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -657,7 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="195" column="86" lean-forward="false" selection-start-line="195" selection-start-column="86" selection-end-line="195" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -728,14 +684,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/catalog/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="63" column="142" lean-forward="false" selection-start-line="63" selection-start-column="50" selection-end-line="63" selection-end-column="142" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -821,7 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-459">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -829,7 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="77" column="117" lean-forward="false" selection-start-line="77" selection-start-column="117" selection-end-line="77" selection-end-column="117" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -838,16 +784,6 @@
         <state relative-caret-position="680">
           <caret line="45" column="47" lean-forward="false" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1292">
-          <caret line="93" column="20" lean-forward="true" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
-          <folding>
-            <marker date="1540397363501" expanded="true" signature="19923:19963" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -871,7 +807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -879,7 +814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-37">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -887,7 +821,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-326">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -895,39 +828,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
           <caret line="68" column="14" lean-forward="false" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/admin/views/users/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="72" column="51" lean-forward="true" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Transaction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-265">
-          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile/_search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profile/_search.php" />
     <entry file="file://$PROJECT_DIR$/views/statistic/_form.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,17 +843,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="32" column="45" lean-forward="true" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile/statistic.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
-          <folding>
-            <element signature="e#7#34#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -953,30 +850,108 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="16" column="63" lean-forward="false" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/admin/views/users/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="86" column="14" lean-forward="true" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/profile/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="187">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker/src/DatePicker.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="64" column="21" lean-forward="false" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/catalog/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-158">
+          <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/catalog/_search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#7#30#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/ProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11203">
+          <caret line="687" column="8" lean-forward="false" selection-start-line="687" selection-start-column="8" selection-end-line="687" selection-end-column="8" />
+          <folding>
+            <marker date="1540670237769" expanded="true" signature="19923:19963" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/date/date.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="634">
+          <caret line="291" column="9" lean-forward="false" selection-start-line="291" selection-start-column="9" selection-end-line="291" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/StatisticSearch.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="46" column="64" lean-forward="false" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="64" />
+        <state relative-caret-position="250">
+          <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding>
+            <element signature="e#30#38#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profile/statistic.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="81" column="57" lean-forward="true" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
+          <folding>
+            <element signature="e#7#34#0#PHP" expanded="true" />
+            <marker date="1540722885137" expanded="true" signature="1867:1987" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Transaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="47" column="52" lean-forward="true" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/profile/_searchstatistic.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+        <state relative-caret-position="267">
+          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
           <folding>
             <element signature="e#7#34#0#PHP" expanded="true" />
           </folding>

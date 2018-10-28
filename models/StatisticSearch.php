@@ -46,6 +46,7 @@ class StatisticSearch extends Products
         $userid = Yii::$app->user->id;
         $query = Products::find()->join('LEFT JOIN','transaction', 'transaction.prod_id = products.id')
            ->andWhere('transaction.action_user = '.$userid.'');
+           //->andWhere('transaction.type = 1');
 
         //$query = Products::find()->leftJoin('transaction', ['transaction.prod_id' => 'products.id', 'transaction.action_user' => Yii::$app->user->id, 'transaction.type' => 1]);
         // add conditions that should always apply here
@@ -62,11 +63,14 @@ class StatisticSearch extends Products
             return $dataProvider;
         }
 
+        $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
+        $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
         // grid filtering conditions
+
         $query->andFilterWhere([
             'user_id' => Yii::$app->user->id,
             //'id' => $this->id,
-            //'type' => 0,
+            //'title' => $this->title,
           //  'category' => $this->category,
           //  'category' => $this->category,
           //  'file_size' => $this->file_size,
@@ -82,8 +86,8 @@ class StatisticSearch extends Products
           //  'active_promo' => $this->active_promo,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
-           // ->andFilterWhere(['like', 'file', $this->file])
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['between', 'transaction.created_at', $from_date, $to_date]);
            // ->andFilterWhere(['like', 'tags', $this->tags])
            // ->andFilterWhere(['like', 'photos', $this->photos])
            // ->andFilterWhere(['like', 'project_info', $this->project_info])

@@ -52,12 +52,12 @@ $photos = json::decode($model->photos);
      'autoplay' => false,
      'autoplayTimeout' => 1000,
     'autoplayHoverPause'     => true,
-    'loop'     => true,
-    'lazyLoad' => true,
-    'nav'       => true,
-    'dots'      => true,
-    'checkVisible'      => true,
-    'items'    => 1
+    'loop'          => true,
+    'lazyLoad'      => true,
+    'nav'           => true,
+    'dots'          => true,
+    'checkVisible'  => true,
+    'items'         => 1
     ]
     ]);
     foreach ($galery_teaser as $photo) {
