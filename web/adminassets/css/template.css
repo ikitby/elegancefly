@@ -118,4 +118,5 @@ div#userprojectsgalery>.userprojectgallery {flex-basis: 25%;padding: 3px;}
 .btn-primary {color: #fff;background-color: #42484c;border-color: #212528;}
 .btn-primary:hover {color: #fff;background-color: #212528;border-color: #222629;}
 
-
+button.user.btn.btn-link.logout {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0.6em;display: inline-block;margin: 10px auto;}
+div#header>.bottom {text-align: center;}

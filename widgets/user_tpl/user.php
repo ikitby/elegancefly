@@ -62,6 +62,8 @@ $userid = Yii::$app->user->id;
                 <?php if (User::Can('viewOwnProjects')):?><li class=""><a href="<?= Url::to('/profile/myprojects') ?>">My projects</a></li><?php endif; ?>
                 <?php if (User::Can('viewPurchases')):?><li class=""><a href="<?= Url::to('/profile/purchases') ?>">My purchases</a></li><?php endif; ?>
                 <?php if (User::Can('viewPayments')):?><li class=""><a href="<?= Url::to('/profile/payments') ?>">Payment history</a></li><?php endif; ?>
+                <?php if (User::Can('canReadStatistic')):?><li class=""><a href="<?= Url::to('/profile/statistic') ?>">Statistic</a></li><?php endif; ?>
+                <hr>
                 <li class=""><?= Html::a('Profile edit', ['edit']) ?></li>
                 <li class=""><?= Html::a('Change Password', ['/request-password-reset']) ?></li>
 

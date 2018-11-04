@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Transaction;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -14,9 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="products-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php //Pjax::begin(); ?>
+    <?php Pjax::begin(); ?>
     <?php echo $this->render('_searchstatistic', ['model' => $searchModel]);?>
 <br>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
@@ -48,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width' => '150'],
                 'format'  => 'html',
                 'label' => 'Upload date',
-                'attribute' => 'created_at',
+                'attribute' => 'date',
                 'value' => function($model) {
                     $created_at = $model->created_at;
                     $created_at = date("Y-m-d", strtotime($created_at));
@@ -56,33 +58,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 
             ],
+
             [
                 'headerOptions' => ['width' => '150'],
                 'format'  => 'html',
-                'label' => 'Count',
-                'attribute' => 'Count',
+                'label' => 'Sales',
+                'attribute' => 'transactionCount',
                 'value' => function($model) {
-                    $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
-                    $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
-                    $sales = Transaction::getSales($model->id, $from_date, $to_date);
-                    $sales['count'] = (!empty($sales['count'])) ? $sales['count'] : 0;
-                    return '<h4>'.$sales['count'].'</h4>';
+                    return '<h4>'.$model->transactionCount.'</h4>';
                 },
             ],
             [
                 'headerOptions' => ['width' => '150'],
                 'format'  => 'html',
                 'label' => 'Sum',
-                'attribute' => 'transaction.amount',
+                'attribute' => 'transactionAmount',
                 'value' => function($model) {
-                    $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
-                    $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
-                    $sales = Transaction::getSales($model->id, $from_date, $to_date);
-                    $sales['sum'] = (!empty($sales['sum'])) ? $sales['sum'] : 0;
-                    return '<h4>'.$sales['sum'].'$</h4>';
+                    return '<h4>'.$model->transactionAmount.'</h4>';
                 },
             ],
-
 
             //'title',
             //'category',
@@ -106,5 +100,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]); ?>
-    <?php //Pjax::end(); ?>
+    <?php Pjax::end(); ?>
 </div>

@@ -74,7 +74,7 @@ class Products extends \yii\db\ActiveRecord
             [['created_at'], 'safe'],
             [['file', 'title', 'project_path'], 'string', 'max' => 255],
             [['themes_index'], 'string', 'max' => 4055],
-            [['photos', 'themes', 'themes_index'], 'safe'],
+            [['photos', 'themes', 'themes_index', 'transactionAmount'], 'safe'],
         ];
     }
 
@@ -100,8 +100,27 @@ class Products extends \yii\db\ActiveRecord
             'state' => 'State',
             'deleted' => 'Deleted',
             'created_at' => 'Created At',
+            'transactionAmount'=>Yii::t('app', 'Amount'),
+            'transactionCount'=>Yii::t('app', 'Count')
         ];
     }
+
+    public function getTransactionAmount()
+    {
+        return $this
+            ->hasMany(Transaction::className(), ['prod_id'=>'id'])
+            ->andWhere(['type' => 1, 'action_user' => Yii::$app->user->id])
+            ->sum('amount');
+    }
+
+    public function getTransactionCount()
+    {
+        return $this
+            ->hasMany(Transaction::className(), ['prod_id'=>'id'])
+            ->andWhere(['type' => 1, 'action_user' => Yii::$app->user->id])
+            ->count('prod_id');
+    }
+
 
     // Связи проектов с акцией через таблицу promotion_products
     public function getProductsProm()

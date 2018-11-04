@@ -52,13 +52,22 @@ AdminAssets::register($this);
                     <li class=""><a href="<?= Url::to('/rbac/user') ?>">Управление правами</a></li>
                     <hr/>
                     <li class=""><a href="<?= Url::to('/') ?>">Фронт сайта</a></li>
+
                 </ul>
 
         </nav>
     </div>
 
     <div class="bottom">
-        -----
+
+                <?php
+                print Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'user btn btn-link logout']
+                    )
+                    . Html::endForm() ?>
+
     </div>
 
 </div>

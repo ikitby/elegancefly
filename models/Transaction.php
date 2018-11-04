@@ -44,12 +44,12 @@ class Transaction extends \yii\db\ActiveRecord
     public static function getSales($id, $from_date = null, $to_date = null)
     {
 
-        if (empty($to_date)) $from_date = (!empty($from_date))? $from_date : newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
+        if (empty($from_date)) $from_date = (!empty($from_date))? $from_date : newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
         if (empty($to_date)) $to_date = date("Y-m-d");
         $sales = array();
 
-        $sales['sum'] = Transaction::find()->where(['prod_id' => $id, 'type' => 1])->andWhere(['>', 'created_at', $from_date])->andWhere(['<', 'created_at', $to_date])->sum('amount');
-        $sales['count'] = Transaction::find()->where(['prod_id' => $id, 'type' => 1])->andWhere(['>', 'created_at', $from_date])->andWhere(['<', 'created_at', $to_date])->count();
+        $sales['sum'] = Transaction::find()->where(['prod_id' => $id, 'type' => 1])->andWhere(['>', 'created_at', $from_date])->andWhere(['<', 'created_at', $to_date.' 23:59:59'])->sum('amount');
+        $sales['count'] = Transaction::find()->where(['prod_id' => $id, 'type' => 1])->andWhere(['>', 'created_at', $from_date])->andWhere(['<', 'created_at', $to_date.' 23:59:59'])->count();
 
         return $sales;
     }

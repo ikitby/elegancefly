@@ -137,4 +137,5 @@ div#priceblock h4.file_price span.oldproce {opacity: 0.5;}
 /* right widgets */
 h3.rightwidget a, h3.rightwidget {font-size: 18px;color: #3a3a3a;text-transform: uppercase;font-weight: bold;margin-top: 35px;display: block;}
 
-
+button.user.btn.btn-link.logout {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0.6em;display: inline-block;margin: 10px auto;}
+div#header>.bottom {text-align: center;}
