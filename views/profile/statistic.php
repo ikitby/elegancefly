@@ -99,6 +99,18 @@ $this->params['breadcrumbs'][] = $this->title;
             //'active_promo',
 
         ],
-    ]); ?>
+    ]);
+    $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
+    $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
+
+    $mindate = (!empty($from_date))? $from_date : newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
+    $maxdate = (!empty($to_date))? $to_date : newdate(date("Y-m-d"));
+
+    $sum = Transaction::find()
+        ->where(['action_user' => Yii::$app->user->id, 'type' => 1])
+        ->andWhere(['between', 'created_at', $mindate, $maxdate.' 23:59:59'])
+        ->sum('amount');
+    ?>
+    <H2 CLASS="pull-right"><?= (!empty($sum)) ? $sum : 0 ?>$</H2>
     <?php Pjax::end(); ?>
 </div>

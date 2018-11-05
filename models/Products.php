@@ -104,20 +104,39 @@ class Products extends \yii\db\ActiveRecord
             'transactionCount'=>Yii::t('app', 'Count')
         ];
     }
+    public function newdate($date) {
+        $date = strtotime($date); // переводит из строки в дату
+        $date = date("Y-m-d", $date);
+        return $date;
+    }
 
     public function getTransactionAmount()
     {
+        $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
+        $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
+
+        $from_date = (!empty($from_date))? $from_date : $this->newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
+        $to_date = (!empty($to_date))? $to_date : $this->newdate(date("Y-m-d"));
+
         return $this
             ->hasMany(Transaction::className(), ['prod_id'=>'id'])
             ->andWhere(['type' => 1, 'action_user' => Yii::$app->user->id])
+            ->andWhere(['between', 'created_at', $from_date, $to_date.' 23:59:59'])
             ->sum('amount');
     }
 
     public function getTransactionCount()
     {
+        $from_date = Yii::$app->request->get('from_date'); //Мнинимальная дкта
+        $to_date = Yii::$app->request->get('to_date'); //Максимальная дата
+
+        $from_date = (!empty($from_date))? $from_date : $this->newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
+        $to_date = (!empty($to_date))? $to_date : $this->newdate(date("Y-m-d"));
+
         return $this
             ->hasMany(Transaction::className(), ['prod_id'=>'id'])
             ->andWhere(['type' => 1, 'action_user' => Yii::$app->user->id])
+            ->andWhere(['between', 'created_at', $from_date, $to_date.' 23:59:59'])
             ->count('prod_id');
     }
 
@@ -332,35 +351,53 @@ class Products extends \yii\db\ActiveRecord
         }
     }
 
-    public function getTagslist()
+    public function getTagslist($list = 0)
     {
         $total = count($this->tagsprod);
         $counter = 0;
+        $tags = '';
         foreach ($this->tagsprod as $tag) {
             $counter++;
-            if($counter == $total){
-                print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'lisltnglinck']);
-            }
-            else{
-                print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'lisltnglinck']).', ';
+            if ($list == 0) {
+                if ($counter == $total) {
+                    print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'lisltnglinck']);
+                } else {
+                    print Html::a($tag->title, ['/catalog/tag', 'alias' => $tag->alias], ['class' => 'lisltnglinck']) . ', ';
+                }
+            } else {
+                if ($counter == $total) {
+                    $tags .= $tag['title'];
+                } else {
+                    $tags .= $tag['title'] . ', ';
+                }
             }
         }
-
+        return $tags;
     }
 
-    public function getThemslist()
+    public function getThemslist($list = 0)
     {
         $total = count($this->themsprod);
         $counter = 0;
+        $thems = '';
         foreach($this->themsprod as $thema){
             $counter++;
-            if($counter == $total){
-                print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'lisltnglinck']);
-            }
-            else{
-                print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'lisltnglinck']).', ';
+            if ($list == 0) {
+                if ($counter == $total) {
+                    print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'lisltnglinck']);
+                } else {
+                    print Html::a($thema->title, ['/catalog/tema', 'alias' => $thema->alias], ['class' => 'lisltnglinck']) . ', ';
+                }
+            } else {
+                if ($counter == $total) {
+                    $thems .= $thema['title'];
+                } else {
+                    $thems .= $thema['title'] . ', ';
+                }
+
             }
         }
+        return $thems;
     }
 
     public function getAllVotes($id)

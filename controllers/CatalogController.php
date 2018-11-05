@@ -407,48 +407,7 @@ class CatalogController extends AppController
             'model' => $model,
         ]);
     }
-/*
-    public function actionCreate()
-    {
-        $model = new Products();
-        $filemodel = new UploadProject();
 
-        $model->user_id = yii::$app->user->id;
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            $file = UploadedFile::getInstance($model, 'photos'); //цепляем из нашей модельки файл по его полю
-
-            $userfolder = $this->getUserFolder();
-
-            if ( !file_exists($userfolder ) )//проверяем и если нет - создаем папку пользователя по его id
-            {
-                mkdir($userfolder, 755); //создаем папку проектов пользователя
-            }
-
-            $projectfolder = $this->translite($file->baseName) . '_' . strtolower(uniqid(md5($file->baseName)));
-
-            if ($file) {
-                $photosmodel = $filemodel->makeGalery($file);
-                $model->saveProject($filemodel->uploadZip($file, $userfolder, $projectfolder, $model), $userfolder.'/'.$projectfolder.'/', $photosmodel); //запускаем сохранение файла в базе с именем сохраненного файла
-            };
-
-            return $this->redirect(['/profile/updateproject', 'id' => $model->id]);
-        }
-/*
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $themes = Yii::$app->request->post('Products');
-            $themes = $themes['themes'];
-            $model->saveThems($themes);
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-*/
     public function actionDelete($id)
     {
         $id = Yii::$app->request->post('id');

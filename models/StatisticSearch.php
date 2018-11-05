@@ -66,18 +66,18 @@ class StatisticSearch extends Products
 
         $from_date = (!empty($from_date))? $from_date : $this->newdate(Transaction::find()->select(['created_at', 'id'])->where(['action_user' => Yii::$app->user->id, 'type' => 1])->indexBy('created_at')->min('created_at'));
         $to_date = (!empty($to_date))? $to_date : $this->newdate(date("Y-m-d"));
-
+        //dump($from_date);
         $query = Products::find();
         $subQuery = Transaction::find()
-            ->select('prod_id, SUM(amount) as transaction_amount, COUNT(prod_id) as transaction_count')
-            ->where(['type' => 1])
-            ->andWhere(['action_user' => Yii::$app->user->id])
-            ->andWhere(['between', 'transaction.created_at', $from_date, $to_date.' 23:59:59'])
+            ->select(['prod_id, SUM(amount) AS transaction_amount, COUNT(prod_id) AS transaction_count'])
+            ->where(['type' => 1, 'action_user' => Yii::$app->user->id])
+            ->andWhere(['between', 'created_at', $from_date, $to_date.' 23:59:59'])
             ->groupBy('prod_id');
         $query->leftJoin([
             'orderSum'=>$subQuery
         ], 'orderSum.prod_id = id')
-        ->where(['>','orderSum.transaction_amount', 0]);
+        ->where(['>','orderSum.transaction_amount', 0])
+        ;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

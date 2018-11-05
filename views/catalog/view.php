@@ -19,7 +19,21 @@ use app\models\Ratings;
 $catalias = Yii::$app->request->get('catalias'); //get category alias from url
 $curentcat = Catprod::find()->where(['alias' => $catalias])->one();
 
-$this->title = $model->id;
+$this->title = Html::encode($model->title).' :: '.Yii::$app->name. ' - Digital Art, psp tubes, Illustrations for design, png pictures, png girls';
+
+//----------------------------------------
+$descr = trim ( $model->project_info [ $character_mask = " \t\n\r\0\x0B" ] );
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => preg_replace("#[\n]|  ]#", "", strip_tags($model->project_info))
+]);
+$this->registerMetaTag([
+    'name' => 'keywords',
+    'content' => 'Digital Art, Illustrations for design, '.$model->getThemslist(1)
+]);
+//----------------------------------------
+
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 if ($curentcat) {$this->params['breadcrumbs'][] = ['label' => ''.$curentcat->title.'', 'url' => ['catalog/'.$curentcat->alias.'']];}
 $this->params['breadcrumbs'][] = $this->title;
@@ -28,7 +42,6 @@ $allowpurchased = true;
 $limit = $model->limit;
 $count = count($model->transactions);
 $allowpurchased = ($limit > $count) ? true : false;
-
 ?>
 <div class="products-view">
 

@@ -17,7 +17,39 @@
     <favorites_list name="Elegensfly" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="view.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/catalog/view.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="28" column="39" lean-forward="false" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+              <folding>
+                <marker date="1541421510841" expanded="true" signature="1562:1821" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="1722:1821" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="1762:1821" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="4596:4608" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="5056:5253" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="5309:5433" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="5866:6055" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="5907:6055" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="5945:6055" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="5992:6055" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="6287:6395" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="6324:6395" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="6644:6765" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="7870:7963" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="7912:7963" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="8429:8550" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="8595:8841" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="8677:8819" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="9732:9790" ph="..." />
+                <marker date="1541421510841" expanded="true" signature="9945:10067" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -75,11 +107,12 @@
     <option name="WARN_ABOUT_DETACHED_HEAD" value="false" />
     <option name="FORCE_PUSH_ALLOWED" value="false" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/widgets/basket_tpl/plane_wds.php" />
-        <option value="$PROJECT_DIR$/controllers/CatalogController.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/promotions/_form.php" />
         <option value="$PROJECT_DIR$/modules/admin/controllers/PromotionsController.php" />
         <option value="$PROJECT_DIR$/widgets/Promo_user_grant.php" />
@@ -112,7 +145,6 @@
         <option value="$PROJECT_DIR$/views/profile/_search.php" />
         <option value="$PROJECT_DIR$/views/catalog/index.php" />
         <option value="$PROJECT_DIR$/controllers/ProfileController.php" />
-        <option value="$PROJECT_DIR$/views/profile/_searchstatistic.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/users/index.php" />
         <option value="D:/Grey/__РАЗРАБОТКА САЙТОВ-3+/__lexpress.by__/iblank/css/template.css" />
         <option value="$PROJECT_DIR$/models/Transaction.php" />
@@ -121,14 +153,17 @@
         <option value="D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Radawayshop.by/jbuniversal/elements/relateditemsmain/types1.php" />
         <option value="D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Radawayshop.by/jbuniversal/elements/relateditemsmain/types2.php" />
         <option value="D:/Grey/___ПОДДЕРЖКА САЙТОВ___/Radawayshop.by/jbuniversal/elements/relateditemsmain/typeslayout.php" />
-        <option value="$PROJECT_DIR$/views/profile/statistic.php" />
-        <option value="$PROJECT_DIR$/models/Products.php" />
-        <option value="$PROJECT_DIR$/models/StatisticSearch.php" />
         <option value="$PROJECT_DIR$/widgets/user_tpl/user.php" />
         <option value="$PROJECT_DIR$/modules/admin/views/layouts/admin.php" />
         <option value="$PROJECT_DIR$/web/adminassets/css/template.css" />
         <option value="$PROJECT_DIR$/web/css/template.css" />
         <option value="$PROJECT_DIR$/views/layouts/profile.php" />
+        <option value="$PROJECT_DIR$/models/StatisticSearch.php" />
+        <option value="$PROJECT_DIR$/views/profile/statistic.php" />
+        <option value="$PROJECT_DIR$/views/profile/_searchstatistic.php" />
+        <option value="$PROJECT_DIR$/controllers/CatalogController.php" />
+        <option value="$PROJECT_DIR$/models/Products.php" />
+        <option value="$PROJECT_DIR$/views/catalog/view.php" />
       </list>
     </option>
   </component>
@@ -140,8 +175,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="304" />
-    <option name="y" value="107" />
+    <option name="x" value="126" />
+    <option name="y" value="59" />
     <option name="width" value="1309" />
     <option name="height" value="870" />
   </component>
@@ -183,6 +218,11 @@
             <path>
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -210,6 +250,12 @@
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="catalog" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
@@ -238,6 +284,12 @@
               <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
               <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="widgets" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="Elegensfly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="elegancefly.loc" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="widgets" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="user_tpl" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -471,33 +523,35 @@
       <workItem from="1541067031720" duration="1196000" />
       <workItem from="1541144288887" duration="23760000" />
       <workItem from="1541232196874" duration="19491000" />
-      <workItem from="1541310692207" duration="16112000" />
+      <workItem from="1541310692207" duration="24159000" />
+      <workItem from="1541404426094" duration="12733000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2814044000" />
+    <option name="totallyTimeSpent" value="2834824000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="304" y="107" width="1309" height="870" extended-state="0" />
+    <frame x="126" y="59" width="1309" height="870" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2233787" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280899" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14654003" sideWeight="0.48203126" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.496875" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14654003" sideWeight="0.48203126" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32860824" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17540453" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22658126" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329904" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33053893" sideWeight="0.496875" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -551,38 +605,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/Userevent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6740">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/StatisticController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding>
-            <element signature="e#35#43#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/db/QueryTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="189" column="20" lean-forward="false" selection-start-line="189" selection-start-column="20" selection-end-line="189" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/admin/views/users/view.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-459">
@@ -601,14 +623,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
           <caret line="45" column="47" lean-forward="false" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/CatalogController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="16" column="21" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -832,7 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -848,25 +861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
           <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile/statistic.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-          <folding>
-            <element signature="e#7#34#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Products.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="102" column="57" lean-forward="false" selection-start-line="102" selection-start-column="57" selection-end-line="102" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -896,14 +890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/user_tpl/user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="64" column="38" lean-forward="false" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/admin/views/layouts/admin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -912,7 +898,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/profile/statistic.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1904">
+          <caret line="112" column="6" lean-forward="false" selection-start-line="112" selection-start-column="6" selection-end-line="112" selection-end-column="6" />
+          <folding>
+            <element signature="e#7#34#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profile/_searchstatistic.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="60" column="7" lean-forward="true" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/widgets/user_tpl/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="64" column="132" lean-forward="false" selection-start-line="64" selection-start-column="72" selection-end-line="64" selection-end-column="132" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/StatisticSearch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="56" column="62" lean-forward="false" selection-start-line="56" selection-start-column="62" selection-end-line="56" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/layouts/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-881">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="9" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/web/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="341" column="5" lean-forward="true" selection-start-line="341" selection-start-column="5" selection-end-line="341" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/db.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -920,21 +964,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/StatisticSearch.php">
+    <entry file="file://$PROJECT_DIR$/models/Products.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="75" column="28" lean-forward="false" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="28" />
+        <state relative-caret-position="374">
+          <caret line="380" column="21" lean-forward="true" selection-start-line="380" selection-start-column="21" selection-end-line="380" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/CatalogController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="338" column="0" lean-forward="true" selection-start-line="338" selection-start-column="0" selection-end-line="338" selection-end-column="0" />
           <folding>
-            <element signature="e#30#38#0#PHP" expanded="true" />
+            <element signature="e#35#58#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile/_searchstatistic.php">
+    <entry file="file://$PROJECT_DIR$/views/catalog/view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="53" column="8" lean-forward="false" selection-start-line="53" selection-start-column="8" selection-end-line="57" selection-end-column="9" />
-          <folding />
+        <state relative-caret-position="306">
+          <caret line="28" column="39" lean-forward="false" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+          <folding>
+            <marker date="1541421510841" expanded="true" signature="1562:1821" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="1722:1821" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="1762:1821" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="4596:4608" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="5056:5253" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="5309:5433" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="5866:6055" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="5907:6055" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="5945:6055" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="5992:6055" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="6287:6395" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="6324:6395" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="6644:6765" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="7870:7963" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="7912:7963" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="8429:8550" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="8595:8841" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="8677:8819" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="9732:9790" ph="..." />
+            <marker date="1541421510841" expanded="true" signature="9945:10067" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
