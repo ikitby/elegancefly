@@ -84,7 +84,6 @@ class StatisticSearch extends Products
         ]);
 
 
-
         $dataProvider->setSort([
             'attributes' => [
                 'title',

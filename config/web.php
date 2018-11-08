@@ -71,12 +71,7 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        /*
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
-        */
+
         'user' => [
             'identityClass' => 'mdm\admin\models\User',
             'loginUrl' => ['login'],
@@ -87,7 +82,7 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             'messageConfig' => [
                 'charset' => 'UTF-8',
             ],

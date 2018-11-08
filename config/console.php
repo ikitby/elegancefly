@@ -7,7 +7,7 @@ $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'app\commands',
+    'controllerNamespace' => 'app\console',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -18,6 +18,19 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'mailer' => [
+            'useFileTransport' => false,
+            'messageConfig' => [
+                'charset' => 'UTF-8',
+            ],
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.beget.com',
+                'username' => 'info@elegancefly.com',
+                'password' => 'MyElegance090',
+                'port' => '2525',
+            ],
         ],
         'log' => [
             'targets' => [

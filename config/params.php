@@ -12,6 +12,6 @@ return [
 
     'owlLoopFront'  => false, //Петля кареселек на главке
 
-    'limitcatsIDs' => [2,9]
+    'limitcatsIDs' => [2,9] //Категории с ограниченным доступом для торцов
 
 ];

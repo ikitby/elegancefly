@@ -15,16 +15,61 @@ if (empty($painter->photo)) {
 } else {
     $userphoto = Html::img("/images/user/user_{$painter['id']}/{$painter['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($painter['name']) ? $painter['name'] : $painter['username']), 'title' => Html::encode(($painter['name']) ? $painter['name'] : $painter['username'])]);
 }
+$rolename = '';
+foreach (User::Roles($painter['id']) as $role) {
+    $rolename .= $role->name . ' ';
+}
+$paintername = Html::encode(($painter['name']) ? $painter['name'] : $painter['username']);
 
-$this->title = ($painter['name']) ? $painter['name'] : $painter['username'];
+$this->title = $paintername.' :: '.$rolename.'| '.Yii::$app->name.' Digital Art, Illustrations for design';
 $this->params['breadcrumbs'][] = ['label' => 'Painters', 'url' => '/painters'];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $paintername;
+
+//----------------------------------------
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $this->title
+]);
+$this->registerMetaTag([
+    'name' => 'keywords',
+    'content' => ''
+]);
+
+
+$this->registerMetaTag([
+    'property'=>'og:type',
+    'content'=> 'article'
+], 'og:type');
+
+$this->registerMetaTag([
+    'property'=>'og:title',
+    'content'=> $this->title.'. Country: '.$painter->userCountry->country
+], 'og:title');
+
+$this->registerMetaTag([
+    'property'=>'og:site_name',
+    'content'=> Yii::$app->name
+], 'og:site_name');
+
+$this->registerMetaTag([
+    'property'=>'og:url',
+    'content'=> Url::base(true).Url::current()
+], 'og:url');
+
+$this->registerMetaTag([
+    'property'=>'og:image',
+    'content'=> Url::home(true).'/images/user/user_'.$painter['id'].'/'.$painter['photo']
+], 'og:image');
+
+//----------------------------------------
+
 ?>
 <div class="user-view">
     <div class="row">
         <div class="col-md-4">
             <div style="text-align: center;">
-                <h2><?= Html::encode($this->title) ?></h2>
+                <h2><?= Html::encode($paintername) ?></h2>
 
                 <?php
 
@@ -67,7 +112,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif; ?>
                 <li><strong>Birthday: </strong><?= Yii::$app->formatter->asDate($painter->birthday) ?></li>
                 <?php if ($painter->userCountry->country) : ?> <li><strong>Country: </strong><?= $painter->userCountry->country ?></li><?php endif; ?>
-                <li><strong>Email: </strong><?= Html::mailto($painter->email) ?></li>
 
             </ul>
             <ul class="userpropsocicons">

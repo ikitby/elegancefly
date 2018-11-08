@@ -163,6 +163,11 @@ class User extends ActiveRecord implements IdentityInterface
             ->viaTable('ratings', ['user_id' => 'id']);
     }
 
+    public function getTransactions()
+    {
+        return $this->hasMany(Transaction::className(), ['action_user' => 'id']);
+    }
+
     public static function getUsersByIds ($user_ids)
     {
         $users = User::find()

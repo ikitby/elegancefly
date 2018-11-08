@@ -21,22 +21,48 @@ $curentcat = Catprod::find()->where(['alias' => $catalias])->one();
 
 $this->title = Html::encode($model->title).' :: '.Yii::$app->name. ' - Digital Art, psp tubes, Illustrations for design, png pictures, png girls';
 
+$galery = json::decode($model->photos);
 //----------------------------------------
-$descr = trim ( $model->project_info [ $character_mask = " \t\n\r\0\x0B" ] );
 
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => preg_replace("#[\n]|  ]#", "", strip_tags($model->project_info))
+    'content' => preg_replace("#[\n]|[  ]#", "", strip_tags($model->project_info))
 ]);
 $this->registerMetaTag([
     'name' => 'keywords',
     'content' => 'Digital Art, Illustrations for design, '.$model->getThemslist(1)
 ]);
+
+$this->registerMetaTag([
+    'property'=>'og:type',
+    'content'=> 'article'
+], 'og:type');
+
+$this->registerMetaTag([
+    'property'=>'og:title',
+    'content'=> $model->title
+], 'og:title');
+
+$this->registerMetaTag([
+    'property'=>'og:site_name',
+    'content'=> Yii::$app->name
+], 'og:site_name');
+
+$this->registerMetaTag([
+    'property'=>'og:url',
+    'content'=> Url::base(true).Url::current()
+], 'og:url');
+
+$this->registerMetaTag([
+    'property'=>'og:image',
+    'content'=> Url::home(true).$galery[0]['foolpath']
+], 'og:image');
+
 //----------------------------------------
 
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 if ($curentcat) {$this->params['breadcrumbs'][] = ['label' => ''.$curentcat->title.'', 'url' => ['catalog/'.$curentcat->alias.'']];}
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = Html::encode($model->title);
 
 $allowpurchased = true;
 $limit = $model->limit;
@@ -47,7 +73,6 @@ $allowpurchased = ($limit > $count) ? true : false;
 
     <h1><?= Html::encode($model->title) ?></h1>
 
-    <?php $galery = json::decode($model->photos); //декодим json с массивом галереи ?>
 
     <div class="row">
         <div class="col-sm-6 col-md-6">

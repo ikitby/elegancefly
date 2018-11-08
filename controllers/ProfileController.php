@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\console\models\autonotifier;
 use app\models\ImageUpload;
 use app\models\Prodlimit;
 use app\models\Products;
@@ -19,11 +20,8 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
-//use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use app\models\User;
 use yii\data\Pagination;
@@ -62,6 +60,7 @@ class ProfileController extends AppController
      * Lists all User models.
      * @return mixed
      */
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {return $this->redirect(['/login']);}
