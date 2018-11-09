@@ -54,7 +54,25 @@ $userid = Yii::$app->user->id;
 
         <div class="col-md-7 userbalance">
             <span>Balance (PAC):</span>
-            <h3><?= Transaction::getUserBalance($user->id) ?>$</h3>
+
+            <h3><?= Transaction::getUserBalance($user->id) ?>$
+
+                <?php
+                $request = Userevent::find()->where(['event_type' => 'casherequest', 'event_progress' => 0])->orderBy(['event_time' => SORT_DESC])->one();
+                $event_time = strtotime($request['event_time']);
+                $attr = '';
+                $tbtn = '<span class="glyphicon glyphicon-usd"></span>Вывести';
+                if (time() - $event_time <= Yii::$app->params['requestDelay'])
+                {
+                    $attr = 'disabled="disabled"';
+                    $tbtn = 'Sended!';
+
+                }
+                if (Transaction::getUserBalance($user->id) >= Yii::$app->params['minLimitCasheMoney']) : ?>
+                    <button type="button" class="btn btn-success btn-xs deposit_show getusercashe" <?= $attr ?>><?= $tbtn ?></Вывести></button>
+                <?php endif; ?>
+
+            </h3>
         </div>
         <div class="usermenu">
             <ul class="">
