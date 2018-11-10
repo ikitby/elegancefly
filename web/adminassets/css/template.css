@@ -120,3 +120,6 @@ div#userprojectsgalery>.userprojectgallery {flex-basis: 25%;padding: 3px;}
 
 button.user.btn.btn-link.logout {color: #cacaca;font-size: 0.8em;background: #42484c;padding: 0.1em 0.6em;display: inline-block;margin: 10px auto;}
 div#header>.bottom {text-align: center;}
+
+.media span.label.label-default {font-size: 50%;}
+

@@ -26,7 +26,7 @@ class autonotifier
         $query->leftJoin([
             'orderSum'=>$subQuery
         ], 'orderSum.action_user = id')
-            ->select(['name', 'username', 'email', 'orderSum.transaction_amount'])
+            ->select(['id', 'name', 'username', 'email', 'orderSum.transaction_amount'])
             ->asArray()
             ->where(['>', 'orderSum.transaction_amount', Yii::$app->params['minLimitCasheMoney']])
             ->all();

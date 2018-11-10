@@ -10,6 +10,7 @@ namespace app\console;
 
 use app\console\models\autonotifier;
 use app\console\models\Sender;
+use app\models\Userevent;
 use Yii;
 
 

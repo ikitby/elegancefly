@@ -590,7 +590,6 @@ class ProfileController extends AppController
 
                     $userEvent = new Userevent();
                     $userEvent->setLog(Yii::$app->user->id, 'profileupdate', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль творца', '0');
-
                     //-----------------------------------------------------------------
 
                     $this->sendAdminMail('profileupdate', '0', 'Запрос от <span class="nusername">'.$userName.'</span> на профиль творца');
