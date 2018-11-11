@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use app\models\User;
 use app\models\Userevent;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -125,6 +126,60 @@ class DefaultController extends Controller
 
     }
 
+    /*
+     * Просто удаляем событие запроса на обналичку
+     */
+    public function actionCachereqdel()
+    {
+        $user_id = Yii::$app->request->post('id'); //id пользователя
+        $event_id = Yii::$app->request->post('event_id'); //id события
 
+        $user = User::getById($user_id);
+        $userName = ($user->name) ? $user->name : $user->username;
+
+        $uevent = Userevent::findOne($event_id);
+        $uevent->delete();
+
+        Return 'ok';
+    }
+    /*
+     * Отказываем с уведомлением
+     */
+    public function actionCachereqrefuse()
+    {
+        $user_id = Yii::$app->request->post('id'); //id пользователя
+        $event_id = Yii::$app->request->post('event_id'); //id события
+
+        $user = User::getById($user_id);
+        $userName = ($user->name) ? $user->name : $user->username;
+
+        $uevent = Userevent::findOne($event_id);
+        $uevent->event_progress = 1;
+        $uevent->save();
+
+        //------------------------- Создаем событие об отказе вывода денег ------------------------
+
+        $userEvent = new Userevent();
+        $userEvent->setLog($user_id, 'info', '<span class="label label-danger">Отказ в выводе средств PAC</span> пользователю <span class="nusername">'.$userName.'</span> с уведомлением по почте', '1');
+
+        //-----------------------------------------------------------------
+        //Отправим письмо пользоваотелю
+        $uevent = Userevent::findOne($event_id);
+        $uevent->noteToUser($user_id, 'info', 'Отказ пользователю <span class="nusername">' . $userName . '</span> в выводе средств со счета PAC', 'refUserCacheMail', 'Отказ в выводе денег"', '1');
+
+
+        Return 'ok';
+    }
+
+    /*
+     * Одобряем с измеением баланса и уведомлением
+     */
+    public function actionCachereqappr()
+    {
+        $user_id = Yii::$app->request->post('id'); //id пользователя
+        $event_id = Yii::$app->request->post('event_id'); //id события
+
+        Return 'ok';
+    }
 
 }

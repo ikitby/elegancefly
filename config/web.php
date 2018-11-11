@@ -145,6 +145,10 @@ $config = [
                 'admin' => 'admin/',
                 '/admin/userup' => '/admin/default/userup',
                 '/admin/userref' => '/admin/default/userref',
+                '/admin/cachereqdel' => '/admin/default/cachereqdel',
+                '/admin/cachereqrefuse' => '/admin/default/cachereqrefuse',
+                '/admin/cachereqappr' => '/admin/default/cachereqappr',
+
 
                 '/admin/users/view/<id:\d+>' => '/admin/users/view',
 

@@ -53,7 +53,7 @@ use yii\widgets\Pjax;
     <div class="row">
         <div class="col-sm-4">
             <h3>Вывод денег</h3>
-            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => 'casherequest', 'eprogress' => 0]) ?>
+            <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventscachereqlist', 'etype' => 'casherequest', 'eprogress' => 0]) ?>
         </div>
         <div class="col-sm-4">
             <h3>Смена статуса</h3>
@@ -63,7 +63,7 @@ use yii\widgets\Pjax;
             <h3>Последние события</h3>
             <?php Pjax::begin([ 'id' => 'refreshevent', 'class' => 'refreshevent']); ?>
                 <?= Html::a("Обновить", ['/admin'], ['class' => 'btn']);?>
-                <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','cachenotify ','rmoney','user','profileupdate','addfunds']]) ?>
+                <?= \app\widgets\UserEventsWidget::widget(['tpl' =>'eventslist', 'etype' => ['casherequest','cachenotify ','rmoney','user','info','profileupdate','addfunds']]) ?>
             <?php Pjax::end(); ?>
         </div>
     </div>

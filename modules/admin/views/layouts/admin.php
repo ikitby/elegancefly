@@ -132,20 +132,32 @@ AdminAssets::register($this);
     </div>
 </div>
 
+<?php
+
+Modal::begin([
+    //'header' => '<h4 class="modal-title">Info</h4>',
+    'id' => 'InfoModal',
+]);
+Modal::end();
+
+Modal::begin([
+    'header' => '<h4 class="modal-title">Подтвердите действие</h4>',
+    //'footer' => '<button type="button" id="imPainter" style="margin: 0 auto;display: inherit;" class="btn btn-success btn-lg">!!!</button>',
+    'id' => 'moddisclamer',
+    'size' => Modal::SIZE_SMALL,
+]); ?>
+<a class="btn btn-primary btn-lg approveaction">Подтвердить</a>
+<a class="btn btn-danger btn-lg pull-right" data-dismiss="modal">Отмена</a>
+<?php
+Modal::end();
+?>
 
 <div id="footer">
 
 </div>
 
 <?php
-Modal::begin([
-    //'header' => '<h4 class="modal-title">Info</h4>',
-    'id' => 'InfoModal',
-]);
-Modal::end();
-?>
-
-<?php $this->endBody() ?>
+$this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

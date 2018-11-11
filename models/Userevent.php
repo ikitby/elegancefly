@@ -121,11 +121,9 @@ class Userevent extends \yii\db\ActiveRecord
         $users = User::find()
             ->joinWith('Transaction')
             ->where(['auth_assignment.item_name' => 'Painter'])
-            //->orWhere(['auth_assignment.item_name' => 'Creator'])
             ->andWhere(['status' => '10'])
-            //->limit(10)
             ->all();
-            //dump($users);
+
         if ($userbalance >= $limitCashe) {
             //dump($userbalance);
         }

@@ -424,7 +424,7 @@ class ProfileController extends AppController
                 //-----------------------------------------------------------------
 
                 $userEvent = new Userevent();
-                $userEvent->setLog(Yii::$app->user->id, 'casherequest', 'Заявка на вывод <span class="label label-warning">'.$userBalance.'$</span>', '0');
+                $userEvent->setLog(Yii::$app->user->id, 'casherequest', 'Заявка на вывод <span class="label label-info">'.$userBalance.'$</span>', '0');
 
                 //-----------------------------------------------------------------
             }
