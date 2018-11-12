@@ -178,7 +178,13 @@ class DefaultController extends Controller
     {
         $user_id = Yii::$app->request->post('id'); //id пользователя
         $event_id = Yii::$app->request->post('event_id'); //id события
+/*
+        $uevent = Userevent::findOne($event_id);
+        $uevent->event_progress = 1;
+        $uevent->save();
+*/
 
+//получаем
         Return 'ok';
     }
 

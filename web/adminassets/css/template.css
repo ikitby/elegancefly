@@ -123,3 +123,5 @@ div#header>.bottom {text-align: center;}
 
 .media span.label.label-default {font-size: 50%;}
 
+.acceptblock>div {display: flex;}
+.acceptblock {display: none;}

@@ -145,8 +145,7 @@ $(function () {
 
             var id = $(this).data('id');
             var event_id = $(this).data('event');
-
-            //ShowDisclamer();
+            var count = $(this).parent().prev().css('border','3px solid red')
 
             $.ajax({
                 url: '/admin/cachereqappr',
@@ -156,7 +155,7 @@ $(function () {
                 success: function (data) {
                     if (!data) alert('Error!');
 
-                    if (data == 'ok') {
+                    if (data == 'ok1') {
 
                         var selector = "#eventid_" + id;
                         $(selector).hide(10);
@@ -179,8 +178,41 @@ $(function () {
 
     });
 
+    $(".approve_usercache").on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().fadeOut().prev('.acceptblock').fadeIn();
+    });
+
+    $(".close_cache_request").on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().parent().parent('.acceptblock').fadeOut().next().fadeIn();
+    });
+
+    /*
+    * обработка заявки вывода денег
+     */
+
+    $(".send_deposit").on('click', function(e){
+        e.preventDefault();
+        var count = $(this).parent().parent().parent().find('.form-control').val();
+        $.ajax({
+            url: '/profile/deposite',
+            data: {count: count},
+            type: 'post',
+            success: function (data) {
+                //if (!data) alert('Error!');
+                location.href = data;
+            },
+            error: function () {
+                //alert ('Error!');
+            }
+        })
+
+    });
+
     function ShowDisclamer() {
         $('#moddisclamer').modal();
     }
+
 
 });
