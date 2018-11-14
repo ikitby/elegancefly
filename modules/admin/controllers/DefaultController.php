@@ -2,9 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Transaction;
 use app\models\User;
 use app\models\Userevent;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use thamtech\uuid\helpers\UuidHelper;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -22,6 +24,9 @@ class DefaultController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'сachereqdel' => ['POST'],
+                    'сachereqrefuse' => ['POST'],
+                    'сachereqappr' => ['POST'],
                 ],
             ],
         ];
@@ -178,14 +183,61 @@ class DefaultController extends Controller
     {
         $user_id = Yii::$app->request->post('id'); //id пользователя
         $event_id = Yii::$app->request->post('event_id'); //id события
-/*
+        $reqamount = Yii::$app->request->post('reqamount'); //сумма списания
+        $transaction_id = UuidHelper::uuid();
+        $current_balance = $this->getUserBalance(Yii::$app->user->id);
+        //обработки суммы превышающе баланс
+        if ($reqamount > $current_balance || $reqamount == 0) return 'Запрошенная суппа превышает текущий баланс либо вы пытаетесь вывести 0$';
+        $user = User::getById($user_id);
+        $userName = ($user->name) ? $user->name : $user->username;
+
+        $paymenttransaction = Transaction::getDb()->beginTransaction();
+
+        try {
+            $transaction = new Transaction();
+
+            $transaction->action_id = $transaction_id;
+            $transaction->action_purse = 'CashingOut';
+            $transaction->action_user = $user_id;
+            $transaction->source_payment = $user_id;
+            $transaction->amount = -$reqamount;
+            $transaction->c_balance = $current_balance-$reqamount; //пополняем запись текущего баланска в транзакции ни чего не меняя
+            $transaction->type = 4; //(0 - Покупка, 1 - Продажа, 3 - Пополнение баланса, 4 - вывод денег)
+            $transaction->prod_id = 0;
+            $transaction->status = '1';
+            $transaction->save();
+
+            $paymenttransaction->commit();
+        } catch(\Exception $e) {
+            $paymenttransaction->rollBack();
+            throw $e;
+        } catch(\Throwable $e) {
+            $paymenttransaction->rollBack();
+            throw $e;
+        }
+
+        //------------------------- Создаем событие о выводt денег ------------------------
+
+        $userEvent = new Userevent();
+        $userEvent->setLog($user_id, 'info', 'Вывод <span class="label label-info">'.$reqamount.'$</span> с персонального счета PAC <span class="nusername">'.$userName.'</span> с уведомлением по почте', '1');
+
+        //---------------------------Отправим письмо пользоваотелю ------------------------
+
+        $uevent = Userevent::findOne($event_id);
+        $uevent->noteToUser($user_id, 'info', 'С вашего счета PAC были списаны средства', 'UserCasheDecrMail', 'Списание со счета', '1', ['amount' => $reqamount, 'current_balance' => $current_balance]);
+
+        //---------------------------------------------------------------------------------
+
         $uevent = Userevent::findOne($event_id);
         $uevent->event_progress = 1;
         $uevent->save();
-*/
 
-//получаем
         Return 'ok';
+    }
+
+    protected function getUserBalance($user_id)
+    {
+        return \app\models\Transaction::getUserBalance($user_id);
     }
 
 }

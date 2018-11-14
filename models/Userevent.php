@@ -74,14 +74,15 @@ class Userevent extends \yii\db\ActiveRecord
     }
 */
 
-    public function noteToUser($userid, $type = 'info', $descr, $mailShab = 'defaultUserMail', $mailTitle = '', $progress = 1) {
+    public function noteToUser($userid, $type = 'info', $descr, $mailShab = 'defaultUserMail', $mailTitle = '', $progress = 1, $data = null) {
         $this->on(Userevent::USER_INFO_MAIL, [$this, 'sendUserInfoMail'],[
             'user_id' => $userid,
             'type' => $type,
             'descr' => $descr,
             'mailShab' => $mailShab,
             'mailTitle' => $mailTitle,
-            'progress' => $progress
+            'progress' => $progress,
+            'data' => $data
         ]);
         $this->trigger($this::USER_INFO_MAIL);
     }
@@ -158,10 +159,11 @@ class Userevent extends \yii\db\ActiveRecord
         $user_id = $event->data['user_id'];
         $user = User::getById($user_id);//Берем почту пользователя события
         $user_mail = $user->email;
+        $data = $event->data['data'];
 
         //------------------------ отправка уведомления пользователю -----------------------
 
-        Yii::$app->mailer->compose($event->data['mailShab'], ['user' => $user])
+        Yii::$app->mailer->compose($event->data['mailShab'], ['user' => $user, 'data' => $data])
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
             ->setTo($user_mail)
             ->setSubject($event->data['mailTitle'])

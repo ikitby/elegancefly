@@ -163,6 +163,7 @@ $config = [
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
+            'timeZone' => 'GMT+3',
         ],
 
     ],

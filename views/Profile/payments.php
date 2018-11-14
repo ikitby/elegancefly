@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <th>Amount</th>
         <th>Balance (PAC)</th>
         <th>Source</th>
+        <th>Type</th>
     </tr>
     </thead>
 
@@ -54,6 +55,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     $typedescr = 'Пополнение счета';
                     $typeclass = 'info';
                     break;
+                    case 4:
+                    $typedescr = 'Вывод средств';
+                    $typeclass = 'danger';
+                    break;
             }
               //dump($payment);
          //   dump($payment->actionUser);
@@ -65,23 +70,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><strong>#</strong><?= $payment->id ?></td>
             <td>
                 <span class="glyphicon glyphicon-calendar"></span>
-                <?= Yii::$app->formatter->asDate($payment->created_at, 'medium') ?><br>
-                <?= Yii::$app->formatter->asTime($payment->created_at, 'medium') ?>
+                <?= Yii::$app->formatter->asDate($payment->created_at) ?><br>
+                <?= Yii::$app->formatter->asTime($payment->created_at, 'H:mm:s') ?>
             </td>
             <td>
-                <span class="label label-success"><?= $payment->action_purse ?></span>
+                <span class="label label-<?= $typeclass ?>"><?= $payment->action_purse ?></span>
                 <h4><?= $payment->amount ?>$</h4>
             </td>
             <td>
-                <h4><?= $payment->c_balance ?>$</h4>
+                <h3><?= $payment->c_balance ?>$</h3>
             </td>
             <td>
-                <?= $typedescr ?><br>
+            <?= $typedescr ?>
+            </td>
+            <td >
                 <?php
                 if ($image = json_decode($payment->actionProd->photos)[0]) : ?>
-                <a href="<?= Url::to(["/catalog/category", "catalias" => $payment->actionProd->catprod->alias, "id" => $payment->actionProd->id]) ?>">
-                    <?= Html::img('/'.$image->filepath.'100_100_'.$image->filename, ['title' => $payment->actionProd->title]) ?>
-                </a>
+                    <a href="<?= Url::to(["/catalog/category", "catalias" => $payment->actionProd->catprod->alias, "id" => $payment->actionProd->id]) ?>">
+                        <?= Html::img('/'.$image->filepath.'100_100_'.$image->filename, ['title' => $payment->actionProd->title, 'width' => '60px']) ?>
+                    </a>
                 <?php endif; ?>
             </td>
         </tr>

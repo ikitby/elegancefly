@@ -145,17 +145,17 @@ $(function () {
 
             var id = $(this).data('id');
             var event_id = $(this).data('event');
-            var count = $(this).parent().prev().css('border','3px solid red')
+            var count = $(this).parent().prev().find('.form-control').val();
 
             $.ajax({
                 url: '/admin/cachereqappr',
-                data: {id: id, event_id: event_id},
+                data: {id: id, event_id: event_id, reqamount: count},
                 type: 'POST',
 
                 success: function (data) {
                     if (!data) alert('Error!');
 
-                    if (data == 'ok1') {
+                    if (data == 'ok') {
 
                         var selector = "#eventid_" + id;
                         $(selector).hide(10);
@@ -167,7 +167,7 @@ $(function () {
 
                     } else {
 
-                        alert('Невнятный ответ сервера!');
+                        alert(data);
 
                     }
                 },

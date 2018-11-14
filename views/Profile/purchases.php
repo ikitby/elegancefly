@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <tr>
         <th>#ID</th>
         <th>Source</th>
+        <th>Image</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -54,9 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </a>
                 </h4>
                 <span class="glyphicon glyphicon-calendar" title="Tooltip on top"></span>
-                <?= Yii::$app->formatter->asDate($purchase->created_at, 'medium') ?> <?= Yii::$app->formatter->asTime($purchase->created_at, 'medium') ?>
-
-
+                <?= Yii::$app->formatter->asDate($purchase->created_at) ?><br/>
+                <?= Yii::$app->formatter->asTime($purchase->created_at, 'H:mm:s') ?>
             </td>
             <td>
                 <?php
