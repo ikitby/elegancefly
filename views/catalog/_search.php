@@ -62,9 +62,23 @@ use yii\widgets\ActiveForm;
         </div>
 
         <div class="col-md-3">
+            <?php
+            $users = User::find()
+                ->where(['role' => 'Painter'])
+                ->orWhere(['role' => 'Creator'])
+                ->select(['name', 'username', 'id'])
+                ->indexBy('id')
+                ->orderBy(['name' => SORT_ASC])
+                ->asArray()
+                ->all();
+            $users1 = [];
+            foreach ($users as $user) {
+                $users1[$user{'id'}] = ($user{'name'}) ? $user{'name'} : $user{'username'};
+            }
+            ?>
             <?=
             $form->field($model, 'user_id')->widget(Select2::classname(), [
-                'data' => User::find()->where(['role' => 'Painter'])->orWhere(['role' => 'Creator'])->select(['username', 'id'])->indexBy('id')->orderBy(['sales' => SORT_DESC])->column(),
+                'data' => $users1,
                 'options' => [
                     'placeholder' => 'Painter',
                     'onchange' => 'this.form.submit()',
