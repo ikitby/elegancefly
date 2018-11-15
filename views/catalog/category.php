@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     endforeach;
     else:
-        throw new BadRequestHttpException('Empty category');
+        print '<div class="center-block"><h2 style="color: #ccc;"><br>Empty page!</h2></div>';
         ?>
     <?php endif;
     ?>
