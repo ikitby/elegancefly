@@ -2,16 +2,18 @@
 
 namespace app\modules\admin\models;
 
+use app\models\Transaction;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\User;
+
 
 /**
  * UsersSearch represents the model behind the search form of `app\models\User`.
  */
 class UsersSearch extends User
 {
+    public $orderAmount;
     /**
      * {@inheritdoc}
      */
@@ -21,6 +23,7 @@ class UsersSearch extends User
             [['id', 'status', 'usertype', 'percent', 'state', 'sales'], 'integer'],
             [['username', 'name', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'created_at', 'updated_at', 'photo', 'birthday', 'country', 'languages', 'fbpage', 'vkpage', 'inpage', 'tumblrpage', 'youtubepage', 'role', 'rate_c'], 'safe'],
             [['rate'], 'number'],
+            [['orderAmount'], 'safe']
         ];
     }
 
@@ -44,6 +47,13 @@ class UsersSearch extends User
     {
         $query = User::find()->joinWith('userLevel');
 
+        $subQuery = Transaction::find()
+            ->select('action_user, SUM(amount) as order_amount')
+            ->groupBy('action_user');
+        $query->leftJoin([
+            'orderSum'=>$subQuery
+        ], 'orderSum.action_user = id');
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -58,34 +68,61 @@ class UsersSearch extends User
             return $dataProvider;
         }
 
+        $dataProvider->setSort([
+            'attributes'=>[
+                'username'=>[
+                    'asc'=>['username'=>SORT_ASC],
+                    'desc'=>['username'=>SORT_DESC],
+                    'label'=>'username'
+                ],
+                'name'=>[
+                    'asc'=>['name'=>SORT_ASC],
+                    'desc'=>['name'=>SORT_DESC],
+                    'label'=>'name'
+                ],
+                'orderAmount'=>[
+                    'asc'=>['orderSum.order_amount'=>SORT_ASC],
+                    'desc'=>['orderSum.order_amount'=>SORT_DESC],
+                    'label'=>'Баланс'
+                ],
+                'role'=>[
+                    'asc'=>['role'=>SORT_ASC],
+                    'desc'=>['role'=>SORT_DESC],
+                    'label'=>'role'
+                ],
+                'percent'=>[
+                    'asc'=>['percent'=>SORT_ASC],
+                    'desc'=>['percent'=>SORT_DESC],
+                    'label'=>'percent'
+                ],
+                'email'=>[
+                    'asc'=>['email'=>SORT_ASC],
+                    'desc'=>['email'=>SORT_DESC],
+                    'label'=>'email'
+                ]
+            ]
+
+        ]);
+
         // grid filtering conditions
         $query->andFilterWhere([
             //'id' => $this->id,
             //'status' => $this->status,
             //'usertype' => $this->usertype,
             //'percent' => $this->percent,
-            'state' => 10,
+            'status' => 10,
             //'rate' => $this->rate,
             //'sales' => $this->sales,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'percent', $this->percent])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'updated_at', $this->updated_at])
-            ->andFilterWhere(['like', 'photo', $this->photo])
-            ->andFilterWhere(['like', 'birthday', $this->birthday])
             ->andFilterWhere(['like', 'country', $this->country])
             ->andFilterWhere(['like', 'languages', $this->languages])
-            ->andFilterWhere(['like', 'fbpage', $this->fbpage])
-            ->andFilterWhere(['like', 'vkpage', $this->vkpage])
-            ->andFilterWhere(['like', 'inpage', $this->inpage])
-            ->andFilterWhere(['like', 'tumblrpage', $this->tumblrpage])
-            ->andFilterWhere(['like', 'youtubepage', $this->youtubepage])
             ->andFilterWhere(['in', 'auth_assignment.item_name', $this->role])
             ->andFilterWhere(['like', 'rate_c', $this->rate_c]);
 

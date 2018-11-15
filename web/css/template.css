@@ -37,7 +37,7 @@ div#header>.top {padding-top: 60px;}
 div#userblock .useravatar img {margin: 0 auto 5px;}
 .rating-container.rating-sm.rating-animate.rating-disabled {font-size: 1em;}
 i.glyphicon.glyphicon-star {color: #ffb62d;text-shadow: none;}
-.rating-container .empty-stars {color: rgba(150, 150, 150, 0.2196078431372549) !important;}
+.rating-container .empty-stars {    color: rgba(111, 111, 111, 0.41) !important;}
 
 .con.tainer {padding: 60px;max-width: 1400px;}
 .rating-container .rating-input {font-size: 0 !important;}
@@ -87,7 +87,7 @@ div#cataloggreedwrapp .owl-dots>button.owl-dot.active {background: #337ab7 !impo
 .file_size {padding-top: 4px;font-size: 14px;color: #ccc;}
 
 /* view project cart */
-.products-view div.raitcount {font-size: 12px;padding: 0 10px;line-height: 1;color: #ccc;text-align: center;}
+.products-view div.raitcount {font-size: 12px;padding: 0 10px;line-height: 1;color: #999;text-align: center;}
 ul#paramsproject {list-style: none;padding: 5px 0 25px 0;font-size: 0.9em;}
 li.authorblock {background: #f7f7f7;padding: 5px 10px;border: 1px solid #e8e8e8;}
 li.authorblock .col-sm-9 {text-align: center;line-height: 1.2em;}
@@ -107,7 +107,7 @@ div#copyrightsblock {line-height: 1em;font-size: 0.9em;border: 1px solid #ccc;pa
 .paramslist.info {line-height: 1.3em;padding: 10px;}
 
 ul.list-unstyled>li>strong {display: block;margin: 5px 0;}
-ul.userprop {padding: 20px 0 20px 20px;}
+ul.userprop {padding: 20px 0 20px 20px;font-size: 0.8em;list-style: none;}
 ul.userprop>li>strong {display: inline-block;padding-right: 5px;width: 90px;}
 ul.list-unstyled.userprop>li {line-height: 1em;}
 .list-unstyled li.paramslist {line-height: 1.2;font-weight: 400;margin-bottom: 30px;}

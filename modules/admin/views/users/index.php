@@ -48,14 +48,15 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'headerOptions' => ['width' => '50'],
                 'format'  => 'html',
-                'label' => 'Username',
+                'label' => 'Логин',
                 'attribute' => 'username',
                 'value' => function($model){
                     return '<a href="'.yii\helpers\Url::to(["/admin/users/view", "id" => $model->id]).'">'.$model->username.'</a>
                     <br/><h6 style="margin: 0">'.Yii::$app->formatter->asDate($model->created_at).'</h6>';
                 },
             ],
-
+            'name',
+            'orderAmount',
             [
                 'headerOptions' => ['width' => '100'],
                 'format'  => 'html',

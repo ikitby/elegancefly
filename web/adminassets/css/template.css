@@ -105,7 +105,7 @@ div#copyrightsblock {line-height: 1em;font-size: 0.9em;border: 1px solid #ccc;pa
 .paramslist.info {line-height: 1.3em;padding: 10px;}
 
 ul.list-unstyled>li>strong {display: block;margin: 5px 0;}
-ul.userprop {padding: 20px 0 20px 20px;}
+ul.userprop {padding: 20px 0 20px 20px;font-size: 0.8em;list-style: none;}
 ul.userprop>li>strong {display: inline-block;padding-right: 5px;width: 90px;}
 ul.list-unstyled.userprop>li {line-height: 1em;}
 .list-unstyled li.paramslist {line-height: 1.2;font-weight: 400;margin-bottom: 30px;}

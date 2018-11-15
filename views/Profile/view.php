@@ -44,7 +44,7 @@ dump($painter);
         echo StarRating::widget([
             'name' => 'rating_'.$model['id'].'',
             'id' => 'input_'.$model['id'].'',
-            'value' => ($model['rate']) ? "0" : $model['rate'],
+            'value' => (!$model['rate']) ? "0" : $model['rate'],
             'attribute' => 'rating',
             'pluginOptions' => [
                 'size' => 'sm',

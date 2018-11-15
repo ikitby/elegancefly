@@ -2,6 +2,8 @@
 
 namespace app\modules\admin\models;
 
+use app\models\AuthAssignment;
+use app\models\Transaction;
 use Yii;
 
 /**
@@ -57,10 +59,10 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'Логин',
             'email' => 'Email',
-            'name' => 'Name',
-            'photo' => 'Photo',
+            'name' => 'Имя',
+            'photo' => 'Фото',
             'user_phones' => 'User Phones',
             'user_skype' => 'User Skype',
             'user_telegramm' => 'User Telegramm',
@@ -71,6 +73,23 @@ class User extends \yii\db\ActiveRecord
             'updated_at' => 'Updated_at',
             'created_at' => 'Created_at',
             'role' => 'Role',
+            'orderAmount'=>Yii::t('app', 'Баланс')
         ];
     }
+
+    public function getOrderAmount()
+    {
+        return $this
+            ->hasMany(Transaction::className(), ['action_user'=>'id'])
+            ->sum('amount');
+    }
+
+    public function getUserLevel()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+
+
+
+
 }
