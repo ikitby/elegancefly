@@ -21,8 +21,9 @@ class PromoUserNoifier
     {
 
         $messages = [];
+        $promoCats = $promo->getPromocats();
+        $categories = Catprod::find()->select('title')->where(['id' => $promoCats])->asArray()->all();
 
-        //dump($promo);
         $iSpromoEvent = Userevent::find()->where([
             'event_object' => $promo['id'],
             'event_type' => 'promonotify',
@@ -33,7 +34,7 @@ class PromoUserNoifier
 
             if (!$iSpromoEvent) {
                 $messages[] = Yii::$app->mailer
-                    ->compose('PromoUserNotify', ['user' => $user, 'promo' => $promo])
+                    ->compose('PromoUserNotify', ['user' => $user, 'promo' => $promo, 'cats' => $categories])
                     ->setFrom(Yii::$app->params['supportEmail'])
                     ->setTo($user['email'])
                     ->setSubject('Уведомление об акции на сайте Elegancefly!');
@@ -45,8 +46,8 @@ class PromoUserNoifier
 
             //-----------------------------------------------------------------
 
-            //$promoEvent = new Userevent();
-            //$promoEvent->setObjLog($promo['id'], 'promonotify', 'Рассылка акции <span class="promoname">' . $promo->action_title . '</span><span class="usersaction" title="Количество получателей"><span class="glyphicon glyphicon-user"></span> '.count($users).'</span>', PromoUserNoifier::NOTE_SENDED);
+            $promoEvent = new Userevent();
+            $promoEvent->setObjLog($promo['id'], 'promonotify', 'Рассылка акции <span class="promoname">' . $promo->action_title . '</span><span class="usersaction" title="Количество получателей"><span class="glyphicon glyphicon-user"></span> '.count($users).'</span>', PromoUserNoifier::NOTE_SENDED);
 
             //-----------------------------------------------------------------
 

@@ -299,6 +299,8 @@ $(function () {
     $(".send_deposit").on('click', function(e){
         e.preventDefault();
         var count = $(this).parent().parent().parent().find('.form-control').val();
+        var btn = $(this);
+        btn.button('loading');
         $.ajax({
             url: '/profile/deposite',
             data: {count: count},

@@ -1,5 +1,8 @@
 <?php
 
+use app\models\Catprod;
+use app\models\Promotions;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -29,6 +32,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'action_title',
             //'id',
             //'created_at',
+            [
+                'headerOptions' => ['width' => '200'],
+                'format'  => 'raw',
+                'label' => 'Разделы',
+                //'attribute' => 'status',
+                'value' => function($model){
+                    $category_ids = $model->getPromocats();
+                    $categories = Catprod::find()->select('title')->where(['id' => $category_ids])->asArray()->all();
+
+                    $categorList = '';
+                    $i = 1;
+                    $count = count($categories);
+                    foreach ($categories as $category)
+                    {
+                        $categorList .= ($i < $count) ? '<span class="label label-primary">'.$category{'title'} . '</span> ' : '<span class="label label-primary">'.$category{'title'}.'</span>';
+                        $i++;
+                    }
+                    return $categorList;
+                },
+            ],
             'action_start',
             'action_end',
             [

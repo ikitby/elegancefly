@@ -18,7 +18,7 @@ use kartik\widgets\TouchSpin;
 
             <div class="input-group-btnn input-group">
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-success send_deposit">Send</button>
+                    <button type="button" class="btn btn-success send_deposit" data-loading-text="Sending...">Send</button>
                     <button class="btn btn-danger deposit_hide" type="button">✕</button>
                 </span>
             </div>
@@ -26,4 +26,5 @@ use kartik\widgets\TouchSpin;
         <button type="button" class="btn btn-primary deposit_show"><span class="glyphicon glyphicon-usd"></span> Add funds</button>
     </div>
 </div>
+
 
