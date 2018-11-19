@@ -2,8 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\models\PromoUserNoifier;
+use app\modules\admin\models\PromoUsers;
 use Yii;
-use app\models\Promotions;
+//use app\models\Promotions;
+use app\modules\admin\models\Promotions;
 use app\modules\admin\models\PromotionsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -24,6 +27,7 @@ class PromotionsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'sendnotyfy' => ['POST'],
                 ],
             ],
         ];
@@ -106,6 +110,21 @@ class PromotionsController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    /* send promo users notify */
+
+    public function actionSendnotyfy()
+    {
+
+        $promoId = Yii::$app->request->post('promoid');
+
+        $users = PromoUsers::get();
+
+        $promotion = Promotions::findOne($promoId);
+
+        return PromoUserNoifier::run($users, $promotion);
+
     }
 
     /**

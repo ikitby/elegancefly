@@ -125,3 +125,9 @@ div#header>.bottom {text-align: center;}
 
 .acceptblock>div {display: flex;}
 .acceptblock {display: none;}
+
+span.promoname {color: #fff;background: #10a1ce;padding: 0 5px;}
+span.usersaction {background: #f00;padding: 0 5px;color: #fff;}
+
+
+

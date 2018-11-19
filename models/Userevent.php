@@ -45,8 +45,8 @@ class Userevent extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_user', 'event_time', 'event_desc'], 'required'],
-            [['event_user', 'event_progress'], 'integer'],
+            [['event_time', 'event_desc'], 'required'],
+            [['event_user','event_object', 'event_progress'], 'integer'],
             [['event_time'], 'safe'],
             [['event_type'], 'string', 'max' => 50],
             [['event_desc'], 'string', 'max' => 250],
@@ -61,6 +61,7 @@ class Userevent extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'event_user' => 'Event User',
+            'event_object' => 'Event Object',
             'event_time' => 'Event Time',
             'event_type' => 'Event Type',
             'event_desc' => 'Event Desc',
@@ -96,6 +97,18 @@ class Userevent extends \yii\db\ActiveRecord
         ]);
         $this->trigger($this::USER_EVENT_LOG);
     }
+
+    public function setObjLog($objectID, $type = 'system', $descr, $progress = 1) {
+        $this->on(Userevent::USER_EVENT_LOG, [$this, 'SetEventLog'],[
+            'user_id' => Yii::$app->user->id,
+            'event_object' => $objectID,
+            'type' => $type,
+            'descr' => $descr,
+            'progress' => $progress
+        ]);
+        $this->trigger($this::USER_EVENT_LOG);
+    }
+
 
     public function UsercCanReciveMoney($userid, $ilmitmoney = 50) {
 
@@ -138,18 +151,6 @@ class Userevent extends \yii\db\ActiveRecord
 
         $userevent->save();
 
-        /*
-        $mail_admins = User::getUsersByIds(User::UsersByPermission('canReceiveSiteMail'));
-
-        $messages = [];
-        foreach ($mail_admins as $mailadmin) {
-            $messages[] = Yii::$app->mailer->compose('userEventEmail', ['user' => $user])
-                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name. ' (отправлено роботом).'])
-                ->setTo($mailadmin->email)
-                ->setSubject('Новый пользователь на '.Yii::$app->name);
-        }
-        Yii::$app->mailer->sendMultiple($messages);
-        */
     }
 
     // =========== send User info mail =================
@@ -179,6 +180,7 @@ class Userevent extends \yii\db\ActiveRecord
     {
         $userevent = new Userevent();
         $userevent->event_user = $event->data['user_id'];
+        $userevent->event_object = $event->data['event_object'];
         $userevent->event_time = date('Y-m-d H:i:s');
         $userevent->event_type = $event->data['type'];
         $userevent->event_desc = $event->data['descr'];

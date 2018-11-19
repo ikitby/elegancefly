@@ -81,14 +81,14 @@ $model->action_userroles = explode(",", $model->action_userroles);
 
     <?= $form->field($model, 'action_descr')->widget(CKEditor::className(),[
         'editorOptions' => [
-            'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
             'inline' => false, //по умолчанию false
         ],
     ]); ?>
 
     <?= $form->field($model, 'action_mailtext')->widget(CKEditor::className(),[
         'editorOptions' => [
-            'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
             'inline' => false, //по умолчанию false
         ],
     ]); ?>

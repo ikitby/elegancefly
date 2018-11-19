@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="promotions-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
+    <?php //Pjax::begin(); ?>
+    <?php Pjax::begin([ 'id' => 'refreshactions', 'class' => 'refreshactions']); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -25,12 +26,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'created_at',
+            'action_title',
+            //'id',
+            //'created_at',
             'action_start',
             'action_end',
-            'action_title',
+            [
+                'headerOptions' => ['width' => '100'],
+                'format'  => 'raw',
+                'label' => 'Статус',
+                //'attribute' => 'status',
+                'value' => function($model){
+                    return \app\widgets\PromoNoteWidget::widget(['actionId' => $model->id]);
+                },
+            ],
+            //'action_title',
             //'action_percent',
             //'action_descr:ntext',
             //'action_catergories',

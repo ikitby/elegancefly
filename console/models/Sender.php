@@ -47,8 +47,6 @@ class Sender
         //var_dump($messages);
         $result = Yii::$app->mailer->sendMultiple($messages);
 
-
-
         Return $result;
     }
 }

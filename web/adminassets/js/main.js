@@ -175,7 +175,28 @@ $(function () {
                     alert('Error!');
                 }
             });
+    });
 
+
+    $(".sendpromonotify").on('click', function(e){
+        e.preventDefault();
+
+        var promoid = $(this).data('promoid');
+
+        $.ajax({
+            url: '/admin/promotions/sendnotyfy',
+            data: {promoid: promoid},
+            type: 'post',
+            success: function (data) {
+                if (data == 'ok') {
+                    var selector = "#actionid_" + promoid;
+                    $(selector).toggleClass('btn-success btn-default').addClass("disabled").html('Отправлено');
+                }
+            },
+            error: function () {
+                    alert ('Ошибка сервера!');
+            }
+        });
     });
 
     $(".approve_usercache").on('click', function(e) {
@@ -206,8 +227,7 @@ $(function () {
             error: function () {
                 //alert ('Error!');
             }
-        })
-
+        });
     });
 
     function ShowDisclamer() {
