@@ -16,31 +16,26 @@ if(!$model->save()) {
 ?>
 
 <div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>Please fill out the following fields to signup:</p>
-    <div class="row">
-        <div class="col-lg-5">
+    <div class="well" style="max-width: 400px; margin: 0 auto 10px;">
 
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+        <div class="controls">
+            <h1><?= Html::encode($this->title) ?></h1>
+            <hr>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-            <?= $form->field($model, 'email') ?>
-            <?= $form->field($model, 'password')->passwordInput() ?>
-            <?= $form->field($model, 'password_repeat')->passwordInput() ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class' => 'form-control input-lg']) ?>
+            <?= $form->field($model, 'email')->textInput(['class' => 'form-control input-lg']) ?>
+            <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control input-lg']) ?>
+            <?= $form->field($model, 'password_repeat')->passwordInput(['class' => 'form-control input-lg']) ?>
 
-
-            <div class="form-group">
-                <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-            </div>
+            <?= Html::submitButton('Signup', ['class' => 'btn btn-primary btn-lg btn-block', 'name' => 'signup-button']) ?>
+        </div>
             <?php ActiveForm::end(); ?>
 
             <?php
             if ($model->scenario === 'emailActivation'):
             ?>
-            <i>На указанный email будет отправлено письмо для активации</i>
-            <?php
-            endif;
-            ?>
-        </div>
+                <i><h6>На указанный email будет отправлено письмо для активации</h6></i>
+            <?php endif; ?>
     </div>
 </div>

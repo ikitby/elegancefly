@@ -11,37 +11,36 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <div class="well" style="max-width: 400px; margin: 0 auto 10px;">
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
+        <?php $form = ActiveForm::begin([
+            'id' => 'login-form',
+            //'layout' => 'horizontal',
+            'fieldConfig' => [
+                'template' => "{label}\n{input}\n{error}",
+                'labelOptions' => ['class' => 'control-label'],
+            ],
+        ]); ?>
 
-        <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label('Логин или Email') ?>
+        <div class="controls">
+            <h1><?= Html::encode($this->title) ?></h1>
+            <hr>
+        <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'class' => 'form-control input-lg'])->label('Логин или Email') ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control input-lg']) ?>
 
         <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'template' => "{input} {label}\n{error}",
         ]) ?>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+        <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-lg btn-block', 'name' => 'login-button']) ?>
         </div>
+        <i><h6>
+            If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+        </h6></i>
 
-    <div>
-        If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

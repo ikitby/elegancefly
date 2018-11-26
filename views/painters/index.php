@@ -36,12 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             $userphoto = Html::img("/images/user/user_{$user['id']}/{$user['photo']}", ['class' => 'img-responsive', 'alt' => Html::encode(($user->name) ? $user->name : $user->username), 'title' => Html::encode(($user->name) ? $user->name : $user->username)]);
                             }
                             ?>
-                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $username]) ?>">
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user['username']]) ?>">
                             <?= $userphoto ?>
                             </a>
                         </div>
                         <div class="col-md-8">
-                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $username]) ?>">
+                            <a href="<?= yii\helpers\Url::to(['/painters/user', 'alias' => $user['username']]) ?>">
                                 <h3><?= $username ?></h3>
                             </a>
                             <span style="font-size: 10px">
